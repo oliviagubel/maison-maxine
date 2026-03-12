@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#f7cdeb;color:#c76090}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+/* ═══ CUSTOM CURSOR ═══ */
+body, a, button{cursor:url("littlebananasplit-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("littlebananasplit-cursor.png") 44 37, pointer}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FALLING SPARKLES ═══ */
+.sparkle{
+  position:fixed;
+  top:-20px;
+  font-size:12px;
+  z-index:9999;
+  pointer-events:none;
+  animation:sparkle-fall linear forwards;
+  opacity:0;
+}
+@keyframes sparkle-fall{
+  0%{opacity:0;transform:translateX(0) rotate(0deg)}
+  10%{opacity:1}
+  90%{opacity:.6}
+  100%{opacity:0;transform:translateX(var(--drift)) rotate(360deg);top:100vh}
+}
+
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:30px;text-shadow:0 0 25px rgba(199,96,144,.15);
+  color:#c76090;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:11px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:all .25s;
+  position:relative;
+}
+#sidebar nav a::after{
+  content:'✦';
+  position:absolute;
+  right:0;
+  opacity:0;
+  transform:translateX(-6px) scale(.5);
+  transition:all .3s;
+  color:#f7cdeb;
+  font-style:normal;
+}
+#sidebar nav a:hover{color:#c76090;padding-left:8px;text-shadow:0 0 12px rgba(199,96,144,.2)}
+#sidebar nav a:hover::after{opacity:1;transform:translateX(0) scale(1)}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+/* ═══ NOW PLAYING WIDGET ═══ */
+.now-playing{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.np-header{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+}
+.np-track{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eq-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:16px;
+  flex-shrink:0;
+}
+.eq-bars span{
+  width:3px;
+  background:#c76090;
+  border-radius:1px;
+  animation:eq-bounce .8s ease-in-out infinite alternate;
+}
+.eq-bars span:nth-child(1){height:8px;animation-delay:0s}
+.eq-bars span:nth-child(2){height:14px;animation-delay:.2s}
+.eq-bars span:nth-child(3){height:6px;animation-delay:.4s}
+.eq-bars span:nth-child(4){height:12px;animation-delay:.1s}
+.eq-bars span:nth-child(5){height:10px;animation-delay:.3s}
+@keyframes eq-bounce{
+  0%{height:4px}
+  100%{height:16px}
+}
+.np-info{
+  overflow:hidden;
+}
+.np-song{
+  font-size:11px;
+  font-style:italic;
+  color:#5a3a4a;
+  white-space:nowrap;
+}
+.np-artist{
+  font-size:10px;
+  color:#c76090;
+  font-family:'Pixelify Sans',sans-serif;
+  letter-spacing:.05em;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:200px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:30px 20px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner h1{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:52px;
+  color:#c76090;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:15px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  color:#f7cdeb;
+  font-size:10px;
+  letter-spacing:4px;
+}
+.banner .divider::before,
+.banner .divider::after{
+  content:'';
+  width:40px;
+  height:1px;
+  background:#f7cdeb;
+}
+
+/* ═══ TWINKLE STARS ═══ */
+.twinkle{
+  display:inline-block;
+  animation:twinkle 2s ease-in-out infinite;
+  font-style:normal;
+}
+.twinkle:nth-child(2){animation-delay:.6s}
+.twinkle:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.6)}
+}
+
+/* ═══ CONTENT BOXES ═══ */
+.box{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  position:relative;
+  transition:all .3s;
+}
+.box:hover{
+  border-color:#c76090;
+  box-shadow:0 0 20px rgba(247,205,235,.3);
+}
+.box-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.box p{
+  font-size:15px;
+  font-style:italic;
+  line-height:1.8;
+  color:#5a3a4a;
+}
+.box p + p{margin-top:10px}
+
+/* ═══ TWO COLUMN LAYOUT ═══ */
+.two-col{
+  display:grid;
+  grid-template-columns:1fr 260px;
+  gap:20px;
+  align-items:start;
+}
+
+/* ═══ FEATURE LIST ═══ */
+.features{
+  list-style:none;
+  padding:0;
+}
+.features li{
+  font-size:14px;
+  font-style:italic;
+  color:#5a3a4a;
+  padding:8px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  transition:padding-left .2s;
+}
+.features li:hover{padding-left:6px}
+.features li:last-child{border-bottom:none}
+.features .dot{
+  width:6px;height:6px;
+  background:#c76090;
+  border-radius:50%;
+  flex-shrink:0;
+  transition:transform .3s;
+}
+.features li:hover .dot{transform:scale(1.5)}
+
+/* ═══ PHOTO GRID ═══ */
+.photo-grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:10px;
+  margin-top:12px;
+}
+.photo-grid .photo{
+  aspect-ratio:3/4;
+  border-radius:6px;
+  overflow:hidden;
+  border:1px dotted #f7cdeb;
+  position:relative;
+  transition:all .3s;
+}
+.photo-grid .photo:hover{
+  border-color:#c76090;
+  box-shadow:0 4px 20px rgba(247,205,235,.5);
+  transform:translateY(-3px);
+}
+.photo-grid .photo img{
+  width:100%;height:100%;
+  object-fit:cover;
+  transition:transform .4s;
+}
+.photo-grid .photo:hover img{transform:scale(1.08)}
+.photo-grid .photo .cap{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  background:linear-gradient(transparent, rgba(199,96,144,.7));
+  padding:16px 8px 6px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#fff;
+  text-transform:lowercase;
+}
+
+/* ═══ DEAR DIARY / UPDATES ═══ */
+.updates{
+  max-height:200px;
+  overflow-y:auto;
+  padding-right:8px;
+}
+.update-entry{
+  padding:8px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:padding-left .2s;
+}
+.update-entry:hover{padding-left:4px}
+.update-entry:last-child{border-bottom:none}
+.update-entry .date{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  color:#c76090;
+  letter-spacing:.06em;
+}
+.update-entry .text{
+  font-size:13px;
+  font-style:italic;
+  color:#6a4a5a;
+  margin-top:2px;
+  line-height:1.5;
+}
+
+/* ═══ CURRENTLY ═══ */
+.currently-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+}
+.currently-item{
+  padding:10px 12px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+  transition:all .3s;
+}
+.currently-item:hover{
+  background:#f7cdeb;
+  transform:scale(1.03);
+}
+.currently-item .label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.currently-item .val{
+  font-size:13px;
+  font-style:italic;
+  color:#6a4a5a;
+  margin-top:2px;
+}
+
+/* ═══ WEATHER WIDGET ═══ */
+.weather-widget{
+  text-align:center;
+}
+.weather-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:6px 0;
+}
+.weather-icon{
+  font-size:22px;
+  line-height:1;
+}
+.weather-temp{
+  font-size:20px;
+  color:#c76090;
+  font-style:italic;
+}
+.weather-desc{
+  font-size:10px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.4;
+}
+.weather-details{
+  margin-top:4px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.08em;
+  color:#c76090;
+  display:flex;
+  justify-content:center;
+  gap:4px;
+}
+
+/* ═══ MINI BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  transition:all .3s;
+}
+.badge:hover{
+  background:#f7cdeb;
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 4px 12px rgba(247,205,235,.4);
+}
+
+/* ═══ BLINKIE BAR ═══ */
+.blinkies{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  justify-content:center;
+}
+.blinkie{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.05em;
+  padding:3px 8px;
+  border-radius:2px;
+  color:#fff;
+  animation:blinkie-glow 3s ease-in-out infinite alternate;
+}
+.blinkie:nth-child(1){background:#c76090}
+.blinkie:nth-child(2){background:#8a6a7a;animation-delay:.5s}
+.blinkie:nth-child(3){background:#c76090;animation-delay:1s}
+.blinkie:nth-child(4){background:#8a6a7a;animation-delay:1.5s}
+@keyframes blinkie-glow{
+  0%{box-shadow:0 0 4px rgba(199,96,144,.3)}
+  100%{box-shadow:0 0 10px rgba(199,96,144,.7)}
+}
+
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  .marquee-wrap{margin-left:0}
+  #main{margin-left:0;padding:20px 16px}
+  .two-col{grid-template-columns:1fr}
+  .photo-grid{grid-template-columns:repeat(2,1fr)}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Burgues Script','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  #main{padding-top:60px}
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+}
+
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo">Maison Maxine</div>
+  <div class="links">
+    <a href="#">shop</a>
+    <a href="#">about</a>
+    <a href="#">cart</a>
+  </div>
+</div>
+
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo">Maison Maxine</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="home.html" class="active">home</a>
+        <a href="shop.html">shop</a>
+        <a href="store-locator.html">store locator</a>
+        <a href="sustainability.html">sustainability</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+      </nav>
+    </div>
+
+
+    <div class="nav-section">
+      <div class="nav-label">offsite</div>
+      <nav>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <!-- NOW PLAYING -->
+    <div class="now-playing">
+      <div class="np-header">now playing ✦</div>
+      <div class="np-track">
+        <div class="eq-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="np-info">
+          <div class="np-song" id="np-song">california gurls</div>
+          <div class="np-artist" id="np-artist">katy perry</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now pouring ✦</div>
+      <p>napa valley cabernet red wine spritzer — our spring batch is almost here...</p>
+    </div>
+
+    <div class="sidebar-widget weather-widget">
+      <div class="wt">malibu weather ✦</div>
+      <div class="weather-display">
+        <div class="weather-icon" id="w-icon">☀</div>
+        <div class="weather-temp" id="w-temp">72°f</div>
+      </div>
+      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
+      <div class="weather-details">
+        <span id="w-wind">wind 5mph</span>
+        <span>·</span>
+        <span id="w-humidity">humidity 62%</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:20px;font-size:10px;color:#f7cdeb;letter-spacing:8px">✦ ♡ ✦</div>
+  <div class="sidebar-bottom">
+    <div class="blinkies">
+      <span class="blinkie">muse life</span>
+      <span class="blinkie">sip sip</span>
+      <span class="blinkie">malibu</span>
+      <span class="blinkie">rescue pups</span>
+    </div>
+    <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>Maison Maxine</h1>
+    <div class="tagline">reimagining red wine for the modern day muse ✦</div>
+    <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
+  </div>
+
+  <!-- TWO COLUMN: WELCOME + SIDEBAR -->
+  <div class="two-col">
+    <div>
+      <!-- WELCOME -->
+      <div class="box">
+        <div class="box-title">dear diary ✦</div>
+        <p>hey babe, welcome to our little corner of the web. maison maxine is a wine spritzer brand born in malibu, california — made with four whole ingredients and a whole lot of love.</p>
+        <p>we believe that what you drink should be as intentional as how you live. every sip is clean, every can gives back. 5% of everything we make goes to animals in need 🐾</p>
+      </div>
+
+      <!-- WHAT'S INSIDE -->
+      <div class="box">
+        <div class="box-title">what's inside ✦</div>
+        <ul class="features">
+          <li><span class="dot"></span> napa valley cabernet</li>
+          <li><span class="dot"></span> lemon juice</li>
+          <li><span class="dot"></span> ginger</li>
+          <li><span class="dot"></span> honey</li>
+          <li><span class="dot"></span> lots of love</li>
+          <li><span class="dot"></span> nothing else — ever</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+      <!-- CURRENTLY -->
+      <div class="box">
+        <div class="box-title">currently ✦</div>
+        <div class="currently-grid" id="currently-grid">
+          <div class="currently-item">
+            <div class="label">sipping</div>
+            <div class="val" id="c-sipping">cab spritzer</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">season</div>
+            <div class="val" id="c-season">spring '26</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">mood</div>
+            <div class="val" id="c-mood">manifesting</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">giving to</div>
+            <div class="val" id="c-giving">animal rescue 🐾</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPDATES -->
+      <div class="box">
+        <div class="box-title">the latest ✦</div>
+        <div class="updates">
+          <div class="update-entry">
+            <div class="date">03.11.26</div>
+            <div class="text">maison maxine to be sold in happier grocery in nyc...stay tuned ✦</div>
+          </div>
+          <div class="update-entry">
+            <div class="date">03.01.26</div>
+            <div class="text">we just donated to our first animal rescue! thank you for sipping with purpose 🐾</div>
+          </div>
+          <div class="update-entry">
+            <div class="date">02.14.26</div>
+            <div class="text">happy valentine's day from your fav spritzer brand 💌</div>
+          </div>
+          <div class="update-entry">
+            <div class="date">01.20.26</div>
+            <div class="text">site is live!! welcome to maison maxine online ✦</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- VISITORS -->
+      <div class="box" style="text-align:center">
+        <div class="box-title">visitors ✦</div>
+        <div style="font-family:monospace;font-size:18px;color:#c76090;letter-spacing:.1em" id="visitor-count">00,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="box">
+    <div class="box-title">postcards ✦</div>
+    <div class="photo-grid">
+      <div class="photo">
+        <img src="Ameliawinepic.png" alt="">
+        <div class="cap">malibu, ca</div>
+      </div>
+      <div class="photo">
+        <img src="flower.png" alt="">
+        <div class="cap">in bloom</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BADGES -->
+  <div class="box">
+    <div class="box-title">badges ✦</div>
+    <div class="badges">
+      <span class="badge">malibu made</span>
+      <span class="badge">clean ingredients</span>
+      <span class="badge">5% for animals</span>
+      <span class="badge">women owned</span>
+      <span class="badge">napa valley cab</span>
+      <span class="badge">muse approved ✦</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══ NOW PLAYING RANDOMIZER ═══
+(function(){
+  const songs=[
+    {song:'sexy to someone',artist:'clairo'},
+    {song:'henry come on',artist:'lana del rey'},
+    {song:'california',artist:'phantom planet'},
+    {song:'melrose meltdown',artist:'suki waterhouse'},
+    {song:'my regards',artist:'maisie peters'}
+  ];
+  const s=songs[Math.floor(Math.random()*songs.length)];
+  document.getElementById('np-song').textContent=s.song;
+  document.getElementById('np-artist').textContent=s.artist;
+})();
+
+// ═══ CURRENTLY RANDOMIZER ═══
+(function(){
+  const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+  const sipping=[
+    'cab spritzer','spritzer no. 2','wine out of a mug',
+    'something chilled & pink','a suspiciously large pour',
+    'cab spritzer on ice','sparkling everything','the last can'
+  ];
+  const season=['spring \'26'];
+  const mood=[
+    '3 spritzers away from texting my ex','unhinged but make it elegant',
+    'beach picnic planning','feral but make it cute',
+    'chaotic good','romanticizing everything','planning a girls trip',
+    'too pretty to be stressed','sunburnt and unbothered','doing hot girl shit',
+    'pouring one out for my last situationship','blissfully unserious',
+    'one can in and already honest','slightly feral','wine drunk & philosophical',
+    'plotting something cute','flushed & feeling myself'
+  ];
+  const giving=[
+    'puppies looking for homes 🐾','elephant sanctuary 🐘','senior dogs in shelters 🐾',
+    'ocean cleanup 🌊','animal rescue 🐾','wild horse preservation 🐴',
+    'bee conservation 🐝','shelter kittens 🐱','coral reef restoration 🪸',
+    'wolf sanctuaries 🐺','rescued donkeys 🫏','sea turtle rehab 🐢'
+  ];
+
+  document.getElementById('c-sipping').textContent=pick(sipping);
+  document.getElementById('c-season').textContent=pick(season);
+  document.getElementById('c-mood').textContent=pick(mood);
+  document.getElementById('c-giving').textContent=pick(giving);
+})();
+
+// ═══ FALLING SPARKLES ═══
+(function(){
+  const chars=['✦','✧','·','♡','⋆'];
+  function spawn(){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(8+Math.random()*10)+'px';
+    s.style.color=Math.random()>.5?'#f7cdeb':'#c76090';
+    s.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    const dur=4+Math.random()*6;
+    s.style.animationDuration=dur+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),(dur*1000)+100);
+  }
+  setInterval(spawn,600);
+})();
+
+// ═══ VISITOR COUNTER (fun animation) ═══
+(function(){
+  const el=document.getElementById('visitor-count');
+  if(!el)return;
+  const target=482;
+  let current=0;
+  const step=Math.ceil(target/40);
+  const iv=setInterval(()=>{
+    current=Math.min(current+step,target);
+    el.textContent=String(current).padStart(5,'0').replace(/(\d{2})(\d{3})/,'$1,$2');
+    if(current>=target)clearInterval(iv);
+  },40);
+})();
+
+// ═══ MALIBU WEATHER ═══
+(async()=>{
+  try{
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0259&longitude=-118.7798&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph');
+    const d=await r.json();
+    const c=d.current;
+    const temp=Math.round(c.temperature_2m);
+    const code=c.weather_code;
+    const icons={0:'☀',1:'🌤',2:'⛅',3:'☁',45:'🌫',48:'🌫',51:'🌦',53:'🌧',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'❄',73:'❄',75:'❄',80:'🌦',81:'🌧',82:'🌧',95:'⛈'};
+    const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
+    document.getElementById('w-icon').textContent=icons[code]||'☀';
+    document.getElementById('w-temp').textContent=temp+'°f';
+    document.getElementById('w-desc').textContent=descs[code]||'perfect for a spritzer';
+    document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
+    document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
+  }catch(e){}
+})();
+</script>
+
+<script>
+(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>

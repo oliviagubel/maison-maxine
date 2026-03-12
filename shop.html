@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>shop ✦ Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+body, a, button{cursor:url("littlebananasplit-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("littlebananasplit-cursor.png") 44 37, pointer}
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#c76090;color:#fff}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:26px;
+  color:#c76090;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:11px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:color .2s;
+}
+#sidebar nav a:hover{color:#c76090}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:200px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:20px 20px 24px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner h1{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:42px;
+  color:#c76090;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:14px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  width:60px;
+  height:1px;
+  background:#f7cdeb;
+  margin:14px auto 0;
+}
+
+/* ═══ CONTENT BOXES ═══ */
+.box{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  position:relative;
+}
+.box-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.box p{
+  font-size:15px;
+  font-style:italic;
+  line-height:1.8;
+  color:#5a3a4a;
+}
+
+/* ═══ PRODUCT HERO ═══ */
+.product-hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:28px;
+  align-items:start;
+  margin-bottom:28px;
+}
+
+.product-gallery{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:8px;
+  overflow:hidden;
+  position:relative;
+}
+.product-gallery .main-img{
+  width:100%;
+  aspect-ratio:4/5;
+  object-fit:cover;
+  display:block;
+}
+.gallery-label{
+  position:absolute;
+  top:14px;
+  left:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  background:rgba(255,255,255,.9);
+  backdrop-filter:blur(8px);
+  padding:4px 10px;
+  border-radius:20px;
+  color:#c76090;
+  border:1px dotted #f7cdeb;
+}
+.gallery-badge{
+  position:absolute;
+  top:14px;
+  right:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.08em;
+  background:#c76090;
+  color:#fff;
+  padding:4px 10px;
+  border-radius:20px;
+}
+
+.product-details{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:8px;
+  padding:28px 28px 24px;
+}
+.product-details .pd-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+}
+.product-details h2{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:34px;
+  color:#c76090;
+  line-height:1.1;
+  font-weight:normal;
+}
+.product-details .pd-sub{
+  font-size:13px;
+  font-style:italic;
+  color:#c76090;
+  margin-top:4px;
+}
+
+.price-row{
+  margin-top:20px;
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+}
+.price{
+  font-size:28px;
+  color:#4a3a3a;
+  letter-spacing:.02em;
+}
+.price-note{
+  font-size:12px;
+  font-style:italic;
+  color:#c76090;
+}
+
+.product-divider{
+  width:100%;
+  height:1px;
+  background:#f7cdeb;
+  margin:18px 0;
+}
+
+.product-desc{
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  line-height:1.8;
+}
+.product-desc + .product-desc{margin-top:8px}
+
+/* ingredients list */
+.ingredients{
+  margin-top:16px;
+  list-style:none;
+  padding:0;
+}
+.ingredients li{
+  font-size:13px;
+  font-style:italic;
+  color:#5a3a4a;
+  padding:6px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.ingredients li:last-child{border-bottom:none}
+.ingredients .dot{
+  width:5px;height:5px;
+  background:#c76090;
+  border-radius:50%;
+  flex-shrink:0;
+}
+
+/* add to cart */
+.cart-section{
+  margin-top:20px;
+}
+.qty-row{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+.qty-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.qty-control{
+  display:flex;
+  align-items:center;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+  overflow:hidden;
+}
+.qty-btn{
+  width:30px;height:30px;
+  background:#edf6d3;
+  border:none;
+  font-size:14px;
+  color:#c76090;
+  cursor:pointer;
+  transition:background .2s;
+  font-family:'Cormorant Garamond',serif;
+}
+.qty-btn:hover{background:#f7cdeb}
+.qty-val{
+  width:36px;
+  text-align:center;
+  font-size:14px;
+  font-style:italic;
+  color:#4a3a3a;
+  border:none;
+  border-left:1px dotted #f7cdeb;
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  background:transparent;
+  font-family:'Cormorant Garamond',serif;
+}
+
+.add-btn{
+  width:100%;
+  padding:14px;
+  background:#c76090;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:15px;
+  font-style:italic;
+  letter-spacing:.08em;
+  cursor:pointer;
+  transition:all .25s;
+  position:relative;
+  overflow:hidden;
+}
+.add-btn:hover{
+  background:#c76090;
+  box-shadow:0 4px 20px rgba(199,96,144,.2);
+}
+.add-btn::after{
+  content:'✦';
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:.6;
+}
+
+.shipping-note{
+  text-align:center;
+  margin-top:10px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-transform:uppercase;
+}
+
+/* ═══ INFO GRID ═══ */
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:14px;
+  margin-bottom:20px;
+}
+.info-card{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:18px 16px;
+  text-align:center;
+}
+.info-card .ic-icon{
+  font-size:18px;
+  margin-bottom:6px;
+}
+.info-card .ic-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:4px;
+}
+.info-card .ic-text{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.5;
+}
+
+/* ═══ TASTING NOTES ═══ */
+.tasting-notes{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+.taste-item{
+  padding:12px 14px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.taste-item .tl{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.taste-item .tv{
+  font-size:13px;
+  font-style:italic;
+  color:#5a3a4a;
+  margin-top:3px;
+}
+
+/* ═══ OCCASION TAGS ═══ */
+.occasions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.occasion{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:5px 14px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  transition:all .2s;
+  cursor:default;
+}
+.occasion:hover{
+  background:#c76090;
+  color:#fff;
+  border-color:#c76090;
+}
+
+/* ═══ REVIEW SECTION ═══ */
+.review{
+  padding:14px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.review:last-child{border-bottom:none}
+.review .r-stars{
+  font-size:12px;
+  color:#c76090;
+  letter-spacing:2px;
+}
+.review .r-text{
+  font-size:13px;
+  font-style:italic;
+  color:#5a3a4a;
+  line-height:1.7;
+  margin-top:4px;
+}
+.review .r-author{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  margin-top:4px;
+  text-transform:uppercase;
+}
+
+/* ═══ BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  #main{margin-left:0;padding:20px 16px}
+  .product-hero{grid-template-columns:1fr}
+  .info-grid{grid-template-columns:1fr}
+  .tasting-notes{grid-template-columns:1fr}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Burgues Script','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  #main{padding-top:60px}
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+}
+
+
+/* ═══ TOAST ═══ */
+.toast{
+  position:fixed;
+  bottom:100px;
+  right:24px;
+  background:linear-gradient(135deg,#fff,#fef6fa);
+  border:1px dotted #f7cdeb;
+  border-radius:8px;
+  padding:14px 22px;
+  font-size:14px;
+  font-style:italic;
+  color:#c76090;
+  box-shadow:0 8px 30px rgba(199,96,144,.15);
+  z-index:10001;
+  transform:translateY(20px);
+  opacity:0;
+  transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  pointer-events:none;
+}
+.toast.show{
+  transform:translateY(0);
+  opacity:1;
+}
+
+/* ═══ FLOATING CART BUTTON ═══ */
+.cart-float{
+  position:fixed;
+  bottom:28px;
+  right:28px;
+  width:56px;height:56px;
+  background:linear-gradient(135deg,#c76090,#d87aa5);
+  border:2px solid #f7cdeb;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  color:#fff;
+  box-shadow:0 6px 24px rgba(199,96,144,.3);
+  z-index:10000;
+  transition:all .3s;
+  opacity:0;
+  transform:scale(0);
+  pointer-events:none;
+}
+.cart-float.visible{
+  opacity:1;
+  transform:scale(1);
+  pointer-events:auto;
+}
+.cart-float:hover{
+  transform:scale(1.1);
+  box-shadow:0 8px 32px rgba(199,96,144,.4);
+}
+.cart-float .cart-count{
+  position:absolute;
+  top:-4px;right:-4px;
+  width:22px;height:22px;
+  background:#edf6d3;
+  color:#c76090;
+  border-radius:50%;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  font-style:normal;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border:2px solid #fff;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+/* ═══ CART DRAWER ═══ */
+.drawer-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(90,58,74,.25);
+  backdrop-filter:blur(4px);
+  z-index:10002;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s;
+}
+.drawer-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+.drawer{
+  position:fixed;
+  top:0;right:0;bottom:0;
+  width:380px;
+  max-width:90vw;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-left:1px solid #f7cdeb;
+  box-shadow:-8px 0 40px rgba(199,96,144,.12);
+  z-index:10003;
+  transform:translateX(100%);
+  transition:transform .4s cubic-bezier(.34,1.06,.64,1);
+  display:flex;
+  flex-direction:column;
+  overflow-y:auto;
+}
+.drawer-overlay.open .drawer{
+  transform:translateX(0);
+}
+.drawer-header{
+  padding:24px 24px 16px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.drawer-title{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:28px;
+  color:#c76090;
+}
+.drawer-close{
+  width:32px;height:32px;
+  background:transparent;
+  border:1px dotted #f7cdeb;
+  border-radius:50%;
+  font-size:16px;
+  color:#c76090;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all .2s;
+}
+.drawer-close:hover{
+  background:#f7cdeb;
+}
+.drawer-body{
+  flex:1;
+  padding:20px 24px;
+}
+.drawer-item{
+  display:flex;
+  gap:14px;
+  align-items:center;
+  padding:16px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.drawer-item-img{
+  width:60px;height:75px;
+  object-fit:cover;
+  border-radius:6px;
+  border:1px dotted #f7cdeb;
+}
+.drawer-item-info{flex:1}
+.drawer-item-name{
+  font-size:15px;
+  font-style:italic;
+  color:#5a3a4a;
+}
+.drawer-item-variant{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-top:2px;
+}
+.drawer-item-price{
+  font-size:14px;
+  color:#4a3a3a;
+  margin-top:4px;
+}
+.drawer-qty{
+  display:flex;
+  align-items:center;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+  overflow:hidden;
+}
+.drawer-qty button{
+  width:28px;height:28px;
+  background:#edf6d3;
+  border:none;
+  font-size:13px;
+  color:#c76090;
+  font-family:'Cormorant Garamond',serif;
+}
+.drawer-qty button:hover{background:#f7cdeb}
+.drawer-qty span{
+  width:30px;
+  text-align:center;
+  font-size:13px;
+  font-style:italic;
+  color:#4a3a3a;
+  border-left:1px dotted #f7cdeb;
+  border-right:1px dotted #f7cdeb;
+}
+.drawer-remove{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.08em;
+  color:#c76090;
+  background:none;
+  border:none;
+  margin-top:6px;
+  text-transform:uppercase;
+  opacity:.7;
+  transition:opacity .2s;
+}
+.drawer-remove:hover{opacity:1}
+.drawer-footer{
+  padding:20px 24px 28px;
+  border-top:1px solid rgba(247,205,235,.4);
+}
+.drawer-subtotal{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-style:italic;
+  color:#8a6a7a;
+  margin-bottom:6px;
+}
+.drawer-shipping{
+  display:flex;
+  justify-content:space-between;
+  font-size:13px;
+  font-style:italic;
+  color:#8a6a7a;
+  margin-bottom:6px;
+}
+.drawer-shipping-free{color:#c76090}
+.drawer-total{
+  display:flex;
+  justify-content:space-between;
+  font-size:18px;
+  color:#4a3a3a;
+  margin-top:10px;
+  padding-top:10px;
+  border-top:1px solid rgba(247,205,235,.4);
+}
+.drawer-checkout{
+  width:100%;
+  padding:14px;
+  background:#c76090;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:15px;
+  font-style:italic;
+  letter-spacing:.08em;
+  margin-top:16px;
+  transition:all .25s;
+  position:relative;
+}
+.drawer-checkout:hover{
+  box-shadow:0 4px 20px rgba(199,96,144,.25);
+  background:#b5557e;
+}
+.drawer-checkout::after{
+  content:'✦';
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  opacity:.6;
+}
+.drawer-keep{
+  display:block;
+  text-align:center;
+  margin-top:12px;
+  font-size:13px;
+  font-style:italic;
+  color:#c76090;
+  text-decoration:none;
+  transition:opacity .2s;
+}
+.drawer-keep:hover{opacity:.7}
+.drawer-empty{
+  text-align:center;
+  padding:40px 20px;
+}
+.drawer-empty-icon{
+  font-size:32px;
+  margin-bottom:12px;
+}
+.drawer-empty-text{
+  font-size:15px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.7;
+}
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo">Maison Maxine</div>
+  <div class="links">
+    <a href="home.html">home</a>
+    <a href="#">about</a>
+    <a href="#">cart</a>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo">Maison Maxine</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="home.html">home</a>
+        <a href="shop.html" class="active">shop</a>
+        <a href="store-locator.html">store locator</a>
+        <a href="sustainability.html">sustainability</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+      </nav>
+    </div>
+
+
+    <div class="nav-section">
+      <div class="nav-label">offsite</div>
+      <nav>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now pouring ✦</div>
+      <p>napa valley cabernet red wine spritzer — our spring batch is almost here...</p>
+    </div>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="copyright">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>the shop</h1>
+    <div class="tagline">one perfect thing, made with intention ✦</div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- PRODUCT HERO -->
+  <div class="product-hero">
+
+    <!-- LEFT: GALLERY -->
+    <div class="product-gallery">
+      <span class="gallery-label">spring '26 batch</span>
+      <span class="gallery-badge">our only sku</span>
+      <img class="main-img" src="Ameliawinepic.png" alt="maison maxine red wine spritzer four-pack">
+    </div>
+
+    <!-- RIGHT: DETAILS -->
+    <div class="product-details">
+      <div class="pd-label">maison maxine ✦</div>
+      <h2>Red Wine Spritzer</h2>
+      <div class="pd-sub">napa valley cabernet · four-pack · 250ml each</div>
+
+      <div class="price-row">
+        <span class="price">$34</span>
+        <span class="price-note">four-pack</span>
+      </div>
+
+      <div class="product-divider"></div>
+
+      <p class="product-desc">our one and only — a napa valley cabernet blended with sparkling water and real fruit. light, clean, and made for the moments that matter.</p>
+      <p class="product-desc">we don't do a million skus. we do one thing, and we do it beautifully.</p>
+
+      <div class="product-divider"></div>
+
+      <ul class="ingredients">
+        <li><span class="dot"></span> napa valley cabernet</li>
+        <li><span class="dot"></span> sparkling water</li>
+        <li><span class="dot"></span> real fruit</li>
+        <li><span class="dot"></span> a little magic</li>
+        <li><span class="dot"></span> nothing else — ever</li>
+      </ul>
+
+      <div class="product-divider"></div>
+
+      <div class="cart-section">
+        <div class="qty-row">
+          <span class="qty-label">quantity</span>
+          <div class="qty-control">
+            <button class="qty-btn" onclick="updateQty(-1)">−</button>
+            <input class="qty-val" type="text" value="1" readonly id="qty">
+            <button class="qty-btn" onclick="updateQty(1)">+</button>
+          </div>
+        </div>
+        <button class="add-btn" id="addBtn">add to cart — $34</button>
+        <div class="shipping-note">free shipping through april — happy launch ✦</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- INFO CARDS -->
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="ic-icon">🍷</div>
+      <div class="ic-title">clean sip</div>
+      <div class="ic-text">four ingredients, no added sugar, no sulfites, no nonsense</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">🐾</div>
+      <div class="ic-title">gives back</div>
+      <div class="ic-text">5% of every purchase goes to animal rescue organizations</div>
+    </div>
+    <div class="info-card">
+      <div class="ic-icon">✦</div>
+      <div class="ic-title">women owned</div>
+      <div class="ic-text">founded in malibu, made with love, poured with purpose</div>
+    </div>
+  </div>
+
+  <!-- TASTING NOTES -->
+  <div class="box">
+    <div class="box-title">tasting notes ✦</div>
+    <div class="tasting-notes">
+      <div class="taste-item">
+        <div class="tl">on the nose</div>
+        <div class="tv">dark cherry, hint of vanilla, summer evening</div>
+      </div>
+      <div class="taste-item">
+        <div class="tl">on the palate</div>
+        <div class="tv">light & fizzy, dry-ish, berry-forward</div>
+      </div>
+      <div class="taste-item">
+        <div class="tl">the finish</div>
+        <div class="tv">clean, crisp, leaves you wanting another sip</div>
+      </div>
+      <div class="taste-item">
+        <div class="tl">best served</div>
+        <div class="tv">chilled, on ice, in good company</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFECT FOR -->
+  <div class="box">
+    <div class="box-title">perfect for ✦</div>
+    <div class="occasions">
+      <span class="occasion">golden hour on the patio</span>
+      <span class="occasion">girls night</span>
+      <span class="occasion">picnic in the park</span>
+      <span class="occasion">the "i deserve this" moment</span>
+      <span class="occasion">date night</span>
+      <span class="occasion">book club</span>
+      <span class="occasion">sunday reset</span>
+      <span class="occasion">literally any tuesday</span>
+    </div>
+  </div>
+
+  <!-- REVIEWS -->
+  <div class="box">
+    <div class="box-title">what the muses say ✦</div>
+
+    <div class="review">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">this is literally the only thing i want to drink all summer. it's giving main character energy in a can.</div>
+      <div class="r-author">— sophia m., los angeles</div>
+    </div>
+
+    <div class="review">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">finally a spritzer that doesn't taste like flavored water. the cabernet actually comes through. obsessed.</div>
+      <div class="r-author">— jules r., san francisco</div>
+    </div>
+
+    <div class="review">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">brought these to a dinner party and everyone asked where to buy them. the packaging is gorgeous too.</div>
+      <div class="r-author">— amara k., malibu</div>
+    </div>
+
+    <div class="review">
+      <div class="r-stars">★★★★★</div>
+      <div class="r-text">love that it's clean ingredients and gives back to animals. sipping with purpose hits different.</div>
+      <div class="r-author">— lily t., santa monica</div>
+    </div>
+  </div>
+
+  <!-- BADGES -->
+  <div class="box">
+    <div class="box-title">badges ✦</div>
+    <div class="badges">
+      <span class="badge">malibu made</span>
+      <span class="badge">clean ingredients</span>
+      <span class="badge">5% for animals</span>
+      <span class="badge">women owned</span>
+      <span class="badge">napa valley cab</span>
+      <span class="badge">muse approved ✦</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- FLOATING CART BUTTON -->
+<button class="cart-float" id="cartFloat" onclick="openDrawer()">
+  🛒
+  <span class="cart-count" id="cartCount">0</span>
+</button>
+
+<!-- CART DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
+  <div class="drawer" onclick="event.stopPropagation()">
+    <div class="drawer-header">
+      <div class="drawer-title">your cart</div>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
+    <div class="drawer-footer" id="drawerFooter"></div>
+  </div>
+</div>
+
+<script>
+// ═══ QUANTITY SELECTOR ═══
+function updateQty(delta) {
+  const el = document.getElementById('qty');
+  let v = parseInt(el.value) + delta;
+  if (v < 1) v = 1;
+  if (v > 12) v = 12;
+  el.value = v;
+  document.getElementById('addBtn').textContent = 'add to cart — $' + (v * 34);
+}
+
+// ═══ CART STATE (localStorage) ═══
+const CART_KEY = 'maisonMaxineCart';
+const PRODUCT = {
+  name: 'Red Wine Spritzer',
+  variant: 'four-pack · 250ml each',
+  price: 34,
+  img: 'Ameliawinepic.png'
+};
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || { qty: 0 }; }
+  catch(e) { return { qty: 0 }; }
+}
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartUI();
+}
+
+// ═══ ADD TO CART ═══
+const toastMessages = [
+  'added to your cart, gorgeous ✦',
+  'excellent taste, as always ✦',
+  'great choice — your cart just got better ✦',
+  'consider it yours ✦'
+];
+function addToCart() {
+  const qty = parseInt(document.getElementById('qty').value);
+  const cart = getCart();
+  cart.qty += qty;
+  saveCart(cart);
+  // toast
+  const msg = toastMessages[Math.floor(Math.random() * toastMessages.length)];
+  showToast(msg);
+}
+document.getElementById('addBtn').addEventListener('click', addToCart);
+
+// ═══ TOAST ═══
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// ═══ FLOATING CART ICON ═══
+function updateCartUI() {
+  const cart = getCart();
+  const btn = document.getElementById('cartFloat');
+  const count = document.getElementById('cartCount');
+  if (cart.qty > 0) {
+    btn.classList.add('visible');
+    count.textContent = cart.qty;
+  } else {
+    btn.classList.remove('visible');
+  }
+}
+
+// ═══ DRAWER ═══
+function openDrawer() {
+  document.getElementById('drawerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  renderDrawer();
+}
+function closeDrawer(e) {
+  if (e && e.target !== document.getElementById('drawerOverlay')) return;
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function renderDrawer() {
+  const cart = getCart();
+  const body = document.getElementById('drawerBody');
+  const footer = document.getElementById('drawerFooter');
+
+  if (cart.qty <= 0) {
+    body.innerHTML = '<div class="drawer-empty"><div class="drawer-empty-icon">✦</div><div class="drawer-empty-text">nothing here yet...<br>but we have a feeling that\'s about to change ✦</div></div>';
+    footer.innerHTML = '<a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>';
+    return;
+  }
+
+  const subtotal = cart.qty * PRODUCT.price;
+  const shipping = 0; // free shipping through april to celebrate launch
+  const total = subtotal + shipping;
+
+  body.innerHTML = `
+    <div class="drawer-item">
+      <img class="drawer-item-img" src="${PRODUCT.img}" alt="${PRODUCT.name}">
+      <div class="drawer-item-info">
+        <div class="drawer-item-name">${PRODUCT.name}</div>
+        <div class="drawer-item-variant">${PRODUCT.variant}</div>
+        <div class="drawer-item-price">$${subtotal}</div>
+        <div style="margin-top:8px">
+          <div class="drawer-qty">
+            <button onclick="changeCartQty(-1)">−</button>
+            <span>${cart.qty}</span>
+            <button onclick="changeCartQty(1)">+</button>
+          </div>
+        </div>
+        <button class="drawer-remove" onclick="clearCart()">remove</button>
+      </div>
+    </div>
+  `;
+
+  const shippingHtml = '<span class="drawer-shipping-free">free through april ✦</span>';
+
+  footer.innerHTML = `
+    <div class="drawer-subtotal"><span>subtotal</span><span>$${subtotal}</span></div>
+    <div class="drawer-shipping"><span>shipping</span>${shippingHtml}</div>
+    <div class="drawer-total"><span>total</span><span>$${total}</span></div>
+    <button class="drawer-checkout" onclick="checkout()">checkout with square</button>
+    <a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>
+  `;
+}
+
+function changeCartQty(delta) {
+  const cart = getCart();
+  cart.qty += delta;
+  if (cart.qty < 0) cart.qty = 0;
+  if (cart.qty > 24) cart.qty = 24;
+  saveCart(cart);
+  renderDrawer();
+}
+
+function clearCart() {
+  saveCart({ qty: 0 });
+  renderDrawer();
+}
+
+function checkout() {
+  // Placeholder — replace with your Square checkout URL
+  window.open('https://square.link/u/PLACEHOLDER', '_blank');
+}
+
+// ═══ MOBILE CART LINK ═══
+document.querySelectorAll('.mobile-header .links a').forEach(a => {
+  if (a.textContent.trim() === 'cart') {
+    a.addEventListener('click', function(e) { e.preventDefault(); openDrawer(); });
+  }
+});
+
+// ═══ INIT ═══
+updateCartUI();
+</script>
+
+<script>
+(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>

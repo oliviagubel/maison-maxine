@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>find us ✦ Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+body, a, button{cursor:url("littlebananasplit-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("littlebananasplit-cursor.png") 44 37, pointer}
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#c76090;color:#fff}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:26px;
+  color:#c76090;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:11px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:color .2s;
+}
+#sidebar nav a:hover{color:#c76090}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:200px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:20px 20px 24px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner h1{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:42px;
+  color:#c76090;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:14px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  width:60px;
+  height:1px;
+  background:#f7cdeb;
+  margin:14px auto 0;
+}
+
+/* ═══ CONTENT BOXES ═══ */
+.box{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  position:relative;
+}
+.box-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.box p{
+  font-size:15px;
+  font-style:italic;
+  line-height:1.8;
+  color:#5a3a4a;
+}
+.box p + p{margin-top:10px}
+
+/* ═══ PAGE INTRO ═══ */
+.page-intro{
+  text-align:center;
+  max-width:520px;
+  margin:0 auto 28px;
+}
+.page-intro p{
+  font-size:15px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.8;
+}
+
+/* ═══ MAP CONTAINER ═══ */
+.map-wrapper{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:8px;
+  overflow:hidden;
+  margin-bottom:24px;
+  position:relative;
+}
+.map-header{
+  padding:14px 20px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.map-header .mh-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.map-header .mh-status{
+  font-size:11px;
+  font-style:italic;
+  color:#c76090;
+}
+.map-visual{
+  position:relative;
+  height:460px;
+  background:#edf6d3;
+  overflow:hidden;
+}
+.map-visual svg{
+  width:100%;
+  height:100%;
+}
+.map-visual .map-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  fill:#c76090;
+}
+.map-visual .map-label-big{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:18px;
+  fill:#c76090;
+}
+.map-visual .map-label-area{
+  font-family:'Cormorant Garamond',serif;
+  font-size:9px;
+  font-style:italic;
+  fill:#8a6a7a;
+  letter-spacing:.08em;
+}
+
+/* floating city pins */
+.pin{
+  position:absolute;
+  cursor:pointer;
+  transition:transform .2s;
+  z-index:2;
+}
+.pin:hover{transform:scale(1.15)}
+.pin:hover .pin-tooltip{opacity:1;transform:translateX(-50%) translateY(0)}
+.pin-dot{
+  width:14px;height:14px;
+  background:#c76090;
+  border:2px solid #fff;
+  border-radius:50%;
+  box-shadow:0 0 0 3px rgba(199,96,144,.2), 0 2px 8px rgba(0,0,0,.1);
+  position:relative;
+}
+.pin-dot::after{
+  content:'';
+  position:absolute;
+  inset:2px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-radius:50%;
+  opacity:.4;
+}
+.pin-pulse{
+  position:absolute;
+  inset:-6px;
+  border:1px solid rgba(199,96,144,.3);
+  border-radius:50%;
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%{transform:scale(.8);opacity:1}
+  100%{transform:scale(1.8);opacity:0}
+}
+.pin-tooltip{
+  position:absolute;
+  bottom:calc(100% + 10px);
+  left:50%;
+  transform:translateX(-50%) translateY(4px);
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:8px 12px;
+  white-space:nowrap;
+  opacity:0;
+  transition:all .25s;
+  pointer-events:none;
+  box-shadow:0 4px 16px rgba(199,96,144,.08);
+}
+.pin-tooltip::after{
+  content:'';
+  position:absolute;
+  top:100%;
+  left:50%;
+  margin-left:-4px;
+  border:4px solid transparent;
+  border-top-color:#fff;
+}
+.pin-tooltip .tt-city{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.pin-tooltip .tt-name{
+  font-size:12px;
+  font-style:italic;
+  color:#5a3a4a;
+  margin-top:2px;
+}
+
+/* compass rose */
+.compass{
+  position:absolute;
+  bottom:16px;
+  right:20px;
+  width:50px;height:50px;
+  opacity:.25;
+  z-index:1;
+}
+.compass::before,.compass::after{
+  content:'';
+  position:absolute;
+  background:#c76090;
+}
+.compass::before{
+  width:1px;height:100%;
+  left:50%;
+}
+.compass::after{
+  width:100%;height:1px;
+  top:50%;
+}
+.compass-n{
+  position:absolute;
+  top:-2px;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.1em;
+  color:#c76090;
+}
+
+/* ═══ STORE CARDS ═══ */
+.stores-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.store-card{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:18px 20px;
+  transition:all .25s;
+  cursor:default;
+  position:relative;
+  overflow:hidden;
+}
+.store-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:3px;
+  background:linear-gradient(90deg, #c76090, #c76090, transparent);
+  opacity:0;
+  transition:opacity .25s;
+}
+.store-card:hover::before{opacity:1}
+.store-card:hover{
+  border-color:#c76090;
+  box-shadow:0 4px 20px rgba(199,96,144,.08);
+}
+.store-city{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.store-name{
+  font-size:17px;
+  font-style:italic;
+  color:#4a3a3a;
+  line-height:1.3;
+}
+.store-addr{
+  font-size:12px;
+  color:#c76090;
+  margin-top:6px;
+  line-height:1.5;
+}
+.store-vibe{
+  margin-top:10px;
+  display:inline-block;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.08em;
+  padding:3px 10px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+}
+.store-hours{
+  font-size:11px;
+  font-style:italic;
+  color:#c76090;
+  margin-top:8px;
+}
+
+/* ═══ COMING SOON SECTION ═══ */
+.coming-soon{
+  text-align:center;
+  padding:30px 20px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  margin-bottom:20px;
+}
+.coming-soon .cs-title{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:28px;
+  color:#c76090;
+}
+.coming-soon .cs-sub{
+  font-size:13px;
+  font-style:italic;
+  color:#c76090;
+  margin-top:6px;
+  line-height:1.6;
+}
+.coming-soon .cs-cities{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.cs-chip{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.08em;
+  padding:4px 12px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  position:relative;
+}
+.cs-chip::before{
+  content:'✦ ';
+  color:#c76090;
+}
+
+/* ═══ MUSE NOTE ═══ */
+.muse-note{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  text-align:center;
+}
+.muse-note .mn-icon{
+  font-size:20px;
+  margin-bottom:8px;
+}
+.muse-note p{
+  font-size:13px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.7;
+}
+.muse-note a{
+  color:#c76090;
+  text-decoration:none;
+  border-bottom:1px dotted #c76090;
+  transition:opacity .2s;
+}
+.muse-note a:hover{opacity:.7}
+
+/* ═══ DOODLE DECORATIONS ═══ */
+.deco{
+  position:absolute;
+  pointer-events:none;
+  opacity:.12;
+  font-size:28px;
+}
+
+/* ═══ BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  #main{margin-left:0;padding:20px 16px}
+  .stores-grid{grid-template-columns:1fr}
+  .map-visual{height:240px}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Burgues Script','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  #main{padding-top:60px}
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+}
+
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo">Maison Maxine</div>
+  <div class="links">
+    <a href="home.html">home</a>
+    <a href="#">shop</a>
+    <a href="#">about</a>
+  </div>
+</div>
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo">Maison Maxine</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="home.html">home</a>
+        <a href="#">shop</a>
+        <a href="store-locator.html" class="active">store locator</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+      </nav>
+    </div>
+
+
+    <div class="nav-section">
+      <div class="nav-label">offsite</div>
+      <nav>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now pouring ✦</div>
+      <p>napa valley cabernet red wine spritzer — our spring batch is almost here...</p>
+    </div>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="copyright">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>find us</h1>
+    <div class="tagline">where muses sip in the wild ✦</div>
+    <div class="divider"></div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="page-intro">
+    <p>we're slowly making our way across california and beyond. here's where you can find a bottle of maison maxine — each stockist handpicked, each location a vibe.</p>
+  </div>
+
+  <!-- MAP -->
+  <div class="map-wrapper">
+    <div class="map-header">
+      <span class="mh-title">the muse map ✦</span>
+      <span class="mh-status">2 locations & counting</span>
+    </div>
+    <div class="map-visual">
+      <svg viewBox="0 0 760 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- tiny heart shape -->
+          <path id="heart" d="M0-3C0-5 -3-6 -3-4C-3-2 0 1 0 1C0 1 3-2 3-4C3-6 0-5 0-3Z"/>
+          <!-- petal flower -->
+          <g id="flower5">
+            <circle cx="0" cy="-4" r="2.5" fill="#f7cdeb" opacity=".7"/>
+            <circle cx="3.8" cy="-1.2" r="2.5" fill="#f7cdeb" opacity=".6"/>
+            <circle cx="2.4" cy="3.2" r="2.5" fill="#f7cdeb" opacity=".65"/>
+            <circle cx="-2.4" cy="3.2" r="2.5" fill="#f7cdeb" opacity=".6"/>
+            <circle cx="-3.8" cy="-1.2" r="2.5" fill="#f7cdeb" opacity=".7"/>
+            <circle cx="0" cy="0" r="1.8" fill="#c76090" opacity=".4"/>
+          </g>
+          <!-- smaller flower -->
+          <g id="flower3">
+            <circle cx="0" cy="-2.5" r="1.8" fill="#f7cdeb" opacity=".6"/>
+            <circle cx="2.2" cy="1.2" r="1.8" fill="#f7cdeb" opacity=".5"/>
+            <circle cx="-2.2" cy="1.2" r="1.8" fill="#f7cdeb" opacity=".55"/>
+            <circle cx="0" cy="0" r="1.2" fill="#c76090" opacity=".35"/>
+          </g>
+          <!-- tiny daisy -->
+          <g id="daisy">
+            <ellipse cx="0" cy="-3" rx="1" ry="2.5" fill="#fff" opacity=".7"/>
+            <ellipse cx="2.6" cy="-1.5" rx="1" ry="2.5" fill="#fff" opacity=".6" transform="rotate(72 2.6 -1.5)"/>
+            <ellipse cx="2.6" cy="2" rx="1" ry="2.5" fill="#fff" opacity=".65" transform="rotate(144 2.6 2)"/>
+            <ellipse cx="-2.6" cy="2" rx="1" ry="2.5" fill="#fff" opacity=".6" transform="rotate(-144 -2.6 2)"/>
+            <ellipse cx="-2.6" cy="-1.5" rx="1" ry="2.5" fill="#fff" opacity=".7" transform="rotate(-72 -2.6 -1.5)"/>
+            <circle cx="0" cy="0" r="1.5" fill="#edf6d3"/>
+          </g>
+          <!-- wine bottle -->
+          <g id="winebottle">
+            <rect x="-2.5" y="-10" width="5" height="14" rx="1.5" fill="#c76090" opacity=".35"/>
+            <rect x="-1.2" y="-14" width="2.4" height="5" rx="1" fill="#c76090" opacity=".35"/>
+            <rect x="-1.8" y="-15" width="3.6" height="1.5" rx=".5" fill="#c76090" opacity=".3"/>
+          </g>
+          <!-- ornate leaf -->
+          <path id="leaf" d="M0 0 Q4 -6 0 -14 Q-4 -6 0 0Z" fill="#edf6d3" stroke="#c76090" stroke-width=".4" opacity=".5"/>
+        </defs>
+
+        <!-- sky -->
+        <rect width="760" height="420" fill="#edf6d3"/>
+
+        <!-- ═══ ORNATE BORDER FRAME ═══ -->
+        <rect x="6" y="6" width="748" height="408" rx="8" fill="none" stroke="#c76090" stroke-width="1.2" opacity=".25"/>
+        <rect x="10" y="10" width="740" height="400" rx="6" fill="none" stroke="#c76090" stroke-width=".4" opacity=".2"/>
+        <!-- corner flourishes -->
+        <g opacity=".3">
+          <!-- top-left -->
+          <path d="M16 16 Q16 30 24 24 Q30 20 20 28 Q16 34 16 16Z" fill="none" stroke="#c76090" stroke-width=".8"/>
+          <circle cx="18" cy="18" r="1.5" fill="#c76090" opacity=".4"/>
+          <path d="M16 16 Q28 12 22 22" fill="none" stroke="#c76090" stroke-width=".5"/>
+          <!-- top-right -->
+          <path d="M744 16 Q744 30 736 24 Q730 20 740 28 Q744 34 744 16Z" fill="none" stroke="#c76090" stroke-width=".8"/>
+          <circle cx="742" cy="18" r="1.5" fill="#c76090" opacity=".4"/>
+          <!-- bottom-left -->
+          <path d="M16 404 Q16 390 24 396 Q30 400 20 392 Q16 386 16 404Z" fill="none" stroke="#c76090" stroke-width=".8"/>
+          <circle cx="18" cy="402" r="1.5" fill="#c76090" opacity=".4"/>
+          <!-- bottom-right -->
+          <path d="M744 404 Q744 390 736 396 Q730 400 740 392 Q744 386 744 404Z" fill="none" stroke="#c76090" stroke-width=".8"/>
+          <circle cx="742" cy="402" r="1.5" fill="#c76090" opacity=".4"/>
+        </g>
+        <!-- top border vine -->
+        <path d="M80 10 Q120 4 160 10 Q200 16 240 10 Q280 4 320 10 Q360 16 400 10 Q440 4 480 10 Q520 16 560 10 Q600 4 640 10 Q680 16 700 10" fill="none" stroke="#c76090" stroke-width=".5" opacity=".18"/>
+        <!-- tiny leaves on vine -->
+        <use href="#leaf" x="140" y="14" transform="scale(.35)"/>
+        <use href="#leaf" x="300" y="12" transform="scale(.3)"/>
+        <use href="#leaf" x="500" y="14" transform="scale(.32)"/>
+        <use href="#leaf" x="640" y="12" transform="scale(.28)"/>
+
+        <!-- ═══ TITLE CARTOUCHE — ornate scroll banner ═══ -->
+        <g transform="translate(380,32)">
+          <!-- scroll shape -->
+          <path d="M-90 -14 Q-95 -18 -88 -20 L88 -20 Q95 -18 90 -14 L85 8 Q90 12 85 14 L-85 14 Q-90 12 -85 8Z" fill="#fff" opacity=".85" stroke="#c76090" stroke-width=".8"/>
+          <!-- scroll curls -->
+          <path d="M-90 -14 Q-98 -10 -92 -4" fill="none" stroke="#c76090" stroke-width=".6" opacity=".35"/>
+          <path d="M90 -14 Q98 -10 92 -4" fill="none" stroke="#c76090" stroke-width=".6" opacity=".35"/>
+          <path d="M-85 14 Q-92 18 -88 22" fill="none" stroke="#c76090" stroke-width=".5" opacity=".25"/>
+          <path d="M85 14 Q92 18 88 22" fill="none" stroke="#c76090" stroke-width=".5" opacity=".25"/>
+          <!-- text -->
+          <text x="0" y="4" text-anchor="middle" class="map-label-big" font-size="20">the muse map</text>
+          <!-- decorative dots -->
+          <circle cx="-70" cy="-2" r="1" fill="#c76090" opacity=".3"/>
+          <circle cx="70" cy="-2" r="1" fill="#c76090" opacity=".3"/>
+          <text x="-60" y="2" fill="#c76090" font-size="5" opacity=".3">✦</text>
+          <text x="56" y="2" fill="#c76090" font-size="5" opacity=".3">✦</text>
+        </g>
+
+        <!-- ═══ OCEAN — layered watercolor ═══ -->
+        <path d="M10 340 Q80 328 160 342 Q240 355 320 338 Q400 322 480 340 Q560 356 640 335 Q700 322 750 338 L750 410 L10 410Z" fill="#f7cdeb" opacity=".25"/>
+        <path d="M10 352 Q90 342 180 356 Q270 368 360 350 Q450 338 540 353 Q630 368 750 348 L750 410 L10 410Z" fill="#f7cdeb" opacity=".4"/>
+        <path d="M10 368 Q100 358 200 372 Q300 384 400 366 Q500 354 600 370 Q680 382 750 365 L750 410 L10 410Z" fill="#f7cdeb" opacity=".6"/>
+        <!-- detailed waves -->
+        <path d="M20 382 Q30 376 40 382 Q50 388 60 382 Q70 376 80 382" stroke="#c76090" stroke-width=".6" fill="none" opacity=".25"/>
+        <path d="M100 390 Q112 384 124 390 Q136 396 148 390" stroke="#c76090" stroke-width=".6" fill="none" opacity=".2"/>
+        <path d="M200 385 Q212 379 224 385 Q236 391 248 385" stroke="#c76090" stroke-width=".6" fill="none" opacity=".22"/>
+        <path d="M320 392 Q332 386 344 392 Q356 398 368 392" stroke="#c76090" stroke-width=".5" fill="none" opacity=".2"/>
+        <path d="M430 388 Q445 382 460 388 Q475 394 490 388" stroke="#c76090" stroke-width=".5" fill="none" opacity=".2"/>
+        <path d="M540 395 Q552 389 564 395 Q576 401 588 395" stroke="#c76090" stroke-width=".5" fill="none" opacity=".18"/>
+        <path d="M620 385 Q632 379 644 385 Q656 391 668 385" stroke="#c76090" stroke-width=".5" fill="none" opacity=".2"/>
+        <path d="M160 398 Q172 393 184 398 Q196 403 208 398" stroke="#c76090" stroke-width=".4" fill="none" opacity=".15"/>
+        <text x="90" y="403" class="map-label-area" opacity=".45">pacific ocean</text>
+
+        <!-- ═══ TINY SAILBOAT ═══ -->
+        <g transform="translate(680,365)" opacity=".35">
+          <path d="M-6 0 L6 0 L4 4 L-4 4Z" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <line x1="0" y1="0" x2="0" y2="-12" stroke="#c76090" stroke-width=".5"/>
+          <path d="M0 -12 L0 0 L8 -2Z" fill="#f7cdeb" opacity=".7" stroke="#c76090" stroke-width=".3"/>
+          <path d="M0 -12 L0 -1 L-5 -2Z" fill="#fff" opacity=".6" stroke="#c76090" stroke-width=".3"/>
+        </g>
+
+        <!-- ═══ ROLLING HILLS — layered storybook ═══ -->
+        <!-- far hills -->
+        <path d="M10 155 Q50 95 110 125 Q150 75 210 115 Q250 65 310 105 Q370 55 430 100 Q470 70 530 105 Q590 60 650 95 Q710 75 750 115 L750 195 Q600 175 400 185 Q200 195 10 180Z" fill="#edf6d3" stroke="#c76090" stroke-width=".7" opacity=".35"/>
+        <!-- tiny trees on far hills -->
+        <g opacity=".2">
+          <path d="M130 118 L133 100 L136 118Z" fill="#c76090"/>
+          <path d="M260 108 L263 92 L266 108Z" fill="#c76090"/>
+          <path d="M420 98 L423 80 L426 98Z" fill="#c76090"/>
+          <path d="M550 100 L553 84 L556 100Z" fill="#c76090"/>
+          <path d="M670 92 L673 78 L676 92Z" fill="#c76090"/>
+        </g>
+        <!-- near hills -->
+        <path d="M10 185 Q60 145 150 165 Q210 125 290 160 Q350 115 430 150 Q490 120 570 152 Q630 130 710 155 Q745 145 750 160 L750 215 Q600 205 400 210 Q200 215 10 205Z" fill="#edf6d3" stroke="#c76090" stroke-width=".7" opacity=".45"/>
+
+        <!-- hollywood hills label with tiny illustrated sign -->
+        <g transform="translate(350,168)">
+          <text x="0" y="0" class="map-label" opacity=".45" text-anchor="middle">hollywood hills</text>
+          <!-- tiny hollywood sign on hillside -->
+          <g transform="translate(-50,-30)" opacity=".35">
+            <rect x="0" y="0" width="3" height="6" fill="#c76090" opacity=".5"/>
+            <rect x="4" y="0" width="3" height="6" fill="#c76090" opacity=".5"/>
+            <rect x="8" y="1" width="3" height="5" fill="#c76090" opacity=".5"/>
+            <rect x="12" y="1" width="3" height="5" fill="#c76090" opacity=".5"/>
+            <rect x="16" y="0" width="3" height="6" fill="#c76090" opacity=".5"/>
+            <rect x="20" y="1" width="3" height="5" fill="#c76090" opacity=".5"/>
+            <rect x="24" y="0" width="3" height="6" fill="#c76090" opacity=".5"/>
+            <rect x="28" y="1" width="3" height="5" fill="#c76090" opacity=".5"/>
+            <rect x="32" y="0" width="3" height="6" fill="#c76090" opacity=".5"/>
+          </g>
+        </g>
+        <text x="520" y="92" class="map-label" opacity=".35">griffith park</text>
+
+        <!-- ═══ SUN — ornate storybook ═══ -->
+        <g transform="translate(690,60)">
+          <circle cx="0" cy="0" r="22" fill="#f7cdeb" opacity=".35"/>
+          <circle cx="0" cy="0" r="16" fill="#fff" opacity=".5"/>
+          <circle cx="0" cy="0" r="10" fill="#f7cdeb" opacity=".3"/>
+          <!-- sun rays -->
+          <g opacity=".2" stroke="#c76090" stroke-width=".6" fill="none">
+            <line x1="0" y1="-24" x2="0" y2="-30"/>
+            <line x1="17" y1="-17" x2="21" y2="-21"/>
+            <line x1="24" y1="0" x2="30" y2="0"/>
+            <line x1="17" y1="17" x2="21" y2="21"/>
+            <line x1="-17" y1="-17" x2="-21" y2="-21"/>
+            <line x1="-24" y1="0" x2="-30" y2="0"/>
+            <line x1="-17" y1="17" x2="-21" y2="21"/>
+            <!-- shorter rays between -->
+            <line x1="10" y1="-22" x2="12" y2="-26"/>
+            <line x1="22" y1="-10" x2="26" y2="-12"/>
+            <line x1="22" y1="10" x2="26" y2="12"/>
+            <line x1="-10" y1="-22" x2="-12" y2="-26"/>
+            <line x1="-22" y1="-10" x2="-26" y2="-12"/>
+          </g>
+        </g>
+
+        <!-- ═══ ROADS — illustrated curvy ═══ -->
+        <path d="M10 258 Q100 253 200 260 Q300 268 400 256 Q500 246 600 258 Q700 266 750 253" stroke="#c76090" stroke-width="2.5" fill="none" opacity=".15" stroke-dasharray="8 5"/>
+        <text x="555" y="250" class="map-label" opacity=".3">sunset blvd</text>
+
+        <path d="M10 208 Q100 203 200 210 Q300 216 400 206 Q500 198 600 208 Q700 214 750 203" stroke="#c76090" stroke-width="2.5" fill="none" opacity=".15" stroke-dasharray="8 5"/>
+        <text x="140" y="202" class="map-label" opacity=".3">ventura blvd</text>
+
+        <path d="M380 178 Q375 218 382 258 Q378 298 385 338" stroke="#c76090" stroke-width="1.5" fill="none" opacity=".12" stroke-dasharray="5 5"/>
+        <path d="M440 178 Q435 218 442 258 Q438 298 445 338" stroke="#c76090" stroke-width="1.5" fill="none" opacity=".12" stroke-dasharray="5 5"/>
+
+        <!-- ═══ ILLUSTRATED PALM TREES ═══ -->
+        <!-- palm 1 — tall, near studio city -->
+        <g transform="translate(90,220)" opacity=".45">
+          <path d="M2 0 Q3 10 2 20 Q1 30 3 38" stroke="#c76090" stroke-width="2.5" fill="none"/>
+          <path d="M3 0 Q-18 -10 -20 2 Q-18 4 -8 -2" stroke="#c76090" stroke-width="1" fill="#edf6d3" opacity=".7"/>
+          <path d="M3 0 Q18 -12 20 0 Q18 2 8 -4" stroke="#c76090" stroke-width="1" fill="#edf6d3" opacity=".7"/>
+          <path d="M3 0 Q-10 -18 -6 -4 Q-4 0 0 -6" stroke="#c76090" stroke-width="1" fill="#edf6d3" opacity=".6"/>
+          <path d="M3 0 Q12 -18 8 -4 Q6 0 4 -6" stroke="#c76090" stroke-width="1" fill="#edf6d3" opacity=".6"/>
+          <path d="M3 0 Q0 -20 3 -6" stroke="#c76090" stroke-width="1" fill="none" opacity=".5"/>
+          <circle cx="-1" cy="2" r="1.5" fill="#c76090" opacity=".2"/>
+          <circle cx="5" cy="1" r="1" fill="#c76090" opacity=".15"/>
+        </g>
+        <!-- palm 2 — beverly hills -->
+        <g transform="translate(180,265)" opacity=".4">
+          <path d="M1 0 Q2 8 1 18 Q0 26 2 32" stroke="#c76090" stroke-width="2" fill="none"/>
+          <path d="M1 0 Q-14 -8 -15 1" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".6"/>
+          <path d="M1 0 Q14 -10 14 -1" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".6"/>
+          <path d="M1 0 Q-6 -16 -2 -3" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q8 -16 4 -3" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q1 -18 2 -4" stroke="#c76090" stroke-width=".8" fill="none" opacity=".4"/>
+        </g>
+        <!-- palm 3 — los feliz -->
+        <g transform="translate(555,248)" opacity=".38">
+          <path d="M2 0 Q3 10 2 22 Q1 32 3 40" stroke="#c76090" stroke-width="2.2" fill="none"/>
+          <path d="M2 0 Q-16 -9 -17 1" stroke="#c76090" stroke-width=".9" fill="#edf6d3" opacity=".6"/>
+          <path d="M2 0 Q16 -11 16 0" stroke="#c76090" stroke-width=".9" fill="#edf6d3" opacity=".6"/>
+          <path d="M2 0 Q-8 -16 -3 -3" stroke="#c76090" stroke-width=".9" fill="#edf6d3" opacity=".5"/>
+          <path d="M2 0 Q10 -16 5 -3" stroke="#c76090" stroke-width=".9" fill="#edf6d3" opacity=".5"/>
+          <path d="M2 0 Q1 -18 3 -5" stroke="#c76090" stroke-width=".8" fill="none" opacity=".4"/>
+        </g>
+        <!-- palm 4 — malibu -->
+        <g transform="translate(40,285)" opacity=".35">
+          <path d="M1 0 Q2 8 1 16 Q0 24 2 30" stroke="#c76090" stroke-width="2" fill="none"/>
+          <path d="M1 0 Q-13 -7 -13 1" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q13 -9 12 0" stroke="#c76090" stroke-width=".8" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q0 -15 2 -3" stroke="#c76090" stroke-width=".8" fill="none" opacity=".4"/>
+        </g>
+        <!-- palm 5 — dtla -->
+        <g transform="translate(640,260)" opacity=".3">
+          <path d="M1 0 Q2 12 1 25" stroke="#c76090" stroke-width="1.8" fill="none"/>
+          <path d="M1 0 Q-12 -7 -11 1" stroke="#c76090" stroke-width=".7" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q12 -8 11 0" stroke="#c76090" stroke-width=".7" fill="#edf6d3" opacity=".5"/>
+          <path d="M1 0 Q0 -14 1 -3" stroke="#c76090" stroke-width=".7" fill="none" opacity=".35"/>
+        </g>
+
+        <!-- ═══ ILLUSTRATED COTTAGES — Studio City ═══ -->
+        <g transform="translate(220,192)" opacity=".5">
+          <!-- cottage 1 -->
+          <rect x="0" y="4" width="10" height="10" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <path d="M-1 4 L5 -3 L11 4Z" fill="#f7cdeb" stroke="#c76090" stroke-width=".5"/>
+          <rect x="3" y="8" width="3" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".3"/>
+          <rect x="1.5" y="5.5" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="6.5" y="5.5" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <!-- chimney -->
+          <rect x="7" y="-2" width="2" height="5" fill="#c76090" opacity=".3"/>
+        </g>
+        <g transform="translate(240,196)" opacity=".45">
+          <!-- cottage 2 -->
+          <rect x="0" y="3" width="8" height="8" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M-1 3 L4 -2 L9 3Z" fill="#edf6d3" stroke="#c76090" stroke-width=".4"/>
+          <rect x="2.5" y="6" width="3" height="5" fill="#f7cdeb" opacity=".5" stroke="#c76090" stroke-width=".2"/>
+          <rect x="1" y="4" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+        <g transform="translate(260,194)" opacity=".42">
+          <!-- cottage 3 — taller -->
+          <rect x="0" y="2" width="12" height="14" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <path d="M-1 2 L6 -5 L13 2Z" fill="#f7cdeb" stroke="#c76090" stroke-width=".5"/>
+          <rect x="4" y="10" width="4" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".3"/>
+          <circle cx="6" cy="6" r="2" fill="none" stroke="#c76090" stroke-width=".3"/>
+          <!-- flag/weathervane -->
+          <line x1="6" y1="-5" x2="6" y2="-9" stroke="#c76090" stroke-width=".4"/>
+          <path d="M6 -9 L10 -8 L6 -7Z" fill="#c76090" opacity=".3"/>
+        </g>
+
+        <!-- ═══ ILLUSTRATED BUILDINGS — Hollywood ═══ -->
+        <g transform="translate(368,216)" opacity=".45">
+          <!-- art deco building -->
+          <rect x="0" y="4" width="14" height="20" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <path d="M2 4 L7 -2 L12 4Z" fill="#f7cdeb" stroke="#c76090" stroke-width=".4"/>
+          <line x1="7" y1="-2" x2="7" y2="-6" stroke="#c76090" stroke-width=".4"/>
+          <text x="7" y="-4" text-anchor="middle" fill="#c76090" font-size="3" opacity=".4">★</text>
+          <rect x="2" y="7" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="9" y="7" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="2" y="13" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="9" y="13" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="5" y="18" width="4" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+        <g transform="translate(388,222)" opacity=".4">
+          <rect x="0" y="3" width="10" height="14" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M0 3 L5 -1 L10 3Z" fill="#edf6d3" stroke="#c76090" stroke-width=".4"/>
+          <rect x="2" y="5.5" width="2.5" height="2.5" fill="#f7cdeb" opacity=".4" stroke="#c76090" stroke-width=".2"/>
+          <rect x="5.5" y="5.5" width="2.5" height="2.5" fill="#f7cdeb" opacity=".4" stroke="#c76090" stroke-width=".2"/>
+          <rect x="3" y="12" width="4" height="5" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+        <g transform="translate(402,220)" opacity=".38">
+          <!-- tall narrow building -->
+          <rect x="0" y="0" width="8" height="18" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M0 0 L4 -4 L8 0Z" fill="#f7cdeb" opacity=".6" stroke="#c76090" stroke-width=".3"/>
+          <rect x="2" y="3" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="2" y="8" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="2" y="13" width="4" height="5" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+
+        <!-- ═══ THE GROVE — illustrated market building ═══ -->
+        <g transform="translate(450,268)" opacity=".45">
+          <rect x="0" y="4" width="18" height="14" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <!-- awning -->
+          <path d="M-1 4 L0 0 L18 0 L19 4Z" fill="#f7cdeb" stroke="#c76090" stroke-width=".4"/>
+          <path d="M0 0 Q3 3 6 0 Q9 3 12 0 Q15 3 18 0" fill="none" stroke="#c76090" stroke-width=".4" opacity=".5"/>
+          <rect x="2" y="6" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="7" y="6" width="3" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="12" y="6" width="4" height="3" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="6" y="12" width="6" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".3"/>
+          <!-- cute little sign -->
+          <rect x="2" y="-4" width="14" height="4" rx="1" fill="#fff" stroke="#c76090" stroke-width=".3"/>
+          <text x="9" y="-1" text-anchor="middle" font-family="'Cormorant Garamond',serif" font-size="3" fill="#c76090" font-style="italic">marché</text>
+        </g>
+        <g transform="translate(472,274)" opacity=".38">
+          <rect x="0" y="3" width="12" height="10" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M-1 3 L6 -2 L13 3Z" fill="#edf6d3" stroke="#c76090" stroke-width=".4"/>
+          <rect x="3" y="5.5" width="2.5" height="2.5" fill="#f7cdeb" opacity=".4" stroke="#c76090" stroke-width=".2"/>
+          <rect x="7" y="5.5" width="2.5" height="2.5" fill="#f7cdeb" opacity=".4" stroke="#c76090" stroke-width=".2"/>
+          <rect x="4" y="9" width="4" height="4" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+
+        <!-- ═══ DTLA — illustrated skyline ═══ -->
+        <g transform="translate(645,262)" opacity=".4">
+          <!-- tall tower -->
+          <rect x="0" y="0" width="10" height="28" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <rect x="3" y="-4" width="4" height="4" fill="#fff" stroke="#c76090" stroke-width=".4"/>
+          <line x1="5" y1="-4" x2="5" y2="-8" stroke="#c76090" stroke-width=".4"/>
+          <!-- windows grid -->
+          <rect x="2" y="3" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="6" y="3" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="8" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="6" y="8" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="13" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="6" y="13" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="18" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="6" y="18" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="3" y="23" width="4" height="5" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+        <g transform="translate(658,270)" opacity=".35">
+          <rect x="0" y="0" width="8" height="20" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M0 0 L4 -3 L8 0Z" fill="#f7cdeb" opacity=".5" stroke="#c76090" stroke-width=".3"/>
+          <rect x="2" y="3" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="8" width="2" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="14" width="4" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+        <g transform="translate(670,266)" opacity=".35">
+          <rect x="0" y="0" width="12" height="24" fill="#fff" stroke="#c76090" stroke-width=".6"/>
+          <rect x="2" y="3" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="7" y="3" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="8" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="7" y="8" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="2" y="13" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="7" y="13" width="3" height="2" fill="#edf6d3" stroke="#c76090" stroke-width=".15"/>
+          <rect x="4" y="18" width="4" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+
+        <!-- ═══ MALIBU BEACH COTTAGE ═══ -->
+        <g transform="translate(50,300)" opacity=".4">
+          <rect x="0" y="4" width="14" height="10" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <path d="M-2 4 L7 -4 L16 4Z" fill="#f7cdeb" opacity=".7" stroke="#c76090" stroke-width=".4"/>
+          <rect x="5" y="8" width="4" height="6" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="1" y="6" width="3" height="2.5" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+          <rect x="10" y="6" width="3" height="2.5" fill="#edf6d3" stroke="#c76090" stroke-width=".2"/>
+        </g>
+
+        <!-- ═══ LITTLE DALMATIAN DOG ═══ -->
+        <g transform="translate(115,312)" opacity=".45">
+          <!-- body -->
+          <ellipse cx="0" cy="0" rx="6" ry="3.5" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <!-- head -->
+          <circle cx="7" cy="-2" r="3" fill="#fff" stroke="#c76090" stroke-width=".5"/>
+          <!-- ear -->
+          <ellipse cx="9" cy="-4" rx="2" ry="1.5" fill="#c76090" opacity=".3" transform="rotate(20 9 -4)"/>
+          <!-- spots -->
+          <circle cx="-2" cy="-1" r="1" fill="#c76090" opacity=".3"/>
+          <circle cx="2" cy="1" r=".8" fill="#c76090" opacity=".25"/>
+          <circle cx="-4" cy="1" r=".6" fill="#c76090" opacity=".2"/>
+          <!-- legs -->
+          <line x1="-3" y1="3" x2="-3" y2="6" stroke="#c76090" stroke-width=".5" opacity=".4"/>
+          <line x1="0" y1="3" x2="0" y2="6" stroke="#c76090" stroke-width=".5" opacity=".4"/>
+          <line x1="3" y1="3" x2="3" y2="6" stroke="#c76090" stroke-width=".5" opacity=".4"/>
+          <!-- tail -->
+          <path d="M-6 -1 Q-9 -4 -7 -6" stroke="#c76090" stroke-width=".5" fill="none" opacity=".4"/>
+          <!-- eye -->
+          <circle cx="8" cy="-2.5" r=".6" fill="#c76090" opacity=".5"/>
+          <!-- nose -->
+          <circle cx="10" cy="-1.5" r=".5" fill="#c76090" opacity=".4"/>
+        </g>
+
+        <!-- ═══ WINE BOTTLES scattered ═══ -->
+        <use href="#winebottle" transform="translate(320,310) scale(.8)"/>
+        <use href="#winebottle" transform="translate(160,250) scale(.7) rotate(-12)"/>
+        <use href="#winebottle" transform="translate(600,305) scale(.7) rotate(8)"/>
+
+        <!-- ═══ ILLUSTRATED FLOWERS everywhere ═══ -->
+        <use href="#flower5" transform="translate(148,278)"/>
+        <use href="#flower5" transform="translate(340,302) scale(.9)"/>
+        <use href="#flower3" transform="translate(95,255)"/>
+        <use href="#flower3" transform="translate(510,295)"/>
+        <use href="#flower3" transform="translate(425,332)"/>
+        <use href="#daisy" transform="translate(200,295)"/>
+        <use href="#daisy" transform="translate(580,310) scale(.9)"/>
+        <use href="#daisy" transform="translate(310,270)"/>
+        <use href="#daisy" transform="translate(700,248)"/>
+        <use href="#flower5" transform="translate(490,322) scale(.8)"/>
+        <use href="#flower3" transform="translate(650,310) scale(.8)"/>
+        <use href="#daisy" transform="translate(42,270) scale(.8)"/>
+        <use href="#flower5" transform="translate(720,290) scale(.7)"/>
+        <!-- tiny rose buds -->
+        <g opacity=".35">
+          <use href="#heart" transform="translate(270,285) scale(.5)" fill="#c76090"/>
+          <use href="#heart" transform="translate(530,260) scale(.4)" fill="#c76090"/>
+          <use href="#heart" transform="translate(160,310) scale(.45)" fill="#c76090"/>
+          <use href="#heart" transform="translate(400,325) scale(.4)" fill="#c76090"/>
+        </g>
+        <!-- grass tufts -->
+        <g opacity=".25" stroke="#c76090" stroke-width=".6" fill="none">
+          <path d="M130,280 Q132,274 134,280"/>
+          <path d="M132,280 Q134,272 136,280"/>
+          <path d="M350,315 Q352,309 354,315"/>
+          <path d="M352,315 Q354,307 356,315"/>
+          <path d="M500,305 Q502,299 504,305"/>
+          <path d="M615,298 Q617,292 619,298"/>
+          <path d="M80,330 Q82,324 84,330"/>
+          <path d="M250,290 Q252,284 254,290"/>
+        </g>
+
+        <!-- ═══ SPARKLE STARS ═══ -->
+        <text x="520" y="65" fill="#c76090" font-size="9" opacity=".2">✦</text>
+        <text x="200" y="55" fill="#c76090" font-size="7" opacity=".15">✧</text>
+        <text x="370" y="75" fill="#c76090" font-size="8" opacity=".18">✦</text>
+        <text x="120" y="70" fill="#c76090" font-size="5" opacity=".12">✦</text>
+        <text x="600" y="80" fill="#c76090" font-size="6" opacity=".14">✧</text>
+        <text x="440" y="55" fill="#c76090" font-size="7" opacity=".16">✦</text>
+        <!-- twinkling animated star -->
+        <text x="300" y="50" fill="#c76090" font-size="10" opacity=".2">
+          ✦
+          <animate attributeName="opacity" values=".1;.3;.1" dur="3s" repeatCount="indefinite"/>
+        </text>
+        <text x="580" y="55" fill="#c76090" font-size="8" opacity=".15">
+          ✧
+          <animate attributeName="opacity" values=".1;.25;.1" dur="2.5s" begin=".5s" repeatCount="indefinite"/>
+        </text>
+
+        <!-- ═══ AREA LABELS — storybook italic ═══ -->
+        <text x="48" y="325" class="map-label-area">malibu</text>
+        <text x="215" y="220" class="map-label-area">studio city</text>
+        <text x="355" y="248" class="map-label-area">hollywood</text>
+        <text x="530" y="272" class="map-label-area">los feliz</text>
+        <text x="615" y="228" class="map-label-area">silverlake</text>
+        <text x="458" y="302" class="map-label-area">the grove</text>
+        <text x="158" y="288" class="map-label-area">beverly hills</text>
+        <text x="655" y="305" class="map-label-area">dtla</text>
+
+        <!-- ═══ STORE PIN 1: Dia Wine Shop — Studio City ═══ -->
+        <g transform="translate(250,195)" class="store-pin" style="cursor:pointer">
+          <circle cx="0" cy="0" r="18" fill="#c76090" opacity=".06">
+            <animate attributeName="r" values="14;24;14" dur="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".1;.02;.1" dur="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" r="12" fill="#c76090" opacity=".04">
+            <animate attributeName="r" values="10;18;10" dur="2.8s" begin=".4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".08;.01;.08" dur="2.8s" begin=".4s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M0 -16 C-9 -16 -14 -9 -14 -4 C-14 5 0 16 0 16 C0 16 14 5 14 -4 C14 -9 9 -16 0 -16Z" fill="#c76090"/>
+          <circle cx="0" cy="-5" r="4.5" fill="#fff"/>
+          <circle cx="0" cy="-5" r="2" fill="#c76090"/>
+          <!-- ornate label flag -->
+          <g transform="translate(12,-30)">
+            <rect x="0" y="0" width="82" height="24" rx="5" fill="#fff" stroke="#f7cdeb" stroke-width="1"/>
+            <rect x="1" y="1" width="80" height="22" rx="4" fill="none" stroke="#c76090" stroke-width=".3" opacity=".2"/>
+            <text x="6" y="10" font-family="'Pixelify Sans',sans-serif" font-size="6" letter-spacing=".1em" fill="#c76090">STUDIO CITY</text>
+            <text x="6" y="19" font-family="'Cormorant Garamond',serif" font-size="8" font-style="italic" fill="#5a3a4a">dia wine shop ♡</text>
+          </g>
+        </g>
+
+        <!-- ═══ STORE PIN 2: Monsieur Marcel — The Grove ═══ -->
+        <g transform="translate(470,280)" class="store-pin" style="cursor:pointer">
+          <circle cx="0" cy="0" r="18" fill="#c76090" opacity=".06">
+            <animate attributeName="r" values="14;24;14" dur="2.8s" begin=".8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".1;.02;.1" dur="2.8s" begin=".8s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" r="12" fill="#c76090" opacity=".04">
+            <animate attributeName="r" values="10;18;10" dur="2.8s" begin="1.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".08;.01;.08" dur="2.8s" begin="1.2s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M0 -16 C-9 -16 -14 -9 -14 -4 C-14 5 0 16 0 16 C0 16 14 5 14 -4 C14 -9 9 -16 0 -16Z" fill="#c76090"/>
+          <circle cx="0" cy="-5" r="4.5" fill="#fff"/>
+          <circle cx="0" cy="-5" r="2" fill="#c76090"/>
+          <!-- ornate label flag -->
+          <g transform="translate(12,-30)">
+            <rect x="0" y="0" width="96" height="24" rx="5" fill="#fff" stroke="#f7cdeb" stroke-width="1"/>
+            <rect x="1" y="1" width="94" height="22" rx="4" fill="none" stroke="#c76090" stroke-width=".3" opacity=".2"/>
+            <text x="6" y="10" font-family="'Pixelify Sans',sans-serif" font-size="6" letter-spacing=".1em" fill="#c76090">THE GROVE, LA</text>
+            <text x="6" y="19" font-family="'Cormorant Garamond',serif" font-size="8" font-style="italic" fill="#5a3a4a">monsieur marcel ♡</text>
+          </g>
+        </g>
+
+        <!-- ═══ ORNATE COMPASS ROSE ═══ -->
+        <g transform="translate(710,380)">
+          <circle cx="0" cy="0" r="18" fill="#fff" opacity=".7" stroke="#c76090" stroke-width=".6"/>
+          <circle cx="0" cy="0" r="15" fill="none" stroke="#c76090" stroke-width=".3" opacity=".3"/>
+          <!-- main axes -->
+          <line x1="0" y1="-14" x2="0" y2="14" stroke="#c76090" stroke-width=".5" opacity=".35"/>
+          <line x1="-14" y1="0" x2="14" y2="0" stroke="#c76090" stroke-width=".5" opacity=".35"/>
+          <!-- diagonal axes -->
+          <line x1="-9" y1="-9" x2="9" y2="9" stroke="#c76090" stroke-width=".3" opacity=".2"/>
+          <line x1="9" y1="-9" x2="-9" y2="9" stroke="#c76090" stroke-width=".3" opacity=".2"/>
+          <!-- N arrow -->
+          <path d="M0 -14 L-2.5 -8 L0 -10 L2.5 -8Z" fill="#c76090" opacity=".4"/>
+          <text x="0" y="-6" text-anchor="middle" font-family="'Burgues Script',cursive" font-size="8" fill="#c76090" opacity=".6">N</text>
+          <text x="0" y="13" text-anchor="middle" font-family="'Pixelify Sans',sans-serif" font-size="4" fill="#c76090" opacity=".3">S</text>
+          <text x="10" y="2" font-family="'Pixelify Sans',sans-serif" font-size="4" fill="#c76090" opacity=".3">E</text>
+          <text x="-12" y="2" font-family="'Pixelify Sans',sans-serif" font-size="4" fill="#c76090" opacity=".3">W</text>
+          <!-- center dot -->
+          <circle cx="0" cy="0" r="1.5" fill="#c76090" opacity=".3"/>
+        </g>
+
+        <!-- ═══ BOTTOM DECORATIVE VINE ═══ -->
+        <path d="M40 410 Q80 404 120 410 Q160 416 200 410 Q240 404 280 410 Q320 416 360 410 Q400 404 440 410 Q480 416 520 410 Q560 404 600 410 Q640 416 680 410 Q700 406 720 410" fill="none" stroke="#c76090" stroke-width=".5" opacity=".15"/>
+
+      </svg>
+    </div>
+  </div>
+
+  <!-- STORE CARDS -->
+  <div class="box">
+    <div class="box-title">our stockists ✦</div>
+    <div class="stores-grid">
+
+      <div class="store-card">
+        <div class="store-city">studio city, ca</div>
+        <div class="store-name">dia wine shop</div>
+        <div class="store-addr">12113 ventura blvd<br>studio city, ca 91604</div>
+        <div class="store-vibe">valley girl wine bar ♡</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">los angeles, ca</div>
+        <div class="store-name">monsieur marcel</div>
+        <div class="store-addr">the grove<br>189 the grove dr, los angeles, ca 90036</div>
+        <div class="store-vibe">parisian market energy</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="coming-soon">
+    <div class="cs-title">coming soon...</div>
+    <div class="cs-sub">we're expanding the muse universe. these cities are next on our list — stay tuned, babe.</div>
+    <div class="cs-cities">
+      <span class="cs-chip">new york</span>
+      <span class="cs-chip">austin</span>
+      <span class="cs-chip">miami</span>
+      <span class="cs-chip">tulum</span>
+      <span class="cs-chip">paris</span>
+    </div>
+  </div>
+
+  <!-- MUSE NOTE -->
+  <div class="muse-note">
+    <div class="mn-icon">✦</div>
+    <p>want to stock maison maxine at your shop, cafe, or wine bar?<br>
+    we'd love to hear from you — <a href="#">drop us a note</a> and let's talk.</p>
+  </div>
+
+  <!-- BADGES -->
+  <div class="box">
+    <div class="box-title">badges ✦</div>
+    <div class="badges">
+      <span class="badge">malibu made</span>
+      <span class="badge">clean ingredients</span>
+      <span class="badge">5% for animals</span>
+      <span class="badge">women owned</span>
+      <span class="badge">napa valley cab</span>
+      <span class="badge">muse approved ✦</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>
