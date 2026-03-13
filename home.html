@@ -843,6 +843,7 @@ body::before{
   const el=document.getElementById('visitor-count');
   if(!el)return;
   const domain='oliviagubel.github.io/maison-maxine';
+  const BASE=482;
 
   function animateTo(target){
     let current=0;
@@ -861,12 +862,12 @@ body::before{
     body:JSON.stringify({domain:domain,page_path:location.pathname,page_title:document.title})
   })
   .then(r=>r.json())
-  .then(data=>animateTo(data.totalCount))
+  .then(data=>animateTo(data.totalCount+BASE))
   .catch(()=>{
     // fallback: try GET if POST fails
     fetch('https://visitor.6developer.com/visit?domain='+domain)
       .then(r=>r.json())
-      .then(data=>animateTo(data.totalCount))
+      .then(data=>animateTo(data.totalCount+BASE))
       .catch(()=>{ el.textContent='✦✦✦✦✦'; });
   });
 })();
