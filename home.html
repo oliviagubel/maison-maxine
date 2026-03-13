@@ -553,13 +553,34 @@ body::before{
     font-size:22px;
     color:#c76090;
   }
-  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
   .mobile-header .links a{
     font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
   }
+  .mobile-menu-btn{
+    font-size:14px;color:#c76090;cursor:pointer;padding:0 2px;
+  }
+  .mobile-nav{
+    display:none;
+    position:fixed;top:48px;left:0;right:0;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    padding:12px 16px;
+    z-index:99;
+    flex-direction:column;
+    gap:10px;
+    box-shadow:0 4px 16px rgba(247,205,235,.3);
+  }
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{
+    font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;
+    padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3);
+  }
+  .mobile-nav a:last-child{border-bottom:none}
   #main{padding-top:60px}
 }
 @media(min-width:769px){
+  .mobile-nav{display:none!important}
   .mobile-header{display:none}
 }
 
@@ -575,10 +596,20 @@ body::before{
 <div class="mobile-header">
   <div class="logo">Maison Maxine</div>
   <div class="links">
-    <a href="#">shop</a>
-    <a href="#">about</a>
-    <a href="#">cart</a>
+    <a href="shop.html">shop</a>
+    <a href="store-locator.html">find us</a>
+    <a href="compassion.html">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
   </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="home.html">home</a>
+  <a href="shop.html">shop</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
 </div>
 
 
@@ -671,7 +702,7 @@ body::before{
       <div class="box">
         <div class="box-title">dear diary ✦</div>
         <p>hey babe, welcome to our little corner of the web. maison maxine is a wine spritzer brand born in napa valley, california ✦ made with four whole ingredients and a whole lot of love.</p>
-        <p>we believe that what you drink should be as intentional as how you live. every sip is clean, every can gives back. 5% of everything we make goes to animals in need 🐾</p>
+        <p>we believe that what you drink should be as intentional as how you live. every sip is clean, every can gives back. 5% of everything we make goes to animals in need ♡</p>
       </div>
 
       <!-- WHAT'S INSIDE -->
@@ -707,7 +738,7 @@ body::before{
           </div>
           <div class="currently-item">
             <div class="label">giving to</div>
-            <div class="val" id="c-giving">animal rescue 🐾</div>
+            <div class="val" id="c-giving">animal rescue ♡</div>
           </div>
         </div>
       </div>
@@ -722,11 +753,11 @@ body::before{
           </div>
           <div class="update-entry">
             <div class="date">03.01.26</div>
-            <div class="text">we just donated to our first animal rescue! thank you for sipping with purpose 🐾</div>
+            <div class="text">we just donated to our first animal rescue! thank you for sipping with purpose ♡</div>
           </div>
           <div class="update-entry">
             <div class="date">02.14.26</div>
-            <div class="text">happy valentine's day from your fav spritzer brand 💌</div>
+            <div class="text">happy valentine's day from your fav spritzer brand ♡</div>
           </div>
           <div class="update-entry">
             <div class="date">01.20.26</div>
@@ -809,10 +840,10 @@ body::before{
     'plotting something cute','flushed & feeling myself'
   ];
   const giving=[
-    'puppies looking for homes 🐾','elephant sanctuary 🐘','senior dogs in shelters 🐾',
-    'ocean cleanup 🌊','animal rescue 🐾','wild horse preservation 🐴',
-    'bee conservation 🐝','shelter kittens 🐱','coral reef restoration 🪸',
-    'wolf sanctuaries 🐺','rescued donkeys 🫏','sea turtle rehab 🐢'
+    'puppies looking for homes ♡','elephant sanctuary ✦','senior dogs in shelters ♡',
+    'ocean cleanup ✧','animal rescue ♡','wild horse preservation ✦',
+    'bee conservation ✧','shelter kittens ♡','coral reef restoration ✦',
+    'wolf sanctuaries ✧','rescued donkeys ♡','sea turtle rehab ✦'
   ];
 
   document.getElementById('c-sipping').textContent=pick(sipping);
@@ -882,7 +913,7 @@ body::before{
     const c=d.current;
     const temp=Math.round(c.temperature_2m);
     const code=c.weather_code;
-    const icons={0:'☀',1:'🌤',2:'⛅',3:'☁',45:'🌫',48:'🌫',51:'🌦',53:'🌧',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'❄',73:'❄',75:'❄',80:'🌦',81:'🌧',82:'🌧',95:'⛈'};
+    const icons={0:'✦',1:'⋆',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
     const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
     document.getElementById('w-icon').textContent=icons[code]||'☀';
     document.getElementById('w-temp').textContent=temp+'°f';
