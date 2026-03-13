@@ -277,6 +277,10 @@ body::before{
   0%,100%{opacity:1;transform:scale(1)}
   50%{opacity:.3;transform:scale(.6)}
 }
+@keyframes rec-blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
 
 /* ═══ CONTENT BOXES ═══ */
 .box{
@@ -620,30 +624,17 @@ body::before{
     </div>
   </div>
 
-  <!-- CAUSE CARDS -->
-  <div class="cause-grid">
-
-    <div class="cause-card">
-      <div class="cause-icon">🐱</div>
-      <div class="cause-label">rescue kittens</div>
-      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px auto"></div>
-      <div class="cause-desc">giving rescue kittens a second chance at a loving home ✦</div>
+  <!-- SEA TURTLE CAM -->
+  <div class="box" style="padding:16px;text-align:center">
+    <div class="box-title">live turtle cam ✦</div>
+    <div style="position:relative;border-radius:6px;overflow:hidden;border:2px solid #f7cdeb;background:#000">
+      <video autoplay loop muted playsinline style="width:100%;display:block;border-radius:4px">
+        <source src="2179072.mp4" type="video/mp4">
+      </video>
+      <div style="position:absolute;top:10px;left:12px;font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;color:#fff;text-shadow:0 0 6px rgba(0,0,0,.6);text-transform:uppercase">🐢 turtle cam</div>
+      <div style="position:absolute;top:10px;right:12px;font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.1em;color:#ff6b6b;text-shadow:0 0 6px rgba(0,0,0,.6);animation:rec-blink 1.2s ease-in-out infinite">● REC</div>
     </div>
-
-    <div class="cause-card">
-      <div class="cause-icon">🐄</div>
-      <div class="cause-label">farm animals</div>
-      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px auto"></div>
-      <div class="cause-desc">supporting sanctuaries that protect and care for farm animals ✦</div>
-    </div>
-
-    <div class="cause-card">
-      <div class="cause-icon">🐢</div>
-      <div class="cause-label">sea turtles</div>
-      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px auto"></div>
-      <div class="cause-desc">helping protect endangered sea turtles and their habitats ✦</div>
-    </div>
-
+    <p style="font-size:12px;font-style:italic;color:#8a6a7a;margin-top:10px;line-height:1.6">watching over our ocean friends, one sip at a time ✦</p>
   </div>
 
   <!-- CLOSING NOTE -->
