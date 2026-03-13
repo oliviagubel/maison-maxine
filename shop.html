@@ -1241,7 +1241,13 @@ function clearCart() {
 }
 
 function checkout() {
-  window.open('https://square.link/u/rjNXauuk', '_blank');
+  const a = document.createElement('a');
+  a.href = 'https://square.link/u/rjNXauuk';
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 }
 
 // ═══ MOBILE CART LINK ═══
