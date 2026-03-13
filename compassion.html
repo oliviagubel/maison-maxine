@@ -316,21 +316,21 @@ body::before{
 
 /* ═══ TURTLE CAM MONITOR ═══ */
 .cam-monitor{
-  background:#1a1a2e;
+  background:#fef6fa;
   border:3px solid #f7cdeb;
   border-radius:10px;
   padding:0;
   margin-bottom:20px;
   overflow:hidden;
-  box-shadow:0 0 30px rgba(199,96,144,.2),inset 0 0 60px rgba(0,0,0,.3);
+  box-shadow:0 0 30px rgba(247,205,235,.3);
 }
 .cam-toolbar{
-  background:linear-gradient(180deg,#2a1a3e 0%,#1a1a2e 100%);
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 100%);
   padding:8px 14px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-bottom:1px solid rgba(247,205,235,.2);
+  border-bottom:1px solid rgba(247,205,235,.4);
 }
 .cam-toolbar-left{
   display:flex;
@@ -338,14 +338,14 @@ body::before{
   gap:6px;
 }
 .cam-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
-.cam-dot.red{background:#ff6b6b;box-shadow:0 0 6px #ff6b6b}
-.cam-dot.yellow{background:#ffd93d;box-shadow:0 0 6px #ffd93d}
-.cam-dot.green{background:#6bcb77;box-shadow:0 0 6px #6bcb77}
+.cam-dot.red{background:#e8a0b8;box-shadow:0 0 4px #e8a0b8}
+.cam-dot.yellow{background:#f0d0a0;box-shadow:0 0 4px #f0d0a0}
+.cam-dot.green{background:#b8d8a0;box-shadow:0 0 4px #b8d8a0}
 .cam-title{
   font-family:'Pixelify Sans',sans-serif;
   font-size:10px;
   letter-spacing:.15em;
-  color:#f7cdeb;
+  color:#c76090;
   text-transform:uppercase;
 }
 .cam-video-wrap{
@@ -399,17 +399,17 @@ body::before{
   letter-spacing:.08em;
 }
 .cam-footer{
-  background:linear-gradient(180deg,#1a1a2e 0%,#2a1a3e 100%);
+  background:linear-gradient(180deg,#fef6fa 0%,#fdf0f6 100%);
   padding:10px 14px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  border-top:1px solid rgba(247,205,235,.2);
+  border-top:1px solid rgba(247,205,235,.4);
 }
 .cam-footer-text{
   font-family:'Pixelify Sans',sans-serif;
   font-size:8px;
-  color:#f7cdeb;
+  color:#c76090;
   letter-spacing:.12em;
   text-transform:uppercase;
 }
@@ -448,8 +448,8 @@ body::before{
   margin-bottom:20px;
 }
 .ticker-card{
-  background:linear-gradient(135deg,#1a1a2e,#2a1a3e);
-  border:1px solid rgba(247,205,235,.3);
+  background:linear-gradient(135deg,#fffcfe,#fef6fa);
+  border:2px solid #f7cdeb;
   border-radius:8px;
   padding:16px 12px;
   text-align:center;
@@ -457,23 +457,15 @@ body::before{
   position:relative;
   overflow:hidden;
 }
-.ticker-card::before{
-  content:'';
-  position:absolute;
-  inset:-50%;
-  background:conic-gradient(transparent,rgba(247,205,235,.1),transparent,transparent);
-  animation:ticker-spin 4s linear infinite;
-}
-@keyframes ticker-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
 .ticker-card:hover{
-  border-color:#f7cdeb;
-  box-shadow:0 0 20px rgba(247,205,235,.3);
+  border-color:#c76090;
+  box-shadow:0 0 20px rgba(247,205,235,.4);
   transform:translateY(-3px);
 }
 .ticker-num{
   font-family:'Burgues Script','Great Vibes',cursive;
   font-size:32px;
-  color:#f7cdeb;
+  color:#c76090;
   line-height:1;
   position:relative;
   z-index:1;
@@ -483,7 +475,7 @@ body::before{
   font-size:8px;
   letter-spacing:.15em;
   text-transform:uppercase;
-  color:rgba(247,205,235,.7);
+  color:#8a6a7a;
   margin-top:6px;
   position:relative;
   z-index:1;
@@ -659,14 +651,21 @@ body::before{
     font-size:22px;
     color:#c76090;
   }
-  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
   .mobile-header .links a{
     font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
   }
+  .mobile-menu-btn{font-size:14px;color:#c76090;cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:48px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
+  .impact-ticker{grid-template-columns:1fr!important}
   #main{padding-top:60px}
 }
 @media(min-width:769px){
   .mobile-header{display:none}
+  .mobile-nav{display:none!important}
 }
 
 
@@ -681,9 +680,20 @@ body::before{
 <div class="mobile-header">
   <div class="logo">Maison Maxine</div>
   <div class="links">
-    <a href="shop.html">shop</a>
     <a href="home.html">home</a>
+    <a href="shop.html">shop</a>
+    <a href="compassion.html">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
   </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="home.html">home</a>
+  <a href="shop.html">shop</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
 </div>
 
 
@@ -798,7 +808,7 @@ body::before{
       </video>
       <div class="cam-overlay"></div>
       <div class="cam-hud">
-        <div class="cam-hud-tl">🐢 TURTLE CAM — LIVE</div>
+        <div class="cam-hud-tl">✧ TURTLE CAM — LIVE</div>
         <div class="cam-hud-tr">● REC</div>
         <div class="cam-hud-bl" id="cam-date">03.13.2026</div>
         <div class="cam-hud-br">CAM 01 — OCEAN FLOOR</div>
@@ -806,7 +816,7 @@ body::before{
     </div>
     <div class="cam-footer">
       <div class="cam-footer-text">stream powered by maison maxine compassion fund</div>
-      <div class="cam-footer-icons">🐢 🐱 🐄</div>
+      <div class="cam-footer-icons" style="font-family:'Pixelify Sans',sans-serif;font-size:9px;color:#c76090;letter-spacing:.1em">✧ ♡ ✦</div>
     </div>
   </div>
 
@@ -831,7 +841,7 @@ body::before{
     <div class="box-title">guestbook ✦ leave ur mark</div>
     <div class="gb-entry">
       <div class="gb-name">♡ summer r.</div>
-      <div class="gb-msg">i literally cried watching the turtle cam. this page is everything. sip up save pups forever 🐢🩷</div>
+      <div class="gb-msg">i literally cried watching the turtle cam. this page is everything. sip up save pups forever ✧♡</div>
       <div class="gb-date">march 2026 — newport beach, ca</div>
     </div>
     <div class="gb-entry">
@@ -925,7 +935,7 @@ body::before{
     const c=d.current;
     const temp=Math.round(c.temperature_2m);
     const code=c.weather_code;
-    const icons={0:'☀',1:'🌤',2:'⛅',3:'☁',45:'🌫',48:'🌫',51:'🌦',53:'🌧',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'❄',73:'❄',75:'❄',80:'🌦',81:'🌧',82:'🌧',95:'⛈'};
+    const icons={0:'✦',1:'⋆',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
     const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
     document.getElementById('w-icon').textContent=icons[code]||'☀';
     document.getElementById('w-temp').textContent=temp+'°f';
