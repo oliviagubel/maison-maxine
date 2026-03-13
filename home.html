@@ -838,18 +838,37 @@ body::before{
   setInterval(spawn,600);
 })();
 
-// ═══ VISITOR COUNTER (fun animation) ═══
+// ═══ VISITOR COUNTER (real) ═══
 (function(){
   const el=document.getElementById('visitor-count');
   if(!el)return;
-  const target=482;
-  let current=0;
-  const step=Math.ceil(target/40);
-  const iv=setInterval(()=>{
-    current=Math.min(current+step,target);
-    el.textContent=String(current).padStart(5,'0').replace(/(\d{2})(\d{3})/,'$1,$2');
-    if(current>=target)clearInterval(iv);
-  },40);
+  const domain='oliviagubel.github.io/maison-maxine';
+
+  function animateTo(target){
+    let current=0;
+    const step=Math.max(1,Math.ceil(target/40));
+    const iv=setInterval(()=>{
+      current=Math.min(current+step,target);
+      el.textContent=String(current).padStart(5,'0').replace(/(\d{2})(\d{3})/,'$1,$2');
+      if(current>=target)clearInterval(iv);
+    },40);
+  }
+
+  // record this visit and get total
+  fetch('https://visitor.6developer.com/visit',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({domain:domain,page_path:location.pathname,page_title:document.title})
+  })
+  .then(r=>r.json())
+  .then(data=>animateTo(data.totalCount))
+  .catch(()=>{
+    // fallback: try GET if POST fails
+    fetch('https://visitor.6developer.com/visit?domain='+domain)
+      .then(r=>r.json())
+      .then(data=>animateTo(data.totalCount))
+      .catch(()=>{ el.textContent='✦✦✦✦✦'; });
+  });
 })();
 
 // ═══ MALIBU WEATHER ═══
