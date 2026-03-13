@@ -314,46 +314,214 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ CAUSE CARDS ═══ */
-.cause-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:16px;
+/* ═══ TURTLE CAM MONITOR ═══ */
+.cam-monitor{
+  background:#1a1a2e;
+  border:3px solid #f7cdeb;
+  border-radius:10px;
+  padding:0;
   margin-bottom:20px;
+  overflow:hidden;
+  box-shadow:0 0 30px rgba(199,96,144,.2),inset 0 0 60px rgba(0,0,0,.3);
 }
-.cause-card{
-  background:#fffcfe;
-  border:2px solid #f7cdeb;
-  border-radius:8px;
-  padding:22px 18px;
-  text-align:center;
-  transition:all .4s;
-  box-shadow:2px 3px 12px rgba(247,205,235,.2);
+.cam-toolbar{
+  background:linear-gradient(180deg,#2a1a3e 0%,#1a1a2e 100%);
+  padding:8px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(247,205,235,.2);
 }
-.cause-card:nth-child(1){transform:rotate(-1.2deg)}
-.cause-card:nth-child(2){transform:rotate(.8deg)}
-.cause-card:nth-child(3){transform:rotate(-0.6deg)}
-.cause-card:hover{
-  transform:rotate(0deg) translateY(-4px);
-  box-shadow:0 8px 28px rgba(247,205,235,.35);
+.cam-toolbar-left{
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
-.cause-icon{
-  font-size:28px;
-  margin-bottom:8px;
-}
-.cause-label{
+.cam-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.cam-dot.red{background:#ff6b6b;box-shadow:0 0 6px #ff6b6b}
+.cam-dot.yellow{background:#ffd93d;box-shadow:0 0 6px #ffd93d}
+.cam-dot.green{background:#6bcb77;box-shadow:0 0 6px #6bcb77}
+.cam-title{
   font-family:'Pixelify Sans',sans-serif;
   font-size:10px;
   letter-spacing:.15em;
+  color:#f7cdeb;
+  text-transform:uppercase;
+}
+.cam-video-wrap{
+  position:relative;
+  background:#000;
+}
+.cam-video-wrap video{
+  width:100%;
+  display:block;
+  filter:saturate(1.1) contrast(1.05);
+}
+.cam-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+}
+.cam-hud{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.cam-hud-tl{
+  position:absolute;top:12px;left:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;color:#fff;
+  text-shadow:0 0 8px rgba(0,0,0,.8);
+  letter-spacing:.1em;
+}
+.cam-hud-tr{
+  position:absolute;top:12px;right:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;color:#ff6b6b;
+  text-shadow:0 0 8px rgba(0,0,0,.8);
+  letter-spacing:.1em;
+  animation:rec-blink 1.2s ease-in-out infinite;
+}
+.cam-hud-bl{
+  position:absolute;bottom:12px;left:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;color:rgba(255,255,255,.7);
+  text-shadow:0 0 6px rgba(0,0,0,.8);
+  letter-spacing:.08em;
+}
+.cam-hud-br{
+  position:absolute;bottom:12px;right:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;color:rgba(255,255,255,.7);
+  text-shadow:0 0 6px rgba(0,0,0,.8);
+  letter-spacing:.08em;
+}
+.cam-footer{
+  background:linear-gradient(180deg,#1a1a2e 0%,#2a1a3e 100%);
+  padding:10px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid rgba(247,205,235,.2);
+}
+.cam-footer-text{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#f7cdeb;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.cam-footer-icons{
+  display:flex;gap:8px;font-size:12px;
+}
+
+/* ═══ MARQUEE ═══ */
+.compassion-marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  margin-bottom:20px;
+  padding:10px 0;
+  border-top:1px dotted #f7cdeb;
+  border-bottom:1px dotted #f7cdeb;
+}
+.compassion-marquee span{
+  display:inline-block;
+  animation:marquee-scroll 18s linear infinite;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.2em;
   text-transform:uppercase;
   color:#c76090;
-  margin-bottom:6px;
 }
-.cause-desc{
+@keyframes marquee-scroll{
+  0%{transform:translateX(100%)}
+  100%{transform:translateX(-100%)}
+}
+
+/* ═══ IMPACT TICKER ═══ */
+.impact-ticker{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+.ticker-card{
+  background:linear-gradient(135deg,#1a1a2e,#2a1a3e);
+  border:1px solid rgba(247,205,235,.3);
+  border-radius:8px;
+  padding:16px 12px;
+  text-align:center;
+  transition:all .4s;
+  position:relative;
+  overflow:hidden;
+}
+.ticker-card::before{
+  content:'';
+  position:absolute;
+  inset:-50%;
+  background:conic-gradient(transparent,rgba(247,205,235,.1),transparent,transparent);
+  animation:ticker-spin 4s linear infinite;
+}
+@keyframes ticker-spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.ticker-card:hover{
+  border-color:#f7cdeb;
+  box-shadow:0 0 20px rgba(247,205,235,.3);
+  transform:translateY(-3px);
+}
+.ticker-num{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:32px;
+  color:#f7cdeb;
+  line-height:1;
+  position:relative;
+  z-index:1;
+}
+.ticker-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:rgba(247,205,235,.7);
+  margin-top:6px;
+  position:relative;
+  z-index:1;
+}
+
+/* ═══ GUESTBOOK ═══ */
+.guestbook{
+  background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%);
+  border:2px solid #f7cdeb;
+  border-radius:8px;
+  padding:20px;
+  margin-bottom:20px;
+}
+.gb-entry{
+  padding:12px 0;
+  border-bottom:1px dotted rgba(247,205,235,.5);
+}
+.gb-entry:last-child{border-bottom:none}
+.gb-name{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-transform:uppercase;
+}
+.gb-msg{
   font-size:13px;
   font-style:italic;
+  color:#5a3a4a;
+  line-height:1.6;
+  margin-top:4px;
+}
+.gb-date{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
   color:#8a6a7a;
-  line-height:1.7;
+  letter-spacing:.08em;
+  margin-top:4px;
 }
 
 /* ═══ MINI BADGES ═══ */
@@ -601,6 +769,11 @@ body::before{
     <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
   </div>
 
+  <!-- SCROLLING MARQUEE -->
+  <div class="compassion-marquee">
+    <span>✦ sip up, save pups ✦ 5% of net proceeds go to animals in need ✦ rescue kittens ✦ farm animals ✦ sea turtles ✦ reimagining red wine, restoring compassion ✦ every can counts ✦ sip up, save pups ✦ 5% of net proceeds go to animals in need ✦</span>
+  </div>
+
   <!-- MISSION LETTER -->
   <div class="box" style="position:relative;padding:32px 30px 28px;background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%)">
     <div style="position:absolute;top:-12px;left:24px;font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#c76090;background:#fef8fb;padding:0 12px">our compassion promise</div>
@@ -608,36 +781,72 @@ body::before{
     <p style="margin-top:16px;text-align:right;font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">every sip gives back ♡</p>
   </div>
 
-  <!-- STAT STRIP -->
-  <div class="stat-strip">
-    <div class="stat">
-      <div class="stat-num">5%</div>
-      <div class="stat-label">of net proceeds</div>
+  <!-- TURTLE CAM MONITOR -->
+  <div class="cam-monitor">
+    <div class="cam-toolbar">
+      <div class="cam-toolbar-left">
+        <span class="cam-dot red"></span>
+        <span class="cam-dot yellow"></span>
+        <span class="cam-dot green"></span>
+        <span class="cam-title" style="margin-left:8px">turtlecam_feed_01.mov</span>
+      </div>
+      <div class="cam-title" style="opacity:.6" id="cam-time">00:00:00</div>
     </div>
-    <div class="stat">
-      <div class="stat-num">✦</div>
-      <div class="stat-label">every can counts</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num">♡</div>
-      <div class="stat-label">animals in need</div>
-    </div>
-  </div>
-
-  <!-- SEA TURTLE CAM -->
-  <div class="box" style="padding:16px;text-align:center">
-    <div class="box-title">live turtle cam ✦</div>
-    <div style="position:relative;border-radius:6px;overflow:hidden;border:2px solid #f7cdeb;background:#000">
-      <video autoplay loop muted playsinline style="width:100%;display:block;border-radius:4px">
+    <div class="cam-video-wrap">
+      <video autoplay loop muted playsinline>
         <source src="2179072.mp4" type="video/mp4">
       </video>
-      <div style="position:absolute;top:10px;left:12px;font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;color:#fff;text-shadow:0 0 6px rgba(0,0,0,.6);text-transform:uppercase">🐢 turtle cam</div>
-      <div style="position:absolute;top:10px;right:12px;font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.1em;color:#ff6b6b;text-shadow:0 0 6px rgba(0,0,0,.6);animation:rec-blink 1.2s ease-in-out infinite">● REC</div>
+      <div class="cam-overlay"></div>
+      <div class="cam-hud">
+        <div class="cam-hud-tl">🐢 TURTLE CAM — LIVE</div>
+        <div class="cam-hud-tr">● REC</div>
+        <div class="cam-hud-bl" id="cam-date">03.13.2026</div>
+        <div class="cam-hud-br">CAM 01 — OCEAN FLOOR</div>
+      </div>
     </div>
-    <p style="font-size:12px;font-style:italic;color:#8a6a7a;margin-top:10px;line-height:1.6">watching over our ocean friends, one sip at a time ✦</p>
+    <div class="cam-footer">
+      <div class="cam-footer-text">stream powered by maison maxine compassion fund</div>
+      <div class="cam-footer-icons">🐢 🐱 🐄</div>
+    </div>
   </div>
 
-  <!-- CLOSING NOTE -->
+  <!-- IMPACT TICKER -->
+  <div class="impact-ticker">
+    <div class="ticker-card">
+      <div class="ticker-num">5%</div>
+      <div class="ticker-label">of net proceeds donated</div>
+    </div>
+    <div class="ticker-card">
+      <div class="ticker-num">3</div>
+      <div class="ticker-label">causes we support</div>
+    </div>
+    <div class="ticker-card">
+      <div class="ticker-num">♡</div>
+      <div class="ticker-label">in every single can</div>
+    </div>
+  </div>
+
+  <!-- GUESTBOOK -->
+  <div class="guestbook">
+    <div class="box-title">guestbook ✦ leave ur mark</div>
+    <div class="gb-entry">
+      <div class="gb-name">♡ summer r.</div>
+      <div class="gb-msg">i literally cried watching the turtle cam. this page is everything. sip up save pups forever 🐢🩷</div>
+      <div class="gb-date">march 2026 — newport beach, ca</div>
+    </div>
+    <div class="gb-entry">
+      <div class="gb-name">♡ olivia g.</div>
+      <div class="gb-msg">the whole reason we started this. every sip matters, every can counts. so proud of what we're building ✦</div>
+      <div class="gb-date">march 2026 — napa valley, ca</div>
+    </div>
+    <div class="gb-entry">
+      <div class="gb-name">♡ anonymous muse</div>
+      <div class="gb-msg">just ordered a 4-pack knowing some of it goes to rescue kittens?? obsessed. the turtle cam is so y2k i can't</div>
+      <div class="gb-date">march 2026</div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
   <div style="text-align:center;padding:20px 0 10px;position:relative">
     <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:14px">✦ ♡ ✦</div>
     <p style="font-size:14px;font-style:italic;color:#8a6a7a;line-height:1.8;max-width:420px;margin:0 auto">we don't just make spritzers — we make a difference.<br>every can is a little love letter to the animals who need it most ✦</p>
@@ -656,6 +865,24 @@ body::before{
 </div>
 
 <script>
+// ═══ TURTLE CAM CLOCK ═══
+(function(){
+  const timeEl=document.getElementById('cam-time');
+  const dateEl=document.getElementById('cam-date');
+  function tick(){
+    const now=new Date();
+    const h=String(now.getHours()).padStart(2,'0');
+    const m=String(now.getMinutes()).padStart(2,'0');
+    const s=String(now.getSeconds()).padStart(2,'0');
+    timeEl.textContent=h+':'+m+':'+s;
+    const mm=String(now.getMonth()+1).padStart(2,'0');
+    const dd=String(now.getDate()).padStart(2,'0');
+    dateEl.textContent=mm+'.'+dd+'.'+now.getFullYear();
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
 // ═══ NOW PLAYING RANDOMIZER ═══
 (function(){
   const songs=[
