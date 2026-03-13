@@ -141,18 +141,19 @@ body{
   width:50%;
   background-color:#e8a0be;
   background-image:url('curtain.png');
-  background-size:cover;
+  background-size:200% 100%;
+  background-repeat:no-repeat;
   transition:transform 1.6s cubic-bezier(.77,0,.18,1);
   will-change:transform;
 }
 .curtain-left{
   left:0;
-  background-position:left center;
+  background-position:0% center;
   transform-origin:left center;
 }
 .curtain-right{
   right:0;
-  background-position:right center;
+  background-position:100% center;
   transform-origin:right center;
 }
 .curtain.open .curtain-left{
