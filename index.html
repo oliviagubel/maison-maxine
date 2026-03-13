@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Maxine™</title>
+<script>if(window.innerWidth<=768){window.location.href='home.html'}</script>
 <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 
@@ -123,6 +125,43 @@ body{
   font-size:14px;color:#5a1e3a;letter-spacing:.18em;
   text-shadow:1px 1px 0 rgba(255,255,255,.9)
 }
+
+/* ═══ CURTAIN OVERLAY ═══ */
+.curtain{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:9998;
+  pointer-events:none;
+  perspective:1000px;
+  overflow:hidden;
+}
+.curtain-left,.curtain-right{
+  position:absolute;
+  top:0;bottom:0;
+  width:50%;
+  background-color:#e8a0be;
+  background-image:url('curtain.png');
+  background-size:cover;
+  transition:transform 1.6s cubic-bezier(.77,0,.18,1);
+  will-change:transform;
+}
+.curtain-left{
+  left:0;
+  background-position:left center;
+  transform-origin:left center;
+}
+.curtain-right{
+  right:0;
+  background-position:right center;
+  transform-origin:right center;
+}
+.curtain.open .curtain-left{
+  transform:translateX(-105%) rotateY(-12deg);
+}
+.curtain.open .curtain-right{
+  transform:translateX(105%) rotateY(12deg);
+}
+.curtain.gone{display:none}
 
 /* MOUSE SPARKLE TRAIL */
 .mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
@@ -249,7 +288,7 @@ body{
   <div class="xoxo-note" style="top:5px;left:5px;font-size:20px">xo xo</div>
   <div class="xoxo-note" style="bottom:50px;right:80px;font-size:18px;transform:rotate(3deg)">with love from napa ♡</div>
   <!-- ENTER -->
-  <a href="home.html" id="enter" style="bottom:-15px;left:50%;transform:translateX(-50%)">
+  <a href="#" id="enter" style="bottom:-15px;left:50%;transform:translateX(-50%)" onclick="event.preventDefault();document.getElementById('curtain').classList.add('open');setTimeout(function(){window.location.href='home.html'},1400)">
     <svg width="50" height="50" viewBox="0 0 66 66" fill="none"
       style="filter:drop-shadow(2px 3px 5px rgba(0,0,0,.2))">
       <circle cx="33" cy="33" r="31" fill="#fef0f8" stroke="#b75d83" stroke-width="2.2"/>
@@ -269,5 +308,11 @@ body{
 <script>
 (function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
 </script>
+
+<!-- CURTAIN OVERLAY -->
+<div class="curtain" id="curtain">
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+</div>
 </body>
 </html>
