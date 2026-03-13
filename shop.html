@@ -561,14 +561,20 @@ body::before{
     font-size:22px;
     color:#c76090;
   }
-  .mobile-header .links{display:flex;gap:14px}
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
   .mobile-header .links a{
     font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
   }
+  .mobile-menu-btn{font-size:14px;color:#c76090;cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:48px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
   #main{padding-top:60px}
 }
 @media(min-width:769px){
   .mobile-header{display:none}
+  .mobile-nav{display:none!important}
 }
 
 
@@ -872,9 +878,19 @@ body::before{
   <div class="logo">Maison Maxine</div>
   <div class="links">
     <a href="home.html">home</a>
-    <a href="#">about</a>
-    <a href="#">cart</a>
+    <a href="store-locator.html">find us</a>
+    <a href="compassion.html">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
   </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="home.html">home</a>
+  <a href="shop.html">shop</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
 </div>
 
 <!-- SIDEBAR -->
@@ -981,12 +997,12 @@ body::before{
   <!-- INFO CARDS -->
   <div class="info-grid">
     <div class="info-card">
-      <div class="ic-icon">🍷</div>
+      <div class="ic-icon">✦</div>
       <div class="ic-title">clean sip</div>
       <div class="ic-text">four ingredients, no added sugar, no sulfites, no nonsense</div>
     </div>
     <div class="info-card">
-      <div class="ic-icon">🐾</div>
+      <div class="ic-icon">♡</div>
       <div class="ic-title">gives back</div>
       <div class="ic-text">5% of every purchase goes to animal rescue organizations</div>
     </div>
@@ -1084,7 +1100,7 @@ body::before{
 
 <!-- FLOATING CART BUTTON -->
 <button class="cart-float" id="cartFloat" onclick="openDrawer()">
-  🛒
+  ✧
   <span class="cart-count" id="cartCount">0</span>
 </button>
 
