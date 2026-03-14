@@ -505,53 +505,55 @@ body::before{
 /* ═══ AIM AWAY MESSAGE ═══ */
 .aim-window{
   position:fixed;
-  top:120px;right:40px;
-  width:300px;
-  background:#ececec;
-  border:1px solid #888;
-  border-radius:6px 6px 4px 4px;
-  box-shadow:4px 4px 16px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.6);
+  top:140px;right:30px;
+  width:260px;
+  background:#fef8fb;
+  border:1px solid #f0d0e2;
+  border-radius:10px 10px 8px 8px;
+  box-shadow:2px 3px 16px rgba(247,205,235,.4), inset 0 1px 0 rgba(255,255,255,.8);
   z-index:800;
   font-family:'Lucida Grande','Trebuchet MS',sans-serif;
   cursor:default;
   user-select:none;
 }
 .aim-titlebar{
-  background:linear-gradient(180deg, #6eaadc 0%, #3b7dd8 40%, #2a5db0 100%);
+  background:linear-gradient(180deg, #fce8f1 0%, #f7d5e5 40%, #f0c4d8 100%);
   padding:5px 8px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  border-radius:5px 5px 0 0;
+  border-radius:9px 9px 0 0;
   cursor:grab;
+  border-bottom:1px solid #f0d0e2;
 }
 .aim-titlebar:active{cursor:grabbing}
 .aim-dots{display:flex;gap:5px}
 .aim-dots span{
-  width:10px;height:10px;
+  width:8px;height:8px;
   border-radius:50%;
   display:inline-block;
 }
-.aim-dots span:nth-child(1){background:#ff5f57;border:1px solid #e33e32}
-.aim-dots span:nth-child(2){background:#febc2e;border:1px solid #e09e18}
-.aim-dots span:nth-child(3){background:#28c840;border:1px solid #1aab29}
+.aim-dots span:nth-child(1){background:#f7a0b8;border:1px solid #e88da5}
+.aim-dots span:nth-child(2){background:#f7cdeb;border:1px solid #e8b8d8}
+.aim-dots span:nth-child(3){background:#c8e6c0;border:1px solid #a8d0a0}
 .aim-title-text{
-  color:#fff;
-  font-size:11px;
+  color:#c76090;
+  font-size:10px;
   font-weight:bold;
-  text-shadow:0 1px 2px rgba(0,0,0,.3);
+  text-shadow:none;
   flex:1;
   text-align:center;
+  letter-spacing:.02em;
 }
 .aim-close{
   background:none;border:none;
-  color:rgba(255,255,255,.8);
-  font-size:14px;
+  color:#c76090;
+  font-size:13px;
   cursor:pointer;
   padding:0 2px;
   line-height:1;
 }
-.aim-close:hover{color:#fff}
+.aim-close:hover{color:#a84d78}
 .aim-body{
   background:#fff;
   margin:6px;
@@ -599,18 +601,19 @@ body::before{
   gap:6px;
 }
 .aim-btn{
-  font-family:'Lucida Grande','Trebuchet MS',sans-serif;
-  font-size:10px;
-  padding:3px 14px;
-  border:1px solid #888;
-  border-radius:3px;
-  background:linear-gradient(180deg,#f8f8f8,#ddd);
-  color:#333;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 14px;
+  border:1px solid #f0d0e2;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fef8fb,#fce8f1);
+  color:#c76090;
   cursor:pointer;
-  box-shadow:0 1px 2px rgba(0,0,0,.1);
+  box-shadow:0 1px 2px rgba(247,205,235,.2);
 }
-.aim-btn:hover{background:linear-gradient(180deg,#fff,#e8e8e8)}
-.aim-btn:active{background:#ccc}
+.aim-btn:hover{background:#c76090;color:#fff;border-color:#c76090}
+.aim-btn:active{background:#a84d78;color:#fff}
 .aim-timestamp{
   font-size:8px;
   color:#bbb;
@@ -769,17 +772,15 @@ body::before{
   </div>
 </div>
 <div class="mobile-nav" id="mobile-nav">
-  <a href="home.html">home</a>
   <a href="shop.html">shop</a>
+  <a href="home.html">home</a>
   <a href="store-locator.html">store locator</a>
   <a href="sustainability.html">sustainability</a>
   <a href="compassion.html">compassion</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
   <a href="quiz.html">the quiz</a>
   <a href="playlist.html">the aux</a>
-  <a href="lookbook.html">the lookbook</a>
-  <a href="blogroll.html">friends</a>
-  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
-  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
 </div>
 
 
@@ -792,8 +793,8 @@ body::before{
     <div class="nav-section">
       <div class="nav-label">sitely</div>
       <nav>
-        <a href="home.html" class="active">home</a>
         <a href="shop.html">shop</a>
+        <a href="home.html" class="active">home</a>
         <a href="store-locator.html">store locator</a>
         <a href="sustainability.html">sustainability</a>
         <a href="compassion.html">compassion</a>
@@ -803,18 +804,10 @@ body::before{
     <div class="nav-section">
       <div class="nav-label">extras</div>
       <nav>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
         <a href="quiz.html">the quiz</a>
         <a href="playlist.html">the aux</a>
-        <a href="lookbook.html">the lookbook</a>
-        <a href="blogroll.html">friends</a>
-      </nav>
-    </div>
-
-    <div class="nav-section">
-      <div class="nav-label">offsite</div>
-      <nav>
-        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
-        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
       </nav>
     </div>
 
@@ -932,10 +925,6 @@ body::before{
             <div class="val" id="c-sipping">cab spritzer</div>
           </div>
           <div class="currently-item">
-            <div class="label">season</div>
-            <div class="val" id="c-season">spring '26</div>
-          </div>
-          <div class="currently-item">
             <div class="label">mood</div>
             <div class="val" id="c-mood">manifesting</div>
           </div>
@@ -954,10 +943,6 @@ body::before{
           <div class="currently-item">
             <div class="label">wearing</div>
             <div class="val" id="c-wearing">white linen everything</div>
-          </div>
-          <div class="currently-item">
-            <div class="label">obsessed w/</div>
-            <div class="val" id="c-obsessed">fig season</div>
           </div>
         </div>
       </div>
@@ -1160,13 +1145,11 @@ body::before{
   ];
 
   document.getElementById('c-sipping').textContent=pick(sipping);
-  document.getElementById('c-season').textContent=pick(season);
   document.getElementById('c-mood').textContent=pick(mood);
   document.getElementById('c-giving').textContent=pick(giving);
   document.getElementById('c-reading').textContent=pick(reading);
   document.getElementById('c-watching').textContent=pick(watching);
   document.getElementById('c-wearing').textContent=pick(wearing);
-  document.getElementById('c-obsessed').textContent=pick(obsessed);
 })();
 
 // ═══ FALLING SPARKLES ═══
