@@ -164,13 +164,48 @@ body{
   opacity:.7;transform:rotate(-5deg);
   text-shadow:0 0 15px rgba(247,205,235,.5);
 }
+/* ═══ CURTAIN OVERLAY ═══ */
+.curtain{
+  position:fixed;
+  top:0;left:0;right:0;bottom:0;
+  z-index:9998;
+  pointer-events:none;
+  perspective:1000px;
+}
+.curtain-left,.curtain-right{
+  position:absolute;
+  top:0;bottom:0;
+  width:65%;
+  background-image:url('curtain.png');
+  background-size:154% 130%;
+  background-repeat:no-repeat;
+  transition:transform 1.6s cubic-bezier(.77,0,.18,1);
+  will-change:transform;
+}
+.curtain-left{
+  left:0;
+  background-position:0% 30%;
+  transform-origin:left center;
+}
+.curtain-right{
+  right:0;
+  background-position:100% 30%;
+  transform-origin:right center;
+}
+.curtain.open .curtain-left{
+  transform:translateX(-105%) rotateY(-12deg);
+}
+.curtain.open .curtain-right{
+  transform:translateX(105%) rotateY(12deg);
+}
+.curtain.gone{display:none}
+
 .collage-item{transition:transform .4s ease, filter .4s ease;}
 .collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important;}
 </style>
 </head>
 <body>
-<!-- CURTAIN OVERLAY -->
-<img src="curtain.png" style="position:fixed;top:0;left:0;width:100vw;height:130vh;object-fit:fill;top:-10vh;pointer-events:none;z-index:50">
+<!-- CURTAIN OVERLAY (split open animation) -->
 <div id="pile" style="position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1">
 
   <!-- TENNIS GIRL -->
@@ -253,7 +288,7 @@ body{
   <div class="xoxo-note" style="top:5px;left:5px;font-size:20px">xo xo</div>
   <div class="xoxo-note" style="bottom:50px;right:80px;font-size:18px;transform:rotate(3deg)">with love from napa ♡</div>
   <!-- ENTER -->
-  <a href="home.html" id="enter" style="bottom:-15px;left:calc(50% - 110px);transform:translateX(-50%)">
+  <a href="#" id="enter" style="bottom:-15px;left:calc(50% - 110px);transform:translateX(-50%)" onclick="event.preventDefault();document.getElementById('curtain').classList.add('open');setTimeout(function(){window.location.href='home.html'},1400)">
     <span style="font-family:'IM Fell English',serif;font-style:italic;font-size:10px;color:#b75d83;letter-spacing:.12em;text-shadow:1px 1px 0 rgba(255,255,255,.9);opacity:.85">by entering you confirm you're 21+ ✦</span>
     <svg width="50" height="50" viewBox="0 0 66 66" fill="none"
       style="filter:drop-shadow(2px 3px 5px rgba(0,0,0,.2))">
@@ -275,5 +310,10 @@ body{
 (function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
 </script>
 
+<!-- CURTAIN OVERLAY -->
+<div class="curtain" id="curtain">
+  <div class="curtain-left"></div>
+  <div class="curtain-right"></div>
+</div>
 </body>
 </html>
