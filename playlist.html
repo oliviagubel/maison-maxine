@@ -1,0 +1,1259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the aux ✦ Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#f7cdeb;color:#c76090}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+/* ═══ CUSTOM CURSOR ═══ */
+body, a, button{cursor:url("littlebananasplit-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("littlebananasplit-cursor.png") 44 37, pointer}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FALLING SPARKLES ═══ */
+.sparkle{
+  position:fixed;
+  top:-20px;
+  font-size:12px;
+  z-index:9999;
+  pointer-events:none;
+  animation:sparkle-fall linear forwards;
+  opacity:0;
+}
+@keyframes sparkle-fall{
+  0%{opacity:0;transform:translateX(0) rotate(0deg)}
+  10%{opacity:1}
+  90%{opacity:.6}
+  100%{opacity:0;transform:translateX(var(--drift)) rotate(360deg);top:100vh}
+}
+
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:30px;text-shadow:0 0 25px rgba(199,96,144,.15);
+  color:#c76090;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:11px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:all .25s;
+  position:relative;
+}
+#sidebar nav a::after{
+  content:'✦';
+  position:absolute;
+  right:0;
+  opacity:0;
+  transform:translateX(-6px) scale(.5);
+  transition:all .3s;
+  color:#f7cdeb;
+  font-style:normal;
+}
+#sidebar nav a:hover{color:#c76090;padding-left:8px;text-shadow:0 0 12px rgba(199,96,144,.2)}
+#sidebar nav a:hover::after{opacity:1;transform:translateX(0) scale(1)}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+/* ═══ NOW PLAYING WIDGET ═══ */
+.now-playing{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.np-header{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+}
+.np-track{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eq-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:16px;
+  flex-shrink:0;
+}
+.eq-bars span{
+  width:3px;
+  background:#c76090;
+  border-radius:1px;
+  animation:eq-bounce .8s ease-in-out infinite alternate;
+}
+.eq-bars span:nth-child(1){height:8px;animation-delay:0s}
+.eq-bars span:nth-child(2){height:14px;animation-delay:.2s}
+.eq-bars span:nth-child(3){height:6px;animation-delay:.4s}
+.eq-bars span:nth-child(4){height:12px;animation-delay:.1s}
+.eq-bars span:nth-child(5){height:10px;animation-delay:.3s}
+@keyframes eq-bounce{
+  0%{height:4px}
+  100%{height:16px}
+}
+.np-info{
+  overflow:hidden;
+}
+.np-song{
+  font-size:11px;
+  font-style:italic;
+  color:#5a3a4a;
+  white-space:nowrap;
+}
+.np-artist{
+  font-size:10px;
+  color:#c76090;
+  font-family:'Pixelify Sans',sans-serif;
+  letter-spacing:.05em;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:200px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:30px 20px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner h1{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:52px;
+  color:#c76090;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:15px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  color:#f7cdeb;
+  font-size:10px;
+  letter-spacing:4px;
+}
+.banner .divider::before,
+.banner .divider::after{
+  content:'';
+  width:40px;
+  height:1px;
+  background:#f7cdeb;
+}
+
+/* ═══ TWINKLE STARS ═══ */
+.twinkle{
+  display:inline-block;
+  animation:twinkle 2s ease-in-out infinite;
+  font-style:normal;
+}
+.twinkle:nth-child(2){animation-delay:.6s}
+.twinkle:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.6)}
+}
+@keyframes rec-blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+/* ═══ MINI BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  transition:all .3s;
+}
+.badge:hover{
+  background:#f7cdeb;
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 4px 12px rgba(247,205,235,.4);
+}
+
+/* ═══ BLINKIE BAR ═══ */
+.blinkies{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  justify-content:center;
+}
+.blinkie{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.05em;
+  padding:3px 8px;
+  border-radius:2px;
+  color:#fff;
+  animation:blinkie-glow 3s ease-in-out infinite alternate;
+}
+.blinkie:nth-child(1){background:#c76090}
+.blinkie:nth-child(2){background:#8a6a7a;animation-delay:.5s}
+.blinkie:nth-child(3){background:#c76090;animation-delay:1s}
+.blinkie:nth-child(4){background:#8a6a7a;animation-delay:1.5s}
+@keyframes blinkie-glow{
+  0%{box-shadow:0 0 4px rgba(199,96,144,.3)}
+  100%{box-shadow:0 0 10px rgba(199,96,144,.7)}
+}
+
+/* ═══ WEATHER WIDGET ═══ */
+.weather-widget{
+  text-align:center;
+}
+.weather-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:6px 0;
+}
+.weather-icon{
+  font-size:22px;
+  line-height:1;
+}
+.weather-temp{
+  font-size:20px;
+  color:#c76090;
+  font-style:italic;
+}
+.weather-desc{
+  font-size:10px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.4;
+}
+.weather-details{
+  margin-top:4px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.08em;
+  color:#c76090;
+  display:flex;
+  justify-content:center;
+  gap:4px;
+}
+
+
+/* ═══════════════════════════════════════════ */
+/* ═══ ITUNES WINDOW ═══ */
+/* ═══════════════════════════════════════════ */
+
+.itunes-window{
+  border:1px solid #999;
+  border-radius:8px;
+  overflow:hidden;
+  box-shadow:0 6px 30px rgba(0,0,0,.25), 0 2px 8px rgba(0,0,0,.12);
+  background:#e0e0e0;
+  margin-bottom:20px;
+}
+
+/* Title bar */
+.itunes-titlebar{
+  background:linear-gradient(180deg,#e8e8e8 0%,#d0d0d0 100%);
+  border-bottom:1px solid #aaa;
+  padding:8px 12px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  min-height:28px;
+}
+.itunes-traffic{
+  display:flex;
+  gap:6px;
+  z-index:1;
+}
+.itunes-dot{
+  width:12px;height:12px;border-radius:50%;
+  border:1px solid rgba(0,0,0,.15);
+}
+.itunes-dot.red{background:linear-gradient(180deg,#ff6058,#e33e32)}
+.itunes-dot.yellow{background:linear-gradient(180deg,#ffc130,#e5a800)}
+.itunes-dot.green{background:linear-gradient(180deg,#27ca40,#1aab29)}
+.itunes-titlebar-text{
+  position:absolute;
+  left:0;right:0;
+  text-align:center;
+  font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+  font-size:12px;
+  color:#555;
+  pointer-events:none;
+  font-weight:500;
+}
+
+/* Body layout */
+.itunes-body{
+  display:flex;
+  min-height:420px;
+  background:#fff;
+}
+
+/* Left sidebar */
+.itunes-sidebar{
+  width:150px;
+  background:linear-gradient(180deg,#e6ecf4 0%,#d4dce8 100%);
+  border-right:1px solid #b0b0b0;
+  flex-shrink:0;
+  overflow-y:auto;
+}
+.itunes-sidebar-header{
+  font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#666;
+  padding:12px 10px 6px;
+}
+.itunes-sidebar ul{
+  list-style:none;
+  padding:0;margin:0;
+}
+.itunes-sidebar li{
+  font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+  font-size:12px;
+  color:#333;
+  padding:4px 10px;
+  cursor:pointer;
+  transition:background .15s,color .15s;
+  border-radius:3px;
+  margin:1px 4px;
+  white-space:nowrap;
+}
+.itunes-sidebar li:hover{
+  background:rgba(56,117,215,.15);
+}
+.itunes-sidebar li.active{
+  background:#3875d7;
+  color:#fff;
+}
+
+/* Right content area */
+.itunes-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+}
+
+/* Now playing bar */
+.itunes-now-playing{
+  background:linear-gradient(180deg,#e8e8e8 0%,#d4d4d4 100%);
+  border-bottom:1px solid #b0b0b0;
+  padding:8px 14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-height:42px;
+}
+.itunes-play-btn{
+  width:28px;height:28px;
+  border-radius:50%;
+  background:linear-gradient(180deg,#f0f0f0,#d0d0d0);
+  border:1px solid #999;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;
+  flex-shrink:0;
+  font-size:12px;
+  color:#555;
+  transition:background .2s;
+  font-family:'Lucida Grande',sans-serif;
+}
+.itunes-play-btn:hover{background:linear-gradient(180deg,#f8f8f8,#ddd)}
+.itunes-np-info{
+  flex:1;
+  min-width:0;
+}
+.itunes-np-song{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:14px;
+  font-style:italic;
+  color:#333;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.itunes-np-artist{
+  font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+  font-size:10px;
+  color:#888;
+}
+.itunes-progress-wrap{
+  width:120px;
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.itunes-progress-bar{
+  flex:1;
+  height:6px;
+  background:#c0c0c0;
+  border-radius:3px;
+  overflow:hidden;
+  border:1px solid #aaa;
+}
+.itunes-progress-fill{
+  height:100%;
+  background:linear-gradient(180deg,#6ba3e8,#3875d7);
+  border-radius:3px;
+  width:35%;
+  transition:width .3s;
+}
+.itunes-progress-time{
+  font-family:'Lucida Grande',sans-serif;
+  font-size:9px;
+  color:#888;
+  flex-shrink:0;
+  min-width:28px;
+}
+
+/* Track table */
+.itunes-tracks{
+  flex:1;
+  overflow-y:auto;
+}
+.itunes-track-table{
+  width:100%;
+  border-collapse:collapse;
+  font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+  font-size:12px;
+}
+.itunes-track-table thead th{
+  background:linear-gradient(180deg,#f0f0f0,#ddd);
+  border-bottom:1px solid #b0b0b0;
+  padding:4px 10px;
+  text-align:left;
+  font-size:11px;
+  font-weight:600;
+  color:#555;
+  position:sticky;
+  top:0;
+  z-index:1;
+  cursor:default;
+  user-select:none;
+}
+.itunes-track-table thead th:first-child{
+  width:30px;
+  text-align:center;
+}
+.itunes-track-table thead th:last-child{
+  width:50px;
+  text-align:right;
+}
+.itunes-track-table tbody tr{
+  cursor:pointer;
+  transition:background .1s;
+}
+.itunes-track-table tbody tr:nth-child(even){
+  background:#f5f5f5;
+}
+.itunes-track-table tbody tr:hover{
+  background:#e8e8e8;
+}
+.itunes-track-table tbody tr.playing{
+  background:#3875d7 !important;
+  color:#fff;
+}
+.itunes-track-table tbody td{
+  padding:5px 10px;
+  border-bottom:1px solid #eee;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.itunes-track-table tbody td:first-child{
+  text-align:center;
+  color:#999;
+  width:30px;
+}
+.itunes-track-table tbody tr.playing td:first-child{
+  color:#fff;
+}
+.itunes-track-table tbody td:last-child{
+  text-align:right;
+  width:50px;
+}
+.itunes-track-table tbody td.song-cell{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:14px;
+  font-style:italic;
+}
+
+/* EQ bars inside track */
+.itunes-eq{
+  display:inline-flex;
+  align-items:flex-end;
+  gap:1px;
+  height:12px;
+  vertical-align:middle;
+  margin-right:4px;
+}
+.itunes-eq span{
+  width:2px;
+  background:#fff;
+  border-radius:1px;
+  animation:itunes-eq-bounce .6s ease-in-out infinite alternate;
+}
+.itunes-eq span:nth-child(1){height:5px;animation-delay:0s}
+.itunes-eq span:nth-child(2){height:10px;animation-delay:.15s}
+.itunes-eq span:nth-child(3){height:4px;animation-delay:.3s}
+.itunes-eq span:nth-child(4){height:8px;animation-delay:.1s}
+@keyframes itunes-eq-bounce{
+  0%{height:3px}
+  100%{height:12px}
+}
+
+.itunes-eq.paused span{
+  animation:none !important;
+}
+
+
+/* ═══ MOBILE PLAYLIST PILLS ═══ */
+.mobile-playlist-pills{
+  display:none;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  #main{margin-left:0;padding:20px 16px}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Burgues Script','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  .mobile-menu-btn{font-size:14px;color:#c76090;cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:48px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
+  #main{padding-top:60px}
+
+  /* iTunes mobile */
+  .itunes-sidebar{display:none !important}
+  .mobile-playlist-pills{
+    display:flex;
+    gap:8px;
+    overflow-x:auto;
+    padding:10px 14px;
+    background:linear-gradient(180deg,#e8e8e8,#d4d4d4);
+    border-bottom:1px solid #b0b0b0;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .mobile-playlist-pills::-webkit-scrollbar{display:none}
+  .mobile-playlist-pill{
+    font-family:'Lucida Grande','Trebuchet MS',Tahoma,sans-serif;
+    font-size:11px;
+    padding:4px 12px;
+    border-radius:12px;
+    background:#c8c8c8;
+    color:#555;
+    white-space:nowrap;
+    cursor:pointer;
+    border:1px solid #aaa;
+    transition:all .15s;
+    flex-shrink:0;
+  }
+  .mobile-playlist-pill.active{
+    background:#3875d7;
+    color:#fff;
+    border-color:#2a5db0;
+  }
+  .itunes-track-table thead th:last-child,
+  .itunes-track-table tbody td:last-child{
+    display:none;
+  }
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+  .mobile-nav{display:none!important}
+}
+
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+.collectible-stamp{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:20px;
+  color:#c76090;
+  border:1.5px dashed #f7cdeb;
+  background:linear-gradient(135deg,#fffcfe,#fef8fb);
+  cursor:pointer;
+  transition:all .4s;
+  display:inline-block;
+  position:relative;
+}
+.collectible-stamp:hover{
+  border-color:#c76090;
+  transform:translateY(-2px) scale(1.08);
+  box-shadow:0 4px 12px rgba(199,96,144,.3);
+}
+.collectible-stamp.collected{
+  background:#c76090;
+  color:#fff;
+  border-color:#c76090;
+  border-style:solid;
+}
+.collectible-stamp.collected::after{
+  content:' ✓';
+  font-size:7px;
+}
+.stamp-counter{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-align:center;
+  margin-top:8px;
+}
+@keyframes stamp-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo">Maison Maxine</div>
+  <div class="links">
+    <a href="home.html">home</a>
+    <a href="shop.html">shop</a>
+    <a href="compassion.html">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
+  </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="home.html">home</a>
+  <a href="shop.html">shop</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+</div>
+
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo">Maison Maxine</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="home.html">home</a>
+        <a href="shop.html">shop</a>
+        <a href="store-locator.html">store locator</a>
+        <a href="sustainability.html">sustainability</a>
+        <a href="compassion.html">compassion</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">extras</div>
+      <nav>
+        <a href="quiz.html">the quiz</a>
+        <a href="playlist.html" class="active">the aux</a>
+        <a href="lookbook.html">the lookbook</a>
+        <a href="blogroll.html">friends</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">offsite</div>
+      <nav>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <!-- NOW PLAYING -->
+    <div class="now-playing">
+      <div class="np-header">now playing ✦</div>
+      <div class="np-track">
+        <div class="eq-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="np-info">
+          <div class="np-song" id="np-song">california gurls</div>
+          <div class="np-artist" id="np-artist">katy perry</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now pouring ✦</div>
+      <p>napa valley cabernet red wine spritzer — our spring batch is here ✦</p>
+    </div>
+
+    <div class="sidebar-widget weather-widget">
+      <div class="wt">malibu weather ✦</div>
+      <div class="weather-display">
+        <div class="weather-icon" id="w-icon">☀</div>
+        <div class="weather-temp" id="w-temp">72°f</div>
+      </div>
+      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
+      <div class="weather-details">
+        <span id="w-wind">wind 5mph</span>
+        <span>·</span>
+        <span id="w-humidity">humidity 62%</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:20px;font-size:10px;color:#f7cdeb;letter-spacing:8px">✦ ♡ ✦</div>
+  <div class="sidebar-bottom">
+    <div class="blinkies">
+      <span class="blinkie">muse life</span>
+      <span class="blinkie">sip sip</span>
+      <span class="blinkie">malibu</span>
+      <span class="blinkie">rescue pups</span>
+    </div>
+    <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>the aux</h1>
+    <div class="tagline">our playlists ✦ press play</div>
+    <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
+  </div>
+
+  <!-- ITUNES WINDOW -->
+  <div class="itunes-window">
+    <!-- Title bar -->
+    <div class="itunes-titlebar">
+      <div class="itunes-traffic">
+        <div class="itunes-dot red"></div>
+        <div class="itunes-dot yellow"></div>
+        <div class="itunes-dot green"></div>
+      </div>
+      <div class="itunes-titlebar-text">the aux — maison maxine</div>
+    </div>
+
+    <!-- Mobile playlist pills -->
+    <div class="mobile-playlist-pills" id="mobile-pills"></div>
+
+    <!-- Body -->
+    <div class="itunes-body">
+      <!-- Sidebar -->
+      <div class="itunes-sidebar">
+        <div class="itunes-sidebar-header">Playlists</div>
+        <ul id="itunes-playlist-list"></ul>
+      </div>
+
+      <!-- Content -->
+      <div class="itunes-content">
+        <!-- Now Playing bar -->
+        <div class="itunes-now-playing">
+          <div class="itunes-play-btn" id="itunes-play-btn">▶</div>
+          <div class="itunes-np-info">
+            <div class="itunes-np-song" id="itunes-np-song">—</div>
+            <div class="itunes-np-artist" id="itunes-np-artist">—</div>
+          </div>
+          <div class="itunes-progress-wrap">
+            <div class="itunes-progress-bar">
+              <div class="itunes-progress-fill" id="itunes-progress-fill"></div>
+            </div>
+            <div class="itunes-progress-time" id="itunes-progress-time">0:00</div>
+          </div>
+        </div>
+
+        <!-- Track table -->
+        <div class="itunes-tracks">
+          <table class="itunes-track-table">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Song</th>
+                <th>Artist</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody id="itunes-track-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CLOSING -->
+  <div style="text-align:center;padding:20px 0 10px;position:relative">
+    <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:14px">✦ ♡ ✦</div>
+    <p style="font-size:14px;font-style:italic;color:#8a6a7a;line-height:1.8;max-width:420px;margin:0 auto">pour a glass, press play, let the music do the rest.<br>every playlist curated with love by the maison maxine muses ✦</p>
+    <div style="margin-top:18px">
+      <div class="badges" style="justify-content:center">
+        <span class="badge">golden hour</span>
+        <span class="badge">wine night</span>
+        <span class="badge">road trip</span>
+        <span class="badge">press play ✦</span>
+      </div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px">
+  <span class="collectible-stamp" data-stamp-id="aux-dj" onclick="collectStamp(this)">dj muse</span>
+  <span class="collectible-stamp" data-stamp-id="aux-taste" onclick="collectStamp(this)">taste curator</span>
+</div>
+<div class="stamp-counter"></div>
+    </div>
+    <div style="margin-top:16px;font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;color:#c76090">curated by the muses ♡</div>
+  </div>
+
+</div>
+
+<script>
+// ═══ ITUNES PLAYER ═══
+(function(){
+  var playlists = {
+    'golden hour': [
+      {song:'California',artist:'Phantom Planet',time:'2:50'},
+      {song:'Sexy to Someone',artist:'Clairo',time:'3:14'},
+      {song:'Venice Bitch',artist:'Lana Del Rey',time:'9:37'},
+      {song:'Sunset',artist:'The Midnight',time:'4:22'},
+      {song:'Golden Hour',artist:'Kacey Musgraves',time:'3:49'}
+    ],
+    'getting ready': [
+      {song:'Me & U',artist:'Cassie',time:'3:35'},
+      {song:'Promiscuous',artist:'Nelly Furtado ft. Timbaland',time:'4:02'},
+      {song:'Fergalicious',artist:'Fergie',time:'3:38'},
+      {song:'Since U Been Gone',artist:'Kelly Clarkson',time:'3:09'},
+      {song:'Crazy in Love',artist:'Beyoncé',time:'3:56'},
+      {song:'Temperature',artist:'Sean Paul',time:'3:37'}
+    ],
+    'sunday morning': [
+      {song:'Henry Come On',artist:'Lana Del Rey',time:'3:45'},
+      {song:'Bags',artist:'Clairo',time:'4:02'},
+      {song:'The Night We Met',artist:'Lord Huron',time:'3:28'},
+      {song:'Cherry Wine',artist:'Hozier',time:'4:16'},
+      {song:'Pink + White',artist:'Frank Ocean',time:'3:04'}
+    ],
+    'road trip': [
+      {song:'California Gurls',artist:'Katy Perry',time:'3:56'},
+      {song:'Melrose Meltdown',artist:'Suki Waterhouse',time:'3:22'},
+      {song:'West Coast',artist:'Lana Del Rey',time:'4:23'},
+      {song:'Shut Up and Drive',artist:'Rihanna',time:'3:33'},
+      {song:'Edge of Seventeen',artist:'Stevie Nicks',time:'5:28'}
+    ],
+    'wine night': [
+      {song:'Cherry',artist:'Lana Del Rey',time:'3:00'},
+      {song:'Motion Sickness',artist:'Phoebe Bridgers',time:'3:42'},
+      {song:'Liability',artist:'Lorde',time:'2:52'},
+      {song:'The 1',artist:'Taylor Swift',time:'3:30'},
+      {song:'Love Song',artist:'Lana Del Rey',time:'3:32'},
+      {song:'Apocalypse',artist:'Cigarettes After Sex',time:'4:17'}
+    ]
+  };
+
+  var playlistNames = Object.keys(playlists);
+  var currentPlaylist = playlistNames[0];
+  var currentTrackIndex = 0;
+  var isPlaying = true;
+  var progressInterval = null;
+  var progressPercent = 0;
+
+  var playlistListEl = document.getElementById('itunes-playlist-list');
+  var trackBodyEl = document.getElementById('itunes-track-body');
+  var npSongEl = document.getElementById('itunes-np-song');
+  var npArtistEl = document.getElementById('itunes-np-artist');
+  var playBtnEl = document.getElementById('itunes-play-btn');
+  var progressFillEl = document.getElementById('itunes-progress-fill');
+  var progressTimeEl = document.getElementById('itunes-progress-time');
+  var mobilePillsEl = document.getElementById('mobile-pills');
+
+  // Build sidebar playlist list
+  function buildPlaylistList(){
+    playlistListEl.innerHTML='';
+    playlistNames.forEach(function(name){
+      var li = document.createElement('li');
+      li.textContent = name;
+      if(name===currentPlaylist) li.className='active';
+      li.addEventListener('click',function(){
+        currentPlaylist=name;
+        currentTrackIndex=0;
+        isPlaying=true;
+        playBtnEl.textContent='❚❚';
+        buildPlaylistList();
+        buildMobilePills();
+        renderTracks();
+        updateNowPlaying();
+        startProgress();
+      });
+      playlistListEl.appendChild(li);
+    });
+  }
+
+  // Build mobile pills
+  function buildMobilePills(){
+    mobilePillsEl.innerHTML='';
+    playlistNames.forEach(function(name){
+      var pill = document.createElement('div');
+      pill.className='mobile-playlist-pill'+(name===currentPlaylist?' active':'');
+      pill.textContent=name;
+      pill.addEventListener('click',function(){
+        currentPlaylist=name;
+        currentTrackIndex=0;
+        isPlaying=true;
+        playBtnEl.textContent='❚❚';
+        buildPlaylistList();
+        buildMobilePills();
+        renderTracks();
+        updateNowPlaying();
+        startProgress();
+      });
+      mobilePillsEl.appendChild(pill);
+    });
+  }
+
+  // Render tracks
+  function renderTracks(){
+    trackBodyEl.innerHTML='';
+    var tracks = playlists[currentPlaylist];
+    tracks.forEach(function(t,i){
+      var tr = document.createElement('tr');
+      if(i===currentTrackIndex){
+        tr.className='playing';
+      }
+      var numTd = document.createElement('td');
+      if(i===currentTrackIndex && isPlaying){
+        numTd.innerHTML='<span class="itunes-eq"><span></span><span></span><span></span><span></span></span>';
+      } else if(i===currentTrackIndex && !isPlaying){
+        numTd.innerHTML='<span class="itunes-eq paused"><span></span><span></span><span></span><span></span></span>';
+      } else {
+        numTd.textContent=i+1;
+      }
+
+      var songTd = document.createElement('td');
+      songTd.className='song-cell';
+      songTd.textContent=t.song;
+
+      var artistTd = document.createElement('td');
+      artistTd.textContent=t.artist;
+
+      var timeTd = document.createElement('td');
+      timeTd.textContent=t.time;
+
+      tr.appendChild(numTd);
+      tr.appendChild(songTd);
+      tr.appendChild(artistTd);
+      tr.appendChild(timeTd);
+
+      tr.addEventListener('click',function(){
+        currentTrackIndex=i;
+        isPlaying=true;
+        playBtnEl.textContent='❚❚';
+        renderTracks();
+        updateNowPlaying();
+        startProgress();
+      });
+
+      trackBodyEl.appendChild(tr);
+    });
+  }
+
+  // Update now playing bar
+  function updateNowPlaying(){
+    var track = playlists[currentPlaylist][currentTrackIndex];
+    npSongEl.textContent=track.song;
+    npArtistEl.textContent=track.artist;
+    progressPercent=0;
+    progressFillEl.style.width='0%';
+    progressTimeEl.textContent='0:00';
+
+    // Also update sidebar now playing
+    var sidebarSong = document.getElementById('np-song');
+    var sidebarArtist = document.getElementById('np-artist');
+    if(sidebarSong) sidebarSong.textContent=track.song.toLowerCase();
+    if(sidebarArtist) sidebarArtist.textContent=track.artist.toLowerCase();
+  }
+
+  // Progress simulation
+  function startProgress(){
+    if(progressInterval) clearInterval(progressInterval);
+    progressPercent=0;
+    var track = playlists[currentPlaylist][currentTrackIndex];
+    var parts = track.time.split(':');
+    var totalSec = parseInt(parts[0])*60+parseInt(parts[1]);
+    // Simulate in ~30 seconds regardless of track length
+    var step = 100/300; // 300 ticks at 100ms = 30 sec total
+    progressInterval = setInterval(function(){
+      if(!isPlaying) return;
+      progressPercent+=step;
+      if(progressPercent>=100){
+        progressPercent=100;
+        clearInterval(progressInterval);
+        // Move to next track
+        if(currentTrackIndex<playlists[currentPlaylist].length-1){
+          currentTrackIndex++;
+          renderTracks();
+          updateNowPlaying();
+          startProgress();
+        }
+      }
+      progressFillEl.style.width=progressPercent+'%';
+      var elapsed = Math.floor(progressPercent/100*totalSec);
+      var m = Math.floor(elapsed/60);
+      var s = elapsed%60;
+      progressTimeEl.textContent=m+':'+(s<10?'0':'')+s;
+    },100);
+  }
+
+  // Play/pause
+  playBtnEl.addEventListener('click',function(){
+    isPlaying=!isPlaying;
+    playBtnEl.textContent=isPlaying?'❚❚':'▶';
+    renderTracks();
+  });
+
+  // Init
+  buildPlaylistList();
+  buildMobilePills();
+  renderTracks();
+  updateNowPlaying();
+  startProgress();
+
+})();
+</script>
+
+<script>
+// ═══ NOW PLAYING RANDOMIZER ═══
+// (overridden by iTunes player above, but kept for initial load)
+</script>
+
+<script>
+// ═══ FALLING SPARKLES ═══
+(function(){
+  var chars=['✦','✧','·','♡','⋆'];
+  function spawn(){
+    var s=document.createElement('div');
+    s.className='sparkle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(8+Math.random()*10)+'px';
+    s.style.color=Math.random()>.5?'#f7cdeb':'#c76090';
+    s.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    var dur=4+Math.random()*6;
+    s.style.animationDuration=dur+'s';
+    document.body.appendChild(s);
+    setTimeout(function(){s.remove()},(dur*1000)+100);
+  }
+  setInterval(spawn,600);
+})();
+</script>
+
+<script>
+// ═══ MALIBU WEATHER ═══
+(async()=>{
+  try{
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0259&longitude=-118.7798&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph');
+    const d=await r.json();
+    const c=d.current;
+    const temp=Math.round(c.temperature_2m);
+    const code=c.weather_code;
+    const icons={0:'✦',1:'⋆',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
+    const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
+    document.getElementById('w-icon').textContent=icons[code]||'☀';
+    document.getElementById('w-temp').textContent=temp+'°f';
+    document.getElementById('w-desc').textContent=descs[code]||'perfect for a spritzer';
+    document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
+    document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
+  }catch(e){}
+})();
+</script>
+
+<script>
+// ═══ COLLECTIBLE BLINKIES ═══
+function collectStamp(el){
+  var id=el.getAttribute('data-stamp-id');
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  if(collected.indexOf(id)===-1){
+    collected.push(id);
+    localStorage.setItem('mm_blinkies_collected',JSON.stringify(collected));
+    el.classList.add('collected');
+    el.style.animation='stamp-pop .4s ease';
+  }
+  updateStampCounter();
+}
+function updateStampCounter(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  var counters=document.querySelectorAll('.stamp-counter');
+  counters.forEach(function(c){c.textContent=collected.length+'/12 collected ✦'});
+}
+// Init: mark already-collected stamps
+(function(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  collected.forEach(function(id){
+    var el=document.querySelector('[data-stamp-id="'+id+'"]');
+    if(el)el.classList.add('collected');
+  });
+  updateStampCounter();
+})();
+</script>
+
+<script>
+(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>
