@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>the quiz ✦ Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#f7cdeb;color:#c76090}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+/* ═══ CUSTOM CURSOR ═══ */
+body, a, button{cursor:url("littlebananasplit-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("littlebananasplit-cursor.png") 44 37, pointer}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FALLING SPARKLES ═══ */
+.sparkle{
+  position:fixed;
+  top:-20px;
+  font-size:12px;
+  z-index:9999;
+  pointer-events:none;
+  animation:sparkle-fall linear forwards;
+  opacity:0;
+}
+@keyframes sparkle-fall{
+  0%{opacity:0;transform:translateX(0) rotate(0deg)}
+  10%{opacity:1}
+  90%{opacity:.6}
+  100%{opacity:0;transform:translateX(var(--drift)) rotate(360deg);top:100vh}
+}
+
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:200px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:30px;text-shadow:0 0 25px rgba(199,96,144,.15);
+  color:#c76090;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:11px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:9px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:14px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:all .25s;
+  position:relative;
+}
+#sidebar nav a::after{
+  content:'✦';
+  position:absolute;
+  right:0;
+  opacity:0;
+  transform:translateX(-6px) scale(.5);
+  transition:all .3s;
+  color:#f7cdeb;
+  font-style:normal;
+}
+#sidebar nav a:hover{color:#c76090;padding-left:8px;text-shadow:0 0 12px rgba(199,96,144,.2)}
+#sidebar nav a:hover::after{opacity:1;transform:translateX(0) scale(1)}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+/* ═══ NOW PLAYING WIDGET ═══ */
+.now-playing{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.np-header{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+}
+.np-track{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eq-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:16px;
+  flex-shrink:0;
+}
+.eq-bars span{
+  width:3px;
+  background:#c76090;
+  border-radius:1px;
+  animation:eq-bounce .8s ease-in-out infinite alternate;
+}
+.eq-bars span:nth-child(1){height:8px;animation-delay:0s}
+.eq-bars span:nth-child(2){height:14px;animation-delay:.2s}
+.eq-bars span:nth-child(3){height:6px;animation-delay:.4s}
+.eq-bars span:nth-child(4){height:12px;animation-delay:.1s}
+.eq-bars span:nth-child(5){height:10px;animation-delay:.3s}
+@keyframes eq-bounce{
+  0%{height:4px}
+  100%{height:16px}
+}
+.np-info{
+  overflow:hidden;
+}
+.np-song{
+  font-size:11px;
+  font-style:italic;
+  color:#5a3a4a;
+  white-space:nowrap;
+}
+.np-artist{
+  font-size:10px;
+  color:#c76090;
+  font-family:'Pixelify Sans',sans-serif;
+  letter-spacing:.05em;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:200px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:30px 20px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner h1{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:52px;
+  color:#c76090;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:15px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  color:#f7cdeb;
+  font-size:10px;
+  letter-spacing:4px;
+}
+.banner .divider::before,
+.banner .divider::after{
+  content:'';
+  width:40px;
+  height:1px;
+  background:#f7cdeb;
+}
+
+/* ═══ TWINKLE STARS ═══ */
+.twinkle{
+  display:inline-block;
+  animation:twinkle 2s ease-in-out infinite;
+  font-style:normal;
+}
+.twinkle:nth-child(2){animation-delay:.6s}
+.twinkle:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.6)}
+}
+@keyframes rec-blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+/* ═══ MINI BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  transition:all .3s;
+}
+.badge:hover{
+  background:#f7cdeb;
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 4px 12px rgba(247,205,235,.4);
+}
+
+/* ═══ BLINKIE BAR ═══ */
+.blinkies{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  justify-content:center;
+}
+.blinkie{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.05em;
+  padding:3px 8px;
+  border-radius:2px;
+  color:#fff;
+  animation:blinkie-glow 3s ease-in-out infinite alternate;
+}
+.blinkie:nth-child(1){background:#c76090}
+.blinkie:nth-child(2){background:#8a6a7a;animation-delay:.5s}
+.blinkie:nth-child(3){background:#c76090;animation-delay:1s}
+.blinkie:nth-child(4){background:#8a6a7a;animation-delay:1.5s}
+@keyframes blinkie-glow{
+  0%{box-shadow:0 0 4px rgba(199,96,144,.3)}
+  100%{box-shadow:0 0 10px rgba(199,96,144,.7)}
+}
+
+/* ═══ WEATHER WIDGET ═══ */
+.weather-widget{
+  text-align:center;
+}
+.weather-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:6px 0;
+}
+.weather-icon{
+  font-size:22px;
+  line-height:1;
+}
+.weather-temp{
+  font-size:20px;
+  color:#c76090;
+  font-style:italic;
+}
+.weather-desc{
+  font-size:10px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.4;
+}
+.weather-details{
+  margin-top:4px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.08em;
+  color:#c76090;
+  display:flex;
+  justify-content:center;
+  gap:4px;
+}
+
+/* ═══ QUIZ STYLES ═══ */
+.quiz-container{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:30px 28px;
+  margin-bottom:20px;
+  position:relative;
+  transition:all .3s;
+}
+.quiz-container:hover{
+  border-color:#c76090;
+  box-shadow:0 0 20px rgba(247,205,235,.3);
+}
+
+/* Progress Dots */
+.progress-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-bottom:28px;
+}
+.progress-dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  border:2px solid #f7cdeb;
+  background:transparent;
+  transition:all .4s;
+}
+.progress-dot.active{
+  background:#c76090;
+  border-color:#c76090;
+  box-shadow:0 0 8px rgba(199,96,144,.4);
+}
+.progress-dot.completed{
+  background:#f7cdeb;
+  border-color:#f7cdeb;
+}
+
+/* Question */
+.question-slide{
+  display:none;
+  animation:fadeIn .5s ease-out;
+}
+.question-slide.active{
+  display:block;
+}
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.question-number{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:10px;
+  text-align:center;
+}
+.question-text{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:32px;
+  color:#c76090;
+  text-align:center;
+  line-height:1.2;
+  margin-bottom:24px;
+}
+
+/* Option Pills */
+.quiz-options{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.quiz-option{
+  display:block;
+  width:100%;
+  padding:14px 20px;
+  background:transparent;
+  border:2px solid #f7cdeb;
+  border-radius:30px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:16px;
+  font-style:italic;
+  color:#5a3a4a;
+  text-align:center;
+  transition:all .3s;
+  letter-spacing:.03em;
+}
+.quiz-option:hover{
+  background:#c76090;
+  border-color:#c76090;
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 4px 16px rgba(199,96,144,.3);
+}
+
+/* Result */
+.quiz-result{
+  display:none;
+  text-align:center;
+  animation:fadeIn .6s ease-out;
+}
+.quiz-result.active{
+  display:block;
+}
+.result-image{
+  width:280px;
+  max-width:100%;
+  border-radius:8px;
+  border:3px solid #f7cdeb;
+  margin-bottom:20px;
+  box-shadow:0 4px 20px rgba(247,205,235,.4);
+}
+.result-title{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:38px;
+  color:#c76090;
+  line-height:1.2;
+  margin-bottom:14px;
+}
+.result-desc{
+  font-size:16px;
+  font-style:italic;
+  color:#5a3a4a;
+  line-height:1.8;
+  max-width:480px;
+  margin:0 auto 24px;
+}
+.retake-btn{
+  display:inline-block;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+  background:transparent;
+  border:2px solid #f7cdeb;
+  border-radius:30px;
+  padding:10px 28px;
+  transition:all .3s;
+}
+.retake-btn:hover{
+  background:#c76090;
+  border-color:#c76090;
+  color:#fff;
+  transform:translateY(-2px);
+  box-shadow:0 4px 16px rgba(199,96,144,.3);
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  #main{margin-left:0;padding:20px 16px}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Burgues Script','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  .mobile-menu-btn{font-size:14px;color:#c76090;cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:48px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
+  #main{padding-top:60px}
+  .question-text{font-size:26px}
+  .result-title{font-size:30px}
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+  .mobile-nav{display:none!important}
+}
+
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+.collectible-stamp{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:20px;
+  color:#c76090;
+  border:1.5px dashed #f7cdeb;
+  background:linear-gradient(135deg,#fffcfe,#fef8fb);
+  cursor:pointer;
+  transition:all .4s;
+  display:inline-block;
+  position:relative;
+}
+.collectible-stamp:hover{
+  border-color:#c76090;
+  transform:translateY(-2px) scale(1.08);
+  box-shadow:0 4px 12px rgba(199,96,144,.3);
+}
+.collectible-stamp.collected{
+  background:#c76090;
+  color:#fff;
+  border-color:#c76090;
+  border-style:solid;
+}
+.collectible-stamp.collected::after{
+  content:' ✓';
+  font-size:7px;
+}
+.stamp-counter{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-align:center;
+  margin-top:8px;
+}
+@keyframes stamp-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo">Maison Maxine</div>
+  <div class="links">
+    <a href="home.html">home</a>
+    <a href="shop.html">shop</a>
+    <a href="quiz.html">quiz</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
+  </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="home.html">home</a>
+  <a href="shop.html">shop</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+  <a href="quiz.html">the quiz</a>
+  <a href="playlist.html">the aux</a>
+  <a href="lookbook.html">the lookbook</a>
+  <a href="blogroll.html">friends</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+  <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+</div>
+
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo">Maison Maxine</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="home.html">home</a>
+        <a href="shop.html">shop</a>
+        <a href="store-locator.html">store locator</a>
+        <a href="sustainability.html">sustainability</a>
+        <a href="compassion.html">compassion</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">extras</div>
+      <nav>
+        <a href="quiz.html" class="active">the quiz</a>
+        <a href="playlist.html">the aux</a>
+        <a href="lookbook.html">the lookbook</a>
+        <a href="blogroll.html">friends</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">offsite</div>
+      <nav>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+        <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <!-- NOW PLAYING -->
+    <div class="now-playing">
+      <div class="np-header">now playing ✦</div>
+      <div class="np-track">
+        <div class="eq-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="np-info">
+          <div class="np-song" id="np-song">california gurls</div>
+          <div class="np-artist" id="np-artist">katy perry</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now pouring ✦</div>
+      <p>napa valley cabernet red wine spritzer — our spring batch is here ✦</p>
+    </div>
+
+    <div class="sidebar-widget weather-widget">
+      <div class="wt">malibu weather ✦</div>
+      <div class="weather-display">
+        <div class="weather-icon" id="w-icon">☀</div>
+        <div class="weather-temp" id="w-temp">72°f</div>
+      </div>
+      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
+      <div class="weather-details">
+        <span id="w-wind">wind 5mph</span>
+        <span>·</span>
+        <span id="w-humidity">humidity 62%</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:20px;font-size:10px;color:#f7cdeb;letter-spacing:8px">✦ ♡ ✦</div>
+  <div class="sidebar-bottom">
+    <div class="blinkies">
+      <span class="blinkie">muse life</span>
+      <span class="blinkie">sip sip</span>
+      <span class="blinkie">malibu</span>
+      <span class="blinkie">rescue pups</span>
+    </div>
+    <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>which maison maxine mood are you?</h1>
+    <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div class="quiz-container">
+
+    <!-- Progress Dots -->
+    <div class="progress-dots">
+      <div class="progress-dot active" id="dot-0"></div>
+      <div class="progress-dot" id="dot-1"></div>
+      <div class="progress-dot" id="dot-2"></div>
+      <div class="progress-dot" id="dot-3"></div>
+      <div class="progress-dot" id="dot-4"></div>
+    </div>
+
+    <!-- Q1 -->
+    <div class="question-slide active" id="q-0">
+      <div class="question-number">question 01 of 05</div>
+      <div class="question-text">it's golden hour. where are you?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="answer(0,'A')">beach picnic with a charcuterie situation</button>
+        <button class="quiz-option" onclick="answer(0,'B')">barefoot in someone's garden</button>
+        <button class="quiz-option" onclick="answer(0,'C')">getting ready with the girls</button>
+        <button class="quiz-option" onclick="answer(0,'D')">alone with a book and a glass of something</button>
+      </div>
+    </div>
+
+    <!-- Q2 -->
+    <div class="question-slide" id="q-1">
+      <div class="question-number">question 02 of 05</div>
+      <div class="question-text">your go-to shoe for a perfect day?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="answer(1,'B')">bare feet, obviously</button>
+        <button class="quiz-option" onclick="answer(1,'D')">vintage sparkle sandals from a flea market</button>
+        <button class="quiz-option" onclick="answer(1,'C')">designer heels kicked off by the door</button>
+        <button class="quiz-option" onclick="answer(1,'A')">whatever's closest to the door</button>
+      </div>
+    </div>
+
+    <!-- Q3 -->
+    <div class="question-slide" id="q-2">
+      <div class="question-number">question 03 of 05</div>
+      <div class="question-text">what's in your glass?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="answer(2,'A')">cab spritzer on ice, always</button>
+        <button class="quiz-option" onclick="answer(2,'D')">something i found in a vintage cookbook</button>
+        <button class="quiz-option" onclick="answer(2,'C')">champagne — why not?</button>
+        <button class="quiz-option" onclick="answer(2,'B')">whatever my friend ordered, doubled</button>
+      </div>
+    </div>
+
+    <!-- Q4 -->
+    <div class="question-slide" id="q-3">
+      <div class="question-number">question 04 of 05</div>
+      <div class="question-text">pick a vibe:</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="answer(3,'A')">farmer's market at 9am</button>
+        <button class="quiz-option" onclick="answer(3,'C')">rooftop at sunset</button>
+        <button class="quiz-option" onclick="answer(3,'B')">road trip, windows down</button>
+        <button class="quiz-option" onclick="answer(3,'D')">cozy night in with candles and cheese</button>
+      </div>
+    </div>
+
+    <!-- Q5 -->
+    <div class="question-slide" id="q-4">
+      <div class="question-number">question 05 of 05</div>
+      <div class="question-text">friends describe you as:</div>
+      <div class="quiz-options">
+        <button class="quiz-option" onclick="answer(4,'A')">the one who always brings good snacks</button>
+        <button class="quiz-option" onclick="answer(4,'C')">effortlessly cool</button>
+        <button class="quiz-option" onclick="answer(4,'D')">the one who still writes handwritten notes</button>
+        <button class="quiz-option" onclick="answer(4,'B')">the one who cries at movies (but cutely)</button>
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="quiz-result" id="result-A">
+      <img src="kendalsmiling.png" alt="the beach picnic girl" class="result-image">
+      <div class="result-title">the beach picnic girl</div>
+      <div class="result-desc">you're the one who brings the good wine, the fancy cheese, and the playlist that makes everyone say 'who made this?' you live for golden hour and you've never met a sunset you didn't photograph.</div>
+      <button class="retake-btn" onclick="retake()">retake quiz ✦</button>
+    </div>
+
+    <div class="quiz-result" id="result-B">
+      <img src="ameliawalking.png" alt="the backyard barefoot poet" class="result-image">
+      <div class="result-title">the backyard barefoot poet</div>
+      <div class="result-desc">you journal in the morning, garden in the afternoon, and pour yourself something nice by evening. you own more linen than anyone you know and you're completely fine with that.</div>
+      <button class="retake-btn" onclick="retake()">retake quiz ✦</button>
+    </div>
+
+    <div class="quiz-result" id="result-C">
+      <img src="handholdingcan.png" alt="the editorial muse" class="result-image">
+      <div class="result-title">the editorial muse</div>
+      <div class="result-desc">effortlessly chic and a little intimidating in the best way. you're the friend everyone wants to get ready with. you make even a tuesday feel like a main character moment.</div>
+      <button class="retake-btn" onclick="retake()">retake quiz ✦</button>
+    </div>
+
+    <div class="quiz-result" id="result-D">
+      <img src="girlsmilingwithglass.png" alt="the golden hour dreamer" class="result-image">
+      <div class="result-title">the golden hour dreamer</div>
+      <div class="result-desc">you feel everything deeply and you're not sorry about it. you reread your favorite books, you keep letters, and you always know exactly what song fits the moment.</div>
+      <button class="retake-btn" onclick="retake()">retake quiz ✦</button>
+    </div>
+
+  </div>
+
+  <!-- CLOSING -->
+  <div style="text-align:center;padding:20px 0 10px;position:relative">
+    <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:14px">✦ ♡ ✦</div>
+    <p style="font-size:14px;font-style:italic;color:#8a6a7a;line-height:1.8;max-width:420px;margin:0 auto">every muse has a mood. which one are you? ✦</p>
+    <div style="margin-top:18px">
+      <div class="badges" style="justify-content:center">
+        <span class="badge">beach picnic</span>
+        <span class="badge">barefoot poet</span>
+        <span class="badge">editorial muse</span>
+        <span class="badge">golden hour</span>
+        <span class="badge">sip & discover ✦</span>
+      </div>
+<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-top:12px">
+  <span class="collectible-stamp" data-stamp-id="quiz-taker" onclick="collectStamp(this)">quiz taker</span>
+  <span class="collectible-stamp" data-stamp-id="quiz-mood" onclick="collectStamp(this)">mood: known</span>
+</div>
+<div class="stamp-counter"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ═══ QUIZ LOGIC ═══
+var answers = [];
+var currentQ = 0;
+var totalQ = 5;
+
+function answer(qIndex, letter) {
+  answers[qIndex] = letter;
+
+  // Update progress dots
+  var dot = document.getElementById('dot-' + qIndex);
+  dot.classList.remove('active');
+  dot.classList.add('completed');
+
+  // Hide current question
+  document.getElementById('q-' + qIndex).classList.remove('active');
+
+  if (qIndex < totalQ - 1) {
+    // Show next question
+    var nextQ = qIndex + 1;
+    var nextDot = document.getElementById('dot-' + nextQ);
+    nextDot.classList.add('active');
+    // Small delay for fade effect
+    setTimeout(function() {
+      document.getElementById('q-' + nextQ).classList.add('active');
+    }, 100);
+  } else {
+    // Tally results
+    var tally = {A:0, B:0, C:0, D:0};
+    answers.forEach(function(a) {
+      tally[a]++;
+    });
+    // Find winner
+    var winner = 'A';
+    var max = 0;
+    ['A','B','C','D'].forEach(function(k) {
+      if (tally[k] > max) {
+        max = tally[k];
+        winner = k;
+      }
+    });
+    // Hide progress dots
+    document.querySelector('.progress-dots').style.display = 'none';
+    // Show result
+    setTimeout(function() {
+      document.getElementById('result-' + winner).classList.add('active');
+    }, 100);
+  }
+}
+
+function retake() {
+  answers = [];
+  currentQ = 0;
+  // Hide all results
+  document.querySelectorAll('.quiz-result').forEach(function(r) {
+    r.classList.remove('active');
+  });
+  // Reset dots
+  document.querySelector('.progress-dots').style.display = 'flex';
+  document.querySelectorAll('.progress-dot').forEach(function(d, i) {
+    d.classList.remove('active', 'completed');
+    if (i === 0) d.classList.add('active');
+  });
+  // Show first question
+  document.querySelectorAll('.question-slide').forEach(function(q) {
+    q.classList.remove('active');
+  });
+  setTimeout(function() {
+    document.getElementById('q-0').classList.add('active');
+  }, 100);
+}
+</script>
+
+<script>
+// ═══ NOW PLAYING RANDOMIZER ═══
+(function(){
+  const songs=[
+    {song:'sexy to someone',artist:'clairo'},
+    {song:'henry come on',artist:'lana del rey'},
+    {song:'california',artist:'phantom planet'},
+    {song:'melrose meltdown',artist:'suki waterhouse'},
+    {song:'my regards',artist:'maisie peters'},
+    {song:'you sexy thing',artist:'zella day'}
+  ];
+  const s=songs[Math.floor(Math.random()*songs.length)];
+  document.getElementById('np-song').textContent=s.song;
+  document.getElementById('np-artist').textContent=s.artist;
+})();
+
+// ═══ FALLING SPARKLES ═══
+(function(){
+  const chars=['✦','✧','·','♡','⋆'];
+  function spawn(){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(8+Math.random()*10)+'px';
+    s.style.color=Math.random()>.5?'#f7cdeb':'#c76090';
+    s.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    const dur=4+Math.random()*6;
+    s.style.animationDuration=dur+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),(dur*1000)+100);
+  }
+  setInterval(spawn,600);
+})();
+
+// ═══ MALIBU WEATHER ═══
+(async()=>{
+  try{
+    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0259&longitude=-118.7798&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph');
+    const d=await r.json();
+    const c=d.current;
+    const temp=Math.round(c.temperature_2m);
+    const code=c.weather_code;
+    const icons={0:'✦',1:'⋆',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
+    const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
+    document.getElementById('w-icon').textContent=icons[code]||'☀';
+    document.getElementById('w-temp').textContent=temp+'°f';
+    document.getElementById('w-desc').textContent=descs[code]||'perfect for a spritzer';
+    document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
+    document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
+  }catch(e){}
+})();
+</script>
+
+<script>
+// ═══ COLLECTIBLE BLINKIES ═══
+function collectStamp(el){
+  var id=el.getAttribute('data-stamp-id');
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  if(collected.indexOf(id)===-1){
+    collected.push(id);
+    localStorage.setItem('mm_blinkies_collected',JSON.stringify(collected));
+    el.classList.add('collected');
+    el.style.animation='stamp-pop .4s ease';
+  }
+  updateStampCounter();
+}
+function updateStampCounter(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  var counters=document.querySelectorAll('.stamp-counter');
+  counters.forEach(function(c){c.textContent=collected.length+'/12 collected ✦'});
+}
+// Init: mark already-collected stamps
+(function(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  collected.forEach(function(id){
+    var el=document.querySelector('[data-stamp-id="'+id+'"]');
+    if(el)el.classList.add('collected');
+  });
+  updateStampCounter();
+})();
+</script>
+
+<script>
+(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>
