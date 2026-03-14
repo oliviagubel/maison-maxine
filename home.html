@@ -502,6 +502,130 @@ body::before{
   box-shadow:0 4px 12px rgba(247,205,235,.4);
 }
 
+/* ═══ AIM AWAY MESSAGE ═══ */
+.aim-window{
+  position:fixed;
+  top:120px;right:40px;
+  width:300px;
+  background:#ececec;
+  border:1px solid #888;
+  border-radius:6px 6px 4px 4px;
+  box-shadow:4px 4px 16px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.6);
+  z-index:800;
+  font-family:'Lucida Grande','Trebuchet MS',sans-serif;
+  cursor:default;
+  user-select:none;
+}
+.aim-titlebar{
+  background:linear-gradient(180deg, #6eaadc 0%, #3b7dd8 40%, #2a5db0 100%);
+  padding:5px 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border-radius:5px 5px 0 0;
+  cursor:grab;
+}
+.aim-titlebar:active{cursor:grabbing}
+.aim-dots{display:flex;gap:5px}
+.aim-dots span{
+  width:10px;height:10px;
+  border-radius:50%;
+  display:inline-block;
+}
+.aim-dots span:nth-child(1){background:#ff5f57;border:1px solid #e33e32}
+.aim-dots span:nth-child(2){background:#febc2e;border:1px solid #e09e18}
+.aim-dots span:nth-child(3){background:#28c840;border:1px solid #1aab29}
+.aim-title-text{
+  color:#fff;
+  font-size:11px;
+  font-weight:bold;
+  text-shadow:0 1px 2px rgba(0,0,0,.3);
+  flex:1;
+  text-align:center;
+}
+.aim-close{
+  background:none;border:none;
+  color:rgba(255,255,255,.8);
+  font-size:14px;
+  cursor:pointer;
+  padding:0 2px;
+  line-height:1;
+}
+.aim-close:hover{color:#fff}
+.aim-body{
+  background:#fff;
+  margin:6px;
+  padding:12px;
+  border:1px solid #aaa;
+  border-radius:2px;
+  min-height:80px;
+}
+.aim-buddy{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:10px;
+  padding-bottom:8px;
+  border-bottom:1px solid #ddd;
+}
+.aim-buddy-icon{
+  width:32px;height:32px;
+  border-radius:4px;
+  background:linear-gradient(135deg,#f7cdeb,#c76090);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;
+}
+.aim-buddy-name{
+  font-size:11px;
+  font-weight:bold;
+  color:#333;
+}
+.aim-buddy-status{
+  font-size:9px;
+  color:#999;
+}
+.aim-message{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:14px;
+  color:#4a3a3a;
+  line-height:1.7;
+  letter-spacing:.02em;
+}
+.aim-footer{
+  padding:6px 8px;
+  display:flex;
+  justify-content:flex-end;
+  gap:6px;
+}
+.aim-btn{
+  font-family:'Lucida Grande','Trebuchet MS',sans-serif;
+  font-size:10px;
+  padding:3px 14px;
+  border:1px solid #888;
+  border-radius:3px;
+  background:linear-gradient(180deg,#f8f8f8,#ddd);
+  color:#333;
+  cursor:pointer;
+  box-shadow:0 1px 2px rgba(0,0,0,.1);
+}
+.aim-btn:hover{background:linear-gradient(180deg,#fff,#e8e8e8)}
+.aim-btn:active{background:#ccc}
+.aim-timestamp{
+  font-size:8px;
+  color:#bbb;
+  text-align:right;
+  margin-top:8px;
+  font-family:'Lucida Grande',sans-serif;
+}
+@media(max-width:768px){
+  .aim-window{
+    top:auto;bottom:20px;
+    right:10px;left:10px;
+    width:auto;
+  }
+}
+
 /* ═══ BLINKIE BAR ═══ */
 .blinkies{
   display:flex;
@@ -588,6 +712,48 @@ body::before{
 /* MOUSE SPARKLE TRAIL */
 .mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
 @keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+.collectible-stamp{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:20px;
+  color:#c76090;
+  border:1.5px dashed #f7cdeb;
+  background:linear-gradient(135deg,#fffcfe,#fef8fb);
+  cursor:pointer;
+  transition:all .4s;
+  display:inline-block;
+  position:relative;
+}
+.collectible-stamp:hover{
+  border-color:#c76090;
+  transform:translateY(-2px) scale(1.08);
+  box-shadow:0 4px 12px rgba(199,96,144,.3);
+}
+.collectible-stamp.collected{
+  background:#c76090;
+  color:#fff;
+  border-color:#c76090;
+  border-style:solid;
+}
+.collectible-stamp.collected::after{
+  content:' ✓';
+  font-size:7px;
+}
+.stamp-counter{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-align:center;
+  margin-top:8px;
+}
+@keyframes stamp-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
 </style>
 </head>
 <body>
@@ -608,6 +774,10 @@ body::before{
   <a href="store-locator.html">store locator</a>
   <a href="sustainability.html">sustainability</a>
   <a href="compassion.html">compassion</a>
+  <a href="quiz.html">the quiz</a>
+  <a href="playlist.html">the aux</a>
+  <a href="lookbook.html">the lookbook</a>
+  <a href="blogroll.html">friends</a>
   <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
   <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
 </div>
@@ -630,6 +800,15 @@ body::before{
       </nav>
     </div>
 
+    <div class="nav-section">
+      <div class="nav-label">extras</div>
+      <nav>
+        <a href="quiz.html">the quiz</a>
+        <a href="playlist.html">the aux</a>
+        <a href="lookbook.html">the lookbook</a>
+        <a href="blogroll.html">friends</a>
+      </nav>
+    </div>
 
     <div class="nav-section">
       <div class="nav-label">offsite</div>
@@ -695,6 +874,30 @@ body::before{
     <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
   </div>
 
+  <!-- AIM AWAY MESSAGE -->
+  <div class="aim-window" id="aim-window">
+    <div class="aim-titlebar" id="aim-drag">
+      <div class="aim-dots"><span></span><span></span><span></span></div>
+      <div class="aim-title-text">MaisonMaxineMuse - Away Message</div>
+      <button class="aim-close" id="aim-close" title="close">✕</button>
+    </div>
+    <div class="aim-body">
+      <div class="aim-buddy">
+        <div class="aim-buddy-icon">✦</div>
+        <div>
+          <div class="aim-buddy-name">MaisonMaxineMuse</div>
+          <div class="aim-buddy-status">● away</div>
+        </div>
+      </div>
+      <div class="aim-message" id="aim-message">currently at the beach. leave a message after the spritz. ✦</div>
+      <div class="aim-timestamp" id="aim-time"></div>
+    </div>
+    <div class="aim-footer">
+      <button class="aim-btn" onclick="document.getElementById('aim-window').style.display='none';sessionStorage.setItem('mm_aim_closed','1')">I'm Back</button>
+      <button class="aim-btn" onclick="document.getElementById('aim-window').style.display='none';sessionStorage.setItem('mm_aim_closed','1')">Close</button>
+    </div>
+  </div>
+
   <!-- TWO COLUMN: WELCOME + SIDEBAR -->
   <div class="two-col">
     <div>
@@ -740,6 +943,22 @@ body::before{
             <div class="label">giving to</div>
             <div class="val" id="c-giving">animal rescue ♡</div>
           </div>
+          <div class="currently-item">
+            <div class="label">reading</div>
+            <div class="val" id="c-reading">vogue italia</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">watching</div>
+            <div class="val" id="c-watching">the o.c. (again)</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">wearing</div>
+            <div class="val" id="c-wearing">white linen everything</div>
+          </div>
+          <div class="currently-item">
+            <div class="label">obsessed w/</div>
+            <div class="val" id="c-obsessed">fig season</div>
+          </div>
         </div>
       </div>
 
@@ -779,12 +998,36 @@ body::before{
     <div class="box-title">postcards ✦</div>
     <div class="photo-grid">
       <div class="photo">
-        <img src="Ameliawinepic.png" alt="">
+        <img src="Ameliawinepic.png" alt="" loading="lazy">
         <div class="cap">malibu, ca</div>
       </div>
       <div class="photo">
-        <img src="flower.png" alt="">
+        <img src="kendalsmiling.png" alt="" loading="lazy">
+        <div class="cap">the perfect afternoon</div>
+      </div>
+      <div class="photo">
+        <img src="handholdingcan.png" alt="" loading="lazy">
+        <div class="cap">main character energy</div>
+      </div>
+      <div class="photo">
+        <img src="flower.png" alt="" loading="lazy">
         <div class="cap">in bloom</div>
+      </div>
+      <div class="photo">
+        <img src="girlsmilingwithglass.png" alt="" loading="lazy">
+        <div class="cap">golden hour</div>
+      </div>
+      <div class="photo">
+        <img src="puppy.png" alt="" loading="lazy">
+        <div class="cap">office mascot ♡</div>
+      </div>
+      <div class="photo">
+        <img src="minolos.png" alt="" loading="lazy">
+        <div class="cap">malibu dress code</div>
+      </div>
+      <div class="photo">
+        <img src="ameliawalking.png" alt="" loading="lazy">
+        <div class="cap">barefoot & unbothered</div>
       </div>
     </div>
   </div>
@@ -800,11 +1043,61 @@ body::before{
       <span class="badge">napa valley cab</span>
       <span class="badge">muse approved ✦</span>
     </div>
+<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(247,205,235,.3)">
+  <div style="font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;margin-bottom:8px">collect ✦</div>
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <span class="collectible-stamp" data-stamp-id="home-muse" onclick="collectStamp(this)">muse approved</span>
+    <span class="collectible-stamp" data-stamp-id="home-sip" onclick="collectStamp(this)">first sip club</span>
+  </div>
+  <div class="stamp-counter"></div>
+</div>
   </div>
 
 </div>
 
 <script>
+// ═══ AIM AWAY MESSAGE ═══
+(function(){
+  var aim=document.getElementById('aim-window');
+  if(sessionStorage.getItem('mm_aim_closed')){aim.style.display='none';return}
+  var msgs=[
+    'currently at the beach. leave a message after the spritz. ✦',
+    'out sipping something chilled & pretending i don\'t have emails. brb maybe.',
+    'gone to the farmer\'s market. if you need me, you don\'t.',
+    'manifesting in malibu. back when the universe says so.',
+    'walking barefoot through the garden & ignoring my phone. as one should.',
+    'pouring a cab spritzer and calling it self care. do not disturb.',
+    'at the vineyard. yes again. no i\'m not sorry.',
+    'currently unavailable. try the wine instead. ♡',
+    'getting ready. could be 20 minutes could be 2 hours.',
+    'went to get snacks. spiraled at the cheese counter. back eventually.',
+    'laying in the sun pretending i\'m in a french film.',
+    'reorganizing my bookshelf by vibes. this could take a while.'
+  ];
+  document.getElementById('aim-message').textContent=msgs[Math.floor(Math.random()*msgs.length)];
+  var now=new Date();
+  document.getElementById('aim-time').textContent='away since '+now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).toLowerCase();
+
+  // draggable
+  var drag=document.getElementById('aim-drag');
+  var isDragging=false,startX,startY,origX,origY;
+  drag.addEventListener('mousedown',function(e){
+    isDragging=true;
+    startX=e.clientX;startY=e.clientY;
+    var r=aim.getBoundingClientRect();
+    origX=r.left;origY=r.top;
+    aim.style.position='fixed';
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove',function(e){
+    if(!isDragging)return;
+    aim.style.left=(origX+e.clientX-startX)+'px';
+    aim.style.top=(origY+e.clientY-startY)+'px';
+    aim.style.right='auto';
+  });
+  document.addEventListener('mouseup',function(){isDragging=false});
+})();
+
 // ═══ NOW PLAYING RANDOMIZER ═══
 (function(){
   const songs=[
@@ -845,10 +1138,35 @@ body::before{
     'wolf sanctuaries ✧','rescued donkeys ♡','sea turtle rehab ✦'
   ];
 
+  const reading=[
+    'something sylvia plath','vogue italia','a recipe i\'ll never make',
+    'the nora ephron essays again','into the gloss archives','old love letters',
+    'a novel someone left at the cafe','emily weiss interviews from 2010'
+  ];
+  const watching=[
+    'the o.c. (again)','old clueless clips on youtube','sunset from the patio',
+    'a documentary about natural wine','one tree hill s3 for the 4th time',
+    'the way the light hits the vineyard at 6pm','someone else\'s wedding video crying'
+  ];
+  const wearing=[
+    'white linen everything','vintage silk slip','bare feet & a messy bun',
+    'oversize tee & nothing else','the same sundress as yesterday honestly',
+    'something borrowed, something wrinkled','manolos in the dirt'
+  ];
+  const obsessed=[
+    'fig season','old polaroids','handwritten letters','the light at 6pm',
+    'farmers market peaches','that one glossier ad from 2014',
+    'wine-stained lips as a look','collecting seashells unironically'
+  ];
+
   document.getElementById('c-sipping').textContent=pick(sipping);
   document.getElementById('c-season').textContent=pick(season);
   document.getElementById('c-mood').textContent=pick(mood);
   document.getElementById('c-giving').textContent=pick(giving);
+  document.getElementById('c-reading').textContent=pick(reading);
+  document.getElementById('c-watching').textContent=pick(watching);
+  document.getElementById('c-wearing').textContent=pick(wearing);
+  document.getElementById('c-obsessed').textContent=pick(obsessed);
 })();
 
 // ═══ FALLING SPARKLES ═══
@@ -920,6 +1238,35 @@ body::before{
     document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
     document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
   }catch(e){}
+})();
+</script>
+
+<script>
+// ═══ COLLECTIBLE BLINKIES ═══
+function collectStamp(el){
+  var id=el.getAttribute('data-stamp-id');
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  if(collected.indexOf(id)===-1){
+    collected.push(id);
+    localStorage.setItem('mm_blinkies_collected',JSON.stringify(collected));
+    el.classList.add('collected');
+    el.style.animation='stamp-pop .4s ease';
+  }
+  updateStampCounter();
+}
+function updateStampCounter(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  var counters=document.querySelectorAll('.stamp-counter');
+  counters.forEach(function(c){c.textContent=collected.length+'/12 collected ✦'});
+}
+// Init: mark already-collected stamps
+(function(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  collected.forEach(function(id){
+    var el=document.querySelector('[data-stamp-id="'+id+'"]');
+    if(el)el.classList.add('collected');
+  });
+  updateStampCounter();
 })();
 </script>
 
