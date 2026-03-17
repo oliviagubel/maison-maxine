@@ -310,57 +310,64 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ MUSE POLAROIDS ═══ */
-.muse-grid{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:10px;
-  padding:20px 0 30px;
+/* ═══ MUSE COLLAGE (2006 myspace style) ═══ */
+.muse-collage{
   position:relative;
+  min-height:820px;
+  margin:10px 0 30px;
 }
-.muse-polaroid{
+.muse-frame{
+  position:absolute;
   background:#fff;
-  padding:8px 8px 32px;
-  box-shadow:3px 4px 14px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.03);
-  transition:all .4s ease;
+  border:3px solid #f7cdeb;
+  border-radius:6px;
+  padding:5px;
+  box-shadow:
+    0 0 0 1px rgba(199,96,144,.15),
+    3px 4px 12px rgba(0,0,0,.1),
+    0 0 20px rgba(247,205,235,.3);
+  transition:all .3s ease;
   cursor:default;
-  position:relative;
-  width:180px;
+  overflow:visible;
 }
-.muse-polaroid:nth-child(1){transform:rotate(-3deg)}
-.muse-polaroid:nth-child(2){transform:rotate(2.5deg)}
-.muse-polaroid:nth-child(3){transform:rotate(-1.5deg)}
-.muse-polaroid:nth-child(4){transform:rotate(3deg)}
-.muse-polaroid:nth-child(5){transform:rotate(-2deg)}
-.muse-polaroid:nth-child(6){transform:rotate(1.5deg)}
-.muse-polaroid:hover{
-  transform:rotate(0deg) scale(1.05) !important;
-  box-shadow:4px 6px 24px rgba(199,96,144,.2), 0 0 0 1px rgba(247,205,235,.5);
-  z-index:10;
+.muse-frame:hover{
+  z-index:20 !important;
+  transform:scale(1.06) rotate(0deg) !important;
+  box-shadow:
+    0 0 0 2px #c76090,
+    4px 6px 20px rgba(199,96,144,.3),
+    0 0 30px rgba(247,205,235,.5);
 }
-.muse-polaroid img{
+.muse-frame img{
   width:100%;
-  aspect-ratio:3/4;
+  height:100%;
   object-fit:cover;
   display:block;
+  border-radius:3px;
 }
-.muse-polaroid .muse-name{
+.muse-label{
+  position:absolute;
+  bottom:-22px;left:0;right:0;
+  text-align:center;
   font-family:'Pixelify Sans',sans-serif;
-  font-size:12px;
+  font-size:11px;
   letter-spacing:.1em;
   color:#c76090;
-  text-align:center;
-  margin-top:8px;
-  line-height:1;
+  text-shadow:0 0 8px rgba(247,205,235,.6), 1px 1px 0 #fff;
 }
-.tape{
+/* scattered sparkle decorations */
+.collage-sparkle{
   position:absolute;
-  top:-8px;left:50%;transform:translateX(-50%) rotate(var(--tape-rot,0deg));
-  width:50px;height:16px;
-  background:rgba(247,205,235,.45);
-  border:1px solid rgba(247,205,235,.3);
-  z-index:2;
+  pointer-events:none;
+  font-size:14px;
+  color:#f7cdeb;
+  text-shadow:0 0 6px rgba(247,205,235,.8);
+  animation:collage-twinkle 2s ease-in-out infinite;
+  z-index:25;
+}
+@keyframes collage-twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.7)}
 }
 
 /* ═══ VIDEO PLAYER (2007 style) ═══ */
