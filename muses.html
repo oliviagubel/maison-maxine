@@ -319,13 +319,15 @@ body::before{
 .muse-frame{
   position:absolute;
   background:#fff;
-  border:3px solid #f7cdeb;
-  border-radius:6px;
-  padding:5px;
+  border:4px solid #f7cdeb;
+  border-radius:2px;
+  padding:8px;
   box-shadow:
-    0 0 0 1px rgba(199,96,144,.15),
-    3px 4px 12px rgba(0,0,0,.1),
-    0 0 20px rgba(247,205,235,.3);
+    0 0 0 1px rgba(199,96,144,.2),
+    0 0 0 5px #fff,
+    0 0 0 6px rgba(247,205,235,.4),
+    4px 5px 14px rgba(0,0,0,.12),
+    0 0 24px rgba(247,205,235,.25);
   transition:all .3s ease;
   cursor:default;
   overflow:visible;
@@ -334,9 +336,11 @@ body::before{
   z-index:20 !important;
   transform:scale(1.06) rotate(0deg) !important;
   box-shadow:
-    0 0 0 2px #c76090,
+    0 0 0 1px rgba(199,96,144,.3),
+    0 0 0 5px #fff,
+    0 0 0 6px #c76090,
     4px 6px 20px rgba(199,96,144,.3),
-    0 0 30px rgba(247,205,235,.5);
+    0 0 35px rgba(247,205,235,.5);
 }
 .muse-frame img{
   width:100%;
