@@ -876,15 +876,18 @@ function updateStampCounter(){
 <div class="video-player" id="videoPlayer">
   <div class="vp-titlebar">
     <span class="vp-dot red" onclick="closeVideoPlayer()"></span>
-    <span class="vp-dot yellow"></span>
+    <span class="vp-dot yellow" onclick="minimizeVideo()"></span>
     <span class="vp-dot green"></span>
     <span class="vp-title">✦ Adeline_March16.mp4</span>
+    <button class="vp-minimize" onclick="minimizeVideo()" title="minimize">⌄</button>
+    <button class="vp-expand" onclick="expandVideo()" title="expand">↗</button>
   </div>
   <video class="vp-video" id="adelineVideo" autoplay muted loop playsinline>
     <source src="Adeline_March16 copy.mp4" type="video/mp4">
   </video>
   <div class="vp-controls">
     <button class="vp-play-btn" id="vpPlayBtn" onclick="toggleVideoPlay()">❚❚</button>
+    <button class="vp-play-btn" id="vpSoundBtn" onclick="toggleSound()">🔇</button>
     <span class="vp-time" id="vpTime">0:00 / 0:00</span>
   </div>
 </div>
@@ -893,7 +896,9 @@ function updateStampCounter(){
 (function(){
   var vid = document.getElementById('adelineVideo');
   var btn = document.getElementById('vpPlayBtn');
+  var soundBtn = document.getElementById('vpSoundBtn');
   var timeEl = document.getElementById('vpTime');
+  var player = document.getElementById('videoPlayer');
   function fmt(s){var m=Math.floor(s/60);s=Math.floor(s%60);return m+':'+(s<10?'0':'')+s}
   vid.addEventListener('timeupdate',function(){
     timeEl.textContent = fmt(vid.currentTime)+' / '+fmt(vid.duration||0);
@@ -902,10 +907,20 @@ function updateStampCounter(){
     if(vid.paused){vid.play();btn.textContent='❚❚'}
     else{vid.pause();btn.textContent='▶'}
   };
+  window.toggleSound = function(){
+    vid.muted = !vid.muted;
+    soundBtn.textContent = vid.muted ? '🔇' : '🔊';
+  };
+  window.minimizeVideo = function(){
+    player.classList.add('minimized');
+  };
+  window.expandVideo = function(){
+    player.classList.remove('minimized');
+  };
   window.closeVideoPlayer = function(){
-    var p = document.getElementById('videoPlayer');
-    p.classList.add('closing');
-    setTimeout(function(){p.style.display='none'},300);
+    player.classList.add('closing');
+    vid.pause();
+    setTimeout(function(){player.style.display='none'},300);
   };
 })();
 </script>
