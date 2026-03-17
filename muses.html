@@ -633,6 +633,7 @@ body::before{
 @media(max-width:768px){
   #sidebar{display:none}
   #main{margin-left:0;padding:20px 16px}
+  .home-video-wrap{display:none!important}
 
   .mobile-header{
     display:flex;
@@ -715,6 +716,9 @@ body::before{
 </style>
 </head>
 <body>
+<script>
+if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
+</script>
 
 <!-- MOBILE HEADER -->
 <div class="mobile-header">
