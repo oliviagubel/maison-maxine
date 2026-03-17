@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Maison Maxine</title>
+<link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style type="text/css">
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f5e8f0;
+  background-image: url("bg.png");
+  background-size: 600px auto;
+  background-repeat: repeat;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  color: #5a2840;
+}
+
+table { border-collapse: collapse; }
+
+/* ── OUTER FRAME ── */
+#outer {
+  width: 820px;
+  margin: 20px auto;
+  background-color: #f0d8e8;
+  border: 1px solid #c8a0bc;
+  padding: 10px;
+  box-shadow: 0 4px 32px rgba(100,40,80,0.18);
+}
+
+#inner-border {
+  border: 1px solid #dcc8d8;
+  background-color: #fdf6fb;
+  padding: 0;
+}
+
+/* ── TOP BAR ── */
+#topbar {
+  /* soft pink matching right-side reference: rosy blush */
+  background-color: #f2c8dc;
+  border-bottom: 1px solid #d8a8c4;
+  padding: 12px 20px 10px;
+  width: 100%;
+}
+
+.logo-oval {
+  background-color: #ffffff;
+  border: 2px solid #aa5080;
+  border-radius: 60px;
+  -moz-border-radius: 60px;
+  padding: 4px 26px 8px;
+  display: inline-block;
+  position: relative;
+  text-align: center;
+}
+.logo-star {
+  color: #aa5080;
+  font-size: 15px;
+  position: absolute;
+  top: -7px;
+  left: -3px;
+}
+/* Pinyon Script for logo — elegant burgues-style */
+.logo-script {
+  font-family: 'Pinyon Script', cursive;
+  font-size: 44px;
+  color: #7a1848;
+  line-height: 1;
+  display: block;
+  letter-spacing: 1px;
+}
+.logo-tm {
+  font-size: 7px;
+  color: #7a1848;
+  vertical-align: super;
+  font-family: Georgia, serif;
+}
+
+.topbar-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 17px;
+  font-style: italic;
+  color: #6a2850;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
+.magazine-btn {
+  background-color: #ffffff;
+  border: 2px solid #c8aa40;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  padding: 6px 16px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: #806020;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.cart-icon {
+  font-size: 14px;
+  color: #6a2850;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  letter-spacing: 1px;
+}
+
+/* ── STRIPE SIDES ── */
+.stripe-col {
+  width: 14px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    #e090b8 0px, #e090b8 12px,
+    #fce8f4 12px, #fce8f4 24px
+  );
+}
+
+/* ── NAV ── */
+#nav-col {
+  width: 200px;
+  /* match the blush pink from reference image */
+  background-color: #f8dced;
+  border-right: 1px solid #e0c0d4;
+  vertical-align: top;
+  padding: 16px 10px 16px 8px;
+}
+
+.nav-row {
+  margin-bottom: 8px;
+}
+
+.nav-icon-box {
+  width: 54px;
+  height: 52px;
+  /* WHITE background for icons */
+  background-color: #ffffff;
+  border: 1px solid #d0a8c0;
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  -moz-border-radius: 6px 0 0 6px;
+  vertical-align: middle;
+  text-align: center;
+  overflow: hidden;
+  padding: 4px;
+}
+
+.nav-icon-box img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}
+
+.nav-btn {
+  background-color: #d870a8;
+  background-image: linear-gradient(to bottom, #e898c0, #c05088);
+  background-image: -moz-linear-gradient(top, #e898c0, #c05088);
+  border: 1px solid #aa4070;
+  border-radius: 0 22px 22px 0;
+  -moz-border-radius: 0 22px 22px 0;
+  padding: 8px 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 300;
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(80,10,40,0.4);
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  line-height: 1.25;
+  width: 130px;
+  letter-spacing: 1.5px;
+}
+
+/* ── SCENE ── */
+#scene {
+  vertical-align: top;
+  position: relative;
+  overflow: hidden;
+}
+
+.scene-container {
+  width: 100%;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  /* blush pink with vertical stripes like reference */
+  background-color: #f8e0ef;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.55) 0px, rgba(255,255,255,0.55) 20px,
+    transparent 20px, transparent 40px
+  );
+}
+
+.scene-topstripe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background-image: repeating-linear-gradient(
+    to right,
+    #e090b8 0px, #e090b8 16px,
+    #fce8f4 16px, #fce8f4 32px
+  );
+  z-index: 10;
+}
+
+/* ── SCENE TEXT ── left half only, cards on right ── */
+.scene-text-area {
+  position: absolute;
+  top: 18px;
+  left: 24px;
+  width: 310px;  /* keeps text fully left of cards */
+}
+
+.scene-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 300;
+  color: #7a2858;
+  letter-spacing: 1.5px;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.scene-bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.scene-bullets li {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  font-weight: 300;
+  color: #6a2848;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  padding-left: 10px;
+  border-left: 1px solid #d898c0;
+}
+
+.bottom-tagline {
+  position: absolute;
+  bottom: 10px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 13px;
+  font-style: italic;
+  font-weight: 300;
+  color: #9a4870;
+  letter-spacing: 2px;
+}
+
+/* ── PHOTO CARDS — smaller, all visible on right side ── */
+.photo-card {
+  position: absolute;
+  background-color: #ffffff;
+  border: 1px solid #e0d8d0;
+  padding: 6px 6px 26px;
+  box-shadow: 2px 5px 16px rgba(100,40,80,0.2);
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.card-img-wrap {
+  overflow: hidden;
+  display: block;
+}
+
+.card-caption {
+  position: absolute;
+  bottom: 5px;
+  left: 0; right: 0;
+  text-align: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 10px;
+  font-style: italic;
+  color: #8a6070;
+  letter-spacing: 1px;
+}
+
+.card-label {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  background-color: #deeec8;
+  border: 1px solid #b8d098;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  padding: 1px 8px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 9px;
+  font-style: italic;
+  color: #5a7838;
+  white-space: nowrap;
+  z-index: 20;
+}
+
+/* Card 1 — top left of card cluster */
+.card-1 {
+  width: 138px;
+  height: 196px;
+  top: 30px;
+  right: 228px;
+  transform: rotate(-5deg);
+  -webkit-transform: rotate(-5deg);
+  z-index: 2;
+}
+.card-1 .card-img-wrap { width: 126px; height: 162px; }
+
+/* Card 2 — center, upright */
+.card-2 {
+  width: 150px;
+  height: 214px;
+  top: 14px;
+  right: 96px;
+  transform: rotate(2deg);
+  -webkit-transform: rotate(2deg);
+  z-index: 3;
+}
+.card-2 .card-img-wrap { width: 138px; height: 180px; }
+
+/* Card 3 — small, lower right */
+.card-3 {
+  width: 118px;
+  height: 162px;
+  top: 172px;
+  right: 18px;
+  transform: rotate(6deg);
+  -webkit-transform: rotate(6deg);
+  z-index: 4;
+}
+.card-3 .card-img-wrap { width: 106px; height: 128px; }
+
+/* ── GOLD RULE ── */
+.gold-rule {
+  border: none;
+  border-top: 1px solid #d4b870;
+  margin: 0 20px;
+  opacity: 0.4;
+}
+
+/* ── FOOTER ── */
+#footer {
+  background-color: #f2c8dc;
+  border-top: 1px solid #d8a8c4;
+  text-align: center;
+  padding: 10px 20px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 11px;
+  font-style: italic;
+  font-weight: 300;
+  color: #7a3858;
+  line-height: 1.8;
+  letter-spacing: 1px;
+}
+#footer a { color: #7a3858; text-decoration: underline; }
+
+</style>
+</head>
+<body>
+
+<table id="outer" cellpadding="0" cellspacing="0">
+<tr><td>
+<table id="inner-border" cellpadding="0" cellspacing="0" width="100%">
+
+<!-- TOP BAR -->
+<tr>
+<td id="topbar">
+  <table width="100%" cellpadding="0" cellspacing="0">
+  <tr valign="middle">
+    <td width="240" valign="middle">
+      <span style="font-size:17px; color:#6a2850; vertical-align:middle; margin-right:6px;">&#128247;</span>
+      <div class="logo-oval" style="display:inline-block; vertical-align:middle;">
+        <span class="logo-star">&#10022;</span>
+        <span class="logo-script">Maison Maxine<span class="logo-tm">TM</span></span>
+      </div>
+    </td>
+    <td align="center" valign="middle">
+      <span class="topbar-tagline">reimagine the pour.</span>
+    </td>
+    <td align="right" valign="middle" width="220">
+      <span class="cart-icon">&#128722;&nbsp;0&nbsp;&nbsp;</span>
+      <div class="magazine-btn" style="display:inline-block;">&#128214;&nbsp;the magazine!&nbsp;&#9658;</div>
+    </td>
+    <td width="8">&nbsp;</td>
+  </tr>
+  </table>
+</td>
+</tr>
+
+<tr><td><hr class="gold-rule"></td></tr>
+
+<!-- MAIN ROW -->
+<tr><td>
+<table width="100%" cellpadding="0" cellspacing="0">
+<tr>
+
+  <td class="stripe-col" width="14">&nbsp;</td>
+
+  <!-- NAV -->
+  <td id="nav-col" valign="top">
+
+    <div class="nav-row">
+      <table cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td class="nav-icon-box"><img src="littlewine.png" alt="home"></td>
+        <td class="nav-btn">home</td>
+      </tr></table>
+    </div>
+
+    <div class="nav-row">
+      <table cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td class="nav-icon-box"><img src="littleflower.png" alt="sustainability"></td>
+        <td class="nav-btn">sustainability</td>
+      </tr></table>
+    </div>
+
+    <div class="nav-row">
+      <table cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td class="nav-icon-box"><img src="littleberry.png" alt="compassion"></td>
+        <td class="nav-btn">compassion</td>
+      </tr></table>
+    </div>
+
+    <div class="nav-row">
+      <table cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td class="nav-icon-box"><img src="littlefig.png" alt="shop"></td>
+        <td class="nav-btn">shop</td>
+      </tr></table>
+    </div>
+
+  </td>
+
+  <!-- SCENE -->
+  <td id="scene" valign="top">
+    <div class="scene-container">
+      <div class="scene-topstripe"></div>
+
+      <!-- Text block — left side only -->
+      <div class="scene-text-area">
+        <div class="scene-tagline">reimagining red wine<br>for the modern day muse</div>
+        <ul class="scene-bullets">
+          <li>red wine spritzers</li>
+          <li>four whole ingredients</li>
+          <li>napa valley cabernet</li>
+          <li>5% to animals in need</li>
+        </ul>
+      </div>
+
+      <!-- PHOTO CARDS — right side -->
+
+      <!-- Card 1: fig close-up, back-left -->
+      <div class="photo-card card-1">
+        <div class="card-label">malibu, ca</div>
+        <div class="card-img-wrap">
+          <img src="photo4.jpg" alt="fig">
+        </div>
+        <div class="card-caption">malibu, ca</div>
+      </div>
+
+      <!-- Card 2: girl with can, center -->
+      <div class="photo-card card-2">
+        <div class="card-label">s.s. for m.m. &#10047;</div>
+        <div class="card-img-wrap">
+          <img src="photo2.jpg" alt="campaign">
+        </div>
+        <div class="card-caption">s.s. for m.m. &#10047;</div>
+      </div>
+
+      <!-- Card 3: beach girl, front-right -->
+      <div class="photo-card card-3">
+        <div class="card-img-wrap">
+          <img src="photo5.jpg" alt="beach">
+        </div>
+      </div>
+
+      <div class="bottom-tagline">drink well. &nbsp;&middot;&nbsp; give back. &nbsp;&middot;&nbsp; be a muse.</div>
+
+    </div>
+  </td>
+
+  <td class="stripe-col" width="14">&nbsp;</td>
+
+</tr>
+</table>
+</td></tr>
+
+<tr><td><hr class="gold-rule"></td></tr>
+
+<!-- FOOTER -->
+<tr>
+<td id="footer">
+  <a href="#">copyright 2026 maison maxine</a><br>
+  <a href="#">alcohol sales fulfilled and sold by eubel family vineyards</a>
+</td>
+</tr>
+
+</table>
+</td></tr>
+</table>
+
+</body>
+</html>
