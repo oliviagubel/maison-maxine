@@ -800,8 +800,41 @@ body::before{
 
   </div>
 
+  <!-- HOME VIDEO -->
+  <div class="home-video-wrap">
+    <div class="hv-chrome">
+      <div class="hv-toolbar">
+        <div style="display:flex;align-items:center;gap:6px">
+          <span class="hv-dot" style="background:#ff5f57"></span>
+          <span class="hv-dot" style="background:#ffbd2e"></span>
+          <span class="hv-dot" style="background:#28c940"></span>
+        </div>
+        <div class="hv-filename">Adeline_March16.mp4</div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <button class="hv-btn" id="hvSoundBtn" onclick="toggleHvSound()">🔇</button>
+          <button class="hv-btn" id="hvPlayBtn" onclick="toggleHvPlay()">❚❚</button>
+        </div>
+      </div>
+      <div class="hv-screen">
+        <video id="hvVideo" autoplay muted loop playsinline style="width:100%;display:block">
+          <source src="Adeline_March16 copy.mp4" type="video/mp4">
+        </video>
+        <div class="hv-hud">
+          <div class="hv-hud-tl">♡ HOME VIDEO</div>
+          <div class="hv-hud-tr" id="hvTimecode">00:00</div>
+          <div class="hv-hud-bl">MARCH 2026</div>
+          <div class="hv-hud-br">✦ ADELINE</div>
+        </div>
+        <div class="hv-scanlines"></div>
+      </div>
+      <div class="hv-footer">
+        <span>filmed by the muses ♡</span>
+      </div>
+    </div>
+  </div>
+
   <!-- CLOSING -->
-  <div style="text-align:center;padding:10px 0 10px">
+  <div style="text-align:center;padding:16px 0 10px">
     <p style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">the girls behind the glass ♡</p>
   </div>
 
