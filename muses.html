@@ -383,7 +383,7 @@ body::before{
   display:flex;
   align-items:center;
   justify-content:center;
-  background:rgba(0,0,0,.92);
+  background:rgba(253,240,246,.95);
   transition:all .5s cubic-bezier(.4,0,.2,1);
 }
 /* minimized to corner */
@@ -405,19 +405,21 @@ body::before{
   display:none;
 }
 .hv-chrome{
-  background:#1a1a1a;
-  border-radius:8px;
+  background:#fff;
+  border-radius:10px;
   overflow:hidden;
-  box-shadow:3px 4px 18px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.1);
+  border:2px solid #f7cdeb;
+  box-shadow:3px 4px 18px rgba(247,205,235,.3), 0 0 30px rgba(247,205,235,.15);
   width:80%;
   max-width:700px;
   transition:all .5s cubic-bezier(.4,0,.2,1);
 }
 .home-video-wrap.hv-mini .hv-chrome{
-  box-shadow:0 4px 24px rgba(0,0,0,.3);
+  box-shadow:0 4px 24px rgba(199,96,144,.2);
 }
 .hv-toolbar{
-  background:linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  background:linear-gradient(180deg, #fce8f1 0%, #f7d5e5 40%, #f0c4d8 100%);
+  border-bottom:1px solid #f0d0e2;
   padding:8px 12px;
   display:flex;
   align-items:center;
@@ -430,16 +432,18 @@ body::before{
   font-family:'Pixelify Sans',sans-serif;
   font-size:10px;
   letter-spacing:.08em;
-  color:rgba(255,255,255,.5);
+  color:#c76090;
 }
 .hv-btn{
-  background:none;border:none;cursor:pointer;font-size:14px;padding:0 4px;
-  color:rgba(255,255,255,.7);transition:color .2s;
+  background:none;border:none;cursor:pointer;font-size:11px;padding:2px 6px;
+  color:#c76090;transition:all .2s;
+  font-family:'Pixelify Sans',sans-serif;
+  letter-spacing:.05em;
 }
-.hv-btn:hover{color:#fff}
+.hv-btn:hover{color:#8a1a4a}
 .hv-screen{
   position:relative;
-  background:#000;
+  background:#fef0f8;
   line-height:0;
 }
 .hv-hud{
@@ -470,13 +474,14 @@ body::before{
   );
 }
 .hv-footer{
-  background:linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  background:linear-gradient(180deg, #fce8f1 0%, #f7d5e5 100%);
+  border-top:1px solid #f0d0e2;
   padding:8px 12px;
   text-align:center;
   font-family:'Pixelify Sans',sans-serif;
   font-size:9px;
   letter-spacing:.1em;
-  color:rgba(255,255,255,.35);
+  color:#c76090;
 }
 
 /* ═══ WEATHER WIDGET ═══ */
@@ -805,44 +810,45 @@ body::before{
 
   </div>
 
-  <!-- HOME VIDEO -->
-  <div class="home-video-wrap">
-    <div class="hv-chrome">
-      <div class="hv-toolbar">
-        <div style="display:flex;align-items:center;gap:6px">
-          <span class="hv-dot" style="background:#ff5f57"></span>
-          <span class="hv-dot" style="background:#ffbd2e"></span>
-          <span class="hv-dot" style="background:#28c940"></span>
-        </div>
-        <div class="hv-filename">Adeline_March16.mp4</div>
-        <div style="display:flex;align-items:center;gap:8px">
-          <button class="hv-btn" id="hvSoundBtn" onclick="toggleHvSound()">🔇</button>
-          <button class="hv-btn" id="hvPlayBtn" onclick="toggleHvPlay()">❚❚</button>
-        </div>
-      </div>
-      <div class="hv-screen">
-        <video id="hvVideo" autoplay muted loop playsinline style="width:100%;display:block">
-          <source src="Adeline_March16 copy.mp4" type="video/mp4">
-        </video>
-        <div class="hv-hud">
-          <div class="hv-hud-tl">♡ HOME VIDEO</div>
-          <div class="hv-hud-tr" id="hvTimecode">00:00</div>
-          <div class="hv-hud-bl">MARCH 2026</div>
-          <div class="hv-hud-br">✦ ADELINE</div>
-        </div>
-        <div class="hv-scanlines"></div>
-      </div>
-      <div class="hv-footer">
-        <span>filmed by the muses ♡</span>
-      </div>
-    </div>
-  </div>
-
   <!-- CLOSING -->
   <div style="text-align:center;padding:16px 0 10px">
     <p style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">the girls behind the glass ♡</p>
   </div>
 
+</div>
+
+<!-- HOME VIDEO (fixed overlay, outside #main) -->
+<div class="home-video-wrap" id="hvWrap">
+  <div class="hv-chrome">
+    <div class="hv-toolbar">
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="hv-dot" style="background:#ff5f57;cursor:pointer" onclick="minimizeHv()"></span>
+        <span class="hv-dot" style="background:#ffbd2e;cursor:pointer" onclick="minimizeHv()"></span>
+        <span class="hv-dot" style="background:#28c940;cursor:pointer" onclick="minimizeHv()"></span>
+      </div>
+      <div class="hv-filename">✦ Adeline_March16.mp4</div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <button class="hv-btn" id="hvSoundBtn" onclick="toggleHvSound()">sound off</button>
+        <button class="hv-btn" id="hvPlayBtn" onclick="toggleHvPlay()">pause</button>
+        <button class="hv-btn" id="hvExpandBtn" onclick="expandHv()" style="display:none">expand ↗</button>
+      </div>
+    </div>
+    <div class="hv-screen">
+      <video id="hvVideo" autoplay muted loop playsinline style="width:100%;display:block">
+        <source src="Adeline_March16 copy.mp4" type="video/mp4">
+      </video>
+      <div class="hv-hud">
+        <div class="hv-hud-tl">♡ HOME VIDEO</div>
+        <div class="hv-hud-tr" id="hvTimecode">00:00</div>
+        <div class="hv-hud-bl">MARCH 2026</div>
+        <div class="hv-hud-br">✦ ADELINE</div>
+      </div>
+      <div class="hv-scanlines"></div>
+    </div>
+    <div class="hv-footer">
+      <span>filmed by the muses ♡</span>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -937,18 +943,32 @@ function updateStampCounter(){
   var vid = document.getElementById('hvVideo');
   var playBtn = document.getElementById('hvPlayBtn');
   var soundBtn = document.getElementById('hvSoundBtn');
+  var expandBtn = document.getElementById('hvExpandBtn');
+  var wrap = document.getElementById('hvWrap');
   var timecode = document.getElementById('hvTimecode');
   function fmt(s){var m=Math.floor(s/60);s=Math.floor(s%60);return (m<10?'0':'')+m+':'+(s<10?'0':'')+s}
   vid.addEventListener('timeupdate',function(){
     timecode.textContent = fmt(vid.currentTime);
   });
   window.toggleHvPlay = function(){
-    if(vid.paused){vid.play();playBtn.textContent='❚❚'}
-    else{vid.pause();playBtn.textContent='▶'}
+    if(vid.paused){vid.play();playBtn.textContent='pause'}
+    else{vid.pause();playBtn.textContent='play'}
   };
   window.toggleHvSound = function(){
     vid.muted = !vid.muted;
-    soundBtn.textContent = vid.muted ? '🔇' : '🔊';
+    soundBtn.textContent = vid.muted ? 'sound off' : 'sound on';
+  };
+  window.minimizeHv = function(){
+    wrap.classList.add('hv-mini');
+    expandBtn.style.display='inline';
+  };
+  window.expandHv = function(){
+    wrap.classList.remove('hv-mini');
+    expandBtn.style.display='none';
+  };
+  window.closeHv = function(){
+    vid.pause();
+    wrap.classList.add('hv-closed');
   };
 })();
 </script>
