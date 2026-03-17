@@ -310,74 +310,123 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ MUSE PILE (enter page style) ═══ */
-.muse-pile{
+/* ═══ MUSE SCRAPBOOK ═══ */
+.scrapbook{
+  background:linear-gradient(135deg,#fff9fc 0%,#fef0f6 40%,#faf5f0 70%,#fef8fb 100%);
+  border:3px double #f7cdeb;
+  border-radius:4px;
+  padding:30px;
   position:relative;
-  width:100%;
-  height:780px;
-  margin:0 auto 20px;
+  box-shadow:inset 0 0 40px rgba(247,205,235,.15), 3px 4px 15px rgba(0,0,0,.08);
+  margin-bottom:20px;
+  overflow:hidden;
 }
-/* sticker-style photo (no frame, just the image) */
-.muse-pile .sk{
+/* paper texture overlay */
+.scrapbook::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 28px,
+    rgba(247,205,235,.08) 28px,rgba(247,205,235,.08) 29px
+  );
+  pointer-events:none;
+  z-index:0;
+}
+/* the photo grid — not a rigid grid, a messy scrapbook spread */
+.sb-spread{
+  position:relative;
+  height:850px;
+  z-index:1;
+}
+/* each photo item */
+.sb-photo{
   position:absolute;
-  background:transparent;
-  transition:transform .4s ease, filter .4s ease;
+  transition:all .4s cubic-bezier(.2,0,.2,1);
+  cursor:default;
 }
-.muse-pile .sk:hover{
-  transform:scale(1.08) rotate(0deg) !important;
-  filter:brightness(1.05);
-  z-index:30 !important;
+.sb-photo:hover{
+  z-index:50 !important;
+  transform:scale(1.1) rotate(0deg) !important;
+  filter:drop-shadow(0 0 16px rgba(199,96,144,.3));
 }
-.muse-pile .sk img{display:block;border-radius:2px}
-/* polaroid-style photo (white border + name) */
-.muse-pile .pol{
-  position:absolute;
+.sb-photo img{
+  display:block;
+  object-fit:cover;
+  border-radius:2px;
+}
+/* white-border photo (instant camera style) */
+.sb-instant{
   background:#fff;
-  padding:7px 7px 28px;
-  box-shadow:3px 4px 12px rgba(0,0,0,.12);
-  transition:transform .4s ease, filter .4s ease;
+  padding:6px 6px 26px;
+  box-shadow:2px 3px 10px rgba(0,0,0,.1);
 }
-.muse-pile .pol:hover{
-  transform:scale(1.08) rotate(0deg) !important;
-  filter:brightness(1.05);
-  z-index:30 !important;
-}
-.muse-pile .pol img{display:block;width:100%}
-.muse-pile .pol .pname{
-  position:absolute;
-  bottom:6px;left:0;right:0;
+.sb-instant img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.sb-instant .sb-caption{
   text-align:center;
   font-family:'Burgues Script',cursive;
-  font-size:16px;
+  font-size:15px;
   color:#c76090;
+  margin-top:3px;
 }
-/* tape strips */
-.muse-pile .tape{
+/* raw sticker photo (no border, just image + drop shadow) */
+.sb-sticker img{
+  filter:drop-shadow(3px 4px 6px rgba(0,0,0,.15));
+}
+/* washi tape */
+.washi{
   position:absolute;
-  background:rgba(247,205,235,.35);
-  border:1px solid rgba(247,205,235,.25);
+  height:14px;
+  background:rgba(247,205,235,.4);
+  border-top:1px solid rgba(255,255,255,.6);
+  border-bottom:1px solid rgba(247,205,235,.2);
   pointer-events:none;
-  z-index:35;
+  z-index:60;
+  border-radius:1px;
 }
-/* floating doodles */
-.muse-pile .dd{
+/* decorative sticker elements */
+.sb-deco{
   position:absolute;
   pointer-events:none;
-  z-index:36;
-  animation:dd-pulse 2.5s ease-in-out infinite;
+  z-index:55;
 }
-@keyframes dd-pulse{
-  0%,100%{opacity:.6;transform:scale(1)}
-  50%{opacity:1;transform:scale(1.15)}
+/* floating sparkle */
+.sb-sparkle{
+  position:absolute;
+  pointer-events:none;
+  z-index:56;
+  animation:sb-twinkle 2s ease-in-out infinite;
 }
-/* handwritten scrawls */
-.muse-pile .scrawl{
+@keyframes sb-twinkle{
+  0%,100%{opacity:.5;transform:scale(1) rotate(0deg)}
+  50%{opacity:1;transform:scale(1.2) rotate(10deg)}
+}
+/* handwritten notes on the page */
+.sb-note{
   position:absolute;
   font-family:'Burgues Script',cursive;
   color:#c76090;
   pointer-events:none;
-  z-index:34;
-  opacity:.45;
+  z-index:40;
+  text-shadow:0 0 8px rgba(247,205,235,.4);
+}
+/* little label stickers */
+.sb-label{
+  position:absolute;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#fff;
+  background:#c76090;
+  padding:2px 8px;
+  border-radius:2px;
+  z-index:58;
+  pointer-events:none;
+}
+/* bobbing animation for a sticker */
+@keyframes sb-bob{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
 }
 
 /* ═══ HOME VIDEO PLAYER ═══ */
@@ -765,76 +814,95 @@ body::before{
     <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
   </div>
 
-  <!-- MUSE PILE (chaotic scrapbook like the enter page) -->
-  <div class="muse-pile">
+  <!-- ═══ THE SCRAPBOOK ═══ -->
+  <div class="scrapbook">
 
-    <!-- KENDAL — big, top left, slightly off-edge, sticker style -->
-    <div class="sk" style="width:230px;top:0;left:-10px;z-index:8;transform:rotate(-5deg)">
-      <img src="kendalsmiling.png" style="width:230px;height:290px;object-fit:cover">
-    </div>
-    <div class="tape" style="width:55px;height:14px;top:12px;left:60px;transform:rotate(-12deg)"></div>
-
-    <!-- AMELIA — polaroid, overlapping kendal, tilted other way -->
-    <div class="pol" style="width:185px;top:30px;left:240px;z-index:10;transform:rotate(4deg)">
-      <img src="amelia.png" style="height:230px;object-fit:cover">
-      <div class="pname">Amelia ♡</div>
+    <!-- page title scrawled at top -->
+    <div style="text-align:center;position:relative;z-index:2;margin-bottom:10px">
+      <span style="font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.2em;color:#c76090;text-transform:uppercase">♡ our girls ♡</span>
     </div>
 
-    <!-- ADELINE — sticker, small, tucked top right corner -->
-    <div class="sk" style="width:150px;top:10px;left:460px;z-index:9;transform:rotate(-2deg)">
-      <img src="Adeline.png" style="width:150px;height:190px;object-fit:cover">
+    <div class="sb-spread">
+
+      <!-- KENDAL — large instant, top left, the anchor -->
+      <div class="sb-photo sb-instant" style="width:200px;top:0;left:0;z-index:10;transform:rotate(-4deg)">
+        <img src="kendalsmiling.png">
+        <div class="sb-caption">Kendal</div>
+      </div>
+      <div class="washi" style="width:60px;top:8px;left:55px;transform:rotate(-15deg)"></div>
+
+      <!-- AMELIA — raw sticker, overlapping kendal -->
+      <div class="sb-photo sb-sticker" style="top:20px;left:220px;z-index:12;transform:rotate(3deg)">
+        <img src="amelia.png" style="width:180px;height:230px">
+      </div>
+      <div class="washi" style="width:50px;top:15px;left:270px;transform:rotate(8deg)"></div>
+      <div class="sb-label" style="top:255px;left:250px;transform:rotate(2deg)">muse</div>
+
+      <!-- ADELINE — instant, top right, small & tilted -->
+      <div class="sb-photo sb-instant" style="width:155px;top:5px;left:425px;z-index:9;transform:rotate(5deg)">
+        <img src="Adeline.png">
+        <div class="sb-caption">Adeline</div>
+      </div>
+
+      <!-- handwritten note -->
+      <div class="sb-note" style="top:215px;left:440px;font-size:20px;transform:rotate(4deg);opacity:.5">the tiniest muse ♡</div>
+
+      <!-- sparkles around top section -->
+      <span class="sb-sparkle" style="top:5px;left:195px;font-size:16px;color:#f7cdeb;animation-delay:0s">✦</span>
+      <span class="sb-sparkle" style="top:120px;left:410px;font-size:10px;color:#c76090;animation-delay:.5s">♡</span>
+
+      <!-- SARINA — sticker, middle left -->
+      <div class="sb-photo sb-sticker" style="top:290px;left:15px;z-index:14;transform:rotate(2deg)">
+        <img src="sarinasmiling.png" style="width:170px;height:220px">
+      </div>
+      <div class="washi" style="width:55px;top:285px;left:60px;transform:rotate(-10deg)"></div>
+
+      <!-- FLOWER/SUMMER — instant, center, overlapping sarina -->
+      <div class="sb-photo sb-instant" style="width:165px;top:270px;left:210px;z-index:13;transform:rotate(-3deg)">
+        <img src="flower.png">
+        <div class="sb-caption">Summer</div>
+      </div>
+
+      <!-- handwritten note -->
+      <div class="sb-note" style="top:310px;left:400px;font-size:24px;transform:rotate(-5deg);opacity:.4">xo</div>
+
+      <!-- AMELIA WALKING — sticker, tucked right middle -->
+      <div class="sb-photo sb-sticker" style="top:310px;left:420px;z-index:11;transform:rotate(4deg)">
+        <img src="ameliawalking.png" style="width:150px;height:195px">
+      </div>
+      <div class="sb-label" style="top:505px;left:455px;transform:rotate(-2deg)">napa</div>
+
+      <!-- sparkles middle -->
+      <span class="sb-sparkle" style="top:280px;left:390px;font-size:14px;color:#f7cdeb;animation-delay:.8s">⋆</span>
+      <span class="sb-sparkle" style="top:470px;left:180px;font-size:18px;color:#c76090;animation-delay:1.2s">✦</span>
+
+      <!-- OSITO PANCAKES — instant, big, bottom center, the star -->
+      <div class="sb-photo sb-instant" style="width:210px;top:540px;left:100px;z-index:16;transform:rotate(-2deg)">
+        <img src="ositopancakes.png">
+        <div class="sb-caption">Osito Pancakes</div>
+      </div>
+      <div class="washi" style="width:65px;top:535px;left:170px;transform:rotate(12deg)"></div>
+      <div class="sb-label" style="top:540px;left:105px;transform:rotate(-8deg)">mascot</div>
+
+      <!-- ROSE — decorative sticker, bottom right -->
+      <div class="sb-deco" style="top:580px;left:360px;z-index:8;transform:rotate(10deg)">
+        <img src="rose.png" style="width:80px;filter:drop-shadow(2px 3px 5px rgba(0,0,0,.1))">
+      </div>
+
+      <!-- DOLPHIN — tiny sticker near osito -->
+      <div class="sb-deco" style="top:720px;left:330px;z-index:9;transform:rotate(-6deg);animation:sb-bob 3s ease-in-out infinite">
+        <img src="littledolphin.png" style="width:50px;filter:drop-shadow(2px 2px 4px rgba(0,0,0,.1))">
+      </div>
+
+      <!-- bottom sparkles -->
+      <span class="sb-sparkle" style="top:560px;left:30px;font-size:12px;color:#f7cdeb;animation-delay:.3s">♡</span>
+      <span class="sb-sparkle" style="top:700px;left:250px;font-size:20px;color:#c76090;animation-delay:.7s">✦</span>
+      <span class="sb-sparkle" style="top:640px;left:500px;font-size:11px;color:#edf6d3;animation-delay:1.5s">⋆</span>
+
+      <!-- final note -->
+      <div class="sb-note" style="top:780px;left:130px;font-size:16px;transform:rotate(1deg);opacity:.4">from the vineyard with love ✦</div>
+
     </div>
-    <div class="tape" style="width:45px;height:12px;top:5px;left:490px;transform:rotate(8deg)"></div>
-
-    <!-- handwritten scrawl -->
-    <div class="scrawl" style="top:240px;left:440px;font-size:22px;transform:rotate(5deg)">my girls ♡</div>
-
-    <!-- SARINA — polaroid, middle left, overlaps kendal bottom -->
-    <div class="pol" style="width:175px;top:310px;left:20px;z-index:12;transform:rotate(3deg)">
-      <img src="sarinasmiling.png" style="height:220px;object-fit:cover">
-      <div class="pname">Sarina ✦</div>
-    </div>
-
-    <!-- SUMMER — sticker, no frame, middle -->
-    <div class="sk" style="width:190px;top:280px;left:230px;z-index:11;transform:rotate(-4deg)">
-      <img src="flower.png" style="width:190px;height:230px;object-fit:cover">
-    </div>
-    <div class="tape" style="width:50px;height:13px;top:275px;left:290px;transform:rotate(-6deg)"></div>
-
-    <!-- another scrawl -->
-    <div class="scrawl" style="top:530px;left:10px;font-size:16px;transform:rotate(-3deg)">xo xo</div>
-
-    <!-- OSITO — polaroid, bottom right, biggest because he's the star -->
-    <div class="pol" style="width:210px;top:530px;left:160px;z-index:14;transform:rotate(-3deg)">
-      <img src="ositopancakes.png" style="height:220px;object-fit:cover">
-      <div class="pname">Osito Pancakes</div>
-    </div>
-    <div class="tape" style="width:55px;height:14px;top:525px;left:230px;transform:rotate(10deg)"></div>
-
-    <!-- extra photo — ameliawalking tucked behind osito -->
-    <div class="sk" style="width:140px;top:560px;left:400px;z-index:6;transform:rotate(6deg)">
-      <img src="ameliawalking.png" style="width:140px;height:180px;object-fit:cover">
-    </div>
-
-    <!-- SCATTERED DOODLES — hearts, stars, sparkles -->
-    <span class="dd" style="top:15px;left:200px;font-size:18px;color:#f7cdeb;animation-delay:0s">✦</span>
-    <span class="dd" style="top:160px;left:430px;font-size:12px;color:#c76090;animation-delay:.4s">♡</span>
-    <span class="dd" style="top:270px;left:0;font-size:10px;color:#edf6d3;animation-delay:.8s">⋆</span>
-    <span class="dd" style="top:310px;left:450px;font-size:20px;color:#f7cdeb;animation-delay:1.2s">♡</span>
-    <span class="dd" style="top:500px;left:110px;font-size:14px;color:#c76090;animation-delay:.3s">✧</span>
-    <span class="dd" style="top:520px;left:390px;font-size:11px;color:#f7cdeb;animation-delay:1.6s">✦</span>
-    <span class="dd" style="top:720px;left:310px;font-size:16px;color:#c76090;animation-delay:.7s">♡</span>
-    <span class="dd" style="top:80px;left:600px;font-size:13px;color:#edf6d3;animation-delay:1s">⋆</span>
-    <span class="dd" style="top:430px;left:550px;font-size:22px;color:#f7cdeb;animation-delay:.5s">✦</span>
-
-    <!-- scrawl bottom -->
-    <div class="scrawl" style="top:750px;left:200px;font-size:18px;transform:rotate(2deg)">with love from napa ♡</div>
-
-  </div>
-
-  <!-- CLOSING -->
-  <div style="text-align:center;padding:16px 0 10px">
-    <p style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">the girls behind the glass ♡</p>
   </div>
 
 </div>
@@ -856,7 +924,7 @@ body::before{
     </div>
     <div class="hv-screen">
       <video id="hvVideo" autoplay muted loop playsinline style="width:100%;display:block">
-        <source src="Adeline_March16 copy.mp4" type="video/mp4">
+        <source src="Adeline_March16(2).mp4" type="video/mp4">
       </video>
       <div class="hv-hud">
         <div class="hv-hud-tl">♡ HOME VIDEO</div>
