@@ -373,8 +373,8 @@ body::before{
 /* ═══ VIDEO PLAYER (2007 style) ═══ */
 .video-player{
   position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  width:100vw;height:100vh;
+  top:0;left:200px;right:0;bottom:0;
+  width:calc(100vw - 200px);height:100vh;
   z-index:9000;
   overflow:hidden;
   background:#000;
@@ -745,44 +745,54 @@ body::before{
     <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
   </div>
 
-  <!-- MUSE POLAROIDS -->
-  <div class="muse-grid">
+  <!-- MUSE COLLAGE (myspace 2006 style) -->
+  <div class="muse-collage">
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:-2deg"></div>
+    <!-- kendal — large, top left -->
+    <div class="muse-frame" style="width:220px;height:270px;top:0;left:10px;transform:rotate(-4deg);z-index:5">
       <img src="kendalsmiling.png" alt="Kendal">
-      <div class="muse-name">kendal ✦</div>
+      <div class="muse-label">kendal ✦</div>
     </div>
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:3deg"></div>
+    <!-- amelia — medium, top right, overlapping -->
+    <div class="muse-frame" style="width:200px;height:250px;top:20px;left:260px;transform:rotate(3deg);z-index:6">
       <img src="amelia.png" alt="Amelia">
-      <div class="muse-name">amelia ✦</div>
+      <div class="muse-label">amelia ✦</div>
     </div>
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:-1deg"></div>
+    <!-- adeline — small, tucked right -->
+    <div class="muse-frame" style="width:160px;height:200px;top:60px;left:480px;transform:rotate(-2deg);z-index:7">
       <img src="Adeline.png" alt="Adeline">
-      <div class="muse-name">adeline ✦</div>
+      <div class="muse-label">adeline ✦</div>
     </div>
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:2deg"></div>
+    <!-- sarina — medium, middle row left -->
+    <div class="muse-frame" style="width:190px;height:240px;top:310px;left:40px;transform:rotate(2.5deg);z-index:8">
       <img src="sarinasmiling.png" alt="Sarina">
-      <div class="muse-name">sarina ✦</div>
+      <div class="muse-label">sarina ✦</div>
     </div>
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:-3deg"></div>
+    <!-- summer — placeholder, middle right -->
+    <div class="muse-frame" style="width:170px;height:220px;top:300px;left:280px;transform:rotate(-3deg);z-index:9">
       <img src="flower.png" alt="Summer">
-      <div class="muse-name">summer ✦</div>
+      <div class="muse-label">summer ✦</div>
     </div>
 
-    <div class="muse-polaroid">
-      <div class="tape" style="--tape-rot:1deg"></div>
+    <!-- osito pancakes — bottom, overlapping -->
+    <div class="muse-frame" style="width:200px;height:210px;top:560px;left:150px;transform:rotate(4deg);z-index:10">
       <img src="ositopancakes.png" alt="Osito Pancakes">
-      <div class="muse-name">osito pancakes ✦</div>
+      <div class="muse-label">osito pancakes ✦</div>
     </div>
+
+    <!-- scattered sparkles -->
+    <span class="collage-sparkle" style="top:5px;left:240px;animation-delay:0s">✦</span>
+    <span class="collage-sparkle" style="top:150px;left:470px;animation-delay:.4s;font-size:10px">♡</span>
+    <span class="collage-sparkle" style="top:290px;left:15px;animation-delay:.8s">⋆</span>
+    <span class="collage-sparkle" style="top:340px;left:480px;animation-delay:1.2s;font-size:18px">✧</span>
+    <span class="collage-sparkle" style="top:540px;left:380px;animation-delay:.6s">♡</span>
+    <span class="collage-sparkle" style="top:100px;left:5px;animation-delay:1.5s;font-size:10px">✦</span>
+    <span class="collage-sparkle" style="top:450px;left:250px;animation-delay:.2s">⋆</span>
+    <span class="collage-sparkle" style="top:750px;left:300px;animation-delay:1s;font-size:16px">✦</span>
 
   </div>
 
