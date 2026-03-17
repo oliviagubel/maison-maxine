@@ -374,52 +374,79 @@ body::before{
   50%{opacity:.3;transform:scale(.7)}
 }
 
-/* ═══ VIDEO PLAYER (2007 style) ═══ */
-.video-player{
-  position:fixed;
-  top:0;left:200px;right:0;bottom:0;
-  width:calc(100vw - 200px);height:100vh;
-  z-index:9000;
+/* ═══ HOME VIDEO PLAYER ═══ */
+.home-video-wrap{
+  margin:20px 0 24px;
+}
+.hv-chrome{
+  background:#1a1a1a;
+  border-radius:8px;
   overflow:hidden;
-  background:#000;
-  transition:all .5s cubic-bezier(.4,0,.2,1);
+  box-shadow:3px 4px 18px rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.1);
 }
-.video-player.minimized{
-  top:auto;left:auto;
-  bottom:20px;right:20px;
-  width:300px;height:auto;
-  border-radius:8px 8px 6px 6px;
-  box-shadow:0 4px 24px rgba(0,0,0,.25), 0 0 0 1px rgba(0,0,0,.1);
-}
-.video-player.closing{
-  animation:video-slide-out .3s ease-in forwards;
-}
-@keyframes video-slide-out{
-  0%{opacity:1;transform:translateY(0)}
-  100%{opacity:0;transform:translateY(30px)}
-}
-.vp-titlebar{
-  background:linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 45%, #c8c8c8 55%, #d4d4d4 100%);
-  border-bottom:1px solid #999;
-  padding:5px 10px;
+.hv-toolbar{
+  background:linear-gradient(180deg, #3a3a3a 0%, #2a2a2a 100%);
+  padding:8px 12px;
   display:flex;
   align-items:center;
-  gap:6px;
-  cursor:default;
-  user-select:none;
+  justify-content:space-between;
 }
-.video-player:not(.minimized) .vp-titlebar{
-  position:absolute;top:0;left:0;right:0;z-index:2;
-  background:linear-gradient(180deg, rgba(0,0,0,.6) 0%, transparent 100%);
-  border-bottom:none;
-  padding:12px 16px;
+.hv-dot{
+  width:10px;height:10px;border-radius:50%;display:inline-block;
 }
-.video-player:not(.minimized) .vp-title{color:#fff;font-size:13px}
-.video-player:not(.minimized) .vp-controls{
-  position:absolute;bottom:0;left:0;right:0;z-index:2;
-  background:linear-gradient(0deg, rgba(0,0,0,.6) 0%, transparent 100%);
-  padding:12px 16px;
+.hv-filename{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.08em;
+  color:rgba(255,255,255,.5);
 }
+.hv-btn{
+  background:none;border:none;cursor:pointer;font-size:14px;padding:0 4px;
+  color:rgba(255,255,255,.7);transition:color .2s;
+}
+.hv-btn:hover{color:#fff}
+.hv-screen{
+  position:relative;
+  background:#000;
+  line-height:0;
+}
+.hv-hud{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  pointer-events:none;
+  padding:12px 14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.1em;
+  color:rgba(255,255,255,.7);
+  text-shadow:0 0 4px rgba(0,0,0,.6);
+}
+.hv-hud-tl{position:absolute;top:12px;left:14px}
+.hv-hud-tr{position:absolute;top:12px;right:14px}
+.hv-hud-bl{position:absolute;bottom:12px;left:14px}
+.hv-hud-br{position:absolute;bottom:12px;right:14px}
+.hv-hud-tl::before{
+  content:'●';color:#ff5f57;margin-right:6px;
+  animation:rec-blink 1.2s ease-in-out infinite;
+}
+.hv-scanlines{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent,transparent 2px,
+    rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px
+  );
+}
+.hv-footer{
+  background:linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  padding:8px 12px;
+  text-align:center;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.1em;
+  color:rgba(255,255,255,.35);
+}
+
 .vp-dot{
   width:11px;height:11px;border-radius:50%;
   display:inline-block;
@@ -926,55 +953,24 @@ function updateStampCounter(){
 <script>
 (function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
 </script>
-<!-- 2007-STYLE VIDEO PLAYER -->
-<div class="video-player" id="videoPlayer">
-  <div class="vp-titlebar">
-    <span class="vp-dot red" onclick="closeVideoPlayer()"></span>
-    <span class="vp-dot yellow" onclick="minimizeVideo()"></span>
-    <span class="vp-dot green"></span>
-    <span class="vp-title">✦ Adeline_March16.mp4</span>
-    <button class="vp-minimize" onclick="minimizeVideo()" title="minimize">⌄</button>
-    <button class="vp-expand" onclick="expandVideo()" title="expand">↗</button>
-  </div>
-  <video class="vp-video" id="adelineVideo" autoplay muted loop playsinline>
-    <source src="Adeline_March16 copy.mp4" type="video/mp4">
-  </video>
-  <div class="vp-controls">
-    <button class="vp-play-btn" id="vpPlayBtn" onclick="toggleVideoPlay()">❚❚</button>
-    <button class="vp-play-btn" id="vpSoundBtn" onclick="toggleSound()">🔇</button>
-    <span class="vp-time" id="vpTime">0:00 / 0:00</span>
-  </div>
-</div>
-
+<!-- HOME VIDEO SCRIPT -->
 <script>
 (function(){
-  var vid = document.getElementById('adelineVideo');
-  var btn = document.getElementById('vpPlayBtn');
-  var soundBtn = document.getElementById('vpSoundBtn');
-  var timeEl = document.getElementById('vpTime');
-  var player = document.getElementById('videoPlayer');
-  function fmt(s){var m=Math.floor(s/60);s=Math.floor(s%60);return m+':'+(s<10?'0':'')+s}
+  var vid = document.getElementById('hvVideo');
+  var playBtn = document.getElementById('hvPlayBtn');
+  var soundBtn = document.getElementById('hvSoundBtn');
+  var timecode = document.getElementById('hvTimecode');
+  function fmt(s){var m=Math.floor(s/60);s=Math.floor(s%60);return (m<10?'0':'')+m+':'+(s<10?'0':'')+s}
   vid.addEventListener('timeupdate',function(){
-    timeEl.textContent = fmt(vid.currentTime)+' / '+fmt(vid.duration||0);
+    timecode.textContent = fmt(vid.currentTime);
   });
-  window.toggleVideoPlay = function(){
-    if(vid.paused){vid.play();btn.textContent='❚❚'}
-    else{vid.pause();btn.textContent='▶'}
+  window.toggleHvPlay = function(){
+    if(vid.paused){vid.play();playBtn.textContent='❚❚'}
+    else{vid.pause();playBtn.textContent='▶'}
   };
-  window.toggleSound = function(){
+  window.toggleHvSound = function(){
     vid.muted = !vid.muted;
     soundBtn.textContent = vid.muted ? '🔇' : '🔊';
-  };
-  window.minimizeVideo = function(){
-    player.classList.add('minimized');
-  };
-  window.expandVideo = function(){
-    player.classList.remove('minimized');
-  };
-  window.closeVideoPlayer = function(){
-    player.classList.add('closing');
-    vid.pause();
-    setTimeout(function(){player.style.display='none'},300);
   };
 })();
 </script>
