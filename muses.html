@@ -310,79 +310,74 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ MUSE WALL (2006 myspace scrapbook) ═══ */
-.muse-wall{
-  padding:10px 0 20px;
-}
-/* top row / bottom row with messy overlap */
-.muse-row{
-  display:flex;
-  justify-content:center;
-  gap:0;
-  margin-bottom:-20px;
+/* ═══ MUSE PILE (enter page style) ═══ */
+.muse-pile{
   position:relative;
+  width:100%;
+  height:780px;
+  margin:0 auto 20px;
 }
-.muse-row:last-child{margin-bottom:0}
-/* each photo */
-.mp{
-  position:relative;
-  transition:all .35s ease;
-  cursor:default;
-  flex-shrink:0;
-}
-.mp:hover{
-  z-index:20 !important;
-  filter:brightness(1.04);
-}
-.mp img{
-  display:block;
-  object-fit:cover;
-  border-radius:1px;
-}
-/* the name — handwritten style underneath */
-.mp-name{
-  text-align:center;
-  font-family:'Burgues Script','Great Vibes',cursive;
-  font-size:20px;
-  color:#c76090;
-  margin-top:4px;
-  line-height:1;
-  text-shadow:0 0 12px rgba(247,205,235,.5);
-}
-/* scattered doodles */
-.doodle{
+/* sticker-style photo (no frame, just the image) */
+.muse-pile .sk{
   position:absolute;
-  pointer-events:none;
-  z-index:30;
-  font-size:14px;
-  animation:doodle-float 3s ease-in-out infinite;
+  background:transparent;
+  transition:transform .4s ease, filter .4s ease;
 }
-@keyframes doodle-float{
-  0%,100%{transform:translateY(0) rotate(0deg);opacity:.7}
-  50%{transform:translateY(-4px) rotate(5deg);opacity:1}
+.muse-pile .sk:hover{
+  transform:scale(1.08) rotate(0deg) !important;
+  filter:brightness(1.05);
+  z-index:30 !important;
 }
-/* sparkle glow on hover */
-.mp:hover img{
-  box-shadow:0 0 20px rgba(247,205,235,.5), 0 0 40px rgba(247,205,235,.25);
+.muse-pile .sk img{display:block;border-radius:2px}
+/* polaroid-style photo (white border + name) */
+.muse-pile .pol{
+  position:absolute;
+  background:#fff;
+  padding:7px 7px 28px;
+  box-shadow:3px 4px 12px rgba(0,0,0,.12);
+  transition:transform .4s ease, filter .4s ease;
 }
-/* scrawled notes between photos */
-.scrawl{
-  font-family:'Burgues Script','Great Vibes',cursive;
-  color:#c76090;
-  opacity:.5;
+.muse-pile .pol:hover{
+  transform:scale(1.08) rotate(0deg) !important;
+  filter:brightness(1.05);
+  z-index:30 !important;
+}
+.muse-pile .pol img{display:block;width:100%}
+.muse-pile .pol .pname{
+  position:absolute;
+  bottom:6px;left:0;right:0;
+  text-align:center;
+  font-family:'Burgues Script',cursive;
   font-size:16px;
+  color:#c76090;
+}
+/* tape strips */
+.muse-pile .tape{
+  position:absolute;
+  background:rgba(247,205,235,.35);
+  border:1px solid rgba(247,205,235,.25);
+  pointer-events:none;
+  z-index:35;
+}
+/* floating doodles */
+.muse-pile .dd{
   position:absolute;
   pointer-events:none;
-  z-index:25;
+  z-index:36;
+  animation:dd-pulse 2.5s ease-in-out infinite;
 }
-/* xo stamp */
-.xo-stamp{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:9px;
-  letter-spacing:.15em;
-  color:#f7cdeb;
-  text-align:center;
-  margin:6px 0;
+@keyframes dd-pulse{
+  0%,100%{opacity:.6;transform:scale(1)}
+  50%{opacity:1;transform:scale(1.15)}
+}
+/* handwritten scrawls */
+.muse-pile .scrawl{
+  position:absolute;
+  font-family:'Burgues Script',cursive;
+  color:#c76090;
+  pointer-events:none;
+  z-index:34;
+  opacity:.45;
 }
 
 /* ═══ HOME VIDEO PLAYER ═══ */
