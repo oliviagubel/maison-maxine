@@ -361,6 +361,77 @@ body::before{
   line-height:1.8;
 }
 
+/* ═══ VIDEO PLAYER (2007 style) ═══ */
+.video-player{
+  position:fixed;
+  bottom:20px;right:20px;
+  width:300px;
+  z-index:9000;
+  border-radius:8px 8px 6px 6px;
+  overflow:hidden;
+  box-shadow:0 4px 24px rgba(0,0,0,.25), 0 0 0 1px rgba(0,0,0,.1);
+  background:#1a1a1a;
+  animation:video-slide-in .5s ease-out;
+}
+@keyframes video-slide-in{
+  0%{opacity:0;transform:translateY(30px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+.video-player.closing{
+  animation:video-slide-out .3s ease-in forwards;
+}
+@keyframes video-slide-out{
+  0%{opacity:1;transform:translateY(0)}
+  100%{opacity:0;transform:translateY(30px)}
+}
+.vp-titlebar{
+  background:linear-gradient(180deg, #e8e8e8 0%, #d0d0d0 45%, #c8c8c8 55%, #d4d4d4 100%);
+  border-bottom:1px solid #999;
+  padding:5px 10px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+  cursor:default;
+  user-select:none;
+}
+.vp-dot{
+  width:11px;height:11px;border-radius:50%;
+  display:inline-block;
+  cursor:pointer;
+}
+.vp-dot.red{background:radial-gradient(circle at 35% 35%, #ff6b6b, #e33);border:1px solid #c22}
+.vp-dot.yellow{background:radial-gradient(circle at 35% 35%, #ffd966, #f5c542);border:1px solid #d4a832}
+.vp-dot.green{background:radial-gradient(circle at 35% 35%, #7ed67e, #4caf4c);border:1px solid #3a9a3a}
+.vp-title{
+  flex:1;
+  text-align:center;
+  font-family:'Lucida Grande','Segoe UI',sans-serif;
+  font-size:11px;
+  color:#333;
+  font-weight:500;
+}
+.vp-video{
+  display:block;
+  width:100%;
+  background:#000;
+}
+.vp-controls{
+  background:linear-gradient(180deg, #2a2a2a, #1a1a1a);
+  padding:6px 10px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.vp-play-btn{
+  background:none;border:none;color:#fff;font-size:14px;cursor:pointer;padding:0;
+}
+.vp-time{
+  font-family:'Lucida Grande','Segoe UI',sans-serif;
+  font-size:9px;
+  color:#999;
+  letter-spacing:.03em;
+}
+
 /* ═══ WEATHER WIDGET ═══ */
 .weather-widget{
   text-align:center;
@@ -581,8 +652,6 @@ body::before{
       <nav>
         <a href="https://www.instagram.com/himaisonmaxine/" target="_blank">instagram</a>
         <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
-        <a href="quiz.html">the quiz</a>
-        <a href="playlist.html">the aux</a>
         <a href="muses.html" class="active">the muses</a>
       </nav>
     </div>
@@ -811,5 +880,43 @@ function updateStampCounter(){
 <script>
 (function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
 </script>
+<!-- 2007-STYLE VIDEO PLAYER -->
+<div class="video-player" id="videoPlayer">
+  <div class="vp-titlebar">
+    <span class="vp-dot red" onclick="closeVideoPlayer()"></span>
+    <span class="vp-dot yellow"></span>
+    <span class="vp-dot green"></span>
+    <span class="vp-title">✦ Adeline_March16.mp4</span>
+  </div>
+  <video class="vp-video" id="adelineVideo" autoplay muted loop playsinline>
+    <source src="Adeline_March16 copy.mp4" type="video/mp4">
+  </video>
+  <div class="vp-controls">
+    <button class="vp-play-btn" id="vpPlayBtn" onclick="toggleVideoPlay()">❚❚</button>
+    <span class="vp-time" id="vpTime">0:00 / 0:00</span>
+  </div>
+</div>
+
+<script>
+(function(){
+  var vid = document.getElementById('adelineVideo');
+  var btn = document.getElementById('vpPlayBtn');
+  var timeEl = document.getElementById('vpTime');
+  function fmt(s){var m=Math.floor(s/60);s=Math.floor(s%60);return m+':'+(s<10?'0':'')+s}
+  vid.addEventListener('timeupdate',function(){
+    timeEl.textContent = fmt(vid.currentTime)+' / '+fmt(vid.duration||0);
+  });
+  window.toggleVideoPlay = function(){
+    if(vid.paused){vid.play();btn.textContent='❚❚'}
+    else{vid.pause();btn.textContent='▶'}
+  };
+  window.closeVideoPlayer = function(){
+    var p = document.getElementById('videoPlayer');
+    p.classList.add('closing');
+    setTimeout(function(){p.style.display='none'},300);
+  };
+})();
+</script>
+
 </body>
 </html>
