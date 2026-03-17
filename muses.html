@@ -310,55 +310,57 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ MUSE CARDS ═══ */
-.muse-card{
-  background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%);
-  border:1px solid rgba(247,205,235,.5);
-  border-radius:8px;
-  padding:24px 28px;
-  margin-bottom:18px;
-  transition:all .4s;
-  position:relative;
+/* ═══ MUSE POLAROIDS ═══ */
+.muse-grid{
   display:flex;
-  gap:22px;
-  align-items:flex-start;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  padding:20px 0 30px;
+  position:relative;
 }
-.muse-card:hover{
-  border-color:#c76090;
-  box-shadow:0 0 24px rgba(247,205,235,.4);
-  transform:translateY(-2px);
+.muse-polaroid{
+  background:#fff;
+  padding:8px 8px 32px;
+  box-shadow:3px 4px 14px rgba(0,0,0,.1), 0 0 0 1px rgba(0,0,0,.03);
+  transition:all .4s ease;
+  cursor:default;
+  position:relative;
+  width:180px;
 }
-.muse-photo{
-  width:120px;
-  height:120px;
-  border-radius:50%;
+.muse-polaroid:nth-child(1){transform:rotate(-3deg)}
+.muse-polaroid:nth-child(2){transform:rotate(2.5deg)}
+.muse-polaroid:nth-child(3){transform:rotate(-1.5deg)}
+.muse-polaroid:nth-child(4){transform:rotate(3deg)}
+.muse-polaroid:nth-child(5){transform:rotate(-2deg)}
+.muse-polaroid:nth-child(6){transform:rotate(1.5deg)}
+.muse-polaroid:hover{
+  transform:rotate(0deg) scale(1.05) !important;
+  box-shadow:4px 6px 24px rgba(199,96,144,.2), 0 0 0 1px rgba(247,205,235,.5);
+  z-index:10;
+}
+.muse-polaroid img{
+  width:100%;
+  aspect-ratio:3/4;
   object-fit:cover;
-  border:2px solid #f7cdeb;
-  box-shadow:0 0 16px rgba(247,205,235,.3);
-  flex-shrink:0;
+  display:block;
 }
-.muse-info{flex:1}
-.muse-name{
-  font-family:'Burgues Script','Great Vibes',cursive;
-  font-size:32px;
-  color:#c76090;
-  line-height:1.1;
-}
-.muse-origin{
+.muse-polaroid .muse-name{
   font-family:'Pixelify Sans',sans-serif;
-  font-size:9px;
-  letter-spacing:.15em;
-  text-transform:uppercase;
-  color:#8a6a7a;
-  margin-top:4px;
-  margin-bottom:12px;
+  font-size:12px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-align:center;
+  margin-top:8px;
+  line-height:1;
 }
-.muse-desc{
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:15px;
-  font-style:italic;
-  color:#5a3a4a;
-  line-height:1.8;
+.tape{
+  position:absolute;
+  top:-8px;left:50%;transform:translateX(-50%) rotate(var(--tape-rot,0deg));
+  width:50px;height:16px;
+  background:rgba(247,205,235,.45);
+  border:1px solid rgba(247,205,235,.3);
+  z-index:2;
 }
 
 /* ═══ VIDEO PLAYER (2007 style) ═══ */
