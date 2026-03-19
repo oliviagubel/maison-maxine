@@ -412,27 +412,34 @@ body::before{
   z-index:40;
   text-shadow:0 0 8px rgba(247,205,235,.4);
 }
-/* bio notes — small journal entries on the scrapbook */
+/* bio notes — magazine cutout style on the scrapbook */
 .sb-bio{
   position:absolute;
   z-index:30;
   max-width:170px;
   pointer-events:none;
+  background:#fff;
+  padding:10px 12px;
+  border:1px solid #f0d0e2;
+  box-shadow:2px 3px 8px rgba(0,0,0,.1);
+  transform-origin:center;
 }
 .sb-bio .sb-bio-name{
   font-family:'Pixelify Sans',sans-serif;
   font-size:9px;
-  letter-spacing:.12em;
+  letter-spacing:.14em;
   text-transform:uppercase;
   color:#c76090;
-  margin-bottom:3px;
+  margin-bottom:5px;
+  padding-bottom:4px;
+  border-bottom:1px dotted #f7cdeb;
 }
 .sb-bio p{
   font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:12px;
+  font-size:13px;
   font-style:italic;
-  line-height:1.5;
-  color:#6a4a5a;
+  line-height:1.55;
+  color:#4a3a3a;
 }
 /* little label stickers */
 .sb-label{
