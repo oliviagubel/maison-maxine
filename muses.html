@@ -335,7 +335,7 @@ body::before{
 /* the photo grid — not a rigid grid, a messy scrapbook spread */
 .sb-spread{
   position:relative;
-  height:850px;
+  height:1200px;
   z-index:1;
 }
 /* each photo item */
@@ -411,6 +411,28 @@ body::before{
   pointer-events:none;
   z-index:40;
   text-shadow:0 0 8px rgba(247,205,235,.4);
+}
+/* bio notes — small journal entries on the scrapbook */
+.sb-bio{
+  position:absolute;
+  z-index:30;
+  max-width:170px;
+  pointer-events:none;
+}
+.sb-bio .sb-bio-name{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:3px;
+}
+.sb-bio p{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:12px;
+  font-style:italic;
+  line-height:1.5;
+  color:#6a4a5a;
 }
 /* little label stickers */
 .sb-label{
