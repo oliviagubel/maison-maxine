@@ -954,7 +954,10 @@ body::before{
   100%{transform:scale(1)}
 }
 /* hide vinoshipper floating cart widget */
-#vs-cart-icon, .vs-cart-icon, [data-vinoshipper-cart-icon], .vinoshipper-cart{display:none!important}
+#vs-cart-icon, .vs-cart-icon, [data-vinoshipper-cart-icon], .vinoshipper-cart,
+#vsCartIcon, .vs-cart, [id^="vs-"][id*="cart"], iframe[src*="vinoshipper"][src*="cart"],
+div[style*="position: fixed"][style*="vinoshipper"],
+.vs-injector-cart, #vs-injector-cart{display:none!important}
 </style>
 </head>
 <body>
