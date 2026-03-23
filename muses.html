@@ -1100,8 +1100,8 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
     const c=d.current;
     const temp=Math.round(c.temperature_2m);
     const code=c.weather_code;
-    const icons={0:'✦',1:'⋆',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
-    const descs={0:'clear skies — spritzer weather',1:'mostly sunny & gorgeous',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
+    const icons={0:'✦',1:'🐦',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
+    const descs={0:'clear skies — spritzer weather',1:'clear skies — perfect for bird watching',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
     document.getElementById('w-icon').textContent=icons[code]||'☀';
     document.getElementById('w-temp').textContent=temp+'°f';
     document.getElementById('w-desc').textContent=descs[code]||'perfect for a spritzer';
