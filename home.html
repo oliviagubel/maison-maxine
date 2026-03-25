@@ -1166,7 +1166,6 @@ body::before{
 (function(){
   const el=document.getElementById('visitor-count');
   if(!el)return;
-  const domain='oliviagubel.github.io/maison-maxine';
   const BASE=482;
 
   function animateTo(target){
@@ -1179,21 +1178,11 @@ body::before{
     },40);
   }
 
-  // record this visit and get total
-  fetch('https://visitor.6developer.com/visit',{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({domain:domain,page_path:location.pathname,page_title:document.title})
-  })
-  .then(r=>r.json())
-  .then(data=>animateTo(data.totalCount+BASE))
-  .catch(()=>{
-    // fallback: try GET if POST fails
-    fetch('https://visitor.6developer.com/visit?domain='+domain)
-      .then(r=>r.json())
-      .then(data=>animateTo(data.totalCount+BASE))
-      .catch(()=>{ el.textContent='✦✦✦✦✦'; });
-  });
+  // record this visit and get total (counterapi.dev)
+  fetch('https://api.counterapi.dev/v1/maison-maxine/visitors/up')
+    .then(r=>r.json())
+    .then(data=>animateTo(data.count+BASE))
+    .catch(()=>{ el.textContent='✦✦✦✦✦'; });
 })();
 
 // ═══ MALIBU WEATHER ═══
