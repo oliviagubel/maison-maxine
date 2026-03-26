@@ -475,10 +475,16 @@ body::before{
 .home-video-wrap.hv-mini{
   position:fixed;
   top:auto;left:auto;
-  bottom:20px;right:20px;
+  right:20px;bottom:20px;
   width:320px;height:auto;
   background:none;
   z-index:9000;
+  align-items:flex-end;
+  justify-content:flex-end;
+  pointer-events:none;
+}
+.home-video-wrap.hv-mini .hv-chrome{
+  pointer-events:auto;
 }
 .home-video-wrap.hv-mini .hv-chrome{
   width:320px;
