@@ -718,7 +718,7 @@ body::before{
   <div class="map-wrapper">
     <div class="map-header">
       <span class="mh-title">the muse map ✦</span>
-      <span class="mh-status">3 locations & counting</span>
+      <span class="mh-status">4 locations & counting</span>
     </div>
     <div class="map-visual">
       <svg viewBox="0 0 760 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1220,6 +1220,28 @@ body::before{
           </g>
         </g>
 
+        <!-- ═══ STORE PIN 4: Irvine Ranch Market — Balboa Island (Coming Soon) ═══ -->
+        <g transform="translate(540,350)" class="store-pin" style="cursor:pointer">
+          <circle cx="0" cy="0" r="18" fill="#c76090" opacity=".06">
+            <animate attributeName="r" values="14;24;14" dur="2.8s" begin="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".1;.02;.1" dur="2.8s" begin="2.4s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="0" cy="0" r="12" fill="#c76090" opacity=".04">
+            <animate attributeName="r" values="10;18;10" dur="2.8s" begin="2.8s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values=".08;.01;.08" dur="2.8s" begin="2.8s" repeatCount="indefinite"/>
+          </circle>
+          <path d="M0 -16 C-9 -16 -14 -9 -14 -4 C-14 5 0 16 0 16 C0 16 14 5 14 -4 C14 -9 9 -16 0 -16Z" fill="#c76090"/>
+          <circle cx="0" cy="-5" r="4.5" fill="#fff"/>
+          <circle cx="0" cy="-5" r="2" fill="#c76090"/>
+          <!-- ornate label flag -->
+          <g transform="translate(12,-30)">
+            <rect x="0" y="0" width="108" height="24" rx="5" fill="#fff" stroke="#f7cdeb" stroke-width="1"/>
+            <rect x="1" y="1" width="106" height="22" rx="4" fill="none" stroke="#c76090" stroke-width=".3" opacity=".2"/>
+            <text x="6" y="10" font-family="'Pixelify Sans',sans-serif" font-size="6" letter-spacing=".1em" fill="#c76090">BALBOA ISLAND</text>
+            <text x="6" y="19" font-family="'Cormorant Garamond',serif" font-size="8" font-style="italic" fill="#5a3a4a">irvine ranch market ✧</text>
+          </g>
+        </g>
+
         <!-- ═══ ORNATE COMPASS ROSE ═══ -->
         <g transform="translate(710,380)">
           <circle cx="0" cy="0" r="18" fill="#fff" opacity=".7" stroke="#c76090" stroke-width=".6"/>
@@ -1271,6 +1293,13 @@ body::before{
         <div class="store-name">jayde's market</div>
         <div class="store-addr">the glen center<br>2964 beverly glen cir, los angeles, ca 90077</div>
         <div class="store-vibe">bel air market & deli ♡</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">newport beach, ca</div>
+        <div class="store-name">irvine ranch market</div>
+        <div class="store-addr">balboa island<br>200 marine ave, newport beach, ca 92662</div>
+        <div class="store-vibe">island market charm ✧ coming soon</div>
       </div>
 
     </div>
