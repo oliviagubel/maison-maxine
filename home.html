@@ -805,22 +805,28 @@ body::before{
     z-index:1;
     appearance:none;
     -webkit-appearance:none;
-    border:1.5px solid #c76090;
-    background:transparent;
-    border-radius:999px;
-    padding:0 22px;
-    min-width:240px;
-    height:48px;
+    border:2px solid #c76090;
+    background:#fef0f7;
+    border-radius:14px;
+    padding:0 24px;
+    min-width:260px;
+    height:52px;
     overflow:hidden;
     pointer-events:none;
-    font-family:'Pixelify Sans',monospace;
+    font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande',sans-serif;
     cursor:default;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.85),
+      inset 0 -8px 14px rgba(199,96,144,.10),
+      0 2px 0 #c76090,
+      0 4px 14px rgba(247,205,235,.55);
   }
   #intro-enter .bar{
     position:absolute;
     left:0;top:0;bottom:0;
     width:0%;
-    background:linear-gradient(90deg,#f7cdeb 0%,#c76090 100%);
+    background:linear-gradient(180deg,#ffd6ec 0%,#f7a8d0 50%,#c76090 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
     transition:width 1.8s ease;
     z-index:0;
   }
@@ -831,18 +837,30 @@ body::before{
     align-items:center;
     justify-content:center;
     height:100%;
-    font-family:'Pixelify Sans',monospace;
-    font-size:14px;
-    font-weight:500;
-    letter-spacing:.08em;
-    text-transform:lowercase;
-    color:#c76090;
-    transition:color .25s ease .2s;
+    font-family:'Trebuchet MS','Lucida Sans Unicode','Lucida Grande',sans-serif;
+    font-size:15px;
+    font-weight:bold;
+    letter-spacing:.02em;
+    color:#a04a78;
+    text-shadow:0 1px 0 rgba(255,255,255,.7);
+    transition:color .25s ease .2s, text-shadow .25s ease .2s;
     white-space:nowrap;
   }
   #intro-enter.filling .bar{width:100%}
-  #intro-enter.filling .text{color:#fff}
-  #intro-enter.ready{pointer-events:auto;cursor:pointer;box-shadow:0 4px 18px rgba(199,96,144,.25)}
+  #intro-enter.filling .text{
+    color:#fff;
+    text-shadow:0 1px 2px rgba(160,74,120,.45);
+  }
+  #intro-enter.ready{
+    pointer-events:auto;
+    cursor:pointer;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.85),
+      inset 0 -8px 14px rgba(199,96,144,.10),
+      0 2px 0 #a04a78,
+      0 0 22px rgba(247,205,235,.85),
+      0 4px 14px rgba(199,96,144,.30);
+  }
   body.splash-locked{overflow:hidden}
 }
 </style>
@@ -856,7 +874,7 @@ body::before{
   </div>
   <button id="intro-enter" type="button" aria-label="Enter site (I'm 21+)">
     <span class="bar" aria-hidden="true"></span>
-    <span class="text">enter site (i'm 21+)</span>
+    <span class="text">Enter Site (I'm 21+)</span>
   </button>
 </div>
 
