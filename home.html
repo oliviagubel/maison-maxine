@@ -808,12 +808,12 @@ body::before{
     border:1.5px solid #c76090;
     background:transparent;
     border-radius:999px;
-    padding:0;
-    min-width:220px;
+    padding:0 22px;
+    min-width:240px;
     height:48px;
     overflow:hidden;
     pointer-events:none;
-    font-family:'Cormorant Garamond',Georgia,serif;
+    font-family:'Pixelify Sans',monospace;
     cursor:default;
   }
   #intro-enter .bar{
@@ -831,12 +831,14 @@ body::before{
     align-items:center;
     justify-content:center;
     height:100%;
-    font-size:15px;
-    font-style:italic;
-    letter-spacing:.22em;
+    font-family:'Pixelify Sans',monospace;
+    font-size:14px;
+    font-weight:500;
+    letter-spacing:.08em;
     text-transform:lowercase;
     color:#c76090;
     transition:color .25s ease .2s;
+    white-space:nowrap;
   }
   #intro-enter.filling .bar{width:100%}
   #intro-enter.filling .text{color:#fff}
@@ -852,9 +854,9 @@ body::before{
   <div class="can-wrap">
     <img src="can.png" alt="Maison Maxine">
   </div>
-  <button id="intro-enter" type="button" aria-label="Enter site">
+  <button id="intro-enter" type="button" aria-label="Enter site (I'm 21+)">
     <span class="bar" aria-hidden="true"></span>
-    <span class="text">enter site</span>
+    <span class="text">enter site (i'm 21+)</span>
   </button>
 </div>
 
