@@ -1304,10 +1304,10 @@ body::before{
     },40);
   }
 
-  // record this visit and get total (counterapi.dev)
-  fetch('https://api.counterapi.dev/v1/maison-maxine/visitors/up')
+  // record this visit and get total (abacus.jasoncameron.dev)
+  fetch('https://abacus.jasoncameron.dev/hit/maison-maxine/visitors')
     .then(r=>r.json())
-    .then(data=>animateTo(data.count+BASE))
+    .then(data=>animateTo((data.value||0)+BASE))
     .catch(()=>{ el.textContent='✦✦✦✦✦'; });
 })();
 
