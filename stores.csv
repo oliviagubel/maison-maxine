@@ -1,6 +1,5 @@
 brand,store_name,full_address,city,state,zip,latitude,longitude
 Nomadica,Dada Market,"1606 Sunset Blvd, Los Angeles, CA 90026",Los Angeles,CA,90026,34.0767645,-118.2575675
-Nomadica,The Liquor Fountain,"5203 Fountain Ave Ste A, Los Angeles, CA 90029",Los Angeles,CA,90029,34.0952724,-118.3025386
 Nomadica,Glassell General,"3383 Verdugo Rd, Los Angeles, CA 90065",Los Angeles,CA,90065,34.1134004,-118.2355173
 Nomadica,Tommie Hollywood,"6516 Selma Ave, Los Angeles, CA 90028",Los Angeles,CA,90028,34.0994391,-118.3318892
 Nomadica,Whitley,"1900 N Highland Ave Ste 6, Los Angeles, CA 90068",Los Angeles,CA,90068,34.1055930,-118.3369850
@@ -9,7 +8,6 @@ Nomadica,Kearns Market,"7300 Beverly Blvd, Los Angeles, CA 90036",Los Angeles,CA
 Nomadica,Fresco Community Market,"5914 Monterey Rd, Los Angeles, CA 90042",Los Angeles,CA,90042,34.1046843,-118.1845639
 Nomadica,Total Wine & More,"221 N Glendale Ave, Glendale, CA 91206",Glendale,CA,91206,34.1486119,-118.2463549
 Nomadica,Cork Runner Wine and Spirits,"5956 W Olympic Blvd, Los Angeles, CA 90036",Los Angeles,CA,90036,34.0576735,-118.3612782
-Nomadica,Palihouse West Hollywood,"8384 W 3rd St, Los Angeles, CA 90048",Los Angeles,CA,90048,34.0727216,-118.3728267
 Nomadica,Total Wine & More,"9527 W Pico Blvd, Los Angeles, CA 90035",Los Angeles,CA,90035,34.0551612,-118.3962386
 Nomadica,Heavy Handed,"11838 Ventura Blvd, Studio City, CA 91604",Studio City,CA,91604,34.1422893,-118.3905430
 Nomadica,Jackson Market,"4065 Jackson Ave, Culver City, CA 90232",Culver City,CA,90232,34.0172173,-118.3971584
@@ -34,10 +32,7 @@ Jumbo Time,Great White (Venice),"Great White, Windward Avenue, Venice, Los Angel
 Jumbo Time,Great White (Larchmont),"Prado's, 244, North Larchmont Boulevard, Windsor Square, Koreatown",Los Angeles,CA,90004,34.0757609,-118.3233949
 Jumbo Time,Helen's Wine (Fairfax),"Helen's Wine Shop, North Fairfax Avenue, Fairfax, Los Angeles, Los Angeles County",Los Angeles,CA,90046,34.0786526,-118.3612803
 Jumbo Time,Alma's,"South Alma Street, San Pedro, Los Angeles, Los Angeles County, California",Los Angeles,CA,90731,33.7242940,-118.2990375
-Jumbo Time,Sqirl,"Sqirl, 720, North Virgil Avenue, Virgil Village, East Hollywood",Los Angeles,CA,90029,34.0845162,-118.2866953
 Jumbo Time,Croft Alley,"Croft Alley, 9433, Brighton Way, Golden Triange, Beverly Hills",Beverly Hills,CA,90210,34.0702682,-118.4016713
-Jumbo Time,Joan's On Third (West Hollywood),"Joan's on Third, West 3rd Street, Beverly Grove, Los Angeles, Los Angeles County",Los Angeles,CA,90048,34.0728064,-118.3717805
-Jumbo Time,Botanica,"Botanica Restaurant & Market, 1620, Silver Lake Boulevard, Silver Lake, Echo Park",Los Angeles,CA,90026,34.0884930,-118.2689001
 Jumbo Time,Cafe Stella,"Cafe Stella, 3932, West Sunset Boulevard, Sunset Junction, Silver Lake",Los Angeles,CA,90029,34.0921527,-118.2804496
 Jumbo Time,Hi-Lo Market (Culver City),"Hi-Lo Liquor Market, 8582, Washington Boulevard, Culver City Arts District, Culver City",Culver City,CA,90232,34.0302251,-118.3812172
 Jumbo Time,Fatty Mart,"Fatty Mart, 12210, Venice Boulevard, Mar Vista, Los Angeles",Los Angeles,CA,90066,34.0045434,-118.4314645
@@ -49,12 +44,10 @@ Jumbo Time,Thunderbolt,"Thunderbolt, 1255, West Temple Street, Angeleno Heights,
 Jumbo Time,Hatchet Hall,"Hatchet Hall, 12517, West Washington Boulevard, Culver City, Los Angeles County",Culver City,CA,90066,33.9970047,-118.4315691
 Jumbo Time,Mission Wine & Spirits,"Mission Wine & Spirits (Woodland Hills), Platt Avenue, Woodland Hills-Warner Center Neighborhood Council District, Los Angeles, Los Angeles County",Los Angeles,CA,91304,34.1858787,-118.6432255
 Jumbo Time,Art Du Vin,"Art Du Vin, East 4th Street, Long Beach, Los Angeles County, California",Long Beach,CA,90804,33.7718172,-118.1669422
-Jumbo Time,Lou Wine Shop,"Lou Wine Shop, Hillhurst Avenue, Los Feliz Neighborhood Council District, Los Feliz, Los Angeles",Los Angeles,CA,90027,34.1058340,-118.2878230
 Jumbo Time,Lady & Larder,"Lady & Larder, 828, Pico Boulevard, Santa Monica, Los Angeles County",Santa Monica,CA,90405,34.0126977,-118.4818904
 Jumbo Time,Button Mash,"Button Mash, 1391, West Sunset Boulevard, Angeleno Heights, Echo Park",Los Angeles,CA,90026,34.0739777,-118.2515339
 Jumbo Time,Malibu RV Park,"Hollywood RV Park Malibu Road, Hollywood RV Park, Lake Balboa Neighborhood Council District, Los Angeles, Los Angeles County",Los Angeles,CA,91406,34.2115149,-118.4985314
 Jumbo Time,Heavy Handed,"Heavy Handed, 2912, Main Street, Ocean Park, Santa Monica",Santa Monica,CA,90291,33.9991381,-118.4810129
-Jumbo Time,San Vicente Bungalows,"San Vicente Bungalows, 845, North San Vicente Boulevard, West Hollywood, Los Angeles County",West Hollywood,CA,90069,34.0858963,-118.3850183
 Jumbo Time,Pinyon,"Pinyon Avenue, Tujunga, Los Angeles, Los Angeles County, California",Los Angeles,CA,91042,34.2591836,-118.2849260
 Jumbo Time,Marvin,"Marvin Braude Mulholland Gateway Park, Los Angeles, Los Angeles County, California, United States",Los Angeles,CA,,34.1370514,-118.5748582
 Jumbo Time,Prime Pizza (Santa Monica),"Prime Pizza, 18th Court, Santa Monica, Los Angeles County, California",Santa Monica,CA,90405,34.0186917,-118.4713610
@@ -81,7 +74,6 @@ Djuce,Flask and Field,"767 S Alameda St #180, Los Angeles, CA 90021",Los Angeles
 Djuce,Sip Snack,"5003 York Blvd, Los Angeles, CA 90042",Los Angeles,CA,90042,34.1215208,-118.2066786
 Djuce,Maison Fox,"532 W Commonwealth Ave Suite B, Fullerton, CA 92832",Fullerton,CA,92832,33.8700785,-117.9346265
 Veranda,Handy Market,"Handy Market, 2514, West Magnolia Boulevard, Burbank, Los Angeles County",Burbank,CA,91505,34.1716194,-118.3352506
-Veranda,The Liquor Fountain,"The Liquor Fountain, Fountain Avenue, Little Armenia, East Hollywood, Hollywood",Los Angeles,CA,90027,34.0954593,-118.3025851
 Veranda,Bar Keeper,"Bar Keeper, 614, North Hoover Street, Virgil Village, Los Angeles",Los Angeles,CA,90004,34.0820935,-118.2843339
 Veranda,Colony House Liquor,"Colony House Liquor, 22523, Pacific Coast Highway, Malibu, Los Angeles County",Malibu,CA,90263,34.0398263,-118.6655284
 Veranda,Vendome Wine and Spirits,"10600 Riverside Dr, Toluca Lake, CA 91602",Toluca Lake,CA,91602,34.1518975,-118.3619563
@@ -89,7 +81,6 @@ Veranda,Olive Wine and Liquor,"3117 W Olive Ave, Burbank, CA 91505",Burbank,CA,9
 Veranda,Fancy Free Liquor,"2001 W Burbank Blvd, Burbank, CA 91506",Burbank,CA,91506,34.18075600,-118.33281939
 Veranda,Altadena Beverage and Market,"1850 Allen Ave, Pasadena, CA 91104",Pasadena,CA,91104,34.17785906,-118.11204851
 Little Sun,Vin On Rose,"511 Rose Ave, Venice, CA 90291",Venice,CA,90291,33.9983118,-118.4737823
-Little Sun,Cheech's Pizza,"2116 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.1105433,-118.2871246
 Little Sun,Flask & Field,"767 S Alameda St #180, Los Angeles, CA 90021",Los Angeles,CA,90021,34.0306645,-118.2389780
 Little Sun,Kamp,"3333 Sunset Blvd, Los Angeles, CA 90026",Los Angeles,CA,90026,34.0868110,-118.2753847
 Little Sun,Potluck Local,"4705 York Blvd, Los Angeles, CA 90042",Los Angeles,CA,90042,34.1229355,-118.2127814
@@ -105,7 +96,6 @@ Anytime Spritz,Bar Next Door,"9159 Sunset Blvd, West Hollywood, CA 90069",West H
 Anytime Spritz,Bar Sinizki,"3147 Glendale Blvd, Los Angeles, CA 90039",Los Angeles,CA,90039,34.11725590,-118.26221938
 Anytime Spritz,Bills Liquor - CA,"3150 Glendale Blvd, Los Angeles, CA 90039",Los Angeles,CA,90039,34.11685590,-118.26161938
 Anytime Spritz,Bob's Market,"1650 Ocean Park Blvd, Santa Monica, CA 90405",Santa Monica,CA,90405,34.01215573,-118.46719410
-Anytime Spritz,Botanica Resturant & Market,"1620 Silver Lake Blvd, Los Angeles, CA 90026",Los Angeles,CA,90026,34.08847400,-118.26888800
 Anytime Spritz,Bottle Barn,"2642 Crenshaw Blvd, Los Angeles, CA 90016",Los Angeles,CA,90016,34.03228500,-118.33525100
 Anytime Spritz,Capri Club,"4604 Eagle Rock Blvd, Los Angeles, CA 90041",Los Angeles,CA,90041,34.12755591,-118.21751937
 Anytime Spritz,Checker Hall,"104 N Ave 56 2nd floor, Los Angeles, CA 90042",Los Angeles,CA,90042,34.10915588,-118.19451937
@@ -136,7 +126,6 @@ Anytime Spritz,K & L Hollywood,"1400 Vine St, Hollywood, CA 90028",Hollywood,CA,
 Anytime Spritz,K&L Wine Merchants - Culver City,"4235 Sepulveda Blvd, Culver City, CA 90230",Culver City,CA,90230,34.00495571,-118.41091940
 Anytime Spritz,Kings Row Gastropub,"20 E Colorado Blvd Suite 102, Pasadena, CA 91105",Pasadena,CA,91105,34.14568783,-118.14969619
 Anytime Spritz,Larchmont Village Wine and Cheese,"223 N Larchmont Blvd, Los Angeles, CA 90004",Los Angeles,CA,90004,34.07535583,-118.32391939
-Anytime Spritz,Little Dom's,"2128 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.11095589,-118.28721938
 Anytime Spritz,Mikron Liquor,"631 Silver Lake Blvd, Los Angeles, CA 90026",Los Angeles,CA,90026,34.07955835,-118.27821938
 Anytime Spritz,Momed Atwater Village,"3245 Casitas Ave, Los Angeles, CA 90039",Los Angeles,CA,90039,34.11585590,-118.25119374
 Anytime Spritz,Osteria Mozza,"6602 Melrose Ave, Los Angeles, CA 90038",Los Angeles,CA,90038,34.08330600,-118.33860100
@@ -153,8 +142,6 @@ Anytime Spritz,The Canal Market,"600 Mildred Ave, Venice, CA 90291",Venice,CA,90
 Anytime Spritz,The Edendale,"2838 Rowena Ave. Los Angeles, CA 90039",,,,34.10757100,-118.26561800
 Anytime Spritz,The Grant,"3515 Eagle Rock Blvd, Los Angeles, CA 90065",Los Angeles,CA,90065,34.11634000,-118.23578000
 Anytime Spritz,The Hotel June,"8639 Lincoln Blvd, Los Angeles, CA 90045",Los Angeles,CA,90045,33.95865564,-118.41871940
-Anytime Spritz,The Liquor Fountain,"5203 Fountain Ave, Los Angeles, CA 90029",Los Angeles,CA,90029,34.09545586,-118.30251938
-Anytime Spritz,The Oaks Gourmet Market & Cafe,"1915 N Bronson Ave, Los Angeles, CA 90068",Los Angeles,CA,90068,34.10545588,-118.31821939
 Anytime Spritz,The Wine Country,"2301 Redondo Ave, Signal Hill, CA 90755",Signal Hill,CA,90755,33.79875538,-118.15219358
 Anytime Spritz,Total Wine - Long Beach #1113,"7400 Carson Blvd, Long Beach, CA 90808",Long Beach,CA,90808,33.82705542,-118.08661935
 Anytime Spritz,Total Wine - W. Hollywood #1141,"1130 N La Brea Ave West Hollywood, CA, 90038",,,,34.09155586,-118.34321939
@@ -167,7 +154,6 @@ Ysidro,99 Ranch Market #5,"651 N. Euclid St., Anaheim, CA 92801",Anaheim,CA,9280
 Ysidro,Alta Dena Beverage,"1850 Allen Avenue, Pasadena CA 91104",,,,34.17785600,-118.11191935
 Ysidro,Blüm Wine and Flowers,"150 Pacific Coast Highway, El Segundo, CA 90245",El Segundo,CA,90245,33.91472700,-118.39546999
 Ysidro,Boccato's Groceries,3127 Manhattan Ave Hermosa Beach CA 90254,,,,33.87556201,-118.40622598
-Ysidro,Botanica,1620 Silver Lake Blvd,,,,34.08847020,-118.26884460
 Ysidro,Bottlecraft Long Beach,"Long Beach, CA 90808",Long Beach,CA,90808,33.82925799,-118.14501101
 Ysidro,Brentwood Country Club,"590 S. Burlingame Ave, Los Angeles, 90049",Los Angeles,90049,,34.04625671,-118.48494261
 Ysidro,Brentwood Fine Wines,"11740 San Vicente Boulevard, Los Angeles, CA 90049",Los Angeles,CA,90049,34.05300200,-118.46677300
@@ -177,7 +163,6 @@ Ysidro,Continental Liquor & Market,"9114 Balboa Blvd., Northridge, CA 91325",Nor
 Ysidro,Corked Redondo Beach,"1520 Aviation Blvd., Redondo Beach, CA 90278",Redondo Beach,CA,90278,33.86875985,-118.38241367
 Ysidro,Croft Alley Beverly Hills,"9433 Brighton Way, Beverly Hills, CA 90210",Beverly Hills,CA,90210,34.07025301,-118.40174602
 Ysidro,Curated Wines,"353 North La Brea Ave, Los Angeles , CA 90036",Los Angeles ,CA,90036,34.07770280,-118.34424835
-Ysidro,Dopolavoro,"7605 1/2 Beverly Blvd, Los Angeles, CA 90036",Los Angeles,CA,90036,34.07638299,-118.35552896
 Ysidro,Farm Shop,"225 26th Street, Suite 25, Santa Monica CA 90402",,,,34.04755578,-118.49041941
 Ysidro,Flask Fine Wine & Whisky,"12194 Ventura Blvd., Studio City, CA 91604",Studio City,CA,91604,34.14305398,-118.39837298
 Ysidro,Follow Your Heart Market & Cafe,"21825 Sherman Way, Los Angeles, CA 93103",Los Angeles,CA,93103,34.20118743,-118.60380538
@@ -215,7 +200,6 @@ Ysidro,SLAY Italian Kitchen,"1001 Manhattan Ave, Manhattan Beach, CA 90266",,,,3
 Ysidro,SLAY Steak + Fish House,"1141 Manhattan Ave, Manhattan Beach, CA 90266",,,,33.88515502,-118.41122503
 Ysidro,Sogo Roll Bar,"4634 Hollywood Blvd., Los Angeles, CA 90027",Los Angeles,CA,90027,34.09995587,-118.29031938
 Ysidro,Sushi Roku Manhattan Beach,"3110 N Sepulveda Blvd., Manhattan Beach, CA 90266",Manhattan Beach,CA,90266,33.89850500,-118.39560896
-Ysidro,The Butcher's Daughter,"1205 Abbot Kinney Blvd, Los Angeles, California 90291",Los Angeles,California,90291,33.99167300,-118.46918103
 Ysidro,The Butcher's Daughter,"8755 Melrose Ave, West Hollywood, CA 90069",,,,34.08107098,-118.38491097
 Ysidro,The Canal Market,"600 Mildred Ave, Venice, CA 90291",Venice,CA,90291,33.98695801,-118.46464198
 Ysidro,The Famous Bar,"154 South Brand Blvd., Glendale, CA 91204",Glendale,CA,91204,34.14549999,-118.25470003
@@ -273,8 +257,29 @@ Yes Way Rosé,LE CHATEAU WINE &amp; SPIRITS,"6252 WILSHIRE BLVD, LOS ANGELES, CA
 Yes Way Rosé,VALLEY FOOD LIQUOR STORE,"5474 E VALLEY BLVD, LOS ANGELES, CA 90032",LOS ANGELES,CA,90032,34.073740,-118.163570
 Yes Way Rosé,CARMEL LIQUOR,"8204 W SANTA MONICA BLVD, LOS ANGELES, CA 90046",LOS ANGELES,CA,90046,34.090690,-118.367580
 Yes Way Rosé,BEVERLY LIQUOR,"8253 W 3RD ST, LOS ANGELES, CA 90048",LOS ANGELES,CA,90048,34.072670,-118.369500
-Yes Way Rosé,TERNERS LIQUOR,"8401 W 3RD ST, LOS ANGELES, CA 90048",LOS ANGELES,CA,90048,34.073140,-118.373690
 Yes Way Rosé,TARGET STORE,"8480 BEVERLY BLVD STE 1A, LOS ANGELES, CA 90048",LOS ANGELES,CA,90048,34.075990,-118.375440
 Yes Way Rosé,SUPER SALUD LIQUOR &amp; MARKET,"625 N MEDNIK AVE, LOS ANGELES, CA 90022",LOS ANGELES,CA,90022,34.043670,-118.162000
 Yes Way Rosé,7 ELEVEN,"1100 N LA CIENEGA BLVD, WEST HOLLYWOOD, CA 90069",WEST HOLLYWOOD,CA,90069,34.092150,-118.376240
 Yes Way Rosé,WEHO WINE &amp; SPIRITS,"8513 SANTA MONICA BLVD, WEST HOLLYWOOD, CA 90069",WEST HOLLYWOOD,CA,90069,34.089420,-118.376710
+Talking To,Botanica,"1620 Silver Lake Blvd, Los Angeles, CA 90026",Los Angeles,CA,90026,34.0884930,-118.2689001
+Talking To,Sqirl,"720 N Virgil Ave, Los Angeles, CA 90029",Los Angeles,CA,90029,34.0845162,-118.2866953
+Talking To,Fountain Liquor,"5203 Fountain Ave, Los Angeles, CA 90029",Los Angeles,CA,90029,34.0951755,-118.3040318
+Talking To,Lou Wine Bar,"1648 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.1011367,-118.2873014
+Talking To,Alcove (Celine),"1929 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.1062341,-118.2877096
+Talking To,Ally @ Cheech's Pizza,"2116 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.1105433,-118.2871246
+Talking To,Little Dom's (Zoe + Laura),"2128 Hillhurst Ave, Los Angeles, CA 90027",Los Angeles,CA,90027,34.1108665,-118.2872699
+Talking To,The Oaks Gourmet Market (Bob),"1915 N Bronson Ave, Los Angeles, CA 90068",Los Angeles,CA,90068,34.1056493,-118.3180963
+Talking To,Dopolavoro (David),"7605 Beverly Blvd, Los Angeles, CA 90036",Los Angeles,CA,90036,34.0761661,-118.3553299
+Talking To,Joan's on Third (Marissa / Ally),"8350 W 3rd St, Los Angeles, CA 90048",Los Angeles,CA,90048,34.0729360,-118.3717118
+Talking To,Palihouse (Wolfgang),"8465 Holloway Dr, West Hollywood, CA 90069",West Hollywood,CA,90069,34.0909642,-118.3754791
+Talking To,Terners Liquors,"8401 W 3rd St, Los Angeles, CA 90048",Los Angeles,CA,90048,34.0731090,-118.3732750
+Talking To,Zinqué West Hollywood (Niger),"8684 Melrose Ave, West Hollywood, CA 90069",West Hollywood,CA,90069,34.0812917,-118.3826524
+Talking To,The Butcher's Daughter (Jake),"1205 Abbot Kinney Blvd, Venice, CA 90291",Venice,CA,90291,33.9916038,-118.4692080
+Talking To,San Vicente Bungalows (Paulina),"845 N San Vicente Blvd, West Hollywood, CA 90069",West Hollywood,CA,90069,34.0858963,-118.3850183
+Talking To,Croft Alley (Madison),"8428 Melrose Pl, Los Angeles, CA 90069",Los Angeles,CA,90069,34.0835370,-118.3743630
+Talking To,Wally's (Phillip),"447 N Canon Dr, Beverly Hills, CA 90210",Beverly Hills,CA,90210,34.0714005,-118.4017989
+Maison Maxine,Farmshop (Brentwood Country Mart),"225 26th St, Santa Monica, CA 90402",Santa Monica,CA,90402,34.0479314,-118.4912473
+Maison Maxine,Dia Wine Shop,"12113 Ventura Blvd, Studio City, CA 91604",Studio City,CA,91604,34.1436028,-118.3957601
+Maison Maxine,Jayde's Market,"2964 Beverly Glen Cir, Los Angeles, CA 90077",Los Angeles,CA,90077,34.1281158,-118.4438989
+Maison Maxine,Canal Market,"Venice Canals, Venice, CA 90291",Venice,CA,90291,33.9869093,-118.4735870
+Maison Maxine,Monsieur Marcel,"189 The Grove Dr, Los Angeles, CA 90036",Los Angeles,CA,90036,34.0730818,-118.3584146
