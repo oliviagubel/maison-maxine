@@ -435,6 +435,25 @@ body::before{
   color:#c76090;
   margin-top:8px;
 }
+/* ═══ GREEN VARIANT — for stockists outside LA ═══ */
+.store-card.green{
+  background:linear-gradient(180deg,#fff 0%,#f6fce4 40%,#ecf5d2 100%);
+  border:1px dotted #c5d885;
+}
+.store-card.green::before{
+  background:linear-gradient(90deg, #8ba142, #8ba142, transparent);
+}
+.store-card.green:hover{
+  border-color:#8ba142;
+  box-shadow:0 4px 20px rgba(139,161,66,.12);
+}
+.store-card.green .store-city{color:#8ba142}
+.store-card.green .store-addr{color:#8ba142}
+.store-card.green .store-vibe{
+  color:#8ba142;
+  background:#fce8f1;
+  border-color:#f7cdeb;
+}
 
 /* ═══ COMING SOON SECTION ═══ */
 .coming-soon{
@@ -711,14 +730,78 @@ body::before{
 
   <!-- INTRO -->
   <div class="page-intro">
-    <p>we're slowly making our way across california and beyond. here's where you can find a bottle of maison maxine — each stockist handpicked, each location a vibe.</p>
+    <p>we're slowly making our way across california and beyond. here's where you can find a can of maison maxine — each stockist handpicked, each location a vibe.</p>
+  </div>
+
+  <!-- STORE CARDS -->
+  <div class="box">
+    <div class="box-title">our stockists ✦</div>
+    <div class="stores-grid">
+
+      <div class="store-card">
+        <div class="store-city">studio city, ca</div>
+        <div class="store-name">dia wine shop</div>
+        <div class="store-addr">12113 ventura blvd<br>studio city, ca 91604</div>
+        <div class="store-vibe">valley girl wine bar ♡</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">los angeles, ca</div>
+        <div class="store-name">monsieur marcel</div>
+        <div class="store-addr">the grove<br>189 the grove dr, los angeles, ca 90036</div>
+        <div class="store-vibe">parisian market energy</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">los angeles, ca</div>
+        <div class="store-name">jayde's market</div>
+        <div class="store-addr">the glen center<br>2964 beverly glen cir, los angeles, ca 90077</div>
+        <div class="store-vibe">bel air market & deli ♡</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">venice, ca</div>
+        <div class="store-name">canal market</div>
+        <div class="store-addr">venice canals<br>venice, ca 90291</div>
+        <div class="store-vibe">canalside corner store ♡</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">newport beach, ca</div>
+        <div class="store-name">irvine ranch market</div>
+        <div class="store-addr">balboa island<br>200 marine ave, newport beach, ca 92662</div>
+        <div class="store-vibe">island market charm ✧</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">santa monica, ca</div>
+        <div class="store-name">farmshop</div>
+        <div class="store-addr">brentwood country mart<br>225 26th st, santa monica, ca 90402</div>
+        <div class="store-vibe">california market & kitchen ✧</div>
+      </div>
+
+      <div class="store-card">
+        <div class="store-city">malibu, ca</div>
+        <div class="store-name">colony house liquor</div>
+        <div class="store-addr">22523 pacific coast hwy<br>malibu, ca 90265</div>
+        <div class="store-vibe">pch wine + spirits ♡</div>
+      </div>
+
+      <div class="store-card green">
+        <div class="store-city">new york, ny</div>
+        <div class="store-name">happier grocery</div>
+        <div class="store-addr">365 canal st<br>new york, ny 10013</div>
+        <div class="store-vibe">nyc clean grocer ✧</div>
+      </div>
+
+    </div>
   </div>
 
   <!-- MAP -->
   <div class="map-wrapper">
     <div class="map-header">
       <span class="mh-title">the muse map ✦</span>
-      <span class="mh-status">5 locations & counting</span>
+      <span class="mh-status">7 locations & counting</span>
     </div>
     <div class="map-visual">
       <svg viewBox="0 0 760 420" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
@@ -1336,63 +1419,6 @@ body::before{
         <path d="M40 410 Q80 404 120 410 Q160 416 200 410 Q240 404 280 410 Q320 416 360 410 Q400 404 440 410 Q480 416 520 410 Q560 404 600 410 Q640 416 680 410 Q700 406 720 410" fill="none" stroke="#c76090" stroke-width=".5" opacity=".15"/>
 
       </svg>
-    </div>
-  </div>
-
-  <!-- STORE CARDS -->
-  <div class="box">
-    <div class="box-title">our stockists ✦</div>
-    <div class="stores-grid">
-
-      <div class="store-card">
-        <div class="store-city">studio city, ca</div>
-        <div class="store-name">dia wine shop</div>
-        <div class="store-addr">12113 ventura blvd<br>studio city, ca 91604</div>
-        <div class="store-vibe">valley girl wine bar ♡</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">los angeles, ca</div>
-        <div class="store-name">monsieur marcel</div>
-        <div class="store-addr">the grove<br>189 the grove dr, los angeles, ca 90036</div>
-        <div class="store-vibe">parisian market energy</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">los angeles, ca</div>
-        <div class="store-name">jayde's market</div>
-        <div class="store-addr">the glen center<br>2964 beverly glen cir, los angeles, ca 90077</div>
-        <div class="store-vibe">bel air market & deli ♡</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">venice, ca</div>
-        <div class="store-name">canal market</div>
-        <div class="store-addr">venice canals<br>venice, ca 90291</div>
-        <div class="store-vibe">canalside corner store ♡</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">newport beach, ca</div>
-        <div class="store-name">irvine ranch market</div>
-        <div class="store-addr">balboa island<br>200 marine ave, newport beach, ca 92662</div>
-        <div class="store-vibe">island market charm ✧</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">santa monica, ca</div>
-        <div class="store-name">farmshop</div>
-        <div class="store-addr">brentwood country mart<br>225 26th st, santa monica, ca 90402</div>
-        <div class="store-vibe">california market & kitchen ✧</div>
-      </div>
-
-      <div class="store-card">
-        <div class="store-city">malibu, ca</div>
-        <div class="store-name">colony house liquor</div>
-        <div class="store-addr">22523 pacific coast hwy<br>malibu, ca 90265</div>
-        <div class="store-vibe">pch wine + spirits ♡</div>
-      </div>
-
     </div>
   </div>
 
