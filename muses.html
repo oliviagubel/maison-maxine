@@ -439,6 +439,61 @@ body::before{
   line-height:1.55;
   color:#4a3a3a;
 }
+/* hover-reveal muse card (large, right side of screen) */
+.sb-photo[data-bio]{cursor:pointer}
+#muse-card{
+  position:fixed;
+  top:50%;
+  right:48px;
+  transform:translateY(-50%) translateX(40px);
+  width:380px;
+  max-width:34vw;
+  background:linear-gradient(135deg,#fff9fc 0%,#fef0f6 55%,#fef8fb 100%);
+  border:3px double #f7cdeb;
+  border-radius:6px;
+  padding:34px 34px 38px;
+  box-shadow:inset 0 0 30px rgba(247,205,235,.18), 4px 8px 36px rgba(199,96,144,.28);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  z-index:300;
+  transition:opacity .35s ease, transform .4s cubic-bezier(.2,0,.2,1);
+}
+#muse-card.show{opacity:1;visibility:visible;transform:translateY(-50%) translateX(0)}
+#muse-card .mc-role{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#fff;
+  background:#c76090;
+  display:inline-block;
+  padding:3px 12px;
+  border-radius:3px;
+  margin-bottom:14px;
+}
+#muse-card .mc-name{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:52px;
+  line-height:1;
+  color:#c76090;
+  margin-bottom:16px;
+}
+#muse-card .mc-bio{
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:21px;
+  font-style:italic;
+  line-height:1.65;
+  color:#4a3a3a;
+}
+#muse-card .mc-deco{
+  margin-top:18px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:11px;
+  letter-spacing:.2em;
+  color:#e0a8c8;
+}
+@media (max-width:900px){#muse-card{display:none}}
 /* little label stickers */
 .sb-label{
   position:absolute;
@@ -875,14 +930,14 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       </div>
 
       <!-- KENDAL — large instant, top left, the anchor -->
-      <div class="sb-photo sb-instant" style="width:200px;top:0;left:0;z-index:10;transform:rotate(-4deg)">
+      <div class="sb-photo sb-instant" style="width:200px;top:0;left:0;z-index:10;transform:rotate(-4deg)" data-name="Kendal" data-role="muse" data-bio="Kendal is a fashion model who recently moved to NYC to pursue her dream of full-time modeling. She was featured as a model AND photographer in NY Fashion Week this year!">
         <img src="kendalsmiling.png">
         <div class="sb-caption">Kendal</div>
       </div>
       <div class="washi" style="width:60px;top:8px;left:55px;transform:rotate(-15deg)"></div>
 
       <!-- AMELIA — raw sticker, overlapping kendal -->
-      <div class="sb-photo sb-sticker" style="top:20px;left:220px;z-index:12;transform:rotate(3deg)">
+      <div class="sb-photo sb-sticker" style="top:20px;left:220px;z-index:12;transform:rotate(3deg)" data-name="Amelia" data-role="muse" data-bio="Amelia is currently ooo living her best life abroad in Sydney, Australia.">
         <img src="ameliacutout.png" style="width:180px;height:auto">
         <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap">Amelia</div>
       </div>
@@ -890,7 +945,7 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       <div class="sb-label" style="top:255px;left:250px;transform:rotate(2deg)">muse</div>
 
       <!-- ADELINE — instant, top right, small & tilted -->
-      <div class="sb-photo sb-sticker" style="top:5px;left:425px;z-index:9;transform:rotate(5deg)">
+      <div class="sb-photo sb-sticker" style="top:5px;left:425px;z-index:9;transform:rotate(5deg)" data-name="Adeline" data-role="muse" data-bio="After graduating her masters program in writing at USC, Adeline will continue pursuing her passion of screenwriting. She even just finished her first novel.">
         <img src="adelinecutout.png" style="width:150px;height:auto">
         <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap">Adeline</div>
       </div>
@@ -902,36 +957,20 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       <span class="sb-sparkle" style="top:5px;left:195px;font-size:16px;color:#f7cdeb;animation-delay:0s">✦</span>
       <span class="sb-sparkle" style="top:120px;left:410px;font-size:10px;color:#c76090;animation-delay:.5s">♡</span>
 
-      <!-- ═══ ROW 1 BIOS ═══ -->
-      <div class="sb-bio" style="top:285px;left:10px;max-width:180px;transform:rotate(-1deg)">
-        <div class="sb-bio-name">✦ Kendal</div>
-        <p>Kendal is a fashion model who recently moved to NYC to pursue her dream of full-time modeling. She was featured as a model AND photographer in NY Fashion Week this year!</p>
-      </div>
-
-      <div class="sb-bio" style="top:270px;left:220px;max-width:160px;transform:rotate(1deg)">
-        <div class="sb-bio-name">✦ Amelia</div>
-        <p>Amelia is currently ooo living her best life abroad in Sydney, Australia.</p>
-      </div>
-
-      <div class="sb-bio" style="top:260px;left:430px;max-width:155px;transform:rotate(-2deg)">
-        <div class="sb-bio-name">✦ Adeline</div>
-        <p>After graduating her masters program in writing at USC, Adeline will continue pursuing her passion of screenwriting. She even just finished her first novel.</p>
-      </div>
-
       <!-- DOILY 3 — behind Sarina's photo, filling left middle space -->
       <div class="sb-deco" style="top:400px;left:300px;z-index:3;transform:rotate(0deg);pointer-events:none">
         <img src="doily3.png" style="width:280px;opacity:.45;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.06))">
       </div>
 
       <!-- SARINA — sticker, middle left -->
-      <div class="sb-photo sb-sticker" style="top:430px;left:15px;z-index:14;transform:rotate(2deg)">
+      <div class="sb-photo sb-sticker" style="top:430px;left:15px;z-index:14;transform:rotate(2deg)" data-name="Sarina" data-role="muse" data-bio="Sarina is the brainiest model on our roster. After graduating Columbia University this spring, she will be pursuing a PHD in immunology!">
         <img src="sarinasmiling.png" style="width:170px;height:220px">
         <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap">Sarina</div>
       </div>
       <div class="washi" style="width:55px;top:425px;left:60px;transform:rotate(-10deg)"></div>
 
       <!-- SUMMER — instant, center, overlapping sarina -->
-      <div class="sb-photo sb-instant" style="width:165px;top:410px;left:210px;z-index:13;transform:rotate(-3deg)">
+      <div class="sb-photo sb-instant" style="width:165px;top:410px;left:210px;z-index:13;transform:rotate(-3deg)" data-name="Summer" data-role="muse" data-bio="Summer is a born and raised valley girl and fiery red-head. She's still figuring things out.">
         <img src="summer.png">
         <div class="sb-caption">Summer</div>
       </div>
@@ -951,17 +990,6 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       </div>
       <span class="sb-sparkle" style="top:610px;left:180px;font-size:18px;color:#c76090;animation-delay:1.2s">✦</span>
 
-      <!-- ═══ ROW 2 BIOS ═══ -->
-      <div class="sb-bio" style="top:680px;left:10px;max-width:170px;transform:rotate(1deg)">
-        <div class="sb-bio-name">✦ Sarina</div>
-        <p>Sarina is the brainiest model on our roster. After graduating Columbia University this spring, she will be pursuing a PHD in immunology!</p>
-      </div>
-
-      <div class="sb-bio" style="top:670px;left:220px;max-width:160px;transform:rotate(-1deg)">
-        <div class="sb-bio-name">✦ Summer</div>
-        <p>Summer is a born and raised valley girl and fiery red-head. She's still figuring things out.</p>
-      </div>
-
       <!-- DOILY — behind Osito's photo -->
       <div class="sb-deco" style="top:740px;left:75px;z-index:4;transform:rotate(0deg);pointer-events:none">
         <img src="doily.png" style="width:260px;opacity:.55;filter:drop-shadow(1px 2px 4px rgba(0,0,0,.06))">
@@ -973,18 +1001,12 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       </div>
 
       <!-- OSITO PANCAKES — instant, big, bottom center, the star -->
-      <div class="sb-photo sb-instant" style="width:210px;top:780px;left:100px;z-index:16;transform:rotate(-2deg)">
+      <div class="sb-photo sb-instant" style="width:210px;top:780px;left:100px;z-index:16;transform:rotate(-2deg)" data-name="Osito Pancakes" data-role="mascot" data-bio="Osito Pancakes is the youngest (and only boy) muse. He's a Valentine's Day baby who just turned one, exploring what life is like as a Golden Mountain Doodle and supporting his sister, the founder.">
         <img src="ositopancakes.png">
         <div class="sb-caption">Osito Pancakes</div>
       </div>
       <div class="washi" style="width:65px;top:775px;left:170px;transform:rotate(12deg)"></div>
       <div class="sb-label" style="top:780px;left:105px;transform:rotate(-8deg)">mascot</div>
-
-      <!-- OSITO BIO -->
-      <div class="sb-bio" style="top:820px;left:340px;max-width:200px;transform:rotate(1deg)">
-        <div class="sb-bio-name">✦ Osito Pancakes</div>
-        <p>Osito Pancakes is the youngest (and only boy) muse. He's a Valentine's Day baby who just turned one, exploring what life is like as a Golden Mountain Doodle and supporting his sister, the founder.</p>
-      </div>
 
       <!-- ROSE — decorative sticker, between adeline & amelia -->
       <div class="sb-deco" style="top:80px;left:370px;z-index:60;transform:rotate(10deg)">
@@ -1029,8 +1051,38 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
 
 </div>
 
+<!-- hover-reveal muse card -->
+<div id="muse-card">
+  <div class="mc-role"></div>
+  <div class="mc-name"></div>
+  <div class="mc-bio"></div>
+  <div class="mc-deco">✦ ⋆ ♡ ⋆ ✦</div>
+</div>
+
 
 <script>
+// ═══ MUSE HOVER CARD ═══
+(function(){
+  const card=document.getElementById('muse-card');
+  if(!card) return;
+  const roleEl=card.querySelector('.mc-role');
+  const nameEl=card.querySelector('.mc-name');
+  const bioEl=card.querySelector('.mc-bio');
+  document.querySelectorAll('.sb-photo[data-bio]').forEach(function(p){
+    p.addEventListener('mouseenter',function(){
+      const role=p.getAttribute('data-role');
+      if(role){roleEl.textContent=role;roleEl.style.display='';}
+      else{roleEl.style.display='none';}
+      nameEl.textContent=p.getAttribute('data-name')||'';
+      bioEl.textContent=p.getAttribute('data-bio')||'';
+      card.classList.add('show');
+    });
+    p.addEventListener('mouseleave',function(){
+      card.classList.remove('show');
+    });
+  });
+})();
+
 // ═══ NOW PLAYING RANDOMIZER ═══
 (function(){
   const songs=[
