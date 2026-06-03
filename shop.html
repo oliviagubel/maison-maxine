@@ -561,6 +561,77 @@ body::before{
   text-transform:uppercase;
 }
 
+/* ═══ LEAVE A REVIEW FORM ═══ */
+.review-form{
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px dotted #f7cdeb;
+}
+.rf-prompt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:10px;
+}
+.rf-stars{
+  display:flex;
+  gap:4px;
+  font-size:20px;
+  color:#e8c4d8;
+  margin-bottom:10px;
+}
+.rf-stars span{
+  cursor:pointer;
+  transition:transform .15s,color .15s;
+}
+.rf-stars span:hover{transform:scale(1.2)}
+.rf-stars span.on{color:#c76090}
+.rf-input,.rf-textarea{
+  width:100%;
+  background:#fff;
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+  padding:10px 12px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:14px;
+  font-style:italic;
+  color:#5a3a4a;
+  margin-bottom:10px;
+  outline:none;
+  transition:border-color .2s;
+}
+.rf-input:focus,.rf-textarea:focus{border:1px solid #c76090}
+.rf-input::placeholder,.rf-textarea::placeholder{color:#c89cb4;font-style:italic}
+.rf-textarea{resize:vertical;min-height:70px;line-height:1.6}
+.rf-submit{
+  padding:10px 22px;
+  background:#c76090;
+  color:#fff;
+  border:none;
+  border-radius:6px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:14px;
+  font-style:italic;
+  letter-spacing:.06em;
+  cursor:pointer;
+  transition:all .25s;
+}
+.rf-submit:hover{box-shadow:0 4px 18px rgba(199,96,144,.2);background:#b5557e}
+.review .r-you{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#fff;
+  background:#c76090;
+  padding:2px 7px;
+  border-radius:20px;
+  margin-left:6px;
+  vertical-align:middle;
+}
+
 /* ═══ BADGES ═══ */
 .badges{
   display:flex;
@@ -1262,6 +1333,20 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="r-text">four ingredients. i flipped the can over and was like wait that's it? no weird stuff? and then i tasted it and was like ok yeah this is my new thing.</div>
       <div class="r-author">— lily t., santa monica</div>
     </div>
+
+    <!-- USER-SUBMITTED NOTES -->
+    <div id="userReviews"></div>
+
+    <!-- LEAVE A REVIEW -->
+    <div class="review-form">
+      <div class="rf-prompt">add your two cents ✦</div>
+      <div class="rf-stars" id="rfStars">
+        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
+      </div>
+      <input class="rf-input" id="rfName" type="text" maxlength="40" placeholder="your name & city — e.g. maxine m., malibu">
+      <textarea class="rf-textarea" id="rfText" maxlength="500" placeholder="what did you think? ✦"></textarea>
+      <button class="rf-submit" id="rfSubmit">share your note ✦</button>
+    </div>
   </div>
 
   <!-- BADGES -->
@@ -1467,6 +1552,65 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
 
 // ═══ INIT ═══
 updateCartUI();
+</script>
+
+<script>
+// ═══ LEAVE A REVIEW (localStorage) ═══
+(function(){
+  const REVIEWS_KEY = 'maisonMaxineReviews';
+  const starsEl = document.getElementById('rfStars');
+  const stars = starsEl.querySelectorAll('span');
+  const nameEl = document.getElementById('rfName');
+  const textEl = document.getElementById('rfText');
+  const submitEl = document.getElementById('rfSubmit');
+  const listEl = document.getElementById('userReviews');
+  let rating = 5;
+
+  function paintStars(n){
+    stars.forEach(s => s.classList.toggle('on', parseInt(s.dataset.v) <= n));
+  }
+  paintStars(rating);
+  stars.forEach(s => {
+    s.addEventListener('mouseenter', () => paintStars(parseInt(s.dataset.v)));
+    s.addEventListener('click', () => { rating = parseInt(s.dataset.v); paintStars(rating); });
+  });
+  starsEl.addEventListener('mouseleave', () => paintStars(rating));
+
+  function getReviews(){
+    try { return JSON.parse(localStorage.getItem(REVIEWS_KEY)) || []; }
+    catch(e){ return []; }
+  }
+  function escapeHtml(str){
+    const d = document.createElement('div');
+    d.textContent = str;
+    return d.innerHTML;
+  }
+  function render(){
+    const reviews = getReviews();
+    listEl.innerHTML = reviews.map(r => `
+      <div class="review">
+        <div class="r-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
+        <div class="r-text">${escapeHtml(r.text)}</div>
+        <div class="r-author">— ${escapeHtml(r.author)}<span class="r-you">your note</span></div>
+      </div>
+    `).join('');
+  }
+  render();
+
+  submitEl.addEventListener('click', () => {
+    const text = textEl.value.trim();
+    const author = nameEl.value.trim() || 'a muse';
+    if (!text) { textEl.focus(); return; }
+    const reviews = getReviews();
+    reviews.unshift({ rating, text, author, ts: Date.now() });
+    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
+    textEl.value = '';
+    nameEl.value = '';
+    rating = 5; paintStars(rating);
+    render();
+    showToast('thank you for sharing, gorgeous ✦');
+  });
+})();
 </script>
 
 <script>
