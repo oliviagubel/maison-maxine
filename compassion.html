@@ -1016,10 +1016,15 @@ body::before{
 
   function renderEntries(){
     container.innerHTML='';
-    entries.forEach(function(e){
+    entries.forEach(function(e,i){
       var div=document.createElement('div');
       div.className='gb-entry';
-      div.innerHTML='<div class="gb-name">♡ '+escHtml(e.name)+'</div><div class="gb-msg">'+escHtml(e.msg)+'</div><div class="gb-date">'+escHtml(e.date)+'</div>';
+      div.innerHTML='<div class="gb-name">♡ '+escHtml(e.name)+'</div><div class="gb-msg">'+escHtml(e.msg)+'</div><div class="gb-date">'+escHtml(e.date)+'</div><button class="gb-del" title="remove this message" aria-label="remove">✕</button>';
+      div.querySelector('.gb-del').addEventListener('click',function(){
+        entries.splice(i,1);
+        localStorage.setItem(KEY,JSON.stringify(entries));
+        renderEntries();
+      });
       container.appendChild(div);
     });
   }
