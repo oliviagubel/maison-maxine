@@ -492,8 +492,25 @@ body::before{
 .gb-entry{
   padding:12px 0;
   border-bottom:1px dotted rgba(247,205,235,.5);
+  position:relative;
 }
 .gb-entry:last-child{border-bottom:none}
+.gb-del{
+  position:absolute;
+  top:12px;
+  right:0;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:11px;
+  line-height:1;
+  color:#c76090;
+  background:none;
+  border:none;
+  padding:2px 4px;
+  opacity:0;
+  transition:opacity .2s,transform .2s;
+}
+.gb-entry:hover .gb-del{opacity:.55}
+.gb-del:hover{opacity:1;transform:scale(1.25)}
 .gb-name{
   font-family:'Pixelify Sans',sans-serif;
   font-size:9px;
