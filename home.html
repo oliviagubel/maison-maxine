@@ -747,11 +747,11 @@ body::before{
 .sm-card{
   position:relative;
   width:min(88vw,440px);
-  aspect-ratio:425 / 503;
+  min-height:min(calc(88vw * 503 / 425), 520px);
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:25% 11% 11%;
+  padding:23% 11% 10%;
   text-align:center;
-  background:url('envelope2-crop.png') center/100% 100% no-repeat;
+  background:url('envelope2-crop.png') center/contain no-repeat;
   filter:drop-shadow(0 14px 34px rgba(199,96,144,.26));
   transform:translateY(14px) scale(.96);
   transition:transform .45s cubic-bezier(.22,1,.36,1);
@@ -1535,18 +1535,23 @@ function updateStampCounter(){
 
   /* mailing-address search — key-less autocomplete via Photon (OpenStreetMap) */
   var deb;
-  function fmt(p){
-    var line1=[p.housenumber,p.street].filter(Boolean).join(' ')||p.name||'';
-    return [line1,p.city||p.town||p.village,p.state,p.postcode,p.country].filter(Boolean).join(', ');
+  function fmt(p,typedNum){
+    /* keep the house number the visitor typed when the map data only knows the street */
+    var num=p.housenumber||typedNum||'';
+    var road=p.street||p.name||'';
+    var line1=[num,road].filter(Boolean).join(' ');
+    var city=p.city||p.town||p.village||p.district||'';
+    return [line1,city,p.state,p.postcode,p.country].filter(Boolean).join(', ');
   }
   function lookup(q){
+    var typedNum=(q.match(/^\s*(\d+[a-zA-Z]?)\b/)||[])[1]||'';
     fetch('https://photon.komoot.io/api/?limit=5&q='+encodeURIComponent(q))
       .then(function(r){return r.json();})
       .then(function(d){
         sug.innerHTML='';
         if(!d||!d.features||!d.features.length){sug.classList.remove('show');return;}
         d.features.forEach(function(f){
-          var label=fmt(f.properties);
+          var label=fmt(f.properties,typedNum);
           if(!label) return;
           var li=document.createElement('li');
           li.textContent=label;
