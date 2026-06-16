@@ -721,13 +721,85 @@ body::before{
   width:120px;
   height:auto;
   z-index:90;
-  pointer-events:none;
+  cursor:pointer;
   filter:drop-shadow(2px 3px 6px rgba(0,0,0,.15));
   transform:rotate(-4deg);
+  transition:transform .35s ease, filter .35s ease;
+}
+.snailmail-corner:hover{
+  transform:rotate(0deg) scale(1.08);
+  filter:drop-shadow(3px 5px 10px rgba(199,96,144,.3)) brightness(1.04);
 }
 @media(max-width:768px){
   .snailmail-corner{width:84px;bottom:12px;right:12px}
 }
+
+/* ═══ SNAIL MAIL CLUB JOIN POP-UP ═══ */
+.sm-modal{
+  position:fixed;inset:0;z-index:9997;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(199,96,144,.18);
+  backdrop-filter:blur(3px);
+  opacity:0;visibility:hidden;
+  transition:opacity .4s ease, visibility .4s ease;
+}
+.sm-modal.open{opacity:1;visibility:visible}
+.sm-card{
+  position:relative;
+  width:min(90vw,420px);
+  padding:30px 34px 36px;
+  text-align:center;
+  background:linear-gradient(#fffdf9,#fdf2f8);
+  border:1.5px dashed #e6a6c8;
+  border-radius:14px;
+  box-shadow:0 18px 50px rgba(199,96,144,.28);
+  transform:translateY(14px) scale(.96);
+  transition:transform .45s cubic-bezier(.22,1,.36,1);
+}
+.sm-modal.open .sm-card{transform:translateY(0) scale(1)}
+.sm-envelope{
+  width:170px;height:auto;display:block;margin:0 auto 6px;
+  filter:drop-shadow(2px 4px 10px rgba(199,96,144,.22));
+  animation:sm-float 3.4s ease-in-out infinite;
+}
+@keyframes sm-float{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-7px) rotate(1deg)}}
+.sm-title{
+  font-family:"Burgues Script",cursive;
+  font-size:38px;color:#c76090;line-height:1;margin-bottom:4px;
+}
+.sm-sub{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:18px;color:#9a5277;letter-spacing:.04em;margin-bottom:12px;
+}
+.sm-body{
+  font-family:'Cormorant Garamond',serif;
+  font-size:16px;line-height:1.55;color:#6a4a58;margin:0 auto 18px;max-width:300px;
+}
+.sm-form{display:flex;gap:8px;justify-content:center}
+.sm-form input{
+  flex:1;min-width:0;
+  font-family:'Cormorant Garamond',serif;font-size:15px;color:#7a4a64;
+  padding:9px 13px;border:1px solid #ecbcd8;border-radius:999px;
+  background:#fffaff;outline:none;
+}
+.sm-form input:focus{border-color:#c76090}
+.sm-form button{
+  font-family:'Cormorant Garamond',serif;font-size:15px;font-weight:500;
+  color:#fff;background:#d685b0;border:none;border-radius:999px;
+  padding:9px 20px;cursor:pointer;white-space:nowrap;
+  transition:background .25s ease, transform .25s ease;
+}
+.sm-form button:hover{background:#c76090;transform:translateY(-1px)}
+.sm-note{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:15px;color:#b75d83;margin-top:14px;min-height:1px;
+}
+.sm-close{
+  position:absolute;top:10px;right:14px;
+  background:none;border:none;cursor:pointer;
+  font-family:'Cormorant Garamond',serif;font-size:24px;color:#d29ebb;line-height:1;
+}
+.sm-close:hover{color:#c76090}
 .collectible-stamp{
   font-family:'Pixelify Sans',sans-serif;
   font-size:8px;
@@ -1383,7 +1455,54 @@ function updateStampCounter(){
 </script>
 
 <!-- SNAIL MAIL CLUB CORNER STICKER -->
-<img src="snailmailclub-corner.png" alt="snail mail club" class="snailmail-corner">
+<img src="snailmailclub-corner.png" alt="snail mail club — join our pen pal club" class="snailmail-corner" tabindex="0" id="sm-icon">
+
+<!-- SNAIL MAIL CLUB JOIN POP-UP -->
+<div class="sm-modal" id="sm-modal" role="dialog" aria-modal="true" aria-label="Join the snail mail club">
+  <div class="sm-card">
+    <button class="sm-close" id="sm-close" aria-label="Close">&times;</button>
+    <img src="envelope2-crop.png" alt="" class="sm-envelope">
+    <div class="sm-title">snail mail club</div>
+    <div class="sm-sub">be our pen pal &#9825;</div>
+    <p class="sm-body">sign up to receive quarterly handwritten notes, an original watercolor &amp; new brand stickers</p>
+    <form class="sm-form" id="sm-form">
+      <input type="email" id="sm-email" placeholder="your address &#9825;" required>
+      <button type="submit">join &#9825;</button>
+    </form>
+    <div class="sm-note" id="sm-note"></div>
+  </div>
+</div>
+
+<script>
+/* ═══ SNAIL MAIL CLUB JOIN POP-UP ═══ */
+(function(){
+  var icon=document.getElementById('sm-icon');
+  var modal=document.getElementById('sm-modal');
+  var close=document.getElementById('sm-close');
+  var form=document.getElementById('sm-form');
+  var note=document.getElementById('sm-note');
+  if(!icon||!modal) return;
+  function open(){modal.classList.add('open');}
+  function shut(){modal.classList.remove('open');}
+  // open on hover or keyboard focus of the corner icon
+  icon.addEventListener('mouseenter',open);
+  icon.addEventListener('focus',open);
+  icon.addEventListener('click',open);
+  // dismiss
+  close.addEventListener('click',shut);
+  modal.addEventListener('click',function(e){if(e.target===modal)shut();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')shut();});
+  if(form){
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var email=document.getElementById('sm-email').value.trim();
+      if(!email) return;
+      form.style.display='none';
+      note.textContent='you’re in! ♡ watch your mailbox — a letter is on its way';
+    });
+  }
+})();
+</script>
 
 <script>
 /* ═══ MOBILE INTRO SPLASH ═══ */
