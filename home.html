@@ -749,7 +749,7 @@ body::before{
   width:min(94vw,540px);
   aspect-ratio:425 / 503;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:19% 11% 11%;
+  padding:25% 11% 11%;
   text-align:center;
   background:url('envelope2-crop.png') center/100% 100% no-repeat;
   filter:drop-shadow(0 18px 44px rgba(199,96,144,.32));
@@ -1518,24 +1518,20 @@ function updateStampCounter(){
   var addr=document.getElementById('sm-address');
   var sug=document.getElementById('sm-suggest');
 
-  /* show only while hovering the icon (or the pop-up itself, so the form stays usable) */
-  var overIcon=false,overCard=false,closeT;
-  function open(){modal.classList.add('open');}
+  /* ▼ paste your sign-up endpoint here to collect pen pals across all visitors
+     (e.g. Formspree: 'https://formspree.io/f/xxxxxxx'). Leave '' to store locally only. */
+  var SIGNUP_ENDPOINT='';
+
+  /* show ONLY while directly hovering the snail-mail icon */
+  var closeT;
+  function open(){clearTimeout(closeT);modal.classList.add('open');}
   function shut(){modal.classList.remove('open');if(sug)sug.classList.remove('show');}
-  function maybeClose(){
-    if(overIcon||overCard) return;
-    if(card.contains(document.activeElement)) return;
-    shut();
-  }
-  function schedule(){clearTimeout(closeT);closeT=setTimeout(maybeClose,260);}
-  icon.addEventListener('mouseenter',function(){overIcon=true;clearTimeout(closeT);open();});
-  icon.addEventListener('mouseleave',function(){overIcon=false;schedule();});
+  function delayedShut(){clearTimeout(closeT);closeT=setTimeout(shut,120);}
+  icon.addEventListener('mouseenter',open);
+  icon.addEventListener('mouseleave',delayedShut);
   icon.addEventListener('focus',open);
-  card.addEventListener('mouseenter',function(){overCard=true;clearTimeout(closeT);});
-  card.addEventListener('mouseleave',function(){overCard=false;schedule();});
-  card.addEventListener('focusout',schedule);
+  icon.addEventListener('blur',delayedShut);
   close.addEventListener('click',shut);
-  modal.addEventListener('click',function(e){if(e.target===modal)shut();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')shut();});
 
   /* mailing-address search — key-less autocomplete via Photon (OpenStreetMap) */
