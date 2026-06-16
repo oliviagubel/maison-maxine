@@ -1522,16 +1522,15 @@ function updateStampCounter(){
      (e.g. Formspree: 'https://formspree.io/f/xxxxxxx'). Leave '' to store locally only. */
   var SIGNUP_ENDPOINT='';
 
-  /* show ONLY while directly hovering the snail-mail icon */
-  var closeT;
-  function open(){clearTimeout(closeT);modal.classList.add('open');}
+  /* hover or click the icon to open; stays open until dismissed (no flicker) */
+  function open(){modal.classList.add('open');}
   function shut(){modal.classList.remove('open');if(sug)sug.classList.remove('show');}
-  function delayedShut(){clearTimeout(closeT);closeT=setTimeout(shut,120);}
   icon.addEventListener('mouseenter',open);
-  icon.addEventListener('mouseleave',delayedShut);
+  icon.addEventListener('click',open);
   icon.addEventListener('focus',open);
-  icon.addEventListener('blur',delayedShut);
+  icon.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}});
   close.addEventListener('click',shut);
+  modal.addEventListener('click',function(e){if(e.target===modal)shut();});  // click backdrop to close
   document.addEventListener('keydown',function(e){if(e.key==='Escape')shut();});
 
   /* mailing-address search — key-less autocomplete via Photon (OpenStreetMap) */
