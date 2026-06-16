@@ -1503,25 +1503,74 @@ function updateStampCounter(){
 (function(){
   var icon=document.getElementById('sm-icon');
   var modal=document.getElementById('sm-modal');
+  if(!icon||!modal) return;
+  var card=modal.querySelector('.sm-card');
   var close=document.getElementById('sm-close');
   var form=document.getElementById('sm-form');
   var note=document.getElementById('sm-note');
-  if(!icon||!modal) return;
+  var addr=document.getElementById('sm-address');
+  var sug=document.getElementById('sm-suggest');
+
+  /* show only while hovering the icon (or the pop-up itself, so the form stays usable) */
+  var overIcon=false,overCard=false,closeT;
   function open(){modal.classList.add('open');}
-  function shut(){modal.classList.remove('open');}
-  // open on hover or keyboard focus of the corner icon
-  icon.addEventListener('mouseenter',open);
+  function shut(){modal.classList.remove('open');if(sug)sug.classList.remove('show');}
+  function maybeClose(){
+    if(overIcon||overCard) return;
+    if(card.contains(document.activeElement)) return;
+    shut();
+  }
+  function schedule(){clearTimeout(closeT);closeT=setTimeout(maybeClose,260);}
+  icon.addEventListener('mouseenter',function(){overIcon=true;clearTimeout(closeT);open();});
+  icon.addEventListener('mouseleave',function(){overIcon=false;schedule();});
   icon.addEventListener('focus',open);
-  icon.addEventListener('click',open);
-  // dismiss
+  card.addEventListener('mouseenter',function(){overCard=true;clearTimeout(closeT);});
+  card.addEventListener('mouseleave',function(){overCard=false;schedule();});
+  card.addEventListener('focusout',schedule);
   close.addEventListener('click',shut);
   modal.addEventListener('click',function(e){if(e.target===modal)shut();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')shut();});
+
+  /* mailing-address search — key-less autocomplete via Photon (OpenStreetMap) */
+  var deb;
+  function fmt(p){
+    var line1=[p.housenumber,p.street].filter(Boolean).join(' ')||p.name||'';
+    return [line1,p.city||p.town||p.village,p.state,p.postcode,p.country].filter(Boolean).join(', ');
+  }
+  function lookup(q){
+    fetch('https://photon.komoot.io/api/?limit=5&q='+encodeURIComponent(q))
+      .then(function(r){return r.json();})
+      .then(function(d){
+        sug.innerHTML='';
+        if(!d||!d.features||!d.features.length){sug.classList.remove('show');return;}
+        d.features.forEach(function(f){
+          var label=fmt(f.properties);
+          if(!label) return;
+          var li=document.createElement('li');
+          li.textContent=label;
+          li.addEventListener('mousedown',function(ev){ev.preventDefault();addr.value=label;sug.classList.remove('show');});
+          sug.appendChild(li);
+        });
+        sug.classList.toggle('show',sug.children.length>0);
+      })
+      .catch(function(){sug.classList.remove('show');});
+  }
+  if(addr&&sug){
+    addr.addEventListener('input',function(){
+      clearTimeout(deb);
+      var q=addr.value.trim();
+      if(q.length<3){sug.classList.remove('show');sug.innerHTML='';return;}
+      deb=setTimeout(function(){lookup(q);},300);
+    });
+    addr.addEventListener('blur',function(){setTimeout(function(){sug.classList.remove('show');},160);});
+  }
+
   if(form){
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var email=document.getElementById('sm-email').value.trim();
-      if(!email) return;
+      var address=addr?addr.value.trim():'';
+      if(!email||!address) return;
       form.style.display='none';
       note.textContent='you’re in! ♡ watch your mailbox — a letter is on its way';
     });
