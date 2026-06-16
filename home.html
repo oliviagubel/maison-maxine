@@ -1485,9 +1485,14 @@ function updateStampCounter(){
     <div class="sm-title">snail mail club</div>
     <div class="sm-sub">be our pen pal &#9825;</div>
     <p class="sm-body">sign up to receive quarterly handwritten notes, an original watercolor &amp; new brand stickers</p>
+    <div class="sm-spots">only 100 pen pal spots available &#10022;</div>
     <form class="sm-form" id="sm-form">
-      <input type="email" id="sm-email" placeholder="your address &#9825;" required>
-      <button type="submit">join &#9825;</button>
+      <input type="email" id="sm-email" placeholder="your email &#9825;" required>
+      <div class="sm-addr-wrap">
+        <input type="text" id="sm-address" placeholder="search your mailing address &#9825;" autocomplete="off" required>
+        <ul class="sm-suggest" id="sm-suggest"></ul>
+      </div>
+      <button type="submit">join the club &#9825;</button>
     </form>
     <div class="sm-note" id="sm-note"></div>
   </div>
