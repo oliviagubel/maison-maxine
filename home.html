@@ -746,10 +746,10 @@ body::before{
 .sm-modal.open{opacity:1;visibility:visible}
 .sm-card{
   position:relative;
-  width:min(93vw,510px);
+  width:min(94vw,540px);
   aspect-ratio:425 / 503;
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:38% 9% 9%;
+  padding:19% 11% 11%;
   text-align:center;
   background:url('envelope2-crop.png') center/100% 100% no-repeat;
   filter:drop-shadow(0 18px 44px rgba(199,96,144,.32));
@@ -758,32 +758,54 @@ body::before{
 }
 .sm-modal.open .sm-card{transform:translateY(0) scale(1)}
 .sm-title{
-  font-family:"Burgues Script",cursive;
-  font-size:30px;color:#c76090;line-height:1;margin-bottom:1px;white-space:nowrap;
-  text-shadow:0 1px 6px #fff,0 0 14px rgba(255,255,255,.97);
+  font-family:'Pixelify Sans',sans-serif;font-weight:600;
+  font-size:23px;color:#c76090;line-height:1;margin-bottom:4px;letter-spacing:.02em;white-space:nowrap;
+  text-shadow:0 1px 4px #fff,0 0 10px rgba(255,255,255,.97);
 }
 .sm-sub{
   font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:16px;color:#9a5277;letter-spacing:.04em;margin-bottom:7px;
+  font-size:16px;color:#9a5277;letter-spacing:.04em;margin-bottom:6px;
   text-shadow:0 1px 5px #fff,0 0 10px rgba(255,255,255,.97);
 }
 .sm-body{
   font-family:'Cormorant Garamond',serif;
-  font-size:13.5px;line-height:1.45;color:#6a4458;margin:0 auto 11px;max-width:300px;
+  font-size:13px;line-height:1.4;color:#6a4458;margin:0 auto 6px;max-width:320px;
   text-shadow:0 1px 5px #fff,0 0 9px rgba(255,255,255,.98);
 }
-.sm-form{display:flex;gap:7px;justify-content:center;width:100%}
-.sm-form input{
-  flex:1;min-width:0;
-  font-family:'Cormorant Garamond',serif;font-size:14px;color:#7a4a64;
-  padding:8px 12px;border:1px solid #e3a8cb;border-radius:999px;
-  background:rgba(255,250,255,.94);outline:none;
+.sm-spots{
+  font-family:'Cormorant Garamond',serif;font-weight:600;font-style:italic;
+  font-size:13px;color:#c0506f;letter-spacing:.02em;margin-bottom:11px;
+  text-shadow:0 1px 5px #fff,0 0 9px rgba(255,255,255,.98);
 }
+.sm-form{display:flex;flex-direction:column;gap:7px;width:100%;align-items:stretch}
+.sm-form input{
+  width:100%;
+  font-family:'Cormorant Garamond',serif;font-size:13.5px;color:#7a4a64;
+  padding:8px 14px;border:1px solid #e3a8cb;border-radius:999px;
+  background:rgba(255,250,255,.95);outline:none;
+}
+.sm-form input::placeholder{color:#c79bb3}
 .sm-form input:focus{border-color:#c76090}
+.sm-addr-wrap{position:relative;width:100%}
+.sm-suggest{
+  list-style:none;margin:0;padding:0;
+  position:absolute;top:calc(100% + 3px);left:0;right:0;z-index:6;
+  background:#fffaff;border:1px solid #ecbcd8;border-radius:12px;
+  box-shadow:0 10px 26px rgba(199,96,144,.28);
+  max-height:148px;overflow-y:auto;text-align:left;display:none;
+}
+.sm-suggest.show{display:block}
+.sm-suggest li{
+  padding:7px 13px;font-family:'Cormorant Garamond',serif;font-size:12.5px;line-height:1.3;
+  color:#6a4458;cursor:pointer;border-bottom:1px solid #f6e3ef;
+}
+.sm-suggest li:last-child{border-bottom:none}
+.sm-suggest li:hover{background:#fdeef6;color:#c76090}
 .sm-form button{
-  font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:500;
+  margin-top:3px;align-self:center;
+  font-family:'Cormorant Garamond',serif;font-size:14.5px;font-weight:500;
   color:#fff;background:#d685b0;border:none;border-radius:999px;
-  padding:8px 17px;cursor:pointer;white-space:nowrap;
+  padding:8px 26px;cursor:pointer;white-space:nowrap;
   transition:background .25s ease, transform .25s ease;
 }
 .sm-form button:hover{background:#c76090;transform:translateY(-1px)}
@@ -793,9 +815,9 @@ body::before{
   text-shadow:0 1px 5px #fff,0 0 9px rgba(255,255,255,.95);
 }
 .sm-close{
-  position:absolute;top:5%;right:7%;
+  position:absolute;top:4%;right:6%;
   background:none;border:none;cursor:pointer;
-  font-family:'Cormorant Garamond',serif;font-size:24px;color:#c98bb0;line-height:1;z-index:2;
+  font-family:'Cormorant Garamond',serif;font-size:24px;color:#c98bb0;line-height:1;z-index:7;
   text-shadow:0 1px 4px #fff;
 }
 .sm-close:hover{color:#c76090}
