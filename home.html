@@ -1568,12 +1568,32 @@ function updateStampCounter(){
     addr.addEventListener('blur',function(){setTimeout(function(){sug.classList.remove('show');},160);});
   }
 
+  function savePenPal(rec){
+    /* 1) always keep a local copy so no sign-up is ever lost */
+    try{
+      var list=JSON.parse(localStorage.getItem('mm_penpals')||'[]');
+      list.push(rec);
+      localStorage.setItem('mm_penpals',JSON.stringify(list));
+    }catch(err){}
+    /* 2) send to the club inbox/spreadsheet when an endpoint is configured */
+    if(SIGNUP_ENDPOINT){
+      try{
+        fetch(SIGNUP_ENDPOINT,{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body:JSON.stringify(rec)
+        }).catch(function(){});
+      }catch(err){}
+    }
+  }
+
   if(form){
     form.addEventListener('submit',function(e){
       e.preventDefault();
       var email=document.getElementById('sm-email').value.trim();
       var address=addr?addr.value.trim():'';
       if(!email||!address) return;
+      savePenPal({email:email,address:address,joined:new Date().toISOString()});
       form.style.display='none';
       note.textContent='you’re in! ♡ watch your mailbox — a letter is on its way';
     });
