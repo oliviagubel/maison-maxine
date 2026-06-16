@@ -713,6 +713,21 @@ body::before{
 /* MOUSE SPARKLE TRAIL */
 .mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
 @keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+/* ═══ SNAIL MAIL CLUB CORNER STICKER ═══ */
+.snailmail-corner{
+  position:fixed;
+  bottom:18px;
+  right:18px;
+  width:150px;
+  height:auto;
+  z-index:90;
+  pointer-events:none;
+  filter:drop-shadow(2px 3px 6px rgba(0,0,0,.15));
+  transform:rotate(-4deg);
+}
+@media(max-width:768px){
+  .snailmail-corner{width:104px;bottom:12px;right:12px}
+}
 .collectible-stamp{
   font-family:'Pixelify Sans',sans-serif;
   font-size:8px;
@@ -1366,6 +1381,9 @@ function updateStampCounter(){
 <script>
 (function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
 </script>
+
+<!-- SNAIL MAIL CLUB CORNER STICKER -->
+<img src="snailmailclub-corner.png" alt="snail mail club" class="snailmail-corner">
 
 <script>
 /* ═══ MOBILE INTRO SPLASH ═══ */
