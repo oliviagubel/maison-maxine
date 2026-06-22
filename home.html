@@ -717,7 +717,8 @@ body::before{
 
 
 /* MOUSE SPARKLE TRAIL */
-.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 12px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@media (prefers-reduced-motion: reduce){.mouse-sparkle,.sparkle{display:none!important}}
 @keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
 /* ═══ SNAIL MAIL CLUB CORNER STICKER ═══ */
 .snailmail-corner{
@@ -1227,35 +1228,35 @@ body::before{
     <div class="box-title">postcards ✦</div>
     <div class="photo-grid">
       <div class="photo">
-        <img src="ameliawinepic.png" alt="" loading="lazy">
+        <img src="opt/ameliawinepic.jpg" alt="" loading="lazy">
         <div class="cap">malibu, ca</div>
       </div>
       <div class="photo">
-        <img src="kendalsmiling.png" alt="" loading="lazy">
+        <img src="opt/kendalsmiling.jpg" alt="" loading="lazy">
         <div class="cap">the perfect afternoon</div>
       </div>
       <div class="photo">
-        <img src="handholdingcan.png" alt="" loading="lazy">
+        <img src="opt/handholdingcan.jpg" alt="" loading="lazy">
         <div class="cap">main character energy</div>
       </div>
       <div class="photo">
-        <img src="ositopancakes.png" alt="" loading="lazy">
+        <img src="opt/ositopancakes.jpg" alt="" loading="lazy">
         <div class="cap">osito pancakes ♡</div>
       </div>
       <div class="photo">
-        <img src="minolos.png" alt="" loading="lazy">
+        <img src="opt/minolos.jpg" alt="" loading="lazy">
         <div class="cap">malibu dress code</div>
       </div>
       <div class="photo">
-        <img src="ameliawalking.png" alt="" loading="lazy">
+        <img src="opt/ameliawalking.jpg" alt="" loading="lazy">
         <div class="cap">barefoot & unbothered</div>
       </div>
       <div class="photo">
-        <img src="chip.png" alt="" loading="lazy">
+        <img src="opt/chip.jpg" alt="" loading="lazy">
         <div class="cap">chip ♡</div>
       </div>
       <div class="photo">
-        <img src="maisonmaxinegiftbox.jpg" alt="" loading="lazy">
+        <img src="opt/maisonmaxinegiftbox.jpg" alt="" loading="lazy">
         <div class="cap">the gift box</div>
       </div>
     </div>
@@ -1412,7 +1413,7 @@ body::before{
     document.body.appendChild(s);
     setTimeout(()=>s.remove(),(dur*1000)+100);
   }
-  setInterval(spawn,600);
+  setInterval(function(){if(!document.hidden)spawn();},600);
 })();
 
 // ═══ VISITOR COUNTER (real) ═══
