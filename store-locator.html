@@ -435,6 +435,33 @@ body::before{
   color:#c76090;
   margin-top:8px;
 }
+/* ═══ REGION FILTER BUBBLES ═══ */
+.region-filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.region-pill{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  padding:7px 18px;
+  border-radius:20px;
+  background:#fff;
+  cursor:pointer;
+  transition:all .2s;
+}
+.region-pill:hover{transform:translateY(-1px)}
+.region-pill[data-region="all"]{border:1px dotted #d9b8cb;color:#8a6a7a}
+.region-pill[data-region="all"].active{background:#8a6a7a;color:#fff;border-color:#8a6a7a}
+.region-pill.la{border:1px dotted #f7cdeb;color:#c76090}
+.region-pill.la.active{background:#c76090;color:#fff;border-color:#c76090}
+.region-pill.nyc{border:1px dotted #c5d885;color:#8ba142}
+.region-pill.nyc.active{background:#8ba142;color:#fff;border-color:#8ba142}
+.region-pill.hamptons{border:1px dotted #a9cde8;color:#5b8fb9}
+.region-pill.hamptons.active{background:#5b8fb9;color:#fff;border-color:#5b8fb9}
 /* ═══ GREEN VARIANT — for stockists outside LA ═══ */
 .store-card.green{
   background:linear-gradient(180deg,#fff 0%,#f6fce4 40%,#ecf5d2 100%);
@@ -754,6 +781,12 @@ body::before{
   <!-- STORE CARDS -->
   <div class="box">
     <div class="box-title">our stockists ✦</div>
+    <div class="region-filters">
+      <button class="region-pill active" data-region="all">all ✦</button>
+      <button class="region-pill la" data-region="la">LA</button>
+      <button class="region-pill nyc" data-region="nyc">NYC</button>
+      <button class="region-pill hamptons" data-region="hamptons">hamptons</button>
+    </div>
     <div class="stores-grid">
 
       <div class="store-card">
@@ -1577,6 +1610,19 @@ body::before{
     document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
     document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
   }catch(e){}
+})();
+
+// ═══ REGION FILTER BUBBLES ═══
+(function(){
+  const pills=document.querySelectorAll('.region-pill');
+  const cards=document.querySelectorAll('.stores-grid .store-card');
+  const regionOf=c=>c.classList.contains('green')?'nyc':c.classList.contains('blue')?'hamptons':'la';
+  pills.forEach(p=>p.addEventListener('click',()=>{
+    pills.forEach(x=>x.classList.remove('active'));
+    p.classList.add('active');
+    const r=p.dataset.region;
+    cards.forEach(c=>{c.style.display=(r==='all'||regionOf(c)===r)?'':'none'});
+  }));
 })();
 </script>
 </body>
