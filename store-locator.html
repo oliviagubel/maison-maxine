@@ -454,6 +454,24 @@ body::before{
   background:#fce8f1;
   border-color:#f7cdeb;
 }
+.store-card.blue{
+  background:linear-gradient(180deg,#fff 0%,#eef6fc 40%,#dcecf7 100%);
+  border:1px dotted #a9cde8;
+}
+.store-card.blue::before{
+  background:linear-gradient(90deg, #5b8fb9, #5b8fb9, transparent);
+}
+.store-card.blue:hover{
+  border-color:#5b8fb9;
+  box-shadow:0 4px 20px rgba(91,143,185,.12);
+}
+.store-card.blue .store-city{color:#5b8fb9}
+.store-card.blue .store-addr{color:#5b8fb9}
+.store-card.blue .store-vibe{
+  color:#5b8fb9;
+  background:#fce8f1;
+  border-color:#f7cdeb;
+}
 
 /* ═══ COMING SOON SECTION ═══ */
 .coming-soon{
@@ -831,6 +849,20 @@ body::before{
         <div class="store-addr">183 edgemere st<br>montauk, ny 11954</div>
         <div class="store-vibe">montauk hotel hideaway ✧</div>
         <div class="store-hours">starting june 30 ✦</div>
+      </div>
+
+      <div class="store-card green">
+        <div class="store-city">new york, ny</div>
+        <div class="store-name">terry's west village wines and spirits</div>
+        <div class="store-addr">120 christopher st<br>new york, ny 10014</div>
+        <div class="store-vibe">west village bottle shop ✧</div>
+      </div>
+
+      <div class="store-card blue">
+        <div class="store-city">montauk, ny</div>
+        <div class="store-name">montauk liquors and wines</div>
+        <div class="store-addr">45 the plaza<br>montauk, ny 11954</div>
+        <div class="store-vibe">hamptons beach town cellar ✧</div>
       </div>
 
     </div>
