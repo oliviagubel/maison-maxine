@@ -953,14 +953,13 @@ body::before{
     cursor:default;
     font-family:'Cormorant Garamond',Georgia,serif;
     background:
-      #e8f4d8 padding-box,
-      linear-gradient(135deg,#ffffff 0%,#f7a3ce 22%,#e23f92 50%,#f9c9e2 76%,#ffffff 100%) border-box;
+      #fdeef6 padding-box,
+      linear-gradient(135deg,#ffffff 0%,#f6b9d6 24%,#c76090 50%,#f7d5e5 74%,#ffffff 100%) border-box;
     box-shadow:
       inset 0 2px 2px rgba(255,255,255,.95),
-      inset 0 -9px 15px rgba(226,63,146,.1),
-      0 3px 10px rgba(226,63,146,.22),
-      0 0 20px rgba(244,130,196,.55),
-      0 9px 26px rgba(244,130,196,.55);
+      inset 0 -9px 15px rgba(199,96,144,.09),
+      0 3px 10px rgba(199,96,144,.18),
+      0 9px 26px rgba(247,205,235,.5);
   }
   /* glossy top glass highlight */
   #intro-enter::before{
@@ -993,8 +992,8 @@ body::before{
     position:absolute;
     left:0;top:0;bottom:0;
     width:0%;
-    background:#d6ecb8;
-    box-shadow:inset 0 1px 2px rgba(255,255,255,.45);
+    background:#d62e72;
+    box-shadow:inset 0 1px 2px rgba(255,255,255,.35);
     transition:width 1.8s cubic-bezier(.5,.05,.2,1);
     z-index:0;
   }
@@ -1011,8 +1010,8 @@ body::before{
     font-family:'Cormorant Garamond',Georgia,serif;
     font-style:italic;
     font-weight:400;
-    color:#8a1a4a;
-    text-shadow:0 1px 0 rgba(255,255,255,.6);
+    color:#b5568a;
+    text-shadow:0 1px 0 rgba(255,255,255,.7);
     transition:color .3s ease .2s, text-shadow .3s ease .2s;
     white-space:nowrap;
   }
@@ -1033,8 +1032,8 @@ body::before{
   }
   #intro-enter.filling .bar{width:100%}
   #intro-enter.filling .text{
-    color:#8a1a4a;
-    text-shadow:0 1px 0 rgba(255,255,255,.55);
+    color:#fff;
+    text-shadow:0 1px 3px rgba(160,74,120,.5),0 0 10px rgba(255,255,255,.4);
   }
   /* twinkle sparkles */
   #intro-enter .spk{
@@ -1061,19 +1060,19 @@ body::before{
     0%,100%{
       box-shadow:
         inset 0 2px 2px rgba(255,255,255,.95),
-        inset 0 -9px 15px rgba(226,63,146,.12),
-        0 3px 10px rgba(226,63,146,.24),
-        0 0 24px rgba(244,120,192,.65),
-        0 11px 28px rgba(244,130,196,.55);
+        inset 0 -9px 15px rgba(199,96,144,.1),
+        0 3px 10px rgba(199,96,144,.22),
+        0 0 22px rgba(247,205,235,.6),
+        0 11px 28px rgba(247,205,235,.5);
       transform:translateY(0);
     }
     50%{
       box-shadow:
         inset 0 2px 2px rgba(255,255,255,.95),
-        inset 0 -9px 15px rgba(226,63,146,.12),
-        0 4px 13px rgba(226,63,146,.3),
-        0 0 40px rgba(240,90,180,.95),
-        0 14px 32px rgba(244,120,192,.65);
+        inset 0 -9px 15px rgba(199,96,144,.1),
+        0 4px 13px rgba(199,96,144,.28),
+        0 0 36px rgba(247,178,224,.9),
+        0 14px 32px rgba(247,205,235,.6);
       transform:translateY(-3px);
     }
   }
