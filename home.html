@@ -907,22 +907,24 @@ body::before{
     z-index:0;
   }
   #intro-splash.fade-out{opacity:0;pointer-events:none}
-  #intro-splash .can-wrap{
-    position:relative;
-    z-index:1;
-    max-width:78vw;
-    max-height:62vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+  #intro-splash .intro-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:0;
+    pointer-events:none;
   }
-  #intro-splash .can-wrap img{
-    max-width:100%;
-    max-height:62vh;
-    width:auto;
-    height:auto;
-    object-fit:contain;
-    filter:drop-shadow(0 8px 24px rgba(199,96,144,.18));
+  #intro-splash .intro-scrim{
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(180deg,
+      rgba(255,240,248,.22) 0%,
+      rgba(255,255,255,.04) 42%,
+      rgba(122,44,82,.32) 100%);
   }
   #intro-enter{
     position:relative;
@@ -1057,9 +1059,11 @@ body::before{
 
 <!-- MOBILE INTRO SPLASH (mobile only) -->
 <div id="intro-splash" role="dialog" aria-label="Welcome to Maison Maxine">
-  <div class="can-wrap">
-    <img src="wine.png" alt="Maison Maxine">
-  </div>
+  <video class="intro-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <source src="covervideo.MOV" type="video/quicktime">
+    <source src="covervideo.MOV">
+  </video>
+  <div class="intro-scrim" aria-hidden="true"></div>
   <button id="intro-enter" type="button" aria-label="Enter site (I'm 21+)">
     <span class="bar" aria-hidden="true"></span>
     <span class="spk s1" aria-hidden="true">✦</span>
