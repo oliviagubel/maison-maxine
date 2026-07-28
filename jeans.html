@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The MM Jeans ✦ Maison Maxine™</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
+
+body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:#c0397a;color:#fff}
+
+:root{
+  --rasp:#bb3a72;
+  --rasp-soft:#c0559a;
+  --ink:#4a3a3a;
+  --muted:#6a4a5a;
+  --pink-line:#f3cfe3;
+  --green:#e9f4d0;
+  --green-line:#cbe39c;
+}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  color:var(--ink);
+  min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;opacity:.45;z-index:-1;pointer-events:none;
+}
+
+/* ═══ HEADER ═══ */
+.jeans-header{
+  position:sticky;top:0;z-index:400;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 26px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 45%,#fdf0f6 100%);
+  border-bottom:1px solid rgba(247,205,235,.55);
+  box-shadow:0 2px 14px rgba(247,205,235,.25);
+}
+.jh-logo{
+  font-family:'Burgues Script','Great Vibes',cursive;
+  font-size:30px;color:var(--rasp);text-decoration:none;line-height:1;
+}
+.jh-nav{display:flex;align-items:center;gap:22px}
+.jh-nav a{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:19px;color:var(--rasp);text-decoration:none;letter-spacing:.02em;
+}
+.jh-nav a:hover{color:#8a1a4a}
+.jh-nav .star{color:#e0a0c4;font-style:normal}
+
+/* ═══ LAYOUT ═══ */
+.jeans-wrap{
+  max-width:1080px;margin:0 auto;padding:22px 20px 70px;
+}
+
+/* ═══ MAIN STAGE ═══ */
+.gallery{margin-bottom:24px}
+.main-stage{
+  position:relative;
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border:1.5px dotted #eeb2d2;border-radius:18px;overflow:hidden;
+  height:min(74vh,660px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:zoom-in;margin-bottom:14px;
+}
+.main-img-lg{width:100%;height:100%;object-fit:contain;display:block}
+.stage-counter,.stage-badge{
+  position:absolute;top:16px;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;border-radius:20px;padding:6px 14px;
+}
+.stage-counter{left:16px;background:rgba(255,255,255,.92);border:1px dotted #f0b9d4;color:var(--rasp)}
+.stage-badge{right:16px;background:var(--rasp);color:#fff}
+.stage-zoom{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;background:rgba(255,255,255,.9);border:1px dotted #f0b9d4;
+  border-radius:20px;padding:5px 12px;color:var(--rasp);pointer-events:none;
+}
+.stage-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.92);border:1.5px dotted #eeb2d2;
+  color:var(--rasp);font-size:24px;font-family:'Cormorant Garamond',serif;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease;
+}
+.stage-nav:hover{background:#fff;border:1.5px solid #e79ec4;box-shadow:0 6px 18px rgba(247,205,235,.5)}
+.stage-prev{left:16px}
+.stage-next{right:16px}
+
+/* ═══ THUMBNAIL STRIP ═══ */
+.thumb-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:0;
+}
+.thumb{
+  appearance:none;border:none;background:transparent;padding:0;
+  border-radius:12px;overflow:hidden;position:relative;
+  border:1.5px dotted #eeb2d2;padding:4px;background:#fff;
+  opacity:.55;transition:opacity .25s ease, transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.thumb img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px}
+.thumb:hover{opacity:.85;transform:translateY(-2px)}
+.thumb.active{
+  opacity:1;border:2px solid #d64f92;
+  box-shadow:0 6px 18px rgba(214,79,146,.28);
+}
+
+/* ═══ PRODUCT CARD ═══ */
+.jeans-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border-radius:22px;
+  box-shadow:0 12px 44px rgba(247,205,235,.4);
+  padding:44px 46px 40px;
+}
+.pd-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:12px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--rasp);margin-bottom:12px;
+}
+.jeans-title{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;font-optical-sizing:auto;
+  font-size:clamp(46px,8vw,68px);line-height:.98;color:var(--rasp);letter-spacing:-.01em;
+}
+.jeans-sub{
+  font-style:italic;font-size:16px;color:var(--rasp-soft);margin-top:8px;letter-spacing:.02em;
+}
+.jeans-tag{
+  font-family:'Fraunces',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:clamp(24px,4.4vw,34px);color:var(--rasp);line-height:1.12;margin-top:20px;
+}
+.jeans-tag .star{color:#d98cbb}
+
+.price-row{margin-top:22px;display:flex;align-items:baseline;gap:12px}
+.price{font-size:42px;color:var(--ink);letter-spacing:.01em}
+.price-note{font-size:15px;font-style:italic;color:var(--rasp-soft)}
+
+.divider{height:1px;background:var(--pink-line);margin:20px 0}
+
+.desc{font-size:18px;font-style:italic;color:var(--muted);line-height:1.85}
+.desc .star{color:var(--rasp)}
+
+.feature-list{list-style:none;margin:22px 0 4px}
+.feature-list li{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:16px 4px;border-bottom:1px solid rgba(247,205,235,.5);
+  font-size:17px;font-style:italic;color:var(--muted);line-height:1.55;
+}
+.feature-list li:last-child{border-bottom:none}
+.feature-list .fm{color:var(--rasp);font-style:normal;font-size:15px;flex-shrink:0;margin-top:3px}
+.feature-list b{color:var(--rasp-soft);font-weight:500;font-style:italic}
+
+/* ═══ SIZE ═══ */
+.size-head{
+  display:flex;align-items:center;justify-content:space-between;margin-top:26px;margin-bottom:14px;
+}
+.size-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--rasp);
+}
+.fit-link{
+  font-style:italic;font-size:16px;color:var(--rasp-soft);text-decoration:underline;
+  text-underline-offset:3px;
+}
+.fit-link:hover{color:var(--rasp)}
+.size-grid{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:10px;
+}
+.size-btn{
+  appearance:none;background:#fff;border:1.5px dotted #ecb0d0;border-radius:14px;
+  padding:18px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;
+  color:var(--ink);cursor:pointer;transition:all .18s ease;
+}
+.size-btn:hover{border:1.5px solid #e79ec4;box-shadow:0 4px 12px rgba(247,205,235,.4)}
+.size-btn.active{
+  border:2px solid #d64f92;background:#fdeef6;color:var(--rasp);
+  box-shadow:0 5px 16px rgba(214,79,146,.25);
+}
+.size-note{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--rasp);margin-top:12px;line-height:1.5;
+}
+
+/* ═══ BUY BUTTON ═══ */
+.buy-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;margin-top:16px;padding:24px;
+  background:#b6567f;color:#fff;text-decoration:none;
+  border-radius:12px;position:relative;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;letter-spacing:.06em;
+  box-shadow:0 6px 20px rgba(182,86,127,.28);
+  transition:background .2s ease, box-shadow .2s ease, transform .12s ease;
+}
+.buy-btn::after{content:'✦';position:absolute;right:24px;top:50%;transform:translateY(-50%);opacity:.6}
+.buy-btn:not(.ready){pointer-events:none}
+.buy-btn.ready{background:#a8437a;box-shadow:0 8px 26px rgba(168,67,122,.4)}
+.buy-btn.ready:hover{background:#8a1a4a}
+.buy-btn.ready:active{transform:translateY(1px)}
+.buy-note{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--rasp);text-align:center;margin-top:12px;line-height:1.5;
+}
+
+/* ═══ GREEN BOXES ═══ */
+.guarantee-box{
+  margin-top:18px;background:var(--green);border:1.5px dotted var(--green-line);
+  border-radius:16px;padding:20px 24px;
+  font-size:17px;font-style:italic;color:var(--muted);line-height:1.6;
+  display:flex;gap:14px;align-items:flex-start;
+}
+.guarantee-box .gm{color:var(--rasp);font-style:normal;font-size:18px;margin-top:2px;flex-shrink:0}
+.guarantee-box b{color:var(--rasp-soft);font-weight:500;font-style:italic}
+.guarantee-box .star{color:var(--rasp)}
+
+/* ═══ FIT & CARE ═══ */
+.fitcare{
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border-radius:22px;box-shadow:0 12px 44px rgba(247,205,235,.35);
+  padding:38px 40px 40px;margin-top:26px;
+}
+.fc-head{
+  font-family:'Pixelify Sans',sans-serif;font-size:13px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--rasp);margin-bottom:6px;
+}
+.fc-rule{height:1px;background:var(--pink-line);margin-bottom:22px}
+.fc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fc-box{
+  background:var(--green);border:1.5px dotted var(--green-line);
+  border-radius:14px;padding:20px 22px;
+}
+.fc-box .fc-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rasp);margin-bottom:8px;
+}
+.fc-box p{font-size:16px;font-style:italic;color:var(--muted);line-height:1.55}
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox{
+  position:fixed;inset:0;z-index:300;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(250,244,248,.86);backdrop-filter:blur(3px);
+  padding:80px 70px;
+}
+.lightbox.open{display:flex}
+.lb-img{
+  max-width:min(86vw,720px);max-height:82vh;object-fit:contain;
+  border-radius:6px;box-shadow:0 14px 50px rgba(140,70,110,.35);
+  border:3px solid #fff;
+}
+.lb-counter,.lb-badge{
+  position:absolute;top:26px;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;background:rgba(255,255,255,.92);
+  border:1px dotted #f0b9d4;border-radius:20px;padding:6px 14px;color:var(--rasp);
+}
+.lb-counter{left:26px}
+.lb-badge{right:26px;background:var(--rasp);color:#fff;border:none}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.9);border:1.5px dotted #eeb2d2;
+  color:var(--rasp);font-size:24px;font-family:'Cormorant Garamond',serif;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all .2s ease;
+}
+.lb-nav:hover{background:#fff;border:1.5px solid #e79ec4;box-shadow:0 6px 18px rgba(247,205,235,.5)}
+.lb-prev{left:20px}
+.lb-next{right:20px}
+.lb-close{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--rasp);background:rgba(255,255,255,.92);
+  border:1px dotted #f0b9d4;border-radius:20px;padding:7px 16px;cursor:pointer;
+}
+
+/* ═══ FOOTER ═══ */
+.jeans-foot{
+  text-align:center;padding:30px 20px 50px;
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:#d98cbb;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:720px){
+  .jeans-header{padding:14px 18px}
+  .jh-logo{font-size:25px}
+  .jh-nav{gap:16px}
+  .jh-nav a{font-size:17px}
+  .jeans-wrap{padding:16px 14px 50px}
+  .thumb-strip{gap:8px}
+  .jeans-card{padding:28px 22px 30px;border-radius:18px}
+  .fitcare{padding:28px 22px 30px;border-radius:18px}
+  .size-grid{grid-template-columns:repeat(4,1fr)}
+  .fc-grid{grid-template-columns:1fr}
+  .lightbox{padding:72px 16px}
+  .lb-nav{width:44px;height:44px;font-size:20px}
+  .lb-prev{left:8px}.lb-next{right:8px}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="jeans-header">
+  <a class="jh-logo" href="home.html">Maison Maxine</a>
+  <nav class="jh-nav">
+    <a href="shop.html">shop</a>
+    <a href="home.html">home</a>
+    <span class="star">✦</span>
+  </nav>
+</header>
+
+<main class="jeans-wrap">
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="main-stage" id="mainStage">
+      <span class="stage-counter" id="stageCounter">1 / 5</span>
+      <span class="stage-badge">one of one</span>
+      <button class="stage-nav stage-prev" id="stagePrev" aria-label="previous">‹</button>
+      <img class="main-img-lg" id="mainImg" src="" alt="">
+      <button class="stage-nav stage-next" id="stageNext" aria-label="next">›</button>
+      <span class="stage-zoom">click to zoom ✦</span>
+    </div>
+    <div class="thumb-strip" id="thumbStrip"></div>
+  </div>
+
+  <!-- PRODUCT CARD -->
+  <div class="jeans-card">
+    <div class="pd-label">the summer merch drop ✦</div>
+    <h1 class="jeans-title">The MM Jeans</h1>
+    <div class="jeans-sub">vintage flare denim · hand-stitched · one of one</div>
+    <div class="jeans-tag">the &ldquo;where did you get those jeans&rdquo; jeans <span class="star">✦</span></div>
+
+    <div class="price-row">
+      <span class="price">$138</span>
+      <span class="price-note">one of one</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="desc">vintage bootcut denim reworked into a true flare, with "maison maxine" hand-stitched across the back and a little muse stitched onto the hem. the piece you'll reach for every golden hour <span class="star">✦</span></p>
+
+    <ul class="feature-list">
+      <li><span class="fm">✦</span><span><b>true flare</b> — a proper vintage bootcut-to-flare leg that pools just right over a kitten heel</span></li>
+      <li><span class="fm">✦</span><span><b>one of a kind</b> — each pair is individually reworked &amp; hand-stitched, so no two are ever the same</span></li>
+      <li><span class="fm">♡</span><span><b>sustainably made in connecticut</b> — reworked from vintage denim by hand in our connecticut studio</span></li>
+    </ul>
+
+    <div class="size-head">
+      <span class="size-label">size</span>
+      <a class="fit-link" href="#fitcare">fit &amp; measurements ↓</a>
+    </div>
+    <div class="size-grid" id="sizeGrid"></div>
+    <div class="size-note">one of a kind – reworked vintage denim, so sizing runs true to a vintage cut ✦</div>
+
+    <a class="buy-btn" id="buyBtn"><span class="buy-txt">select a size to continue</span></a>
+    <div class="buy-note">one of one – once it's gone it's gone ✦ secure checkout via vinoshipper</div>
+
+    <div class="guarantee-box">
+      <span class="gm">♡</span>
+      <span><b>the mm fit guarantee</b> — not quite right? we're happy to refund you, send another pair, or arrange a free return. no stress, ever <span class="star">✦</span></span>
+    </div>
+  </div>
+
+  <!-- FIT & CARE -->
+  <div class="fitcare" id="fitcare">
+    <div class="fc-head">fit &amp; care ✦</div>
+    <div class="fc-rule"></div>
+    <div class="fc-grid">
+      <div class="fc-box">
+        <div class="fc-label">the leg</div>
+        <p>true vintage bootcut reworked into a flare — sits close through the thigh and opens softly from the knee.</p>
+      </div>
+      <div class="fc-box">
+        <div class="fc-label">the rise</div>
+        <p>a low-to-mid rise that sits right on the hip, just like an early-2000s cut ✦</p>
+      </div>
+      <div class="fc-box">
+        <div class="fc-label">the fabric</div>
+        <p>100% cotton vintage denim with a broken-in softness and a natural, lived-in fade.</p>
+      </div>
+      <div class="fc-box">
+        <div class="fc-label">the care</div>
+        <p>cold wash inside out, hang dry ✦ the hand-stitching likes to be treated gently.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-counter" id="lbCounter">1 / 5</span>
+  <span class="lb-badge">one of one</span>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="previous">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="next">›</button>
+  <button class="lb-close" id="lbClose">close ✕</button>
+</div>
+
+<div class="jeans-foot">© 2026 maison maxine™ ✦ hand-stitched in connecticut</div>
+
+<script>
+/* ═══ GALLERY ═══ */
+const PHOTOS = [
+  {src:'mm-jeans-full.jpg',      alt:'front view — the mm jeans with a white lace cami'},
+  {src:'mm-jeans-back.jpg',      alt:'side-back view — "maison maxine" hand-stitched across the back'},
+  {src:'mm-jeans-art.jpg',       alt:'back view — the hand-stitched maison maxine lettering'},
+  {src:'mm-jeans-lifestyle.jpg', alt:'lifestyle — the true-flare leg in the wild'},
+  {src:'mm-jeans-detail.jpg',    alt:'detail — the little muse stitched onto the hem'},
+];
+const START_INDEX = 2; // the flare shot leads, matching the drop
+
+const thumbStrip = document.getElementById('thumbStrip');
+const mainImg = document.getElementById('mainImg');
+const stageCounter = document.getElementById('stageCounter');
+let main = START_INDEX;
+
+PHOTOS.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='thumb'+(i===START_INDEX?' active':'');
+  b.innerHTML='<img src="'+p.src+'" alt="'+p.alt+'" loading="lazy">';
+  b.addEventListener('click',()=>setMain(i));
+  thumbStrip.appendChild(b);
+});
+function setActiveThumb(i){
+  document.querySelectorAll('.thumb').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+}
+function setMain(i){
+  main=(i+PHOTOS.length)%PHOTOS.length;
+  mainImg.src=PHOTOS[main].src;
+  mainImg.alt=PHOTOS[main].alt;
+  stageCounter.textContent=(main+1)+' / '+PHOTOS.length;
+  setActiveThumb(main);
+}
+setMain(START_INDEX);
+document.getElementById('stagePrev').addEventListener('click',e=>{e.stopPropagation();setMain(main-1);});
+document.getElementById('stageNext').addEventListener('click',e=>{e.stopPropagation();setMain(main+1);});
+document.getElementById('mainStage').addEventListener('click',()=>openLightbox(main));
+
+/* ═══ LIGHTBOX ═══ */
+const lightbox=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+const lbCounter=document.getElementById('lbCounter');
+let cur=0;
+function renderLb(){
+  lbImg.src=PHOTOS[cur].src;
+  lbImg.alt=PHOTOS[cur].alt;
+  lbCounter.textContent=(cur+1)+' / '+PHOTOS.length;
+  setActiveThumb(cur);
+}
+function openLightbox(i){cur=i;renderLb();lightbox.classList.add('open');document.body.style.overflow='hidden';}
+function closeLightbox(){lightbox.classList.remove('open');document.body.style.overflow='';}
+function step(d){cur=(cur+d+PHOTOS.length)%PHOTOS.length;renderLb();}
+document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();step(-1);});
+document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();step(1);});
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('open'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')step(-1);
+  if(e.key==='ArrowRight')step(1);
+});
+
+/* ═══ SIZE → VINOSHIPPER ═══ */
+/* Each size links to its matching one-of-one listing on Vinoshipper.
+   TODO: replace each value with the exact product URL for that size from
+   https://vinoshipper.com/ui/producer/products (currently all point to the jeans listing). */
+const JEANS_LISTING='https://vinoshipper.com/shop/maison_maxine/maison_maxine_jeans_196822';
+const SIZE_URLS={
+  '24':JEANS_LISTING,
+  '25':JEANS_LISTING,
+  '26':JEANS_LISTING,
+  '27':JEANS_LISTING,
+  '28':JEANS_LISTING,
+  '29':JEANS_LISTING,
+  '30':JEANS_LISTING,
+  '31':JEANS_LISTING,
+};
+const sizeGrid=document.getElementById('sizeGrid');
+const buyBtn=document.getElementById('buyBtn');
+const buyTxt=buyBtn.querySelector('.buy-txt');
+Object.keys(SIZE_URLS).forEach(sz=>{
+  const b=document.createElement('button');
+  b.className='size-btn';b.type='button';b.textContent=sz;
+  b.addEventListener('click',()=>selectSize(b,sz));
+  sizeGrid.appendChild(b);
+});
+function selectSize(el,sz){
+  document.querySelectorAll('.size-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  buyBtn.href=SIZE_URLS[sz];
+  buyBtn.target='_blank';
+  buyBtn.rel='noopener';
+  buyBtn.classList.add('ready');
+  buyTxt.textContent='continue to checkout — size '+sz;
+}
+</script>
+</body>
+</html>
