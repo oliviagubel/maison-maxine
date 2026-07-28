@@ -564,19 +564,17 @@ document.addEventListener('keydown',e=>{
 });
 
 /* ═══ SIZE → VINOSHIPPER ═══ */
-/* Each size links to its matching one-of-one listing on Vinoshipper.
-   TODO: replace each value with the exact product URL for that size from
-   https://vinoshipper.com/ui/producer/products (currently all point to the jeans listing). */
-const JEANS_LISTING='https://vinoshipper.com/shop/maison_maxine/maison_maxine_jeans_196822';
+/* Each size → its own public one-of-one product page on Vinoshipper. */
+const SHOP='https://vinoshipper.com/shop/maison_maxine/';
 const SIZE_URLS={
-  '24':JEANS_LISTING,
-  '25':JEANS_LISTING,
-  '26':JEANS_LISTING,
-  '27':JEANS_LISTING,
-  '28':JEANS_LISTING,
-  '29':'https://vinoshipper.com/ui/producer/products/197588',
-  '30':'https://vinoshipper.com/ui/producer/products/197589',
-  '31':'https://vinoshipper.com/ui/producer/products/197590',
+  '24':SHOP+'maison_maxine_jeans_197584',
+  '25':SHOP+'maison_maxine_jeans_196822',
+  '26':SHOP+'maison_maxine_jeans_s26_197585',
+  '27':SHOP+'maison_maxine_jeans_s7_197586',
+  '28':SHOP+'maison_maxine_jeans_s28_197587',
+  '29':SHOP+'maison_maxine_jeans_s29_197588',
+  '30':SHOP+'maison_maxine_jeans_s30_197589',
+  '31':SHOP+'maison_maxine_jeans_s31_197590',
 };
 const sizeGrid=document.getElementById('sizeGrid');
 const buyBtn=document.getElementById('buyBtn');
