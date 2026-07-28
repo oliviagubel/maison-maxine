@@ -1085,7 +1085,7 @@ body::before{
 
 <!-- MOBILE INTRO SPLASH (mobile only) -->
 <div id="intro-splash" role="dialog" aria-label="Welcome to Maison Maxine">
-  <video class="intro-bg" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+  <video class="intro-bg" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-hidden="true" tabindex="-1">
     <source src="covervideo.mp4" type="video/mp4">
   </video>
   <div class="intro-scrim" aria-hidden="true"></div>
@@ -1729,6 +1729,18 @@ function updateStampCounter(){
   }
   var btn=document.getElementById('intro-enter');
   document.body.classList.add('splash-locked');
+
+  // force the cover video to autoplay inline (no play button) — retry on first touch for iOS Low Power Mode
+  var vid=splash.querySelector('.intro-bg');
+  if(vid){
+    vid.muted=true; vid.defaultMuted=true; vid.playsInline=true;
+    var tryPlay=function(){ try{ var p=vid.play(); if(p&&p.catch){p.catch(function(){});} }catch(e){} };
+    tryPlay();
+    vid.addEventListener('loadeddata',tryPlay);
+    ['touchstart','pointerdown','click'].forEach(function(ev){
+      document.addEventListener(ev,function once(){ tryPlay(); document.removeEventListener(ev,once); },{passive:true});
+    });
+  }
   // start the fill animation
   requestAnimationFrame(function(){
     setTimeout(function(){btn.classList.add('filling');},120);
