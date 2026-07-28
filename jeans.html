@@ -35,30 +35,32 @@ body::before{
   background-size:600px;opacity:.45;z-index:-1;pointer-events:none;
 }
 
-/* ═══ HEADER ═══ */
-.jeans-header{
-  position:sticky;top:0;z-index:400;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:16px 26px;
-  background:linear-gradient(180deg,#fff 0%,#fef6fa 45%,#fdf0f6 100%);
-  border-bottom:1px solid rgba(247,205,235,.55);
-  box-shadow:0 2px 14px rgba(247,205,235,.25);
+/* ═══ FIXED SIDEBAR (desktop) ═══ */
+#sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:230px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;flex-direction:column;padding:28px 20px;z-index:100;overflow-y:auto;
 }
-.jh-logo{
-  font-family:'Burgues Script','Great Vibes',cursive;
-  font-size:30px;color:var(--rasp);text-decoration:none;line-height:1;
-}
-.jh-nav{display:flex;align-items:center;gap:22px}
-.jh-nav a{
-  font-family:'Cormorant Garamond',serif;font-style:italic;
-  font-size:19px;color:var(--rasp);text-decoration:none;letter-spacing:.02em;
-}
-.jh-nav a:hover{color:#8a1a4a}
-.jh-nav .star{color:#e0a0c4;font-style:normal}
+.sidebar-logo{font-family:'Burgues Script','Great Vibes',cursive;font-size:26px;color:var(--rasp);line-height:1.1}
+.sidebar-sub{font-size:13px;color:var(--rasp);letter-spacing:.1em;margin-top:3px;font-style:italic}
+.nav-section{margin-top:28px}
+.nav-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rasp);margin-bottom:8px;font-family:'Pixelify Sans',sans-serif}
+#sidebar nav a{display:block;font-size:18px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:5px 0;border-bottom:1px solid rgba(247,205,235,.4);transition:color .2s}
+#sidebar nav a:hover{color:var(--rasp)}
+#sidebar nav a.active{color:var(--rasp);font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+.sidebar-widget{margin-top:24px;padding:12px;background:#edf6d3;border:1px dotted #f7cdeb;border-radius:4px}
+.sidebar-widget .wt{font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--rasp);margin-bottom:6px}
+.sidebar-widget p{font-size:12px;font-style:italic;color:#8a6a7a;line-height:1.6}
+.sidebar-bottom{margin-top:auto;padding-top:20px;text-align:center}
+.sidebar-bottom .copyright{font-family:'Pixelify Sans',sans-serif;font-size:8px;color:var(--rasp);letter-spacing:.08em}
+
+/* ═══ MOBILE HEADER (hidden on desktop) ═══ */
+.mobile-header,.mobile-nav{display:none}
 
 /* ═══ LAYOUT ═══ */
 .jeans-wrap{
-  max-width:1140px;margin:0 auto;padding:26px 20px 70px;
+  margin-left:230px;max-width:1200px;padding:34px 44px 70px;
 }
 
 /* ═══ DESKTOP TWO-COLUMN ═══ */
