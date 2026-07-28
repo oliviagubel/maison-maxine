@@ -60,8 +60,18 @@ body::before{
 
 /* ═══ LAYOUT ═══ */
 .jeans-wrap{
-  margin-left:230px;max-width:1200px;padding:34px 44px 70px;
+  margin-left:230px;max-width:1200px;padding:30px 44px 70px;
 }
+
+/* ═══ BANNER ═══ */
+.banner{
+  text-align:center;padding:6px 20px 14px;margin-bottom:6px;position:relative;
+  filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff)
+    drop-shadow(0 0 14px rgba(247,205,235,.9)) drop-shadow(0 0 28px rgba(247,205,235,.55));
+}
+.banner h1{font-family:'Burgues Script','Great Vibes',cursive;font-size:46px;color:var(--rasp);line-height:1;font-weight:normal}
+.banner .tagline{font-style:italic;font-size:13px;color:var(--rasp-soft);margin-top:4px;letter-spacing:.08em}
+.banner .divider{width:60px;height:1px;background:#f7cdeb;margin:12px auto 0}
 
 /* ═══ DESKTOP TWO-COLUMN ═══ */
 .product-layout{
@@ -234,7 +244,7 @@ body::before{
 .fitcare{
   background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
   border-radius:22px;box-shadow:0 12px 44px rgba(247,205,235,.35);
-  padding:38px 40px 40px;margin-top:26px;
+  padding:30px 34px 34px;margin-top:26px;
 }
 .fc-head{
   font-family:'Pixelify Sans',sans-serif;font-size:12px;letter-spacing:.2em;
@@ -390,6 +400,13 @@ body::before{
 </div>
 
 <main class="jeans-wrap">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1>Maison Maxine</h1>
+    <div class="tagline">the summer merch drop ✦</div>
+    <div class="divider"></div>
+  </div>
 
   <div class="product-layout">
   <!-- GALLERY -->
