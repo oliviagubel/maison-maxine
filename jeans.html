@@ -457,7 +457,7 @@ function renderLb(){
   setActiveThumb(cur);
 }
 function openLightbox(i){cur=i;renderLb();lightbox.classList.add('open');document.body.style.overflow='hidden';}
-function closeLightbox(){lightbox.classList.remove('open');document.body.style.overflow='';}
+function closeLightbox(){lightbox.classList.remove('open');document.body.style.overflow='';setMain(cur);}
 function step(d){cur=(cur+d+PHOTOS.length)%PHOTOS.length;renderLb();}
 document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();step(-1);});
 document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();step(1);});
