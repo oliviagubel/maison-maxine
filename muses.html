@@ -369,6 +369,16 @@ body::before{
   color:#c76090;
   margin-top:4px;
 }
+/* light-green artist/role tag shown above a muse's name */
+.sb-role{
+  display:block;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:#8fb03e;
+  line-height:1.35;
+}
 /* raw sticker photo (no border, just image + drop shadow) */
 .sb-sticker img{
   filter:drop-shadow(3px 4px 6px rgba(0,0,0,.15));
@@ -975,7 +985,13 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       <!-- SOPHIE — cutout, middle right (fills denim-heart gap) -->
       <div class="sb-photo sb-sticker" style="top:225px;left:418px;z-index:15;transform:rotate(-3deg)" data-name="Sophie" data-role="muse" data-bio="Sophie, who recently graduated from UCLA, is not only one of our muses but also Maison Maxine's first hire. From Napa herself, she's Olivia's right-hand muse.">
         <img src="sophiemusecutout.png" style="width:340px;height:auto">
-        <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap">Sophie</div>
+        <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap;text-align:center"><span class="sb-role">muse &amp; artist</span>Sophie</div>
+      </div>
+
+      <!-- AVERY — instant photo, holding a rescue raccoon -->
+      <div class="sb-photo sb-instant sb-sticker" style="top:560px;left:498px;width:196px;z-index:30;transform:rotate(4deg)" data-name="Avery" data-role="artist" data-bio="Avery is our resident artist — a creative soul with a soft spot for every rescue animal she meets ♡">
+        <img src="averyartist.jpg" alt="Avery" style="object-position:center 22%">
+        <div class="sb-caption"><span class="sb-role">artist</span>Avery</div>
       </div>
 
       <!-- KEATON — cutout, center pocket -->
