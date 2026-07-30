@@ -971,7 +971,7 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       </div>
 
       <!-- SOPHIE — cutout, middle right (fills denim-heart gap) -->
-      <div class="sb-photo sb-sticker" style="top:225px;left:418px;z-index:15;transform:rotate(-3deg)" data-name="Sophie" data-role="muse" data-bio="Sophie, who recently graduated from UCLA, is not only one of our muses but also Maison Maxine's first hire. From Napa herself, she's Olivia's right-hand muse.">
+      <div class="sb-photo sb-sticker" style="top:225px;left:418px;z-index:15;transform:rotate(-3deg)" data-name="Sophie" data-role="muse &amp; artist" data-bio="Sophie, who recently graduated from UCLA, is not only one of our muses but also Maison Maxine's first hire. From Napa herself, she's Olivia's right-hand muse.">
         <img src="sophiemusecutout.png" style="width:340px;height:auto">
         <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap;text-align:center"><span class="sb-role">muse &amp; artist</span>Sophie</div>
       </div>
@@ -1119,6 +1119,7 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
       const role=hit.getAttribute('data-role');
       if(role){roleEl.textContent=role;roleEl.style.display='';}
       else{roleEl.style.display='none';}
+      card.classList.toggle('green', !!role && /artist/i.test(role));
       nameEl.textContent=hit.getAttribute('data-name')||'';
       bioEl.textContent=hit.getAttribute('data-bio')||'';
       card.classList.add('show');
