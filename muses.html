@@ -330,7 +330,10 @@ body::before{
   height:850px;
   z-index:1;
   transform:translateY(-50px);
+  opacity:0;
+  transition:opacity .55s ease;
 }
+.sb-spread.sb-ready{opacity:1}
 /* each photo item */
 .sb-photo{
   position:absolute;
@@ -1019,12 +1022,12 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
 
 
       <!-- OSITO PANCAKES — cutout, big, bottom center, the star -->
-      <div class="sb-photo sb-sticker" style="top:474px;left:322px;z-index:12;transform:rotate(-2deg)" data-name="Osito Pancakes" data-role="mascot" data-bio="Osito Pancakes is the youngest (and only boy) muse. He's a Valentine's Day baby who just turned one, exploring what life is like as a Golden Mountain Doodle and supporting his sister, the founder.">
+      <div class="sb-photo sb-sticker" style="top:398px;left:322px;z-index:12;transform:rotate(-2deg)" data-name="Osito Pancakes" data-role="mascot" data-bio="Osito Pancakes is the youngest (and only boy) muse. He's a Valentine's Day baby who just turned one, exploring what life is like as a Golden Mountain Doodle and supporting his sister, the founder.">
         <img src="ositopancakescutout.png" style="width:320px;height:auto">
         <div class="sb-caption" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-family:'Pixelify Sans',sans-serif;font-size:11px;color:#c76090;white-space:nowrap">Osito Pancakes</div>
       </div>
       <div class="washi" style="width:65px;top:365px;left:170px;transform:rotate(12deg)"></div>
-      <div class="sb-label" style="top:598px;left:360px;transform:rotate(-8deg)">mascot</div>
+      <div class="sb-label" style="top:520px;left:360px;transform:rotate(-8deg)">mascot</div>
 
       <!-- ROSE — decorative sticker, between adeline & amelia -->
       <div class="sb-deco" style="top:80px;left:370px;z-index:60;transform:rotate(10deg)">
@@ -1079,6 +1082,24 @@ if(window.innerWidth <= 768){ window.location.href = 'shop.html'; }
 
 
 <script>
+// ═══ LOAD COLLAGE ALL AT ONCE (fade in once every image is ready) ═══
+(function(){
+  var spread=document.querySelector('.sb-spread');
+  if(!spread){return;}
+  var imgs=[].slice.call(spread.querySelectorAll('img'));
+  imgs.forEach(function(im){im.decoding='async';});
+  var reveal=function(){spread.classList.add('sb-ready');};
+  if(!imgs.length){reveal();return;}
+  var pending=imgs.length;
+  var tick=function(){if(--pending<=0){reveal();}};
+  imgs.forEach(function(im){
+    if(im.complete&&im.naturalWidth){tick();}
+    else{im.addEventListener('load',tick);im.addEventListener('error',tick);}
+  });
+  // safety net: never leave the collage hidden
+  setTimeout(reveal,2600);
+})();
+
 // ═══ MUSE HOVER CARD ═══
 (function(){
   const card=document.getElementById('muse-card');
