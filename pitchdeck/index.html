@@ -76,7 +76,7 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.72);
 
 /* cover */
 .cover{align-items:flex-start;text-align:left}
-.wordmark{font-family:'Musicca Swash','Great Vibes',cursive;font-weight:400;font-size:clamp(64px,12vw,150px);color:var(--rasp);line-height:.9;text-shadow:0 4px 30px rgba(247,205,235,.6)}
+.wordmark{font-family:'Musicca Swash','Great Vibes',cursive;font-weight:400;font-size:clamp(58px,9.5vw,124px);color:var(--rasp);line-height:1.12;text-shadow:0 4px 30px rgba(247,205,235,.6)}
 .cover-tag{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(16px,2.2vw,24px);color:var(--deep);margin-top:18px;letter-spacing:.02em}
 .cover-sub{font-size:clamp(15px,1.8vw,19px);color:var(--ink);opacity:.8;margin-top:10px;letter-spacing:.04em}
 .cover-by{font-family:'Pixelify Sans',sans-serif;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rasp);margin-top:40px;opacity:.85}
@@ -122,9 +122,9 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.72);
 
 /* big narrative statement slides */
 .big-quote{justify-content:center}
-.statement{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,5vw,60px);line-height:1.14;color:var(--deep);letter-spacing:-.01em;max-width:20ch}
+.statement{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,5vw,58px);line-height:1.5;color:var(--deep);letter-spacing:-.01em;max-width:20ch}
 .statement.center{margin-left:auto;margin-right:auto;text-align:center;max-width:22ch}
-.statement em{font-family:'Musicca Swash','Great Vibes',cursive;font-style:normal;font-size:1.28em;color:var(--rasp);line-height:.8}
+.statement em{font-family:'Musicca Swash','Great Vibes',cursive;font-style:normal;font-size:1.15em;color:var(--rasp);line-height:1;padding:0 .04em}
 .lead-left{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(17px,2.1vw,23px);color:var(--ink);opacity:.9;margin-top:26px;max-width:44ch;line-height:1.5}
 
 /* category row (opening slide) */
@@ -233,6 +233,7 @@ async function loadPayload(){
 function b64buf(b64){const s=atob(b64);const u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u.buffer;}
 
 async function decryptDeck(pw){
+  await loadPayload();
   const enc=new TextEncoder();
   const keyMat=await crypto.subtle.importKey('raw',enc.encode(pw),'PBKDF2',false,['deriveKey']);
   const key=await crypto.subtle.deriveKey(
