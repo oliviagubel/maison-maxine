@@ -151,6 +151,10 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.72);
 /* market split (text + consumer photo) */
 .market-split{display:grid;grid-template-columns:1.25fr .8fr;gap:40px;align-items:center;margin-bottom:8px}
 .market-split img{width:100%;max-height:52vh;object-fit:cover;border-radius:16px;display:block;box-shadow:0 8px 26px rgba(199,96,144,.14)}
+/* quote split (statement + photo) */
+.quote-split{display:grid;grid-template-columns:1.4fr .7fr;gap:44px;align-items:center;width:100%}
+.quote-split .statement{max-width:none}
+.quote-split img{width:100%;max-height:60vh;object-fit:cover;border-radius:16px;display:block;box-shadow:0 8px 26px rgba(199,96,144,.14)}
 
 /* mission / ask centered */
 .mission,.ask{align-items:center;text-align:center}
@@ -197,7 +201,7 @@ em{font-style:italic;color:var(--deep)}
 
 @media (max-width:820px){
   .cols,.cols.four,.product-row,.team-row,.cat-row{grid-template-columns:1fr 1fr}
-  .product-row,.team-row,.market-split{grid-template-columns:1fr}
+  .product-row,.team-row,.market-split,.quote-split{grid-template-columns:1fr}
   .product-row{gap:26px}
   #dots{display:none!important}
   .slide{padding:76px 26px 80px}
