@@ -154,6 +154,11 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.72);
 .member{background:var(--paper);border:1.5px solid var(--line);border-radius:18px;padding:26px;text-align:center;box-shadow:0 4px 18px rgba(199,96,144,.07)}
 .member img{width:130px;height:130px;object-fit:cover;object-position:top;border-radius:50%;border:3px solid var(--blush);margin-bottom:14px}
 .member.ghost{display:flex;flex-direction:column;justify-content:center;border-style:dashed}
+.member.wide{display:flex;flex-direction:column;justify-content:center;text-align:left}
+.facts{list-style:none;margin:0}
+.facts li{position:relative;padding-left:26px;font-size:17px;line-height:1.45;margin-bottom:14px;color:var(--ink)}
+.facts li:last-child{margin-bottom:0}
+.facts li::before{content:'✦';position:absolute;left:0;top:1px;color:var(--rasp)}
 .m-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:600;color:var(--deep)}
 .m-role{font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--rasp);margin:4px 0 14px}
 .member p{font-size:16px;line-height:1.45}
