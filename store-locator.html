@@ -1670,7 +1670,7 @@ body::before{
 (function(){
   const pills=document.querySelectorAll('.region-pill');
   const cards=document.querySelectorAll('.stores-grid .store-card');
-  const regionOf=c=>c.classList.contains('green')?'nyc':c.classList.contains('blue')?'hamptons':'la';
+  const regionOf=c=>c.classList.contains('purple')?'connecticut':c.classList.contains('green')?'nyc':c.classList.contains('blue')?'hamptons':'la';
   pills.forEach(p=>p.addEventListener('click',()=>{
     pills.forEach(x=>x.classList.remove('active'));
     p.classList.add('active');
