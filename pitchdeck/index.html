@@ -208,6 +208,9 @@ em{font-style:italic;color:var(--deep)}
   .card,.member,.product-shot,.tam,.metric,.stk,.uf,.unit-econ>div{box-shadow:none}
 }
 </style>
+<!-- GoatCounter analytics — no auto-count; we fire it only after unlock (real viewers) -->
+<script>window.goatcounter = { no_onload: true }</script>
+<script data-goatcounter="https://maisonmaxine.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
@@ -291,6 +294,8 @@ async function unlock(pw){
   document.body.style.overflow='';
   buildNav();
   try{sessionStorage.setItem('mm_pd','1');}catch(e){}
+  // count a real viewer (records country/referrer in GoatCounter)
+  try{ if(window.goatcounter&&window.goatcounter.count){ window.goatcounter.count({path:'deck-viewed', title:'Pitch Deck Viewed'}); } }catch(e){}
 }
 
 document.getElementById('gateForm').addEventListener('submit',async(e)=>{
