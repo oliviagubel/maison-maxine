@@ -209,6 +209,114 @@ em{font-style:italic;color:var(--deep)}
   .slide{padding:76px 26px 80px}
 }
 
+/* ═══════════ COMPETITIVE MATRIX ═══════════ */
+/* all selectors scoped under .mm-matrix so nothing collides
+   with the existing .card / .cols / .stk rules */
+
+.mm-matrix{margin-top:32px}
+
+.mm-key{display:flex;flex-wrap:wrap;gap:22px;margin-bottom:16px}
+.mm-kk{
+  display:flex;align-items:center;gap:9px;
+  font-family:'Pixelify Sans',sans-serif;font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--rasp);
+}
+
+.mm-d{display:block;border-radius:99px;flex:none}
+.mm-bottle{width:9px;height:9px;border:1.5px solid var(--deep);background:transparent}
+.mm-rtd{width:10px;height:10px;background:var(--deep)}
+.mm-wine{width:10px;height:10px;background:var(--rasp)}
+
+.mm-scroll{overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch}
+.mm-frame{display:flex;gap:16px;min-width:660px}
+
+.mm-y{
+  writing-mode:vertical-rl;transform:rotate(180deg);
+  display:flex;align-items:center;justify-content:space-between;padding:4px 0;
+  font-family:'Pixelify Sans',sans-serif;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--rasp);opacity:.75;
+}
+.mm-y b{font-weight:400;color:var(--deep);opacity:1;letter-spacing:.16em}
+
+.mm-col{flex:1;min-width:0}
+
+.mm-plot{
+  position:relative;aspect-ratio:16/9;
+  background:var(--paper);
+  border:1.5px solid var(--line);border-radius:16px;
+  box-shadow:0 4px 18px rgba(199,96,144,.07);
+  overflow:hidden;
+}
+.mm-seat{
+  position:absolute;left:50%;top:0;width:50%;height:50%;
+  background:linear-gradient(150deg,rgba(247,205,235,.55),rgba(247,205,235,.06));
+}
+.mm-ax-h{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.mm-ax-v{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line)}
+.mm-seat-note{
+  position:absolute;left:52.5%;top:5%;z-index:3;
+  font-family:'Pixelify Sans',sans-serif;font-size:9px;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--rasp);
+}
+
+/* plotted brands */
+.mm-p{position:absolute;transform:translate(-50%,-50%);font-weight:400;z-index:2}
+.mm-p>span{
+  position:absolute;left:50%;transform:translateX(-50%);top:14px;
+  white-space:nowrap;font-family:'Cormorant Garamond',serif;
+  font-size:14px;color:var(--ink);
+}
+.mm-p.mm-u>span{top:auto;bottom:14px}
+.mm-p.mm-l>span{left:auto;right:15px;transform:none;top:50%;margin-top:-9px}
+.mm-p.mm-r>span{left:15px;transform:none;top:50%;margin-top:-9px}
+
+/* us */
+.mm-star{z-index:5}
+.mm-halo{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:104px;height:104px;border-radius:99px;
+  background:radial-gradient(circle,rgba(199,96,144,.24) 0%,rgba(199,96,144,0) 68%);
+}
+.mm-ring{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  width:48px;height:48px;border-radius:99px;border:1px solid var(--rasp);opacity:.45;
+}
+.mm-can{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  display:block;width:20px;height:30px;border-radius:5px/7px;
+  background:linear-gradient(160deg,var(--rasp) 0%,var(--deep) 100%);
+  box-shadow:0 3px 12px rgba(138,26,74,.3);
+}
+.mm-can::before,.mm-can::after{content:'';position:absolute;background:rgba(255,255,255,.7)}
+.mm-can::before{left:3px;right:3px;top:11px;height:1.5px}
+.mm-can::after{left:5px;right:5px;top:15.5px;height:1px;opacity:.6}
+
+.mm-p>.mm-me{
+  position:absolute;left:50%;transform:translateX(-50%);top:-76px;
+  white-space:nowrap;text-align:center;
+  font-family:'Musicca Swash','Great Vibes',cursive;
+  font-size:34px;line-height:1;color:var(--rasp);
+}
+.mm-p>.mm-me em{
+  display:block;font-family:'Pixelify Sans',sans-serif;font-style:normal;
+  font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--deep);margin-top:7px;
+}
+
+.mm-x{
+  display:flex;justify-content:space-between;padding:12px 2px 0;
+  font-family:'Pixelify Sans',sans-serif;font-size:9px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--rasp);opacity:.75;
+}
+.mm-x b{font-weight:400;color:var(--deep);opacity:1;letter-spacing:.16em}
+
+@media (max-width:900px){
+  .mm-p>span{font-size:12px}
+  .mm-p>.mm-me{font-size:26px;top:-62px}
+  .mm-halo{width:78px;height:78px}
+  .mm-ring{width:38px;height:38px}
+}
+
 /* print → clean PDF export, one slide per page */
 @media print{
   body::before,#gate,#dots,#counter{display:none!important}
