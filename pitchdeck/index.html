@@ -371,6 +371,26 @@ em{font-style:italic;color:var(--deep)}
 .creator.total .r{font-size:20px;color:var(--deep)}
 
 
+/* ═══════════ unit economics ═══════════ */
+.ue-bar{display:flex;height:70px;border-radius:10px;overflow:hidden;border:1.5px solid var(--line);box-shadow:0 4px 14px rgba(199,96,144,.1);margin-top:26px}
+.ue-seg{display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;gap:3px;padding:0 6px;text-align:center;min-width:0}
+.ue-seg .sv{font-weight:600;font-size:17px;line-height:1}
+.ue-seg .sk{font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.06em;text-transform:uppercase;opacity:.94;line-height:1.1}
+.ue-seg.retailer{background:linear-gradient(180deg,#cba3b7,#b083a0)}
+.ue-seg.cogs{background:linear-gradient(180deg,#8a1a4a,#6d1339)}
+.ue-seg.profit{background:linear-gradient(180deg,var(--rasp),#b04e78)}
+.ue-scale{display:flex;justify-content:space-between;font-family:'IM Fell English',serif;font-style:italic;font-size:12.5px;color:var(--rasp);margin-top:9px}
+.ue-table{width:100%;border-collapse:collapse;margin-top:28px;font-size:15.5px;min-width:520px}
+.ue-table th{font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--rasp);text-align:right;padding:10px 12px;border-bottom:1.5px solid var(--rasp)}
+.ue-table th:first-child{text-align:left}
+.ue-table td{padding:12px 12px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;color:var(--deep)}
+.ue-table td:first-child{text-align:left;color:var(--ink);font-weight:600}
+.ue-table .mgood{color:#4a7a3f;font-weight:700}
+.ue-table .mbad{color:var(--rasp);font-weight:700}
+.ue-table tr.best td{background:rgba(220,239,184,.45)}
+.ue-table tr.best .m{color:#3f6a33;font-weight:700}
+
+
 /* print → clean PDF export, one slide per page */
 @media print{
   body::before,#gate,#dots,#counter{display:none!important}
