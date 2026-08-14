@@ -4,355 +4,396 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
-<title>for buyers ✦ Maison Maxine™</title>
+<title>For Buyers — Maison Maxine</title>
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <link rel="icon" href="../favicon-32.png" sizes="32x32">
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-body, a, button, select, input, textarea, label{cursor:url("../wine-cursor.png") 44 37, auto}
-a:hover, button:hover{cursor:url("../wine-cursor.png") 44 37, pointer}
-@font-face{font-family:'Klickclack Swash';src:url('../Klickclack-Swash.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
-
+:root{
+  --bg:#e9e3d9;
+  --paper:#f6f2ec;
+  --ink:#2b2620;
+  --soft:#6f665b;
+  --muted:#9a9082;
+  --line:#d9d1c4;
+  --line-soft:#e5ddd1;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-::selection{background:#c76090;color:#fff}
-::-webkit-scrollbar{width:6px}
+::selection{background:var(--ink);color:var(--paper)}
+::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+::-webkit-scrollbar-thumb{background:#cfc6b8;border-radius:4px}
 
+html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body{
-  background:#fafaf5;
-  font-family:'Cormorant Garamond',Georgia,serif;
-  min-height:100vh;
-  color:#4a3a3a;
-  position:relative;
-  padding:0 20px 80px;
-}
-body::before{
-  content:'';
-  position:fixed;
-  inset:0;
-  background:url('../background.jpg') repeat center top;
-  background-size:600px;
-  opacity:.4;
-  z-index:-1;
-  pointer-events:none;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  font-weight:300;
+  font-size:16.5px;
+  line-height:1.65;
+  padding:0 24px 100px;
 }
 
-.wrap{max-width:760px;margin:0 auto}
+.wrap{max-width:680px;margin:0 auto}
 
-/* ═══ HEADER ═══ */
-header{text-align:center;padding:52px 0 8px}
-.eyebrow{
-  font-family:'Pixelify Sans',sans-serif;
+/* ── labels / eyebrows ── */
+.kicker{
   font-size:11px;
-  letter-spacing:.32em;
+  letter-spacing:.34em;
   text-transform:uppercase;
-  color:#c76090;
-  margin-bottom:18px;
+  color:var(--muted);
+  font-weight:400;
 }
+
+/* ── header ── */
+header{text-align:center;padding:74px 0 26px}
 .wordmark{
-  font-family:'Klickclack Swash','Great Vibes',cursive;
-  color:#f293bf;
-  font-size:64px;
-  line-height:.92;
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;
+  font-size:clamp(40px,8vw,60px);
+  letter-spacing:.01em;
+  line-height:1;
+  margin:22px 0 18px;
 }
-.tagline{
+.subhead{
+  font-family:'Fraunces',Georgia,serif;
+  font-weight:300;
   font-style:italic;
+  font-size:20px;
+  color:var(--soft);
+}
+.forbuyers{
+  margin-top:26px;
+  font-size:11px;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.rule{height:1px;background:var(--line);border:0;margin:0}
+
+/* ── section ── */
+section{padding:52px 0}
+section + section{border-top:1px solid var(--line-soft)}
+.sec-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:28px;
+}
+.sec-head .no{
+  font-family:'Fraunces',serif;
+  font-style:italic;
+  font-weight:300;
+  font-size:15px;
+  color:var(--muted);
+}
+.sec-head h2{
+  font-size:12px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  font-weight:400;
+  color:var(--ink);
+}
+.lead{
+  font-family:'Fraunces',serif;
+  font-weight:300;
   font-size:19px;
-  color:#8a6a7a;
-  margin-top:14px;
-}
-.private-note{
-  display:inline-block;
-  margin-top:20px;
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:9px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:#b58aa0;
-  background:#fff;
-  border:1px dotted #f7cdeb;
-  border-radius:20px;
-  padding:7px 16px;
+  line-height:1.5;
+  color:var(--soft);
+  margin-bottom:28px;
+  max-width:46ch;
 }
 
-/* ═══ CARD ═══ */
-.card{
-  background:#fff;
-  border:1px solid #f0d0e2;
-  border-radius:14px;
-  box-shadow:0 8px 30px rgba(247,205,235,.28);
-  padding:34px 34px 38px;
-  margin-top:34px;
-}
-.card h2{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:13px;
-  letter-spacing:.2em;
-  text-transform:uppercase;
-  color:#c76090;
-  margin-bottom:6px;
-}
-.card .sub{font-style:italic;color:#8a6a7a;font-size:16px;margin-bottom:22px}
-
-/* ═══ SELL SHEET ═══ */
+/* ── sell sheet ── */
 .sheet-img{
   display:block;
   width:100%;
-  border-radius:10px;
-  border:1px solid #f0d0e2;
-  box-shadow:0 6px 20px rgba(199,96,144,.15);
+  border:1px solid var(--line);
 }
-.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
 .btn{
   display:inline-flex;
   align-items:center;
-  gap:8px;
-  font-family:'Pixelify Sans',sans-serif;
+  gap:9px;
+  font-family:'Jost',sans-serif;
+  font-weight:400;
   font-size:11px;
-  letter-spacing:.12em;
+  letter-spacing:.18em;
   text-transform:uppercase;
   text-decoration:none;
-  padding:13px 22px;
-  border-radius:30px;
-  border:1px solid #e8b6d2;
-  background:#fef6fa;
-  color:#c76090;
-  transition:all .2s;
+  padding:15px 28px;
+  border:1px solid var(--ink);
+  background:transparent;
+  color:var(--ink);
+  border-radius:2px;
+  transition:background .25s,color .25s;
 }
-.btn:hover{background:#c76090;color:#fff;border-color:#c76090}
-.btn.primary{background:#c76090;color:#fff;border-color:#c76090}
-.btn.primary:hover{background:#a94e78}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.primary{background:var(--ink);color:var(--paper)}
+.btn.primary:hover{background:#463f35}
 
-/* ═══ FAST FACTS ═══ */
-.facts{
-  list-style:none;
-  margin-top:8px;
-  columns:2;
-  column-gap:28px;
-}
+/* ── facts ── */
+.facts{list-style:none;margin-top:6px}
 .facts li{
-  break-inside:avoid;
-  font-size:16.5px;
-  padding:9px 0;
-  border-bottom:1px solid rgba(247,205,235,.5);
-  line-height:1.4;
-}
-.facts li b{color:#c76090;font-weight:600}
-@media(max-width:560px){.facts{columns:1}}
-
-.price-strip{
   display:flex;
-  flex-wrap:wrap;
-  gap:14px;
-  margin-top:20px;
+  justify-content:space-between;
+  gap:24px;
+  padding:15px 0;
+  border-bottom:1px solid var(--line-soft);
+  font-size:16px;
 }
-.price-chip{
-  flex:1 1 150px;
-  background:#edf6d3;
-  border:1px dotted #f7cdeb;
-  border-radius:10px;
-  padding:14px 16px;
-  text-align:center;
-}
-.price-chip .amt{font-size:30px;color:#c76090;font-weight:600;line-height:1}
-.price-chip .lbl{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:8.5px;
-  letter-spacing:.12em;
+.facts li:first-child{border-top:1px solid var(--line-soft)}
+.facts li .k{
+  font-size:11px;
+  letter-spacing:.2em;
   text-transform:uppercase;
-  color:#8a6a7a;
-  margin-top:7px;
+  color:var(--muted);
+  flex:0 0 auto;
+  padding-top:3px;
+}
+.facts li .v{text-align:right;color:var(--ink);font-weight:300}
+
+/* ── prices ── */
+.prices{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  margin-top:34px;
+  border:1px solid var(--line);
+}
+.prices .p{
+  padding:26px 18px;
+  text-align:center;
+  border-right:1px solid var(--line);
+}
+.prices .p:last-child{border-right:0}
+.prices .amt{
+  font-family:'Fraunces',serif;
+  font-weight:300;
+  font-size:34px;
+  line-height:1;
+}
+.prices .lbl{
+  font-size:9.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-top:12px;
+}
+@media(max-width:520px){
+  .prices{grid-template-columns:1fr}
+  .prices .p{border-right:0;border-bottom:1px solid var(--line)}
+  .prices .p:last-child{border-bottom:0}
+  .facts li{flex-direction:column;gap:4px}
+  .facts li .v{text-align:left}
 }
 
-/* ═══ ORDER FORM ═══ */
-.field{margin-bottom:18px}
+/* ── form ── */
+.field{margin-bottom:22px}
 .field label{
   display:block;
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:10px;
-  letter-spacing:.14em;
+  font-size:11px;
+  letter-spacing:.18em;
   text-transform:uppercase;
-  color:#c76090;
-  margin-bottom:6px;
+  color:var(--muted);
+  margin-bottom:9px;
 }
 .field input,.field select,.field textarea{
   width:100%;
-  font-family:'Cormorant Garamond',Georgia,serif;
-  font-size:17px;
-  color:#4a3a3a;
-  background:#fffdfe;
-  border:1px solid #ecc9de;
-  border-radius:8px;
-  padding:11px 13px;
-  transition:border-color .2s,box-shadow .2s;
+  font-family:'Jost',sans-serif;
+  font-weight:300;
+  font-size:16px;
+  color:var(--ink);
+  background:transparent;
+  border:0;
+  border-bottom:1px solid var(--line);
+  padding:9px 2px;
+  transition:border-color .25s;
 }
+.field input::placeholder,.field textarea::placeholder{color:#b7ad9d}
 .field input:focus,.field select:focus,.field textarea:focus{
   outline:none;
-  border-color:#c76090;
-  box-shadow:0 0 0 3px rgba(199,96,144,.12);
+  border-bottom-color:var(--ink);
 }
-.field textarea{resize:vertical;min-height:76px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.field textarea{resize:vertical;min-height:70px;border:1px solid var(--line);border-radius:2px;padding:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+@media(max-width:520px){.grid2{grid-template-columns:1fr;gap:0}}
+
+.order-label{
+  font-size:11px;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--ink);
+  margin:38px 0 14px;
+}
+.min-banner{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  border:1px solid var(--line);
+  background:var(--paper);
+  padding:14px 18px;
+  border-radius:2px;
+  margin-bottom:22px;
+  font-size:15px;
+  color:var(--ink);
+}
+.min-banner .tag{
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  border-right:1px solid var(--line);
+  padding-right:12px;
+  flex:0 0 auto;
+}
 
 .lineitem{
   display:grid;
-  grid-template-columns:1fr 92px;
-  gap:14px;
+  grid-template-columns:1fr 84px;
+  gap:18px;
   align-items:center;
-  padding:14px 0;
-  border-bottom:1px solid rgba(247,205,235,.5);
+  padding:18px 0;
+  border-bottom:1px solid var(--line-soft);
 }
+.lineitem:first-of-type{border-top:1px solid var(--line-soft)}
 .lineitem .name{font-size:17px}
-.lineitem .name b{color:#c76090}
-.lineitem .name span{display:block;font-size:13.5px;font-style:italic;color:#8a6a7a;margin-top:2px}
-.lineitem input[type=number]{text-align:center}
+.lineitem .name .sub{display:block;font-size:13px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+.lineitem input[type=number]{
+  text-align:center;
+  font-size:18px;
+  border:1px solid var(--line);
+  border-radius:2px;
+  padding:9px 4px;
+}
 
-.tap-row{display:flex;align-items:flex-start;gap:10px;margin-top:16px;font-size:16.5px}
-.tap-row input{margin-top:5px;width:16px;height:16px;accent-color:#c76090;flex:0 0 auto}
+.tap-row{display:flex;align-items:flex-start;gap:12px;margin-top:22px;font-size:15.5px;color:var(--soft)}
+.tap-row input{margin-top:4px;width:15px;height:15px;accent-color:var(--ink);flex:0 0 auto}
+.tap-row b{color:var(--ink);font-weight:400}
 
 .total-bar{
   display:flex;
   justify-content:space-between;
   align-items:baseline;
-  margin-top:20px;
-  padding:16px 18px;
-  background:#fef6fa;
-  border:1px dotted #e8b6d2;
-  border-radius:10px;
+  margin-top:32px;
+  padding-top:22px;
+  border-top:1px solid var(--ink);
 }
 .total-bar .t-lbl{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:10px;
-  letter-spacing:.14em;
+  font-size:11px;
+  letter-spacing:.2em;
   text-transform:uppercase;
-  color:#8a6a7a;
+  color:var(--muted);
 }
-.total-bar .t-amt{font-size:34px;color:#c76090;font-weight:600}
-.fineprint{font-size:16px;font-style:italic;color:#7a6472;margin-top:11px;line-height:1.55}
-
-.min-banner{
-  font-size:17px;
-  font-weight:600;
-  color:#c76090;
-  background:#fef6fa;
-  border:1px dashed #e8b6d2;
-  border-radius:10px;
-  padding:11px 15px;
-  margin-bottom:16px;
-}
+.total-bar .t-amt{font-family:'Fraunces',serif;font-weight:300;font-size:38px}
+.fineprint{font-size:14px;color:var(--soft);margin-top:14px;line-height:1.6;max-width:60ch}
 
 button.submit{
   width:100%;
-  margin-top:24px;
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:13px;
-  letter-spacing:.14em;
+  margin-top:30px;
+  font-family:'Jost',sans-serif;
+  font-weight:400;
+  font-size:12px;
+  letter-spacing:.24em;
   text-transform:uppercase;
-  color:#fff;
-  background:#c76090;
+  color:var(--paper);
+  background:var(--ink);
   border:none;
-  border-radius:30px;
-  padding:16px;
-  transition:background .2s;
+  border-radius:2px;
+  padding:19px;
+  transition:background .25s;
+  cursor:pointer;
 }
-button.submit:hover{background:#a94e78}
-.form-note{text-align:center;font-style:italic;font-size:16px;margin-top:16px;min-height:22px}
-.form-note.ok{color:#5a8a4a}
-.form-note.err{color:#c7607a}
+button.submit:hover{background:#463f35}
+.form-note{text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:17px;margin-top:20px;min-height:24px;color:var(--soft)}
+.form-note.ok{color:#4a5a3f}
+.form-note.err{color:#8a4a3f}
+.form-note a{color:inherit}
 
-footer{text-align:center;margin-top:44px}
-footer a{color:#c76090;font-style:italic;text-decoration:none;font-size:16px}
-footer a:hover{text-decoration:underline}
-.copyright{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:8px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-  color:#b58aa0;
-  margin-top:16px;
-}
+footer{text-align:center;padding:56px 0 0;border-top:1px solid var(--line-soft)}
+footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
+footer a:hover{border-bottom-color:var(--ink)}
+footer .fine{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:26px}
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <header>
-    <div class="eyebrow">wholesale &amp; on-premise</div>
-    <div class="wordmark"><span style="font-size:0.82em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="../littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span> Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="../littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
-    <div class="tagline">Sparkling Cabernet Aperatif — for buyers &amp; stockists</div>
-    <div class="private-note">✦ private buyer page — please don't share publicly ✦</div>
+    <div class="kicker">Wholesale &amp; On-Premise</div>
+    <h1 class="wordmark">Maison Maxine</h1>
+    <div class="subhead">Sparkling Cabernet Aperatif</div>
+    <div class="forbuyers">For Buyers &amp; Stockists</div>
   </header>
+  <hr class="rule">
 
-  <!-- ═══ SELL SHEET ═══ -->
-  <section class="card">
-    <h2>the sell sheet</h2>
-    <div class="sub">everything you need on one page — download or send it along.</div>
+  <!-- ── SELL SHEET ── -->
+  <section>
+    <div class="sec-head"><span class="no">01</span><h2>The Sell Sheet</h2></div>
+    <p class="lead">Everything on a single page — download it, or send it along to your team.</p>
     <img class="sheet-img" src="sellsheet.jpg" alt="Maison Maxine Sparkling Cabernet Aperatif sell sheet">
     <div class="btn-row">
-      <a class="btn primary" href="Maison-Maxine-Sparkling-Cabernet-Aperatif.pdf" download>&#8681;&nbsp; download pdf sell sheet</a>
-      <a class="btn" href="Maison-Maxine-Sparkling-Cabernet-Aperatif.pdf" target="_blank" rel="noopener">open in new tab</a>
+      <a class="btn primary" href="Maison-Maxine-Sparkling-Cabernet-Aperatif.pdf" download>Download PDF</a>
+      <a class="btn" href="Maison-Maxine-Sparkling-Cabernet-Aperatif.pdf" target="_blank" rel="noopener">Open in new tab</a>
     </div>
 
-    <ul class="facts" style="margin-top:26px">
-      <li><b>the pour</b> — red wine × ginger ale inspired spritz</li>
-      <li><b>clean ingredients</b>, sommelier-approved</li>
-      <li><b>5% ABV</b> · 250ml slim can</li>
-      <li><b>available on tap</b> too — ask about kegs</li>
-      <li><b>self-distributed</b> by Gubel Family Vineyards &amp; Liberation Distribution</li>
-      <li><b>discounts</b> available on larger orders</li>
+    <ul class="facts">
+      <li><span class="k">The pour</span><span class="v">Red wine × ginger ale inspired spritz</span></li>
+      <li><span class="k">Make-up</span><span class="v">Clean ingredients · sommelier-approved</span></li>
+      <li><span class="k">Format</span><span class="v">5% ABV · 250ml slim can · also on tap</span></li>
+      <li><span class="k">Distribution</span><span class="v">Gubel Family Vineyards &amp; Liberation Distribution</span></li>
+      <li><span class="k">Volume</span><span class="v">Discounts available on larger orders</span></li>
     </ul>
 
-    <div class="price-strip">
-      <div class="price-chip"><div class="amt">$105</div><div class="lbl">wholesale case of 24</div></div>
-      <div class="price-chip"><div class="amt">$6.99</div><div class="lbl">suggested retail / can</div></div>
-      <div class="price-chip"><div class="amt">$28</div><div class="lbl">suggested retail / 4-pack</div></div>
+    <div class="prices">
+      <div class="p"><div class="amt">$105</div><div class="lbl">Wholesale · case of 24</div></div>
+      <div class="p"><div class="amt">$6.99</div><div class="lbl">Suggested retail · can</div></div>
+      <div class="p"><div class="amt">$28</div><div class="lbl">Suggested retail · 4-pack</div></div>
     </div>
   </section>
 
-  <!-- ═══ ORDER FORM ═══ -->
-  <section class="card">
-    <h2>place an order</h2>
-    <div class="sub">tell us what you need — Olivia will confirm your invoice, freight &amp; any volume discount.</div>
+  <!-- ── ORDER ── -->
+  <section>
+    <div class="sec-head"><span class="no">02</span><h2>Place an Order</h2></div>
+    <p class="lead">Tell us what you need and Olivia will confirm your invoice and any volume discount. Nothing is charged here.</p>
 
     <form id="order-form" novalidate>
       <div class="grid2">
         <div class="field">
-          <label for="biz">business / account name</label>
-          <input type="text" id="biz" name="business" required placeholder="shop, café, bar, restaurant…">
+          <label for="biz">Business / Account</label>
+          <input type="text" id="biz" name="business" required placeholder="Shop, café, bar, restaurant">
         </div>
         <div class="field">
-          <label for="buyer">buyer name</label>
-          <input type="text" id="buyer" name="buyer" required placeholder="your name">
+          <label for="buyer">Buyer Name</label>
+          <input type="text" id="buyer" name="buyer" required placeholder="Your name">
         </div>
       </div>
       <div class="grid2">
         <div class="field">
-          <label for="email">email</label>
+          <label for="email">Email</label>
           <input type="email" id="email" name="email" required placeholder="you@business.com">
         </div>
         <div class="field">
-          <label for="phone">phone</label>
-          <input type="tel" id="phone" name="phone" placeholder="optional">
+          <label for="phone">Phone</label>
+          <input type="tel" id="phone" name="phone" placeholder="Optional">
         </div>
       </div>
       <div class="field">
-        <label for="ship">business / delivery address</label>
-        <input type="text" id="ship" name="address" placeholder="street, city, state, zip">
+        <label for="ship">Business / Delivery Address</label>
+        <input type="text" id="ship" name="address" placeholder="Street, city, state, zip">
       </div>
 
-      <div class="field" style="margin-bottom:8px">
-        <label>your order</label>
-      </div>
-      <div class="min-banner">✦ 3-case minimum — please order at least 3 cases</div>
+      <div class="order-label">Your Order</div>
+      <div class="min-banner"><span class="tag">Minimum</span> 3-case minimum — please order at least 3 cases.</div>
 
       <div class="lineitem">
-        <div class="name"><b>Case — 24 individual cans</b><span>$105 per case</span></div>
+        <div class="name">Case — 24 individual cans<span class="sub">$105 per case</span></div>
         <input type="number" min="0" step="1" value="0" id="q_cans" data-price="105" data-label="Case of 24 individual cans">
       </div>
       <div class="lineitem">
-        <div class="name"><b>Case — 6 × four-packs</b><span>$105 per case (24 cans)</span></div>
+        <div class="name">Case — 6 × four-packs<span class="sub">$105 per case · 24 cans</span></div>
         <input type="number" min="0" step="1" value="0" id="q_packs" data-price="105" data-label="Case of 6 four-packs">
       </div>
 
@@ -361,31 +402,30 @@ footer a:hover{text-decoration:underline}
         <span>I'm interested in <b>Maison Maxine on tap</b> (kegs) — please send draft details &amp; pricing.</span>
       </label>
 
-      <div class="field" style="margin-top:18px">
-        <label for="deliver">requested delivery / by when</label>
+      <div class="field" style="margin-top:28px">
+        <label for="deliver">Requested Delivery / By When</label>
         <input type="text" id="deliver" name="deliver" placeholder="e.g. within 2 weeks">
       </div>
 
       <div class="field">
-        <label for="notes">notes</label>
-        <textarea id="notes" name="notes" placeholder="mixed cases, larger-order volume, questions, anything else…"></textarea>
+        <label for="notes">Notes</label>
+        <textarea id="notes" name="notes" placeholder="Mixed cases, larger-order volume, questions, anything else"></textarea>
       </div>
 
       <div class="total-bar">
-        <span class="t-lbl">estimated case total</span>
+        <span class="t-lbl">Estimated case total</span>
         <span class="t-amt" id="total">$0</span>
       </div>
       <div class="fineprint">3-case minimum. Estimate covers cases only, before any volume discount. Final invoice is confirmed by Maison Maxine before payment — nothing is charged here.</div>
 
-      <button type="submit" class="submit">send order request &#9825;</button>
+      <button type="submit" class="submit">Send Order Request</button>
       <div class="form-note" id="note"></div>
     </form>
   </section>
 
   <footer>
-    <a href="mailto:olivia@maisonmaxine.world?subject=Wholesale%20order%20—%20Maison%20Maxine">olivia@maisonmaxine.world</a><br>
-    <a href="../index.html">← maisonmaxine.world</a>
-    <div class="copyright">© 2026 maison maxine™ · trade only</div>
+    <a href="mailto:olivia@maisonmaxine.world?subject=Wholesale%20order%20—%20Maison%20Maxine">olivia@maisonmaxine.world</a>
+    <div class="fine">© 2026 Maison Maxine · Trade Only</div>
   </footer>
 
 </div>
@@ -421,11 +461,11 @@ footer a:hover{text-decoration:underline}
     var total=calc();
 
     if(!biz||!buyer||!email){
-      note.textContent='please add your business, name & email so we can reach you.';
+      note.textContent='Please add your business, name & email so we can reach you.';
       note.classList.add('err');return;
     }
     if(cases===0 && !tap){
-      note.textContent='add at least 3 cases, or check the on-tap box, to send a request.';
+      note.textContent='Add at least 3 cases, or check the on-tap box, to send a request.';
       note.classList.add('err');return;
     }
     if(cases>0 && cases<3){
@@ -457,7 +497,7 @@ footer a:hover{text-decoration:underline}
 
     var btn=form.querySelector('button.submit');
     btn.disabled=true;btn.style.opacity='.6';
-    note.textContent='sending your request…';
+    note.textContent='Sending your request…';
 
     fetch(ORDER_ENDPOINT,{
       method:'POST',
@@ -466,14 +506,12 @@ footer a:hover{text-decoration:underline}
     }).then(function(r){
       if(!r.ok) throw new Error('bad status');
       form.reset();calc();
-      note.textContent='thank you — your order request is in. Olivia will follow up with a confirmed invoice shortly ♥';
+      note.textContent='Thank you — your order request is in. Olivia will follow up with a confirmed invoice shortly.';
       note.className='form-note ok';
     }).catch(function(){
-      /* fall back to a pre-filled email so the order still reaches Olivia */
       var body=Object.keys(rec).map(function(k){return k+': '+rec[k];}).join('%0A');
-      note.innerHTML='couldn’t send automatically — <a href="mailto:olivia@maisonmaxine.world?subject='+
-        encodeURIComponent('Wholesale order — '+biz)+'&body='+encodeURIComponent('').replace(/%20/g,' ')+
-        body+'" style="color:#c76090">click here to email your order</a> instead.';
+      note.innerHTML='Couldn’t send automatically — <a href="mailto:olivia@maisonmaxine.world?subject='+
+        encodeURIComponent('Wholesale order — '+biz)+'&body='+body+'">click here to email your order</a> instead.';
       note.className='form-note err';
     }).finally(function(){
       btn.disabled=false;btn.style.opacity='1';
