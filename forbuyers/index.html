@@ -332,7 +332,7 @@ footer a:hover{text-decoration:underline}
       </div>
 
       <div class="field" style="margin-bottom:8px">
-        <label>your order</label>
+        <label>your order &nbsp;·&nbsp; <span style="text-transform:none;letter-spacing:0;font-style:italic;color:#8a6a7a">3-case minimum</span></label>
       </div>
 
       <div class="lineitem">
@@ -349,15 +349,9 @@ footer a:hover{text-decoration:underline}
         <span>I'm interested in <b>Maison Maxine on tap</b> (kegs) — please send draft details &amp; pricing.</span>
       </label>
 
-      <div class="grid2" style="margin-top:18px">
-        <div class="field">
-          <label for="deliver">requested delivery / by when</label>
-          <input type="text" id="deliver" name="deliver" placeholder="e.g. within 2 weeks">
-        </div>
-        <div class="field">
-          <label for="license">retail / liquor license #</label>
-          <input type="text" id="license" name="license" placeholder="if applicable">
-        </div>
+      <div class="field" style="margin-top:18px">
+        <label for="deliver">requested delivery / by when</label>
+        <input type="text" id="deliver" name="deliver" placeholder="e.g. within 2 weeks">
       </div>
 
       <div class="field">
@@ -369,7 +363,7 @@ footer a:hover{text-decoration:underline}
         <span class="t-lbl">estimated case total</span>
         <span class="t-amt" id="total">$0</span>
       </div>
-      <div class="fineprint">Estimate covers cases only, before any volume discount, freight &amp; tax. Final invoice is confirmed by Maison Maxine before payment — nothing is charged here.</div>
+      <div class="fineprint">3-case minimum. Estimate covers cases only, before any volume discount, freight &amp; tax. Final invoice is confirmed by Maison Maxine before payment — nothing is charged here.</div>
 
       <button type="submit" class="submit">send order request &#9825;</button>
       <div class="form-note" id="note"></div>
@@ -411,14 +405,19 @@ footer a:hover{text-decoration:underline}
     var buyer=document.getElementById('buyer').value.trim();
     var email=document.getElementById('email').value.trim();
     var tap=document.getElementById('tap').checked;
+    var cases=num(qCans)+num(qPacks);
     var total=calc();
 
     if(!biz||!buyer||!email){
       note.textContent='please add your business, name & email so we can reach you.';
       note.classList.add('err');return;
     }
-    if(total===0 && !tap){
-      note.textContent='add at least one case, or check the on-tap box, to send a request.';
+    if(cases===0 && !tap){
+      note.textContent='add at least 3 cases, or check the on-tap box, to send a request.';
+      note.classList.add('err');return;
+    }
+    if(cases>0 && cases<3){
+      note.textContent='3-case minimum — please order at least 3 cases.';
       note.classList.add('err');return;
     }
 
@@ -433,7 +432,6 @@ footer a:hover{text-decoration:underline}
       cases_six_fourpacks:num(qPacks),
       on_tap_interest:tap?'yes':'no',
       requested_delivery:document.getElementById('deliver').value.trim(),
-      license:document.getElementById('license').value.trim(),
       notes:document.getElementById('notes').value.trim(),
       estimated_case_total:'$'+total.toLocaleString('en-US'),
       submitted:new Date().toISOString()
