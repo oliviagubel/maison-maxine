@@ -9,111 +9,111 @@
 <link rel="icon" href="../favicon-32.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#e9e3d9;
-  --paper:#f6f2ec;
-  --ink:#2b2620;
-  --soft:#6f665b;
-  --muted:#9a9082;
-  --line:#d9d1c4;
-  --line-soft:#e5ddd1;
+  --bg-top:#fbe9ee;
+  --bg-bot:#fdf7f6;
+  --paper:#ffffff;
+  --ink:#3d2531;      /* deep aubergine */
+  --wine:#7c3350;     /* bordeaux accent */
+  --rose:#c67e97;     /* modern dusty rose */
+  --rose-soft:#f3dbe2;
+  --line:#efd4dc;
+  --line-soft:#f5e4e9;
+  --muted:#a67d8b;
+  --soft:#7a5b66;
 }
 *{margin:0;padding:0;box-sizing:border-box}
-::selection{background:var(--ink);color:var(--paper)}
+::selection{background:var(--wine);color:#fff}
 ::-webkit-scrollbar{width:8px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#cfc6b8;border-radius:4px}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:4px}
 
 html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 body{
-  background:var(--bg);
+  min-height:100vh;
+  background:linear-gradient(178deg,var(--bg-top) 0%,var(--bg-bot) 46%) no-repeat;
+  background-attachment:fixed;
   color:var(--ink);
   font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
   font-weight:300;
   font-size:16.5px;
-  line-height:1.65;
-  padding:0 24px 100px;
+  line-height:1.7;
+  padding:0 24px 110px;
 }
+.wrap{max-width:660px;margin:0 auto}
 
-.wrap{max-width:680px;margin:0 auto}
-
-/* ── labels / eyebrows ── */
+/* ── micro labels ── */
 .kicker{
   font-size:11px;
-  letter-spacing:.34em;
+  letter-spacing:.4em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:var(--rose);
   font-weight:400;
 }
 
 /* ── header ── */
-header{text-align:center;padding:74px 0 26px}
+header{text-align:center;padding:82px 0 30px}
 .wordmark{
   font-family:'Fraunces',Georgia,serif;
   font-weight:300;
-  font-size:clamp(40px,8vw,60px);
-  letter-spacing:.01em;
+  font-size:clamp(42px,9vw,66px);
+  letter-spacing:.005em;
   line-height:1;
-  margin:22px 0 18px;
+  color:var(--ink);
+  margin:24px 0 20px;
 }
 .subhead{
   font-family:'Fraunces',Georgia,serif;
   font-weight:300;
   font-style:italic;
-  font-size:20px;
-  color:var(--soft);
+  font-size:21px;
+  color:var(--wine);
 }
 .forbuyers{
   margin-top:26px;
-  font-size:11px;
-  letter-spacing:.3em;
+  font-size:10.5px;
+  letter-spacing:.34em;
   text-transform:uppercase;
   color:var(--muted);
 }
-.rule{height:1px;background:var(--line);border:0;margin:0}
 
-/* ── section ── */
-section{padding:52px 0}
-section + section{border-top:1px solid var(--line-soft)}
-.sec-head{
-  display:flex;
-  align-items:baseline;
-  gap:14px;
-  margin-bottom:28px;
-}
-.sec-head .no{
-  font-family:'Fraunces',serif;
-  font-style:italic;
-  font-weight:300;
-  font-size:15px;
-  color:var(--muted);
-}
-.sec-head h2{
-  font-size:12px;
-  letter-spacing:.24em;
+/* ── section framing ── */
+section{padding:56px 0}
+.sec-label{
+  text-align:center;
+  margin-bottom:8px;
+  font-size:11px;
+  letter-spacing:.34em;
   text-transform:uppercase;
+  color:var(--wine);
   font-weight:400;
-  color:var(--ink);
+}
+.sec-flour{
+  width:34px;height:1px;background:var(--rose);
+  margin:0 auto 30px;
 }
 .lead{
   font-family:'Fraunces',serif;
   font-weight:300;
-  font-size:19px;
-  line-height:1.5;
+  font-size:20px;
+  line-height:1.55;
   color:var(--soft);
-  margin-bottom:28px;
-  max-width:46ch;
+  text-align:center;
+  max-width:44ch;
+  margin:0 auto 34px;
 }
 
 /* ── sell sheet ── */
 .sheet-img{
   display:block;
   width:100%;
+  border-radius:8px;
   border:1px solid var(--line);
+  box-shadow:0 18px 50px -24px rgba(124,51,80,.35);
 }
-.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}
+.btn-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:26px}
 .btn{
   display:inline-flex;
   align-items:center;
@@ -121,38 +121,38 @@ section + section{border-top:1px solid var(--line-soft)}
   font-family:'Jost',sans-serif;
   font-weight:400;
   font-size:11px;
-  letter-spacing:.18em;
+  letter-spacing:.2em;
   text-transform:uppercase;
   text-decoration:none;
-  padding:15px 28px;
-  border:1px solid var(--ink);
+  padding:15px 30px;
+  border:1px solid var(--wine);
   background:transparent;
-  color:var(--ink);
-  border-radius:2px;
-  transition:background .25s,color .25s;
+  color:var(--wine);
+  border-radius:40px;
+  transition:background .25s,color .25s,box-shadow .25s;
 }
-.btn:hover{background:var(--ink);color:var(--paper)}
-.btn.primary{background:var(--ink);color:var(--paper)}
-.btn.primary:hover{background:#463f35}
+.btn:hover{background:var(--wine);color:#fff}
+.btn.primary{background:var(--wine);color:#fff;box-shadow:0 12px 26px -12px rgba(124,51,80,.5)}
+.btn.primary:hover{background:#5f2640}
 
 /* ── facts ── */
-.facts{list-style:none;margin-top:6px}
+.facts{list-style:none;margin-top:40px}
 .facts li{
   display:flex;
   justify-content:space-between;
+  align-items:baseline;
   gap:24px;
-  padding:15px 0;
+  padding:16px 0;
   border-bottom:1px solid var(--line-soft);
   font-size:16px;
 }
 .facts li:first-child{border-top:1px solid var(--line-soft)}
 .facts li .k{
-  font-size:11px;
-  letter-spacing:.2em;
+  font-size:10.5px;
+  letter-spacing:.22em;
   text-transform:uppercase;
-  color:var(--muted);
+  color:var(--rose);
   flex:0 0 auto;
-  padding-top:3px;
 }
 .facts li .v{text-align:right;color:var(--ink);font-weight:300}
 
@@ -160,47 +160,49 @@ section + section{border-top:1px solid var(--line-soft)}
 .prices{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  margin-top:34px;
-  border:1px solid var(--line);
-}
-.prices .p{
-  padding:26px 18px;
+  margin-top:46px;
   text-align:center;
-  border-right:1px solid var(--line);
 }
-.prices .p:last-child{border-right:0}
+.prices .p{padding:0 14px;position:relative}
+.prices .p + .p::before{
+  content:'';position:absolute;left:0;top:8px;bottom:8px;
+  width:1px;background:var(--line);
+}
 .prices .amt{
   font-family:'Fraunces',serif;
   font-weight:300;
-  font-size:34px;
+  font-size:40px;
   line-height:1;
+  color:var(--wine);
 }
 .prices .lbl{
   font-size:9.5px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  color:var(--muted);
-  margin-top:12px;
-}
-@media(max-width:520px){
-  .prices{grid-template-columns:1fr}
-  .prices .p{border-right:0;border-bottom:1px solid var(--line)}
-  .prices .p:last-child{border-bottom:0}
-  .facts li{flex-direction:column;gap:4px}
-  .facts li .v{text-align:left}
-}
-
-/* ── form ── */
-.field{margin-bottom:22px}
-.field label{
-  display:block;
-  font-size:11px;
   letter-spacing:.18em;
   text-transform:uppercase;
   color:var(--muted);
-  margin-bottom:9px;
+  margin-top:14px;
 }
-.field input,.field select,.field textarea{
+@media(max-width:520px){
+  .prices{grid-template-columns:1fr;gap:28px}
+  .prices .p + .p::before{display:none}
+  .facts li{flex-direction:column;gap:5px;align-items:flex-start}
+  .facts li .v{text-align:left}
+}
+
+/* ── divider between sections ── */
+.div{width:100%;height:1px;background:var(--line-soft)}
+
+/* ── form ── */
+.field{margin-bottom:24px}
+.field label{
+  display:block;
+  font-size:10.5px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--rose);
+  margin-bottom:10px;
+}
+.field input,.field textarea{
   width:100%;
   font-family:'Jost',sans-serif;
   font-weight:300;
@@ -212,110 +214,110 @@ section + section{border-top:1px solid var(--line-soft)}
   padding:9px 2px;
   transition:border-color .25s;
 }
-.field input::placeholder,.field textarea::placeholder{color:#b7ad9d}
-.field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;
-  border-bottom-color:var(--ink);
-}
-.field textarea{resize:vertical;min-height:70px;border:1px solid var(--line);border-radius:2px;padding:12px}
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.field input::placeholder,.field textarea::placeholder{color:#cfb0ba}
+.field input:focus,.field textarea:focus{outline:none;border-bottom-color:var(--wine)}
+.field textarea{resize:vertical;min-height:74px;border:1px solid var(--line);border-radius:8px;padding:13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 @media(max-width:520px){.grid2{grid-template-columns:1fr;gap:0}}
 
 .order-label{
+  text-align:center;
   font-size:11px;
-  letter-spacing:.24em;
+  letter-spacing:.3em;
   text-transform:uppercase;
-  color:var(--ink);
-  margin:38px 0 14px;
+  color:var(--wine);
+  margin:44px 0 18px;
 }
 .min-banner{
   display:flex;
   align-items:center;
-  gap:12px;
-  border:1px solid var(--line);
-  background:var(--paper);
-  padding:14px 18px;
-  border-radius:2px;
-  margin-bottom:22px;
+  gap:14px;
+  border:1px solid var(--rose-soft);
+  background:linear-gradient(180deg,#fdeef2,#fbf6f7);
+  padding:15px 20px;
+  border-radius:10px;
+  margin-bottom:26px;
   font-size:15px;
   color:var(--ink);
 }
 .min-banner .tag{
-  font-size:10px;
-  letter-spacing:.16em;
+  font-size:9.5px;
+  letter-spacing:.2em;
   text-transform:uppercase;
-  color:var(--muted);
-  border-right:1px solid var(--line);
-  padding-right:12px;
+  color:var(--wine);
+  border-right:1px solid var(--rose-soft);
+  padding-right:14px;
   flex:0 0 auto;
 }
 
 .lineitem{
   display:grid;
-  grid-template-columns:1fr 84px;
+  grid-template-columns:1fr 80px;
   gap:18px;
   align-items:center;
-  padding:18px 0;
+  padding:19px 0;
   border-bottom:1px solid var(--line-soft);
 }
 .lineitem:first-of-type{border-top:1px solid var(--line-soft)}
 .lineitem .name{font-size:17px}
-.lineitem .name .sub{display:block;font-size:13px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+.lineitem .name .sub{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;letter-spacing:.03em}
 .lineitem input[type=number]{
   text-align:center;
   font-size:18px;
   border:1px solid var(--line);
-  border-radius:2px;
-  padding:9px 4px;
+  border-radius:40px;
+  padding:10px 4px;
 }
+.lineitem input[type=number]:focus{outline:none;border-color:var(--wine)}
 
-.tap-row{display:flex;align-items:flex-start;gap:12px;margin-top:22px;font-size:15.5px;color:var(--soft)}
-.tap-row input{margin-top:4px;width:15px;height:15px;accent-color:var(--ink);flex:0 0 auto}
+.tap-row{display:flex;align-items:flex-start;gap:12px;margin-top:24px;font-size:15.5px;color:var(--soft)}
+.tap-row input{margin-top:4px;width:15px;height:15px;accent-color:var(--wine);flex:0 0 auto}
 .tap-row b{color:var(--ink);font-weight:400}
 
 .total-bar{
   display:flex;
   justify-content:space-between;
   align-items:baseline;
-  margin-top:32px;
-  padding-top:22px;
-  border-top:1px solid var(--ink);
+  margin-top:36px;
+  padding-top:24px;
+  border-top:1px solid var(--wine);
 }
 .total-bar .t-lbl{
   font-size:11px;
-  letter-spacing:.2em;
+  letter-spacing:.22em;
   text-transform:uppercase;
   color:var(--muted);
 }
-.total-bar .t-amt{font-family:'Fraunces',serif;font-weight:300;font-size:38px}
-.fineprint{font-size:14px;color:var(--soft);margin-top:14px;line-height:1.6;max-width:60ch}
+.total-bar .t-amt{font-family:'Fraunces',serif;font-weight:300;font-size:40px;color:var(--wine)}
+.fineprint{font-size:13.5px;color:var(--soft);margin-top:16px;line-height:1.65;max-width:60ch}
 
 button.submit{
   width:100%;
-  margin-top:30px;
+  margin-top:32px;
   font-family:'Jost',sans-serif;
   font-weight:400;
   font-size:12px;
-  letter-spacing:.24em;
+  letter-spacing:.28em;
   text-transform:uppercase;
-  color:var(--paper);
-  background:var(--ink);
+  color:#fff;
+  background:var(--wine);
   border:none;
-  border-radius:2px;
-  padding:19px;
-  transition:background .25s;
+  border-radius:40px;
+  padding:20px;
+  transition:background .25s,box-shadow .25s;
   cursor:pointer;
+  box-shadow:0 14px 30px -14px rgba(124,51,80,.55);
 }
-button.submit:hover{background:#463f35}
-.form-note{text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:17px;margin-top:20px;min-height:24px;color:var(--soft)}
-.form-note.ok{color:#4a5a3f}
-.form-note.err{color:#8a4a3f}
+button.submit:hover{background:#5f2640}
+.form-note{text-align:center;font-family:'Fraunces',serif;font-style:italic;font-size:17px;margin-top:22px;min-height:24px;color:var(--soft)}
+.form-note.ok{color:#5a7a4f}
+.form-note.err{color:var(--wine)}
 .form-note a{color:inherit}
 
-footer{text-align:center;padding:56px 0 0;border-top:1px solid var(--line-soft)}
-footer a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}
-footer a:hover{border-bottom-color:var(--ink)}
-footer .fine{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:26px}
+footer{text-align:center;padding:60px 0 0}
+footer a{color:var(--wine);text-decoration:none;border-bottom:1px solid var(--rose);padding-bottom:2px}
+footer a:hover{border-bottom-color:var(--wine)}
+footer .fine{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);margin-top:28px}
 </style>
 </head>
 <body>
@@ -327,11 +329,11 @@ footer .fine{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:
     <div class="subhead">Sparkling Cabernet Aperatif</div>
     <div class="forbuyers">For Buyers &amp; Stockists</div>
   </header>
-  <hr class="rule">
 
   <!-- ── SELL SHEET ── -->
   <section>
-    <div class="sec-head"><span class="no">01</span><h2>The Sell Sheet</h2></div>
+    <div class="sec-label">The Sell Sheet</div>
+    <div class="sec-flour"></div>
     <p class="lead">Everything on a single page — download it, or send it along to your team.</p>
     <img class="sheet-img" src="sellsheet.jpg" alt="Maison Maxine Sparkling Cabernet Aperatif sell sheet">
     <div class="btn-row">
@@ -354,9 +356,12 @@ footer .fine{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:
     </div>
   </section>
 
+  <div class="div"></div>
+
   <!-- ── ORDER ── -->
   <section>
-    <div class="sec-head"><span class="no">02</span><h2>Place an Order</h2></div>
+    <div class="sec-label">Place an Order</div>
+    <div class="sec-flour"></div>
     <p class="lead">Tell us what you need and Olivia will confirm your invoice and any volume discount. Nothing is charged here.</p>
 
     <form id="order-form" novalidate>
@@ -402,7 +407,7 @@ footer .fine{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:
         <span>I'm interested in <b>Maison Maxine on tap</b> (kegs) — please send draft details &amp; pricing.</span>
       </label>
 
-      <div class="field" style="margin-top:28px">
+      <div class="field" style="margin-top:30px">
         <label for="deliver">Requested Delivery / By When</label>
         <input type="text" id="deliver" name="deliver" placeholder="e.g. within 2 weeks">
       </div>
