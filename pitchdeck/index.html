@@ -391,6 +391,22 @@ em{font-style:italic;color:var(--deep)}
 .ue-table tr.best .m{color:#3f6a33;font-weight:700}
 
 
+/* ═══════════ competitive positioning map ═══════════ */
+.pmap{position:relative;aspect-ratio:16/10;margin-top:26px;border:1.5px solid var(--line);border-radius:16px;background:var(--paper);box-shadow:0 4px 18px rgba(199,96,144,.07);overflow:hidden}
+.pmap .seat{position:absolute;right:0;top:0;width:50%;height:50%;background:linear-gradient(215deg,rgba(247,205,235,.65),rgba(247,205,235,.04))}
+.pmap .axh{position:absolute;left:0;right:0;top:50%;height:1px;background:var(--line)}
+.pmap .axv{position:absolute;top:0;bottom:0;left:50%;width:1px;background:var(--line)}
+.pmap .pt{position:absolute;transform:translate(-50%,-50%);text-align:center;font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--ink);white-space:nowrap;z-index:2}
+.pmap .pt .dot{display:block;width:11px;height:11px;border-radius:50%;background:var(--deep);opacity:.45;margin:0 auto 6px}
+.pmap .pt.us{z-index:4}
+.pmap .pt.us .can{display:block;width:20px;height:30px;margin:0 auto 7px;border-radius:5px/7px;background:linear-gradient(160deg,var(--rasp),var(--deep));box-shadow:0 3px 12px rgba(138,26,74,.32)}
+.pmap .pt.us .lbl{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:27px;color:var(--rasp);line-height:1}
+.pmap .pt.us .halo{position:absolute;left:50%;top:38%;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle,rgba(199,96,144,.24),transparent 68%);transform:translate(-50%,-50%);z-index:-1}
+.pmap .axlbl{position:absolute;font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--rasp);opacity:.85}
+.pmap .seat-tag{position:absolute;right:16px;top:13px;font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--rasp)}
+@media(max-width:820px){.pmap .pt{font-size:12px}.pmap .pt.us .lbl{font-size:21px}}
+
+
 /* print → clean PDF export, one slide per page */
 @media print{
   body::before,#gate,#dots,#counter{display:none!important}
