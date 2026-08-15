@@ -407,6 +407,27 @@ em{font-style:italic;color:var(--deep)}
 @media(max-width:820px){.pmap .pt{font-size:12px}.pmap .pt.us .lbl{font-size:21px}}
 
 
+/* ═══════════ financial projection ═══════════ */
+.fin-grid{display:grid;grid-template-columns:0.85fr 1.35fr 0.92fr;gap:22px;margin-top:20px;align-items:start}
+.fin-h{font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--rasp);margin-bottom:9px}
+.fin-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.fin-tbl th{font-family:'Pixelify Sans',sans-serif;font-size:7.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--rasp);text-align:right;padding:5px 5px;border-bottom:1.5px solid var(--rasp)}
+.fin-tbl th:first-child{text-align:left}
+.fin-tbl td{padding:6px 5px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums;color:var(--deep)}
+.fin-tbl td:first-child{text-align:left;color:var(--ink)}
+.fin-tbl tr.hlrow td{background:rgba(247,205,235,.4);font-weight:600}
+.fin-tbl tr.avg td{border-top:1.5px solid var(--rasp);font-weight:600;color:var(--rasp);border-bottom:none}
+.fin-cap{font-family:'IM Fell English',serif;font-style:italic;font-size:12px;color:var(--rasp);margin-top:9px;line-height:1.4}
+.fin-chart{width:100%;height:auto;display:block}
+.fin-num{width:100%;border-collapse:collapse;font-size:13px}
+.fin-num thead td{font-family:'Pixelify Sans',sans-serif;font-size:7.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--rasp);border-bottom:1.5px solid var(--rasp);text-align:right;padding:5px 4px}
+.fin-num tbody td{padding:6.5px 4px;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.fin-num tbody td:first-child{color:var(--ink);font-size:11.5px;text-align:left}
+.fin-num tbody td:not(:first-child){text-align:right;color:var(--deep);font-weight:600}
+.fin-num tr.rate td{border-top:1.5px solid var(--rasp);border-bottom:none;color:var(--rasp);padding-top:9px;font-size:14px}
+@media(max-width:820px){.fin-grid{grid-template-columns:1fr;gap:26px}}
+
+
 /* print → clean PDF export, one slide per page */
 @media print{
   body::before,#gate,#dots,#counter{display:none!important}
