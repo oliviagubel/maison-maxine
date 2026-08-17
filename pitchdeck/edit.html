@@ -23,16 +23,37 @@ body{margin:0;font-family:'Cormorant Garamond',Georgia,serif}
 .g2card button{width:100%;margin-top:18px;padding:13px;border:none;border-radius:11px;background:#c76090;color:#fff;cursor:pointer;
   font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
 .g2card button:hover{background:#8a1a4a}
+.g2card button.ghost{background:none;color:#c76090;text-decoration:underline;letter-spacing:.04em;text-transform:none;font-size:13px;margin-top:10px;padding:4px}
 .g2note{font-size:13px;color:#5a3a4a;opacity:.75;line-height:1.5;margin-top:16px}
-.g2err{color:#b23a5a;font-style:italic;min-height:20px;margin-top:10px;font-size:14px}
+.g2err{color:#b23a5a;font-style:italic;min-height:20px;margin-top:10px;font-size:14px;line-height:1.45}
+
+/* ── formatting toolbar ── */
+#tools{position:fixed;top:0;left:0;right:0;z-index:160;display:none;flex-wrap:wrap;align-items:center;gap:5px;
+  padding:8px 12px;background:#fdf3f8;border-bottom:1.5px solid #f0cfe0;box-shadow:0 3px 14px rgba(199,96,144,.12)}
+#tools button,#tools select{font-family:'Jost',sans-serif;font-size:13px;color:#8a1a4a;background:#fff;border:1.5px solid #f0cfe0;
+  border-radius:8px;padding:6px 10px;cursor:pointer;line-height:1.1;min-height:32px}
+#tools button:hover,#tools select:hover{border-color:#c76090;background:#fff3fa}
+#tools button:active{transform:scale(.96)}
+#tools .sep{width:1px;height:24px;background:#f0cfe0;margin:0 5px}
+#tools .lbl{font-family:'Jost',sans-serif;font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;margin:0 2px 0 4px}
+#tools .sw{width:26px;height:26px;padding:0;border-radius:50%;min-height:0}
+#tools .sw.x{background:#fff;font-size:15px;color:#b23a5a}
+#tools select{min-width:120px}
+
+/* ── bottom publish bar ── */
 #bar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:#8a1a4a;color:#fff;display:none;
-  align-items:center;gap:14px;padding:11px 18px;font-family:'Jost',sans-serif;font-size:13px}
+  align-items:center;gap:14px;padding:11px 18px;font-family:'Jost',sans-serif;font-size:13px;flex-wrap:wrap}
 #bar b{font-weight:600;letter-spacing:.02em}
 #bar button{font:inherit;font-weight:600;border:none;border-radius:8px;padding:8px 15px;cursor:pointer;background:#fff;color:#8a1a4a}
 #bar button:hover{background:#ffe3f1}
+#bar button.quiet{background:rgba(255,255,255,.16);color:#fff}
+#bar button.quiet:hover{background:rgba(255,255,255,.3)}
 #bar .spacer{flex:1}
-#stat{opacity:.92;font-family:'Cormorant Garamond',serif;font-size:15px}
-#deck{padding-bottom:74px}
+#stat{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1.35;flex-basis:100%;order:9;padding-top:2px}
+#stat.ok{color:#c8f5d8}
+#stat.err{color:#ffd6e2;font-weight:600}
+#dirty{font-size:12px;opacity:.9}
+#deck{padding-bottom:96px;padding-top:52px}
 #deck .slide:focus{outline:2px dashed rgba(199,96,144,.5);outline-offset:6px}
 </style>
 </head>
@@ -41,15 +62,46 @@ body{margin:0;font-family:'Cormorant Garamond',Georgia,serif}
 <div id="gate2">
   <div class="g2card">
     <h1>deck editor</h1>
-    <p>Type into any slide, then publish. This is the same deck that is live, and nothing changes on the website until you press publish.</p>
+    <p>Type into any slide, style it with the toolbar, then publish. This is the same deck that is live, and nothing changes on the website until you press publish.</p>
     <label for="pw2">deck password</label>
     <input id="pw2" type="password" autocomplete="current-password" placeholder="the one investors type">
     <label for="tok">github token</label>
     <input id="tok" type="password" autocomplete="off" placeholder="ghp_… or github_pat_…">
     <button id="go">open the deck</button>
+    <button id="ro" class="ghost">open without publishing (read only)</button>
     <div class="g2err" id="err2"></div>
-    <div class="g2note">The token is stored in this browser only and is sent to github.com and nowhere else. It needs read and write on <em>contents</em> for the maison-maxine repository. Remove it any time with the button in the bottom bar.</div>
+    <div class="g2note">The token is stored in this browser only and is sent to github.com and nowhere else. It needs read and write on <em>contents</em> for the maison-maxine repository. It is checked before the deck opens, so you will never edit for an hour and then find out publishing was off. Remove it any time with the button in the bottom bar.</div>
   </div>
+</div>
+
+<div id="tools">
+  <button data-cmd="bold" title="bold (cmd+B)"><b>B</b></button>
+  <button data-cmd="italic" title="italic (cmd+I)"><i>I</i></button>
+  <button data-cmd="underline" title="underline (cmd+U)"><u>U</u></button>
+  <span class="sep"></span>
+  <span class="lbl">font</span>
+  <select id="fontpick" title="font">
+    <option value="">font…</option>
+    <option value="'Cormorant Garamond',Georgia,serif">body serif</option>
+    <option value="'Klickclack Swash','Great Vibes',cursive">script wordmark</option>
+    <option value="'Jost','Avenir Next',sans-serif">label sans</option>
+    <option value="'IM Fell English',serif">old style note</option>
+  </select>
+  <button id="smaller" title="smaller">A−</button>
+  <button id="bigger" title="bigger">A+</button>
+  <span class="sep"></span>
+  <span class="lbl">colour</span>
+  <button class="sw" data-fore="#c76090" style="background:#c76090" title="raspberry"></button>
+  <button class="sw" data-fore="#8a1a4a" style="background:#8a1a4a" title="deep"></button>
+  <button class="sw" data-fore="#5a3a4a" style="background:#5a3a4a" title="ink"></button>
+  <span class="sep"></span>
+  <span class="lbl">highlight</span>
+  <button class="sw" data-hilite="#fbe3f0" style="background:#fbe3f0" title="pink"></button>
+  <button class="sw" data-hilite="#fff3b0" style="background:#fff3b0" title="yellow"></button>
+  <button class="sw" data-hilite="#d8f2e4" style="background:#d8f2e4" title="mint"></button>
+  <button class="sw x" data-hilite="transparent" title="no highlight">⊘</button>
+  <span class="sep"></span>
+  <button id="clearfmt" title="strip all styling from the selection">clear styling</button>
 </div>
 
 <div id="deck"></div>
@@ -57,18 +109,25 @@ body{margin:0;font-family:'Cormorant Garamond',Georgia,serif}
 <div id="bar">
   <b>deck editor</b>
   <button id="publish">Publish to the website</button>
-  <span id="stat"></span>
+  <span id="dirty"></span>
   <span class="spacer"></span>
-  <button id="forget">Forget my token</button>
+  <button id="backup" class="quiet">Save a backup file</button>
+  <button id="forget" class="quiet">Forget my token</button>
+  <span id="stat"></span>
 </div>
 
 <script>
 const REPO='oliviagubel/maison-maxine', PATH='pitchdeck/deck.enc.json', BRANCH='main';
 const API=`https://api.github.com/repos/${REPO}/contents/${PATH}`;
-let PW=null, TOKEN=null, PAYLOAD=null;
+const DRAFT='mm_deck_draft';
+let PW=null, TOKEN=null, PAYLOAD=null, LOADED_SHA=null, DIRTY=false;
 
+const $=id=>document.getElementById(id);
 const b64buf=b=>{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u.buffer;};
 const bufb64=b=>{const u=new Uint8Array(b);let s='';for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s);};
+
+function say(msg,kind){const s=$('stat');s.textContent=msg;s.className=kind||'';}
+function ghHead(t){return {Authorization:'Bearer '+(t||TOKEN),Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};}
 
 async function keyFrom(pw,salt,iter){
   const mat=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
@@ -92,49 +151,201 @@ async function borrowStyles(){
   const css=html.match(/<style>([\s\S]*?)<\/style>/);
   if(css){const s=document.createElement('style');s.textContent=css[1].replace('#deck{position:relative;z-index:1;display:none','#deck{position:relative;z-index:1;display:block');document.head.appendChild(s);}
 }
-const stat=t=>document.getElementById('stat').textContent=t;
+// does this token actually let us write? checked before a single word is typed.
+async function checkToken(t){
+  if(!t) return {ok:false,msg:'No token yet.'};
+  try{
+    const r=await fetch(API+'?ref='+BRANCH,{headers:ghHead(t),cache:'no-store'});
+    const j=await r.json();
+    if(r.status===401) return {ok:false,msg:'GitHub rejected that token (401). It has expired or was mistyped, so make a new one.'};
+    if(r.status===403) return {ok:false,msg:'That token cannot reach this repository (403). It needs read and write on contents for maison-maxine.'};
+    if(r.status===404) return {ok:false,msg:'GitHub cannot see the file with that token (404). A fine grained token has to name the maison-maxine repository and grant contents read and write.'};
+    if(!r.ok||!j.sha) return {ok:false,msg:'GitHub said: '+(j.message||('HTTP '+r.status))};
+    return {ok:true,sha:j.sha};
+  }catch(e){ return {ok:false,msg:'Could not reach GitHub: '+e.message}; }
+}
 
-document.getElementById('go').onclick=async()=>{
-  const err=document.getElementById('err2');
-  err.textContent='';
-  PW=document.getElementById('pw2').value;
-  TOKEN=document.getElementById('tok').value||localStorage.getItem('mm_gh')||'';
+/* ══════════ the deck body ══════════ */
+function openDeck(html,readonly){
+  const deck=$('deck');
+  deck.innerHTML=html;
+  deck.classList.add('on');
+  deck.querySelectorAll('.slide').forEach(s=>s.setAttribute('contenteditable',readonly?'false':'true'));
+  $('gate2').style.display='none';
+  $('bar').style.display='flex';
+  if(!readonly){
+    $('tools').style.display='flex';
+    document.execCommand('styleWithCSS',false,true);
+    deck.addEventListener('input',markDirty);
+    // the toolbar wraps on a narrow window, so keep the deck clear of whatever height it takes
+    const clear=()=>deck.style.paddingTop=($('tools').offsetHeight+14)+'px';
+    clear(); window.addEventListener('resize',clear);
+  }else{
+    $('publish').disabled=true;
+    say('Read only: no token, so nothing here can be published.','err');
+  }
+}
+function markDirty(){
+  DIRTY=true;
+  $('dirty').textContent='unpublished edits';
+  clearTimeout(markDirty.t);
+  markDirty.t=setTimeout(()=>{
+    try{ localStorage.setItem(DRAFT,JSON.stringify({html:$('deck').innerHTML,at:Date.now()})); }catch(e){}
+  },700);
+}
+
+/* ══════════ formatting toolbar ══════════ */
+let lastRange=null;
+document.addEventListener('selectionchange',()=>{
+  const s=getSelection();
+  if(s.rangeCount && $('deck').contains(s.anchorNode)) lastRange=s.getRangeAt(0).cloneRange();
+});
+function withSelection(fn){
+  if(lastRange){const s=getSelection();s.removeAllRanges();s.addRange(lastRange);}
+  const s=getSelection();
+  if(!s.rangeCount||s.isCollapsed){say('Select some words first, then press the button.','err');return;}
+  document.execCommand('styleWithCSS',false,true);
+  fn();
+  markDirty();
+}
+function exec(cmd,val){ withSelection(()=>document.execCommand(cmd,false,val)); }
+
+// relative resize: mark the selection with the browser's biggest size, then swap each
+// marker for a span sized from the text around it, so A+ and A− scale whatever it was
+// before rather than jumping to a fixed size. the marker comes back as <font size="7">
+// or as a span sized xxx-large depending on the browser, so catch both.
+function scaleFont(factor){
+  withSelection(()=>{
+    // measure what the selected text is actually set at right now, before the command
+    // rewrites it, so A+ then A− lands back where it started
+    const node=getSelection().anchorNode;
+    const el0=node&&(node.nodeType===1?node:node.parentElement);
+    const base=parseFloat(el0?getComputedStyle(el0).fontSize:'')||18;
+    const size=Math.max(9,Math.min(96,Math.round(base*factor)))+'px';
+    document.execCommand('fontSize',false,'7');
+    const marked=[...$('deck').querySelectorAll('font[size="7"]')]
+      .concat([...$('deck').querySelectorAll('span')].filter(el=>el.style.fontSize==='xxx-large'));
+    marked.forEach(el=>{
+      if(el.tagName==='SPAN'){ el.style.fontSize=size; return; }
+      const span=document.createElement('span');
+      span.style.fontSize=size;
+      while(el.firstChild) span.appendChild(el.firstChild);
+      el.replaceWith(span);
+    });
+  });
+}
+
+// buttons must not steal the selection out of the deck
+$('tools').addEventListener('mousedown',e=>{ if(e.target.closest('button')) e.preventDefault(); });
+$('tools').addEventListener('click',e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  if(b.dataset.cmd) exec(b.dataset.cmd);
+  else if(b.dataset.fore) exec('foreColor',b.dataset.fore);
+  else if(b.dataset.hilite) exec('hiliteColor',b.dataset.hilite);
+});
+$('bigger').onclick=()=>scaleFont(1.18);
+$('smaller').onclick=()=>scaleFont(1/1.18);
+$('clearfmt').onclick=()=>exec('removeFormat');
+$('fontpick').onchange=e=>{ if(e.target.value) exec('fontName',e.target.value); e.target.value=''; };
+
+/* ══════════ open ══════════ */
+async function open(readonly){
+  const err=$('err2'); err.textContent='';
+  PW=$('pw2').value;
+  TOKEN=$('tok').value||localStorage.getItem('mm_gh')||'';
   if(!PW){err.textContent='The deck password is needed to open it.';return;}
   let html;
   try{ html=await decryptDeck(PW); }
   catch(e){ err.textContent='That password does not open this deck.'; return; }
-  if(TOKEN) localStorage.setItem('mm_gh',TOKEN);
+
+  if(!readonly){
+    err.textContent='checking the token with github…';
+    const chk=await checkToken(TOKEN);
+    if(!chk.ok){
+      err.textContent=chk.msg+' Fix it here, or use the read only link below.';
+      return;
+    }
+    LOADED_SHA=chk.sha;
+    localStorage.setItem('mm_gh',TOKEN);
+  }
+
   await borrowStyles();
-  const deck=document.getElementById('deck');
-  deck.innerHTML=html;
-  deck.classList.add('on');
-  deck.querySelectorAll('.slide').forEach(s=>s.setAttribute('contenteditable','true'));
-  document.getElementById('gate2').style.display='none';
-  document.getElementById('bar').style.display='flex';
-  stat(TOKEN?'':'No token saved, so publishing is off. Reload and add one to publish.');
+
+  // unpublished edits from a previous visit?
+  let draft=null;
+  try{ draft=JSON.parse(localStorage.getItem(DRAFT)||'null'); }catch(e){}
+  if(draft&&draft.html&&draft.html.trim()!==html.trim()&&!readonly){
+    const when=new Date(draft.at).toLocaleString();
+    if(confirm('This browser still has deck edits from '+when+' that were never published.\n\nOK: bring those edits back.\nCancel: start from the deck that is live now (those edits are dropped).')){
+      openDeck(draft.html,false);
+      say('Restored your unpublished edits from '+when+'. Press publish when you are happy with them.','ok');
+      DIRTY=true; $('dirty').textContent='unpublished edits';
+      return;
+    }
+    localStorage.removeItem(DRAFT);
+  }
+  openDeck(html,readonly);
+  if(!readonly) say('Ready. Publishing is on: the token works.','ok');
+}
+$('go').onclick=()=>open(false);
+$('ro').onclick=()=>open(true);
+$('forget').onclick=()=>{localStorage.removeItem('mm_gh');TOKEN='';say('Token forgotten on this browser. Reload and paste one in to publish again.','err');};
+
+/* ══════════ publish ══════════ */
+function deckHtmlForPublish(){
+  // publish a clean copy: the live deck should not ship contenteditable handles
+  const clone=$('deck').cloneNode(true);
+  clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+  return clone.innerHTML.trim();
+}
+$('backup').onclick=async()=>{
+  const obj=await encryptDeck(PW,deckHtmlForPublish());
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(obj)],{type:'application/json'}));
+  a.download='deck.enc.json'; a.click();
+  say('Backup saved to your downloads. It is the encrypted deck, openable with the same password.','ok');
 };
 
-document.getElementById('forget').onclick=()=>{localStorage.removeItem('mm_gh');TOKEN='';stat('Token forgotten on this browser.');};
-
-document.getElementById('publish').onclick=async()=>{
-  if(!TOKEN){stat('Add a GitHub token first: reload this page and paste one in.');return;}
-  const html=document.getElementById('deck').innerHTML.trim();
-  if(html.length<2000){stat('That looked empty, so nothing was published.');return;}
+$('publish').onclick=async()=>{
+  if(!TOKEN){say('No token, so publishing is off. Reload this page and paste one in.','err');return;}
+  const html=deckHtmlForPublish();
+  if(html.length<2000){say('That looked empty, so nothing was published.','err');return;}
   if(!confirm('Publish these edits to maisonmaxine.world?'))return;
-  stat('publishing…');
+  say('publishing…');
   try{
-    const head={Authorization:'Bearer '+TOKEN,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
-    const cur=await (await fetch(API+'?ref='+BRANCH,{headers:head,cache:'no-store'})).json();
+    const cur=await (await fetch(API+'?ref='+BRANCH,{headers:ghHead(),cache:'no-store'})).json();
     if(!cur.sha) throw new Error(cur.message||'could not read the current file');
+    // somebody published after this page was opened: do not flatten their work
+    if(LOADED_SHA&&cur.sha!==LOADED_SHA){
+      say('Stopped: the deck on the website changed after you opened this page, so publishing now would wipe that change. Your edits are saved in this browser, so reload, choose to bring them back, and check them against the newer deck.','err');
+      return;
+    }
     const obj=await encryptDeck(PW,html);
-    const res=await fetch(API,{method:'PUT',headers:{...head,'Content-Type':'application/json'},
+    const res=await fetch(API,{method:'PUT',headers:{...ghHead(),'Content-Type':'application/json'},
       body:JSON.stringify({message:'pitchdeck: edits from the browser editor',content:btoa(JSON.stringify(obj)),sha:cur.sha,branch:BRANCH})});
     const out=await res.json();
-    stat(res.ok?'Published. Live in a minute or two, then hard-reload the deck.':('GitHub said: '+(out.message||res.status)));
-  }catch(e){ stat('Could not publish: '+e.message); }
+    if(!res.ok){ say('GitHub refused it: '+(out.message||res.status)+'. Nothing was published, and your edits are still here.','err'); return; }
+    LOADED_SHA=out.content.sha;
+    DIRTY=false; $('dirty').textContent='';
+    localStorage.removeItem(DRAFT);
+    say('Published as commit '+out.commit.sha.slice(0,7)+'. Checking that the website has it…','ok');
+    verifyLive(obj.ct);
+  }catch(e){ say('Could not publish: '+e.message+'. Nothing was lost, your edits are still on this page.','err'); }
 };
 
-window.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();document.getElementById('publish').click();}});
+// the file is committed, but GitHub Pages takes a moment: watch until the live copy matches
+async function verifyLive(ct,tries){
+  tries=tries||0;
+  try{
+    const live=await (await fetch('deck.enc.json?v='+Date.now(),{cache:'no-store'})).json();
+    if(live.ct===ct){ say('Published and live on the website. Hard reload the deck to see it.','ok'); return; }
+  }catch(e){}
+  if(tries>=10){ say('Published to GitHub, but the website is still serving the old copy. It usually catches up within a couple of minutes, so reload the deck shortly.','ok'); return; }
+  setTimeout(()=>verifyLive(ct,tries+1),6000);
+}
+
+window.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();$('publish').click();}});
+window.addEventListener('beforeunload',e=>{ if(DIRTY){e.preventDefault();e.returnValue='';} });
 </script>
 </body>
 </html>
