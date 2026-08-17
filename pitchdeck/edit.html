@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maison Maxine ✦ deck editor</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon-32.png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+/* the deck's own stylesheet is pulled in from index.html at load, so the editor always
+   looks exactly like the live deck. these are the editor's own bits only. */
+body{margin:0;font-family:'Cormorant Garamond',Georgia,serif}
+#gate2{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:#fff8fc}
+.g2card{width:min(92vw,460px);background:#fdf3f8;border:1.5px solid #f0cfe0;border-radius:22px;padding:38px 34px;text-align:left;
+  box-shadow:0 10px 40px rgba(199,96,144,.16)}
+.g2card h1{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:44px;color:#c76090;font-weight:400;line-height:1;margin:0 0 6px}
+.g2card p{font-size:16px;color:#5a3a4a;line-height:1.5;margin:0 0 18px}
+.g2card label{display:block;font-family:'Jost',sans-serif;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#c76090;margin:16px 0 7px}
+.g2card input{width:100%;padding:12px 14px;font-family:'Cormorant Garamond',serif;font-size:16px;color:#5a3a4a;background:#fff;
+  border:1.5px solid #f0cfe0;border-radius:11px;outline:none}
+.g2card input:focus{border-color:#c76090}
+.g2card button{width:100%;margin-top:18px;padding:13px;border:none;border-radius:11px;background:#c76090;color:#fff;cursor:pointer;
+  font-family:'Jost',sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600}
+.g2card button:hover{background:#8a1a4a}
+.g2note{font-size:13px;color:#5a3a4a;opacity:.75;line-height:1.5;margin-top:16px}
+.g2err{color:#b23a5a;font-style:italic;min-height:20px;margin-top:10px;font-size:14px}
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:#8a1a4a;color:#fff;display:none;
+  align-items:center;gap:14px;padding:11px 18px;font-family:'Jost',sans-serif;font-size:13px}
+#bar b{font-weight:600;letter-spacing:.02em}
+#bar button{font:inherit;font-weight:600;border:none;border-radius:8px;padding:8px 15px;cursor:pointer;background:#fff;color:#8a1a4a}
+#bar button:hover{background:#ffe3f1}
+#bar .spacer{flex:1}
+#stat{opacity:.92;font-family:'Cormorant Garamond',serif;font-size:15px}
+#deck{padding-bottom:74px}
+#deck .slide:focus{outline:2px dashed rgba(199,96,144,.5);outline-offset:6px}
+</style>
+</head>
+<body>
+
+<div id="gate2">
+  <div class="g2card">
+    <h1>deck editor</h1>
+    <p>Type into any slide, then publish. This is the same deck that is live, and nothing changes on the website until you press publish.</p>
+    <label for="pw2">deck password</label>
+    <input id="pw2" type="password" autocomplete="current-password" placeholder="the one investors type">
+    <label for="tok">github token</label>
+    <input id="tok" type="password" autocomplete="off" placeholder="ghp_… or github_pat_…">
+    <button id="go">open the deck</button>
+    <div class="g2err" id="err2"></div>
+    <div class="g2note">The token is stored in this browser only and is sent to github.com and nowhere else. It needs read and write on <em>contents</em> for the maison-maxine repository. Remove it any time with the button in the bottom bar.</div>
+  </div>
+</div>
+
+<div id="deck"></div>
+
+<div id="bar">
+  <b>deck editor</b>
+  <button id="publish">Publish to the website</button>
+  <span id="stat"></span>
+  <span class="spacer"></span>
+  <button id="forget">Forget my token</button>
+</div>
+
+<script>
+const REPO='oliviagubel/maison-maxine', PATH='pitchdeck/deck.enc.json', BRANCH='main';
+const API=`https://api.github.com/repos/${REPO}/contents/${PATH}`;
+let PW=null, TOKEN=null, PAYLOAD=null;
+
+const b64buf=b=>{const s=atob(b),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u.buffer;};
+const bufb64=b=>{const u=new Uint8Array(b);let s='';for(let i=0;i<u.length;i++)s+=String.fromCharCode(u[i]);return btoa(s);};
+
+async function keyFrom(pw,salt,iter){
+  const mat=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
+  return crypto.subtle.deriveKey({name:'PBKDF2',salt,iterations:iter,hash:'SHA-256'},mat,{name:'AES-GCM',length:256},false,['encrypt','decrypt']);
+}
+async function decryptDeck(pw){
+  PAYLOAD=await (await fetch('deck.enc.json',{cache:'no-store'})).json();
+  const key=await keyFrom(pw,b64buf(PAYLOAD.salt),PAYLOAD.iter);
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64buf(PAYLOAD.iv)},key,b64buf(PAYLOAD.ct));
+  return new TextDecoder().decode(pt);
+}
+async function encryptDeck(pw,html){
+  const salt=crypto.getRandomValues(new Uint8Array(16)), iv=crypto.getRandomValues(new Uint8Array(12));
+  const key=await keyFrom(pw,salt,PAYLOAD.iter);
+  const ct=await crypto.subtle.encrypt({name:'AES-GCM',iv},key,new TextEncoder().encode(html));
+  return {v:PAYLOAD.v||1,iter:PAYLOAD.iter,salt:bufb64(salt),iv:bufb64(iv),ct:bufb64(ct)};
+}
+// borrow the live deck's stylesheet so the editor renders exactly like the deck
+async function borrowStyles(){
+  const html=await (await fetch('index.html',{cache:'no-store'})).text();
+  const css=html.match(/<style>([\s\S]*?)<\/style>/);
+  if(css){const s=document.createElement('style');s.textContent=css[1].replace('#deck{position:relative;z-index:1;display:none','#deck{position:relative;z-index:1;display:block');document.head.appendChild(s);}
+}
+const stat=t=>document.getElementById('stat').textContent=t;
+
+document.getElementById('go').onclick=async()=>{
+  const err=document.getElementById('err2');
+  err.textContent='';
+  PW=document.getElementById('pw2').value;
+  TOKEN=document.getElementById('tok').value||localStorage.getItem('mm_gh')||'';
+  if(!PW){err.textContent='The deck password is needed to open it.';return;}
+  let html;
+  try{ html=await decryptDeck(PW); }
+  catch(e){ err.textContent='That password does not open this deck.'; return; }
+  if(TOKEN) localStorage.setItem('mm_gh',TOKEN);
+  await borrowStyles();
+  const deck=document.getElementById('deck');
+  deck.innerHTML=html;
+  deck.classList.add('on');
+  deck.querySelectorAll('.slide').forEach(s=>s.setAttribute('contenteditable','true'));
+  document.getElementById('gate2').style.display='none';
+  document.getElementById('bar').style.display='flex';
+  stat(TOKEN?'':'No token saved, so publishing is off. Reload and add one to publish.');
+};
+
+document.getElementById('forget').onclick=()=>{localStorage.removeItem('mm_gh');TOKEN='';stat('Token forgotten on this browser.');};
+
+document.getElementById('publish').onclick=async()=>{
+  if(!TOKEN){stat('Add a GitHub token first: reload this page and paste one in.');return;}
+  const html=document.getElementById('deck').innerHTML.trim();
+  if(html.length<2000){stat('That looked empty, so nothing was published.');return;}
+  if(!confirm('Publish these edits to maisonmaxine.world?'))return;
+  stat('publishing…');
+  try{
+    const head={Authorization:'Bearer '+TOKEN,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+    const cur=await (await fetch(API+'?ref='+BRANCH,{headers:head,cache:'no-store'})).json();
+    if(!cur.sha) throw new Error(cur.message||'could not read the current file');
+    const obj=await encryptDeck(PW,html);
+    const res=await fetch(API,{method:'PUT',headers:{...head,'Content-Type':'application/json'},
+      body:JSON.stringify({message:'pitchdeck: edits from the browser editor',content:btoa(JSON.stringify(obj)),sha:cur.sha,branch:BRANCH})});
+    const out=await res.json();
+    stat(res.ok?'Published. Live in a minute or two, then hard-reload the deck.':('GitHub said: '+(out.message||res.status)));
+  }catch(e){ stat('Could not publish: '+e.message); }
+};
+
+window.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='s'){e.preventDefault();document.getElementById('publish').click();}});
+</script>
+</body>
+</html>
