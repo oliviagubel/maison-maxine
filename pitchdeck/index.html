@@ -516,8 +516,10 @@ function buildNav(){
     dots.appendChild(b);
   });
   const dotEls=[...dots.children];
-  // a slide can carry its own wallpaper with data-bg; anything else falls back to the
-  // deck default. the image is preloaded first, so a missing file changes nothing.
+  // a slide can carry its own wallpaper with data-bg, and it sticks: every slide from
+  // there to the end of the deck keeps it, until another data-bg takes over. scrolling
+  // back above it returns to the deck default. the image is preloaded first, so a
+  // missing file changes nothing.
   const bgCache={};
   let wantBg=null;                                   // the wallpaper the current slide asks for
   function setBg(url){
@@ -537,7 +539,9 @@ function buildNav(){
         const i=slides.indexOf(e.target);
         dotEls.forEach((d,j)=>d.classList.toggle('active',j===i));
         counter.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
-        setBg(e.target.dataset.bg);
+        let bg=null;                                 // the nearest data-bg at or above this slide
+        for(let j=i;j>=0;j--){ if(slides[j].dataset.bg){bg=slides[j].dataset.bg;break;} }
+        setBg(bg);
       }
     });
   },{threshold:.55});
