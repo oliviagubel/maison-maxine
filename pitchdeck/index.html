@@ -26,6 +26,9 @@ body{
   background-size:420px auto;
 }
 body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.53);z-index:0;pointer-events:none}
+/* past the gate the stripes give way to the illustrated pattern */
+body.unlocked{background-image:url('/background.jpg');background-size:520px auto}
+body.unlocked::before{background:rgba(255,250,253,.6)}
 
 /* ═══════════ GATE ═══════════ */
 #gate{
@@ -83,11 +86,7 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.53);
 .eyebrow{font-family:'Jost','Avenir Next','Futura',sans-serif;font-size:clamp(13px,1.35vw,16px);letter-spacing:.22em;text-transform:uppercase;color:var(--rasp);margin-bottom:22px}
 
 /* cover */
-.cover{align-items:flex-start;text-align:left;
-  background:#fff9fc url('/background.jpg') repeat;background-size:560px auto}
-/* a veil over the pattern so the wordmark and the offer stay readable on top of it */
-.cover::before{content:'';position:absolute;inset:0;border-radius:inherit;background:rgba(255,250,253,.58);pointer-events:none}
-.cover>*{position:relative;z-index:1}
+.cover{align-items:flex-start;text-align:left}
 .wordmark{font-family:'Klickclack Swash','Great Vibes',cursive;font-weight:400;font-size:clamp(58px,9.5vw,124px);color:var(--rasp);line-height:1.12;text-shadow:0 4px 30px rgba(247,205,235,.6)}
 .cover-tag{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(16px,2.2vw,24px);color:var(--deep);margin-top:18px;letter-spacing:.02em}
 .cover-sub{font-size:clamp(15px,1.8vw,19px);color:var(--ink);opacity:.8;margin-top:10px;letter-spacing:.04em}
@@ -540,6 +539,7 @@ async function unlock(pw){
   deck.innerHTML=html;
   deck.classList.add('on');
   document.getElementById('gate').style.display='none';
+  document.body.classList.add('unlocked');   // swaps the stripe wallpaper for the pattern
   document.body.style.overflow='';
   buildNav();
   try{sessionStorage.setItem('mm_pd','1');}catch(e){}
