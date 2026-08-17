@@ -91,9 +91,9 @@ body::before{content:'';position:fixed;inset:0;background:rgba(255,250,253,.53);
 /* cover: copy left, portrait photo right */
 .cover-split{display:flex;gap:34px;align-items:center;width:100%;margin-top:24px}
 .cover-split .cover-copy{flex:1;min-width:0}
-.cover-split img{width:17%;height:30vh;object-fit:cover;object-position:32% 62%;border-radius:14px;display:block;flex:none;
-  box-shadow:0 8px 24px rgba(199,96,144,.16)}
-@media(max-width:760px){.cover-split{flex-direction:column;gap:18px;align-items:flex-start}.cover-split img{width:52%;height:26vh}}
+.cover-split img{width:25.5%;height:45vh;object-fit:cover;object-position:32% 62%;border-radius:14px;display:block;flex:none;
+  transform:translateY(-100px);box-shadow:0 8px 24px rgba(199,96,144,.16)}
+@media(max-width:760px){.cover-split{flex-direction:column;gap:18px;align-items:flex-start}.cover-split img{width:52%;height:26vh;transform:none}}
 @media print{.cover-split img{height:6cm}}
 
 /* columns / cards */
