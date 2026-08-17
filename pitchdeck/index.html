@@ -516,12 +516,28 @@ function buildNav(){
     dots.appendChild(b);
   });
   const dotEls=[...dots.children];
+  // a slide can carry its own wallpaper with data-bg; anything else falls back to the
+  // deck default. the image is preloaded first, so a missing file changes nothing.
+  const bgCache={};
+  let wantBg=null;                                   // the wallpaper the current slide asks for
+  function setBg(url){
+    wantBg=url||null;
+    const token=wantBg;                              // a later slide's request always wins
+    const paint=u=>{ if(wantBg===token) document.body.style.backgroundImage=u?"url('"+u+"')":''; };
+    if(!url||bgCache[url]===false){paint(null);return;}
+    if(bgCache[url]===true){paint(url);return;}
+    const img=new Image();
+    img.onload=()=>{bgCache[url]=true;paint(url);};
+    img.onerror=()=>{bgCache[url]=false;paint(null);};   // file missing: back to the deck default
+    img.src=url;
+  }
   const io=new IntersectionObserver(es=>{
     es.forEach(e=>{
       if(e.isIntersecting){
         const i=slides.indexOf(e.target);
         dotEls.forEach((d,j)=>d.classList.toggle('active',j===i));
         counter.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+        setBg(e.target.dataset.bg);
       }
     });
   },{threshold:.55});
