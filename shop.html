@@ -369,6 +369,62 @@ body::before{
 .cart-section{
   margin-top:20px;
 }
+.variant-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:16px;
+}
+.variant-opt{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:3px;
+  padding:13px 12px 12px;
+  background:#fffcfe;
+  border:1px dotted #f7cdeb;
+  border-radius:8px;
+  cursor:pointer;
+  text-align:left;
+  transition:all .25s;
+}
+.variant-opt:hover{border-color:#c76090;transform:translateY(-1px)}
+.variant-opt.selected{
+  border:1px solid #c76090;
+  background:#fff7fb;
+  box-shadow:0 3px 14px rgba(199,96,144,.14);
+}
+.variant-name{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.variant-meta{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.4;
+}
+.variant-price{
+  font-size:17px;
+  color:#4a3a3a;
+  margin-top:3px;
+}
+.variant-flag{
+  position:absolute;
+  top:-8px;right:8px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#fff;
+  background:#c76090;
+  padding:3px 7px;
+  border-radius:20px;
+}
 .qty-row{
   display:flex;
   align-items:center;
@@ -1365,11 +1421,11 @@ div[style*="position: fixed"][style*="vinoshipper"],
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritzer</h2>
-      <div class="pd-sub">napa valley cabernet · four-pack · 250ml each</div>
+      <div class="pd-sub">napa valley cabernet · 250ml cans</div>
 
       <div class="price-row">
-        <span class="price">$28</span>
-        <span class="price-note">four-pack</span>
+        <span class="price" id="priceMain">$28</span>
+        <span class="price-note" id="priceNote">four-pack · 4 cans</span>
       </div>
 
       <div class="product-divider"></div>
@@ -1390,6 +1446,19 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="product-divider"></div>
 
       <div class="cart-section">
+        <div class="variant-row">
+          <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
+            <span class="variant-name">four-pack</span>
+            <span class="variant-meta">4 cans · 250ml each</span>
+            <span class="variant-price">$28</span>
+          </button>
+          <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
+            <span class="variant-flag">best value</span>
+            <span class="variant-name">case</span>
+            <span class="variant-meta">24 cans · six four-packs</span>
+            <span class="variant-price">$144</span>
+          </button>
+        </div>
         <div class="qty-row">
           <span class="qty-label">quantity</span>
           <div class="qty-control">
@@ -1644,24 +1713,56 @@ div[style*="position: fixed"][style*="vinoshipper"],
 </div>
 
 <script>
+// ═══ VARIANTS ═══
+const VARIANTS = {
+  fourpack: {
+    id: 'fourpack',
+    name: 'Red Wine Spritzer',
+    variant: 'four-pack · 250ml each',
+    note: 'four-pack · 4 cans',
+    price: 28
+  },
+  case: {
+    id: 'case',
+    name: 'Red Wine Spritzer',
+    variant: 'case of 24 · six four-packs',
+    note: 'case of 24 · $24 per four-pack',
+    price: 144
+  }
+};
+const VARIANT_IDS = ['fourpack', 'case'];
+const PRODUCT_IMG = 'IMG_3906.jpg';
+let selectedVariant = 'fourpack';
+
+function selectVariant(id) {
+  if (!VARIANTS[id]) return;
+  selectedVariant = id;
+  VARIANT_IDS.forEach(v => {
+    document.getElementById('variant-' + v).classList.toggle('selected', v === id);
+  });
+  document.getElementById('priceMain').textContent = '$' + VARIANTS[id].price;
+  document.getElementById('priceNote').textContent = VARIANTS[id].note;
+  document.getElementById('qty').value = 1;
+  syncAddBtn();
+}
+
 // ═══ QUANTITY SELECTOR ═══
+function syncAddBtn() {
+  const v = parseInt(document.getElementById('qty').value);
+  document.getElementById('addBtn').textContent =
+    'add to cart — $' + (v * VARIANTS[selectedVariant].price);
+}
 function updateQty(delta) {
   const el = document.getElementById('qty');
   let v = parseInt(el.value) + delta;
   if (v < 1) v = 1;
   if (v > 12) v = 12;
   el.value = v;
-  document.getElementById('addBtn').textContent = 'add to cart — $' + (v * PRODUCT.price);
+  syncAddBtn();
 }
 
 // ═══ CART STATE (localStorage) ═══
 const CART_KEY = 'maisonMaxineCart';
-const PRODUCT = {
-  name: 'Red Wine Spritzer',
-  variant: 'four-pack · 250ml each',
-  price: 28,
-  img: 'IMG_3906.jpg'
-};
 
 // ═══ "WHERE DID YOU FIND US?" SURVEY (waives shipping) ═══
 const SHIPPING_FLAT = 5;
@@ -1689,9 +1790,25 @@ function surveyLabel(id) {
   return o ? o.label : '';
 }
 
+const EMPTY_CART = { fourpack: 0, case: 0 };
 function getCart() {
-  try { return JSON.parse(localStorage.getItem(CART_KEY)) || { qty: 0 }; }
-  catch(e) { return { qty: 0 }; }
+  let raw;
+  try { raw = JSON.parse(localStorage.getItem(CART_KEY)); } catch(e) {}
+  if (!raw || typeof raw !== 'object') return Object.assign({}, EMPTY_CART);
+  // carts saved before the case sku existed stored a bare four-pack qty
+  if (raw.qty !== undefined && raw.fourpack === undefined && raw.case === undefined) {
+    return { fourpack: parseInt(raw.qty) || 0, case: 0 };
+  }
+  return {
+    fourpack: parseInt(raw.fourpack) || 0,
+    case: parseInt(raw.case) || 0
+  };
+}
+function cartCount(cart) {
+  return VARIANT_IDS.reduce((n, id) => n + cart[id], 0);
+}
+function cartSubtotal(cart) {
+  return VARIANT_IDS.reduce((n, id) => n + cart[id] * VARIANTS[id].price, 0);
 }
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
@@ -1708,7 +1825,7 @@ const toastMessages = [
 function addToCart() {
   const qty = parseInt(document.getElementById('qty').value);
   const cart = getCart();
-  cart.qty += qty;
+  cart[selectedVariant] += qty;
   saveCart(cart);
   // toast
   const msg = toastMessages[Math.floor(Math.random() * toastMessages.length)];
@@ -1728,12 +1845,12 @@ function showToast(msg) {
 
 // ═══ FLOATING CART ICON ═══
 function updateCartUI() {
-  const cart = getCart();
+  const n = cartCount(getCart());
   const btn = document.getElementById('cartFloat');
   const count = document.getElementById('cartCount');
-  if (cart.qty > 0) {
+  if (n > 0) {
     btn.classList.add('visible');
-    count.textContent = cart.qty;
+    count.textContent = n;
   } else {
     btn.classList.remove('visible');
   }
@@ -1756,35 +1873,37 @@ function renderDrawer() {
   const body = document.getElementById('drawerBody');
   const footer = document.getElementById('drawerFooter');
 
-  if (cart.qty <= 0) {
+  if (cartCount(cart) <= 0) {
     body.innerHTML = '<div class="drawer-empty"><div class="drawer-empty-icon">✦</div><div class="drawer-empty-text">nothing here yet...<br>but we have a feeling that\'s about to change ✦</div></div>';
     footer.innerHTML = '<a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>';
     return;
   }
 
-  const subtotal = cart.qty * PRODUCT.price;
+  const subtotal = cartSubtotal(cart);
   const foundUs = getSurvey();
   const shipping = foundUs ? 0 : SHIPPING_FLAT; // waived once they tell us where they found us
   const total = subtotal + shipping;
 
-  body.innerHTML = `
+  body.innerHTML = VARIANT_IDS.filter(id => cart[id] > 0).map(id => {
+    const v = VARIANTS[id];
+    return `
     <div class="drawer-item">
-      <img class="drawer-item-img" src="${PRODUCT.img}" alt="${PRODUCT.name}">
+      <img class="drawer-item-img" src="${PRODUCT_IMG}" alt="${v.name}">
       <div class="drawer-item-info">
-        <div class="drawer-item-name">${PRODUCT.name}</div>
-        <div class="drawer-item-variant">${PRODUCT.variant}</div>
-        <div class="drawer-item-price">$${subtotal}</div>
+        <div class="drawer-item-name">${v.name}</div>
+        <div class="drawer-item-variant">${v.variant}</div>
+        <div class="drawer-item-price">$${cart[id] * v.price}</div>
         <div style="margin-top:8px">
           <div class="drawer-qty">
-            <button onclick="changeCartQty(-1)">−</button>
-            <span>${cart.qty}</span>
-            <button onclick="changeCartQty(1)">+</button>
+            <button onclick="changeCartQty('${id}', -1)">−</button>
+            <span>${cart[id]}</span>
+            <button onclick="changeCartQty('${id}', 1)">+</button>
           </div>
         </div>
-        <button class="drawer-remove" onclick="clearCart()">remove</button>
+        <button class="drawer-remove" onclick="removeLine('${id}')">remove</button>
       </div>
-    </div>
-  `;
+    </div>`;
+  }).join('');
 
   const shippingHtml = foundUs
     ? `<span><span class="drawer-shipping-strike">$${SHIPPING_FLAT}</span> <span class="drawer-shipping-free">free ✦</span></span>`
@@ -1813,17 +1932,24 @@ function renderDrawer() {
   `;
 }
 
-function changeCartQty(delta) {
+function changeCartQty(id, delta) {
   const cart = getCart();
-  cart.qty += delta;
-  if (cart.qty < 0) cart.qty = 0;
-  if (cart.qty > 24) cart.qty = 24;
+  cart[id] += delta;
+  if (cart[id] < 0) cart[id] = 0;
+  if (cart[id] > 24) cart[id] = 24;
+  saveCart(cart);
+  renderDrawer();
+}
+
+function removeLine(id) {
+  const cart = getCart();
+  cart[id] = 0;
   saveCart(cart);
   renderDrawer();
 }
 
 function clearCart() {
-  saveCart({ qty: 0 });
+  saveCart(Object.assign({}, EMPTY_CART));
   renderDrawer();
 }
 
