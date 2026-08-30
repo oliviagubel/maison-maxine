@@ -918,6 +918,80 @@ body::before{
   margin-bottom:6px;
 }
 .drawer-shipping-free{color:#c76090}
+.drawer-shipping-strike{text-decoration:line-through;opacity:.5}
+.drawer-survey{
+  margin-top:16px;
+  padding:14px;
+  border:1px dashed #f7cdeb;
+  border-radius:8px;
+  background:linear-gradient(135deg,#fffcfe,#fef8fb);
+}
+.drawer-survey-q{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#c76090;
+  text-align:center;
+}
+.drawer-survey-sub{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  text-align:center;
+  margin-top:5px;
+}
+.drawer-survey-opts{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:12px;
+}
+.drawer-survey-opt{
+  padding:9px 6px;
+  background:#edf6d3;
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:13px;
+  font-style:italic;
+  color:#5a3a4a;
+  transition:all .25s;
+}
+.drawer-survey-opt:hover{
+  background:#f7cdeb;
+  transform:translateY(-1px);
+}
+.drawer-survey-done{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:16px;
+  padding:11px 14px;
+  border:1px solid #c76090;
+  border-radius:8px;
+  background:#fff7fb;
+}
+.drawer-survey-done-text{
+  font-size:12px;
+  font-style:italic;
+  color:#5a3a4a;
+  line-height:1.5;
+}
+.drawer-survey-change{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:#c76090;
+  background:none;
+  border:none;
+  white-space:nowrap;
+  opacity:.7;
+  transition:opacity .2s;
+}
+.drawer-survey-change:hover{opacity:1}
 .drawer-total{
   display:flex;
   justify-content:space-between;
@@ -1294,7 +1368,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="pd-sub">napa valley cabernet · four-pack · 250ml each</div>
 
       <div class="price-row">
-        <span class="price">$34</span>
+        <span class="price">$28</span>
         <span class="price-note">four-pack</span>
       </div>
 
@@ -1324,8 +1398,8 @@ div[style*="position: fixed"][style*="vinoshipper"],
             <button class="qty-btn" onclick="updateQty(1)">+</button>
           </div>
         </div>
-        <button class="add-btn" id="addBtn">add to cart — $34</button>
-        <div class="shipping-note">free shipping through april — happy launch ✦</div>
+        <button class="add-btn" id="addBtn">add to cart — $28</button>
+        <div class="shipping-note">$5 flat shipping — free when you tell us where you found us ✦</div>
       </div>
     </div>
 
@@ -1577,7 +1651,7 @@ function updateQty(delta) {
   if (v < 1) v = 1;
   if (v > 12) v = 12;
   el.value = v;
-  document.getElementById('addBtn').textContent = 'add to cart — $' + (v * 34);
+  document.getElementById('addBtn').textContent = 'add to cart — $' + (v * PRODUCT.price);
 }
 
 // ═══ CART STATE (localStorage) ═══
@@ -1585,9 +1659,35 @@ const CART_KEY = 'maisonMaxineCart';
 const PRODUCT = {
   name: 'Red Wine Spritzer',
   variant: 'four-pack · 250ml each',
-  price: 34,
+  price: 28,
   img: 'IMG_3906.jpg'
 };
+
+// ═══ "WHERE DID YOU FIND US?" SURVEY (waives shipping) ═══
+const SHIPPING_FLAT = 5;
+const SURVEY_KEY = 'maisonMaxineFoundUs';
+const SURVEY_OPTIONS = [
+  { id: 'event',         label: 'at an event' },
+  { id: 'store',         label: 'in a store' },
+  { id: 'instagram',     label: 'instagram' },
+  { id: 'word-of-mouth', label: 'word of mouth' }
+];
+function getSurvey() {
+  try { return localStorage.getItem(SURVEY_KEY) || ''; } catch(e) { return ''; }
+}
+function setSurvey(id) {
+  try { localStorage.setItem(SURVEY_KEY, id); } catch(e) {}
+  renderDrawer();
+  showToast('thank you — shipping\'s on us ✦');
+}
+function clearSurvey() {
+  try { localStorage.removeItem(SURVEY_KEY); } catch(e) {}
+  renderDrawer();
+}
+function surveyLabel(id) {
+  const o = SURVEY_OPTIONS.find(o => o.id === id);
+  return o ? o.label : '';
+}
 
 function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY)) || { qty: 0 }; }
@@ -1663,7 +1763,8 @@ function renderDrawer() {
   }
 
   const subtotal = cart.qty * PRODUCT.price;
-  const shipping = 0; // free shipping through april to celebrate launch
+  const foundUs = getSurvey();
+  const shipping = foundUs ? 0 : SHIPPING_FLAT; // waived once they tell us where they found us
   const total = subtotal + shipping;
 
   body.innerHTML = `
@@ -1685,12 +1786,28 @@ function renderDrawer() {
     </div>
   `;
 
-  const shippingHtml = '<span class="drawer-shipping-free">free through april ✦</span>';
+  const shippingHtml = foundUs
+    ? `<span><span class="drawer-shipping-strike">$${SHIPPING_FLAT}</span> <span class="drawer-shipping-free">free ✦</span></span>`
+    : `<span>$${SHIPPING_FLAT}</span>`;
+
+  const surveyHtml = foundUs
+    ? `<div class="drawer-survey-done">
+        <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — shipping's on us ✦</div>
+        <button class="drawer-survey-change" onclick="clearSurvey()">change</button>
+      </div>`
+    : `<div class="drawer-survey">
+        <div class="drawer-survey-q">where did you find us?</div>
+        <div class="drawer-survey-sub">tell us and we'll cover the $${SHIPPING_FLAT} shipping ✦</div>
+        <div class="drawer-survey-opts">
+          ${SURVEY_OPTIONS.map(o => `<button class="drawer-survey-opt" onclick="setSurvey('${o.id}')">${o.label}</button>`).join('')}
+        </div>
+      </div>`;
 
   footer.innerHTML = `
     <div class="drawer-subtotal"><span>subtotal</span><span>$${subtotal}</span></div>
     <div class="drawer-shipping"><span>shipping</span>${shippingHtml}</div>
     <div class="drawer-total"><span>total</span><span>$${total}</span></div>
+    ${surveyHtml}
     <button class="drawer-checkout" onclick="checkout()">checkout with vinoshipper</button>
     <a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>
   `;
