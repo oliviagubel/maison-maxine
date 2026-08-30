@@ -413,6 +413,17 @@ body::before{
   color:#4a3a3a;
   margin-top:3px;
 }
+.variant-pitch{
+  display:none;
+  margin:-6px 0 16px;
+  padding:9px 12px;
+  border-left:2px solid #f7cdeb;
+  font-size:13px;
+  font-style:italic;
+  color:#6a4a5a;
+  line-height:1.6;
+}
+.variant-pitch.show{display:block}
 .variant-flag{
   position:absolute;
   top:-8px;right:8px;
@@ -1459,6 +1470,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
             <span class="variant-price">$144</span>
           </button>
         </div>
+        <div class="variant-pitch" id="variantPitch"></div>
         <div class="qty-row">
           <span class="qty-label">quantity</span>
           <div class="qty-control">
@@ -1727,6 +1739,7 @@ const VARIANTS = {
     name: 'Red Wine Spritzer',
     variant: 'case of 24 · six four-packs',
     note: 'case of 24 · $24 per four-pack',
+    pitch: 'six four-packs — and never buy a bottle of wine for a dinner party gift ever again ✦',
     price: 144
   }
 };
@@ -1742,6 +1755,9 @@ function selectVariant(id) {
   });
   document.getElementById('priceMain').textContent = '$' + VARIANTS[id].price;
   document.getElementById('priceNote').textContent = VARIANTS[id].note;
+  const pitch = document.getElementById('variantPitch');
+  pitch.textContent = VARIANTS[id].pitch || '';
+  pitch.classList.toggle('show', !!VARIANTS[id].pitch);
   document.getElementById('qty').value = 1;
   syncAddBtn();
 }
