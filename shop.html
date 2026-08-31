@@ -773,6 +773,7 @@ body::before{
   color:#c76090;
   box-shadow:0 8px 30px rgba(199,96,144,.15);
   z-index:10004;
+  pointer-events:none;
   transform:translateY(20px);
   opacity:0;
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
@@ -1828,6 +1829,9 @@ function cartSubtotal(cart) {
 }
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  // a checkout already in flight was built from the old quantities
+  checkoutRun++;
+  checkingOut = false;
   updateCartUI();
 }
 
@@ -1938,6 +1942,11 @@ function renderDrawer() {
     <button class="drawer-checkout" onclick="checkout()">checkout with vinoshipper</button>
     <a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>
   `;
+
+  // the footer is rebuilt on every survey answer and qty change, which hands
+  // us a brand-new checkout button. without this it comes back looking
+  // clickable while the guard below still says a checkout is running.
+  syncCheckoutButton();
 }
 
 function changeCartQty(id, delta) {
@@ -1972,6 +1981,20 @@ const VS_PRODUCT_PAGE = {
 };
 
 let checkingOut = false;
+let checkoutRun = 0;
+
+function syncCheckoutButton() {
+  const b = document.querySelector('.drawer-checkout');
+  if (!b) return;
+  b.disabled = checkingOut;
+  b.textContent = checkingOut ? 'taking you to checkout…' : 'checkout with vinoshipper';
+}
+
+// coming back from vinoshipper can restore this page from the browser's
+// cache with the old in-flight state, and a stuck guard means a dead button
+window.addEventListener('pageshow', function(e) {
+  if (e.persisted) { checkingOut = false; syncCheckoutButton(); }
+});
 
 function vsLine(V, variantId) {
   const contents = (V.getCart() && V.getCart().contents) || [];
@@ -1983,7 +2006,6 @@ async function checkout() {
   if (checkingOut || cartCount(cart) <= 0) return;
 
   const V = window.Vinoshipper;
-  const btn = document.querySelector('.drawer-checkout');
 
   // injector blocked or still loading — send them to the product page
   // itself rather than the whole shop list
@@ -1994,9 +2016,14 @@ async function checkout() {
     return;
   }
 
+  const myRun = ++checkoutRun;
   checkingOut = true;
-  const label = btn ? btn.textContent : '';
-  if (btn) { btn.disabled = true; btn.textContent = 'taking you to checkout…'; }
+  syncCheckoutButton();
+
+  // never let the button stick busy if a call hangs
+  const failsafe = setTimeout(function() {
+    if (checkoutRun === myRun) { checkingOut = false; syncCheckoutButton(); }
+  }, 15000);
 
   try {
     for (const id of VARIANT_IDS) {
@@ -2028,13 +2055,19 @@ async function checkout() {
       await new Promise(r => setTimeout(r, 200));
     }
 
+    // quantities changed while we were working — that run is stale, and a
+    // newer one is already on its way
+    if (checkoutRun !== myRun) return;
+
     const dest = (V.getCart() && V.getCart().checkoutUrl)
       || 'https://vinoshipper.com/cart?cartId=' + encodeURIComponent(V._cartId || '');
     window.location.href = dest;
   } catch (e) {
     checkingOut = false;
-    if (btn) { btn.disabled = false; btn.textContent = label; }
+    syncCheckoutButton();
     showToast('couldn\'t reach checkout — try once more? ✦');
+  } finally {
+    clearTimeout(failsafe);
   }
 }
 
