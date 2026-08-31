@@ -772,7 +772,7 @@ body::before{
   font-style:italic;
   color:#c76090;
   box-shadow:0 8px 30px rgba(199,96,144,.15);
-  z-index:10001;
+  z-index:10004;
   transform:translateY(20px);
   opacity:0;
   transition:all .4s cubic-bezier(.34,1.56,.64,1);
@@ -1832,20 +1832,12 @@ function saveCart(cart) {
 }
 
 // ═══ ADD TO CART ═══
-const toastMessages = [
-  'added to your cart, gorgeous ✦',
-  'excellent taste, as always ✦',
-  'great choice — your cart just got better ✦',
-  'consider it yours ✦'
-];
 function addToCart() {
   const qty = parseInt(document.getElementById('qty').value);
   const cart = getCart();
   cart[selectedVariant] += qty;
   saveCart(cart);
-  // toast
-  const msg = toastMessages[Math.floor(Math.random() * toastMessages.length)];
-  showToast(msg);
+  openDrawer();
 }
 document.getElementById('addBtn').addEventListener('click', addToCart);
 
