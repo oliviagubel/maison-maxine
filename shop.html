@@ -1961,14 +1961,81 @@ function clearCart() {
   renderDrawer();
 }
 
-function checkout() {
-  const a = document.createElement('a');
-  a.href = 'https://vinoshipper.com/shop/maison_maxine';
-  a.target = '_blank';
-  a.rel = 'noopener';
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
+// ═══ CHECKOUT ═══
+// the vinoshipper injector (loaded at the foot of this page) gives us the
+// real cart. push what's in our drawer into it and hand the customer over
+// already loaded, instead of dropping them on the product list to shop again.
+const VS_PRODUCT_ID = { fourpack: 185926, case: 200144 };
+const VS_PRODUCT_PAGE = {
+  fourpack: 'https://vinoshipper.com/shop/maison_maxine/red_wine_spritzer_185926',
+  case: 'https://vinoshipper.com/shop/maison_maxine/24_pack_of_spritzes_200144'
+};
+
+let checkingOut = false;
+
+function vsLine(V, variantId) {
+  const contents = (V.getCart() && V.getCart().contents) || [];
+  return contents.find(i => i.id === VS_PRODUCT_ID[variantId]);
+}
+
+async function checkout() {
+  const cart = getCart();
+  if (checkingOut || cartCount(cart) <= 0) return;
+
+  const V = window.Vinoshipper;
+  const btn = document.querySelector('.drawer-checkout');
+
+  // injector blocked or still loading — send them to the product page
+  // itself rather than the whole shop list
+  if (!V || !V.isConfigured || !V.isConfigured()) {
+    window.location.href = (cart.case > 0 && cart.fourpack === 0)
+      ? VS_PRODUCT_PAGE.case
+      : VS_PRODUCT_PAGE.fourpack;
+    return;
+  }
+
+  checkingOut = true;
+  const label = btn ? btn.textContent : '';
+  if (btn) { btn.disabled = true; btn.textContent = 'taking you to checkout…'; }
+
+  try {
+    for (const id of VARIANT_IDS) {
+      const line = vsLine(V, id);
+      try {
+        if (line) {
+          // set the quantity rather than adding to it, so coming back and
+          // checking out a second time doesn't stack a duplicate order
+          await V.onProductAdd(VS_PRODUCT_ID[id], cart[id],
+            { update: true, rowIdentifier: line.rowIdentifier });
+        } else if (cart[id] > 0) {
+          await V.onProductAdd(VS_PRODUCT_ID[id], cart[id]);
+        }
+      } catch (e) {
+        // we hide the injector's own cart widget, so its focus handling
+        // throws after the write has already landed. don't trust the call —
+        // the poll below checks the cart itself.
+      }
+    }
+
+    // the injector refreshes its cart asynchronously — wait for it to agree
+    // with us so nobody lands on a half-filled cart
+    for (let i = 0; i < 25; i++) {
+      const settled = VARIANT_IDS.every(id => {
+        const line = vsLine(V, id);
+        return cart[id] > 0 ? (line && line.qty === cart[id]) : !line;
+      });
+      if (settled) break;
+      await new Promise(r => setTimeout(r, 200));
+    }
+
+    const dest = (V.getCart() && V.getCart().checkoutUrl)
+      || 'https://vinoshipper.com/cart?cartId=' + encodeURIComponent(V._cartId || '');
+    window.location.href = dest;
+  } catch (e) {
+    checkingOut = false;
+    if (btn) { btn.disabled = false; btn.textContent = label; }
+    showToast('couldn\'t reach checkout — try once more? ✦');
+  }
 }
 
 // ═══ MOBILE CART LINK ═══
