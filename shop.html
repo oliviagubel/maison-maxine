@@ -1060,6 +1060,38 @@ body::before{
   transition:opacity .2s;
 }
 .drawer-survey-change:hover{opacity:1}
+.drawer-coupon{
+  margin-top:8px;
+  padding:11px 14px;
+  border:1px dashed #c76090;
+  border-radius:8px;
+  background:#fffcfe;
+  text-align:center;
+}
+.drawer-coupon-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+.drawer-coupon-code{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:15px;
+  letter-spacing:.14em;
+  color:#5a3a4a;
+  margin-top:6px;
+  cursor:pointer;
+  transition:opacity .2s;
+}
+.drawer-coupon-code:hover{opacity:.6}
+.drawer-coupon-note{
+  font-size:11px;
+  font-style:italic;
+  color:#8a6a7a;
+  margin-top:5px;
+  line-height:1.45;
+}
 .drawer-total{
   display:flex;
   justify-content:space-between;
@@ -1784,6 +1816,11 @@ const CART_KEY = 'maisonMaxineCart';
 // ═══ "WHERE DID YOU FIND US?" SURVEY (discounts shipping) ═══
 const SHIPPING_FLAT = 7;
 const SHIPPING_FOUND_US = 4; // discounted rate once they tell us where they found us
+// vinoshipper holds the money, not this page: the $7 flat rate and this
+// coupon both live in the producer admin under Products > Discounts & Fees.
+// the coupon has to knock shipping from $7 down to $4 there, and its code has
+// to match this string, or the drawer is quoting a price checkout won't honor.
+const SHIPPING_COUPON = 'FOUNDUS';
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
   { id: 'event',         label: 'at an event' },
@@ -1806,6 +1843,15 @@ function clearSurvey() {
 function surveyLabel(id) {
   const o = SURVEY_OPTIONS.find(o => o.id === id);
   return o ? o.label : '';
+}
+// best effort — clipboard is blocked outside a user gesture and over plain
+// http, and the code is on screen to be typed either way
+function copyCoupon(announce) {
+  try {
+    navigator.clipboard.writeText(SHIPPING_COUPON).then(function() {
+      if (announce) showToast('code copied — paste it at checkout ✦');
+    }, function() {});
+  } catch(e) {}
 }
 
 const EMPTY_CART = { fourpack: 0, case: 0 };
@@ -1926,6 +1972,11 @@ function renderDrawer() {
     ? `<div class="drawer-survey-done">
         <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — shipping's just $${SHIPPING_FOUND_US} ✦</div>
         <button class="drawer-survey-change" onclick="clearSurvey()">change</button>
+      </div>
+      <div class="drawer-coupon">
+        <div class="drawer-coupon-label">your shipping code</div>
+        <div class="drawer-coupon-code" onclick="copyCoupon(true)" title="tap to copy">${SHIPPING_COUPON}</div>
+        <div class="drawer-coupon-note">enter it at checkout to drop shipping to $${SHIPPING_FOUND_US} — we'll copy it for you ✦</div>
       </div>`
     : `<div class="drawer-survey">
         <div class="drawer-survey-q">where did you find us?</div>
@@ -2005,6 +2056,11 @@ function vsLine(V, variantId) {
 async function checkout() {
   const cart = getCart();
   if (checkingOut || cartCount(cart) <= 0) return;
+
+  // they earned the discount here, but vinoshipper only applies it against a
+  // code on its own checkout page — put it on their clipboard on the way out.
+  // ahead of the fallback below, so it lands whichever way they leave.
+  if (getSurvey()) copyCoupon(false);
 
   const V = window.Vinoshipper;
 
