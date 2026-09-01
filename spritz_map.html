@@ -16,7 +16,13 @@
   .brand-toggle { display: flex; align-items: center; gap: 8px; padding: 4px 0; cursor: pointer; font-size: 13px; user-select: none; }
   .brand-toggle input { margin: 0; }
   .swatch { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: middle; }
-  .brand-count { color: #888; font-size: 11px; margin-left: auto; }
+  .brand-count { color: #888; font-size: 11px; margin-left: auto; min-width: 22px; text-align: right; }
+  .brand-only { font-size: 10px; color: #C76090; background: #fff; border: 1px solid #e3c3d3;
+                border-radius: 3px; padding: 0 5px; margin-left: 6px; cursor: pointer; line-height: 16px; }
+  .brand-only:hover { background: #C76090; color: #fff; border-color: #C76090; }
+  #brand-reset { display: block; width: 100%; margin-top: 6px; padding: 4px; font-size: 11px;
+                 color: #666; background: #fff; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; }
+  #brand-reset:hover { background: #f0f0f0; }
   #region-toggle { display: flex; gap: 6px; margin-bottom: 10px; }
   #region-toggle button { flex: 1; padding: 6px 4px; font-size: 12px; border: 1px solid #ccc; background: #fff; border-radius: 4px; cursor: pointer; }
   #region-toggle button.active { background: #C76090; color: #fff; border-color: #C76090; }
@@ -97,13 +103,49 @@ Object.keys(brandCounts).sort().forEach(brand => {
   const color = (items.find(it => it.store.brand === brand) || {}).store?.color || '#999';
   const label = document.createElement('label');
   label.className = 'brand-toggle';
-  label.innerHTML = `<input type="checkbox" checked data-brand="${brand}"> <span class="swatch" style="background:${color}"></span> ${brand} <span class="brand-count">${brandCounts[brand]}</span>`;
+  label.innerHTML = `<input type="checkbox" checked data-brand="${brand}"> <span class="swatch" style="background:${color}"></span> ${brand} <span class="brand-count">${brandCounts[brand]}</span><button type="button" class="brand-only">only</button>`;
   label.querySelector('input').addEventListener('change', e => {
     if (e.target.checked) enabledBrands.add(brand); else enabledBrands.delete(brand);
     render();
   });
+  // a small brand is invisible among 600 pins at the default zoom. "only"
+  // clears the rest and flies the map to just this brand's stores.
+  label.querySelector('.brand-only').addEventListener('click', e => {
+    e.preventDefault();   // we sit inside a <label>, so a bare click toggles the box
+    e.stopPropagation();
+    setBrands([brand]);
+    setRegion('all');
+    filterEl.value = '';
+    render();
+    fitToRegion();
+  });
   brandsEl.appendChild(label);
 });
+
+const resetBtn = document.createElement('button');
+resetBtn.id = 'brand-reset';
+resetBtn.type = 'button';
+resetBtn.textContent = 'show all brands';
+resetBtn.addEventListener('click', () => {
+  setBrands(Object.keys(brandCounts));
+  render();
+  fitToRegion();
+});
+brandsEl.appendChild(resetBtn);
+
+function setBrands(list) {
+  enabledBrands.clear();
+  list.forEach(b => enabledBrands.add(b));
+  brandsEl.querySelectorAll('input[data-brand]').forEach(i => {
+    i.checked = enabledBrands.has(i.dataset.brand);
+  });
+}
+
+function setRegion(region) {
+  currentRegion = region;
+  document.querySelectorAll('#region-toggle button').forEach(b =>
+    b.classList.toggle('active', b.dataset.region === region));
+}
 
 const list = document.getElementById('list');
 const countEl = document.getElementById('count');
