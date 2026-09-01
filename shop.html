@@ -985,8 +985,6 @@ body::before{
   color:#8a6a7a;
   margin-bottom:6px;
 }
-.drawer-shipping-free{color:#c76090}
-.drawer-shipping-strike{text-decoration:line-through;opacity:.5}
 .drawer-survey{
   margin-top:16px;
   padding:14px;
@@ -1095,6 +1093,24 @@ body::before{
   top:50%;
   transform:translateY(-50%);
   opacity:.6;
+}
+.drawer-checkout.is-locked{
+  background:#e8c3d6;
+}
+.drawer-checkout.is-locked:hover{
+  background:#dcb0c8;
+  box-shadow:none;
+}
+.drawer-survey.is-nudged{
+  border-color:#c76090;
+  animation:surveyNudge .5s ease;
+}
+@keyframes surveyNudge{
+  0%,100%{transform:translateX(0)}
+  20%{transform:translateX(-4px)}
+  40%{transform:translateX(4px)}
+  60%{transform:translateX(-3px)}
+  80%{transform:translateX(3px)}
 }
 .drawer-keep{
   display:block;
@@ -1481,7 +1497,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
           </div>
         </div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
-        <div class="shipping-note">$5 flat shipping — free when you tell us where you found us ✦</div>
+        <div class="shipping-note">$4 flat shipping — one quick question before checkout ✦</div>
       </div>
     </div>
 
@@ -1781,8 +1797,8 @@ function updateQty(delta) {
 // ═══ CART STATE (localStorage) ═══
 const CART_KEY = 'maisonMaxineCart';
 
-// ═══ "WHERE DID YOU FIND US?" SURVEY (waives shipping) ═══
-const SHIPPING_FLAT = 5;
+// ═══ "WHERE DID YOU FIND US?" SURVEY (required before checkout) ═══
+const SHIPPING_FLAT = 4;
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
   { id: 'event',         label: 'at an event' },
@@ -1796,7 +1812,7 @@ function getSurvey() {
 function setSurvey(id) {
   try { localStorage.setItem(SURVEY_KEY, id); } catch(e) {}
   renderDrawer();
-  showToast('thank you — shipping\'s on us ✦');
+  showToast('thank you — checkout\'s open ✦');
 }
 function clearSurvey() {
   try { localStorage.removeItem(SURVEY_KEY); } catch(e) {}
@@ -1893,7 +1909,7 @@ function renderDrawer() {
 
   const subtotal = cartSubtotal(cart);
   const foundUs = getSurvey();
-  const shipping = foundUs ? 0 : SHIPPING_FLAT; // waived once they tell us where they found us
+  const shipping = SHIPPING_FLAT; // flat for everyone — the survey gates checkout, it doesn't price it
   const total = subtotal + shipping;
 
   body.innerHTML = VARIANT_IDS.filter(id => cart[id] > 0).map(id => {
@@ -1917,18 +1933,16 @@ function renderDrawer() {
     </div>`;
   }).join('');
 
-  const shippingHtml = foundUs
-    ? `<span><span class="drawer-shipping-strike">$${SHIPPING_FLAT}</span> <span class="drawer-shipping-free">free ✦</span></span>`
-    : `<span>$${SHIPPING_FLAT}</span>`;
+  const shippingHtml = `<span>$${SHIPPING_FLAT} flat</span>`;
 
   const surveyHtml = foundUs
     ? `<div class="drawer-survey-done">
-        <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — shipping's on us ✦</div>
+        <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — thank you ✦</div>
         <button class="drawer-survey-change" onclick="clearSurvey()">change</button>
       </div>`
-    : `<div class="drawer-survey">
-        <div class="drawer-survey-q">where did you find us?</div>
-        <div class="drawer-survey-sub">tell us and we'll cover the $${SHIPPING_FLAT} shipping ✦</div>
+    : `<div class="drawer-survey" id="drawerSurvey">
+        <div class="drawer-survey-q">one last thing</div>
+        <div class="drawer-survey-sub">where did you find us? answer and checkout opens up ✦</div>
         <div class="drawer-survey-opts">
           ${SURVEY_OPTIONS.map(o => `<button class="drawer-survey-opt" onclick="setSurvey('${o.id}')">${o.label}</button>`).join('')}
         </div>
@@ -1986,8 +2000,26 @@ let checkoutRun = 0;
 function syncCheckoutButton() {
   const b = document.querySelector('.drawer-checkout');
   if (!b) return;
+  const locked = !getSurvey();
   b.disabled = checkingOut;
-  b.textContent = checkingOut ? 'taking you to checkout…' : 'checkout with vinoshipper';
+  // locked stays clickable on purpose — the click is what points them at the
+  // question. a disabled button swallows it and just looks broken.
+  b.classList.toggle('is-locked', locked && !checkingOut);
+  b.textContent = checkingOut ? 'taking you to checkout…'
+    : locked ? 'answer above to check out'
+    : 'checkout with vinoshipper';
+}
+
+// they hit checkout without answering — walk them back to the question
+function nudgeSurvey() {
+  const el = document.getElementById('drawerSurvey');
+  if (el) {
+    el.classList.remove('is-nudged');
+    void el.offsetWidth; // restart the animation on a repeat click
+    el.classList.add('is-nudged');
+    el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+  }
+  showToast('one quick question first ✦');
 }
 
 // coming back from vinoshipper can restore this page from the browser's
@@ -2004,6 +2036,9 @@ function vsLine(V, variantId) {
 async function checkout() {
   const cart = getCart();
   if (checkingOut || cartCount(cart) <= 0) return;
+
+  // where-did-you-find-us is required — nobody leaves the drawer without it
+  if (!getSurvey()) { nudgeSurvey(); return; }
 
   const V = window.Vinoshipper;
 
