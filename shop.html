@@ -1481,7 +1481,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
           </div>
         </div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
-        <div class="shipping-note">$5 flat shipping — free when you tell us where you found us ✦</div>
+        <div class="shipping-note">$7 flat shipping — $4 when you tell us where you found us ✦</div>
       </div>
     </div>
 
@@ -1781,8 +1781,9 @@ function updateQty(delta) {
 // ═══ CART STATE (localStorage) ═══
 const CART_KEY = 'maisonMaxineCart';
 
-// ═══ "WHERE DID YOU FIND US?" SURVEY (waives shipping) ═══
-const SHIPPING_FLAT = 5;
+// ═══ "WHERE DID YOU FIND US?" SURVEY (discounts shipping) ═══
+const SHIPPING_FLAT = 7;
+const SHIPPING_FOUND_US = 4; // discounted rate once they tell us where they found us
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
   { id: 'event',         label: 'at an event' },
@@ -1796,7 +1797,7 @@ function getSurvey() {
 function setSurvey(id) {
   try { localStorage.setItem(SURVEY_KEY, id); } catch(e) {}
   renderDrawer();
-  showToast('thank you — shipping\'s on us ✦');
+  showToast('thank you — shipping\'s just $' + SHIPPING_FOUND_US + ' ✦');
 }
 function clearSurvey() {
   try { localStorage.removeItem(SURVEY_KEY); } catch(e) {}
@@ -1893,7 +1894,7 @@ function renderDrawer() {
 
   const subtotal = cartSubtotal(cart);
   const foundUs = getSurvey();
-  const shipping = foundUs ? 0 : SHIPPING_FLAT; // waived once they tell us where they found us
+  const shipping = foundUs ? SHIPPING_FOUND_US : SHIPPING_FLAT; // discounted once they tell us where they found us
   const total = subtotal + shipping;
 
   body.innerHTML = VARIANT_IDS.filter(id => cart[id] > 0).map(id => {
@@ -1918,17 +1919,17 @@ function renderDrawer() {
   }).join('');
 
   const shippingHtml = foundUs
-    ? `<span><span class="drawer-shipping-strike">$${SHIPPING_FLAT}</span> <span class="drawer-shipping-free">free ✦</span></span>`
+    ? `<span><span class="drawer-shipping-strike">$${SHIPPING_FLAT}</span> <span class="drawer-shipping-free">$${SHIPPING_FOUND_US} ✦</span></span>`
     : `<span>$${SHIPPING_FLAT}</span>`;
 
   const surveyHtml = foundUs
     ? `<div class="drawer-survey-done">
-        <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — shipping's on us ✦</div>
+        <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — shipping's just $${SHIPPING_FOUND_US} ✦</div>
         <button class="drawer-survey-change" onclick="clearSurvey()">change</button>
       </div>`
     : `<div class="drawer-survey">
         <div class="drawer-survey-q">where did you find us?</div>
-        <div class="drawer-survey-sub">tell us and we'll cover the $${SHIPPING_FLAT} shipping ✦</div>
+        <div class="drawer-survey-sub">tell us and shipping drops from $${SHIPPING_FLAT} to $${SHIPPING_FOUND_US} ✦</div>
         <div class="drawer-survey-opts">
           ${SURVEY_OPTIONS.map(o => `<button class="drawer-survey-opt" onclick="setSurvey('${o.id}')">${o.label}</button>`).join('')}
         </div>
