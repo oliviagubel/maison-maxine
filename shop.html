@@ -518,6 +518,10 @@ body::before{
   color:#c76090;
   text-transform:uppercase;
 }
+.shipping-note.ship-sub{
+  margin-top:4px;
+  opacity:.65;
+}
 
 /* ═══ INFO GRID ═══ */
 .info-grid{
@@ -984,6 +988,13 @@ body::before{
   font-style:italic;
   color:#8a6a7a;
   margin-bottom:6px;
+}
+.drawer-ship-nudge{
+  font-size:11px;
+  font-style:italic;
+  color:#c76090;
+  opacity:.8;
+  margin:-2px 0 8px;
 }
 .drawer-survey{
   margin-top:16px;
@@ -1497,7 +1508,8 @@ div[style*="position: fixed"][style*="vinoshipper"],
           </div>
         </div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
-        <div class="shipping-note">$4 flat shipping — one quick question before checkout ✦</div>
+        <div class="shipping-note">$7 flat shipping — one four-pack or six, it stays $7 ✦</div>
+        <div class="shipping-note ship-sub">one quick question before checkout ✦</div>
       </div>
     </div>
 
@@ -1798,7 +1810,7 @@ function updateQty(delta) {
 const CART_KEY = 'maisonMaxineCart';
 
 // ═══ "WHERE DID YOU FIND US?" SURVEY (required before checkout) ═══
-const SHIPPING_FLAT = 4;
+const SHIPPING_FLAT = 7;
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
   { id: 'event',         label: 'at an event' },
@@ -1935,6 +1947,11 @@ function renderDrawer() {
 
   const shippingHtml = `<span>$${SHIPPING_FLAT} flat</span>`;
 
+  // flat rate cuts both ways — worth saying out loud while the cart is open
+  const shipNudge = cart.case > 0
+    ? `<div class="drawer-ship-nudge">flat rate — anything else you add ships for the same $${SHIPPING_FLAT} ✦</div>`
+    : `<div class="drawer-ship-nudge">flat rate — another four-pack rides along for the same $${SHIPPING_FLAT} ✦</div>`;
+
   const surveyHtml = foundUs
     ? `<div class="drawer-survey-done">
         <div class="drawer-survey-done-text">found us ${surveyLabel(foundUs)} — thank you ✦</div>
@@ -1951,6 +1968,7 @@ function renderDrawer() {
   footer.innerHTML = `
     <div class="drawer-subtotal"><span>subtotal</span><span>$${subtotal}</span></div>
     <div class="drawer-shipping"><span>shipping</span>${shippingHtml}</div>
+    ${shipNudge}
     <div class="drawer-total"><span>total</span><span>$${total}</span></div>
     ${surveyHtml}
     <button class="drawer-checkout" onclick="checkout()">checkout with vinoshipper</button>
