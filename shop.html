@@ -1035,6 +1035,7 @@ body::before{
   color:#5a3a4a;
   transition:all .25s;
 }
+.drawer-survey-opt:last-child:nth-child(odd){grid-column:1/-1}
 .drawer-survey-opt:hover{
   background:#f7cdeb;
   transform:translateY(-1px);
@@ -1813,11 +1814,14 @@ const CART_KEY = 'maisonMaxineCart';
 const SHIPPING_FLAT = 7;
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
-  { id: 'event',         label: 'at an event' },
-  { id: 'store',         label: 'in a store' },
-  { id: 'instagram',     label: 'instagram' },
-  { id: 'word-of-mouth', label: 'word of mouth' }
+  { id: 'event',           label: 'at an event' },
+  { id: 'store',           label: 'in a store' },
+  { id: 'instagram-ours',  label: 'on our instagram' },
+  { id: 'instagram-other', label: "on someone else's instagram" },
+  { id: 'word-of-mouth',   label: 'word of mouth' }
 ];
+// answers saved before instagram was split in two — still worth a label
+const SURVEY_LEGACY = { instagram: 'instagram' };
 function getSurvey() {
   try { return localStorage.getItem(SURVEY_KEY) || ''; } catch(e) { return ''; }
 }
@@ -1832,7 +1836,7 @@ function clearSurvey() {
 }
 function surveyLabel(id) {
   const o = SURVEY_OPTIONS.find(o => o.id === id);
-  return o ? o.label : '';
+  return o ? o.label : (SURVEY_LEGACY[id] || '');
 }
 
 const EMPTY_CART = { fourpack: 0, case: 0 };
