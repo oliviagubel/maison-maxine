@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>shop ✦ Maison Maxine™</title>
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
-body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
-a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
+@media(min-width:769px){
+  body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
+  a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
+}
 @import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
 @font-face{font-family:'Klickclack Swash';src:url('Klickclack-Swash.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
 
@@ -468,7 +470,9 @@ body::before{
 }
 .qty-btn:hover{background:#f7cdeb}
 .qty-val{
+  display:inline-block;
   width:36px;
+  line-height:30px;
   text-align:center;
   font-size:14px;
   font-style:italic;
@@ -511,16 +515,12 @@ body::before{
 
 .shipping-note{
   text-align:center;
-  margin-top:10px;
+  margin:0 0 10px;
   font-family:'Pixelify Sans',sans-serif;
   font-size:8px;
   letter-spacing:.1em;
   color:#c76090;
   text-transform:uppercase;
-}
-.shipping-note.ship-sub{
-  margin-top:4px;
-  opacity:.65;
 }
 
 /* ═══ INFO GRID ═══ */
@@ -834,6 +834,7 @@ body::before{
   border:2px solid #fff;
   box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
+.cart-float .cart-count.is-empty{display:none}
 
 /* ═══ CART DRAWER ═══ */
 .drawer-overlay{
@@ -1106,24 +1107,6 @@ body::before{
   transform:translateY(-50%);
   opacity:.6;
 }
-.drawer-checkout.is-locked{
-  background:#e8c3d6;
-}
-.drawer-checkout.is-locked:hover{
-  background:#dcb0c8;
-  box-shadow:none;
-}
-.drawer-survey.is-nudged{
-  border-color:#c76090;
-  animation:surveyNudge .5s ease;
-}
-@keyframes surveyNudge{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-4px)}
-  40%{transform:translateX(4px)}
-  60%{transform:translateX(-3px)}
-  80%{transform:translateX(3px)}
-}
 .drawer-keep{
   display:block;
   text-align:center;
@@ -1339,18 +1322,200 @@ body::before{
 #vsCartIcon, .vs-cart, [id^="vs-"][id*="cart"], iframe[src*="vinoshipper"][src*="cart"],
 div[style*="position: fixed"][style*="vinoshipper"],
 .vs-injector-cart, #vs-injector-cart{display:none!important}
+
+/* ═══ RATING + PULL-QUOTE ═══ */
+.pd-rating{
+  display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
+  min-height:44px;margin:-2px 0 -8px;
+  font-size:14px;font-style:italic;color:#c76090;text-decoration:none;
+}
+.pd-rating .pd-stars{font-style:normal;letter-spacing:2px}
+.pd-rating .pd-count{text-decoration:underline dotted;text-underline-offset:3px}
+.pd-quote{
+  margin:18px 0 0;padding:12px 14px;
+  border-left:2px solid #f7cdeb;background:rgba(255,255,255,.55);border-radius:0 6px 6px 0;
+}
+.pd-quote p{font-size:15px;font-style:italic;color:#5a3a4a;line-height:1.6}
+.pd-quote cite{
+  display:block;margin-top:6px;font-style:normal;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#c76090;
+}
+.product-gallery picture{display:block}
+.nw{white-space:nowrap}
+
+/* phones only — hidden on desktop */
+.buybar,.m-footer{display:none}
+
+/* ═══ MOBILE PASS ═══ */
+@media(max-width:768px){
+  /* 2 — one-line header, content starts below it */
+  .mobile-header{
+    height:calc(56px + env(safe-area-inset-top));
+    padding:env(safe-area-inset-top) max(8px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left));
+  }
+  .mobile-header .logo{font-size:20px;white-space:nowrap;line-height:1}
+  .mobile-header .links{gap:0}
+  .mobile-header .links a,.mobile-menu-btn{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:44px;min-height:44px;padding:0 6px;
+  }
+  .mobile-menu-btn{
+    background:none;border:none;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;color:#c76090;
+    gap:4px;
+  }
+  .mobile-nav{top:calc(56px + env(safe-area-inset-top))}
+  .mobile-nav a{display:flex;align-items:center;min-height:44px;font-size:15px;padding:0}
+  #main{
+    padding-top:calc(56px + env(safe-area-inset-top) + 12px);
+    padding-bottom:calc(120px + env(safe-area-inset-bottom));
+  }
+
+  /* 12 — flat ground instead of the 508KB wallpaper */
+  body::before{background:none}
+
+  /* 8 — page order */
+  #main{display:flex;flex-direction:column}
+  #main > *{min-width:0}
+  #main > .banner{order:0;margin-bottom:12px}
+  #main > .product-hero{order:1}
+  #tasting{order:2}
+  #main > .info-grid{order:3}
+  #perfect{order:4}
+  #reviews{order:5;scroll-margin-top:72px}
+  #badges{order:6}
+  #main > .drop-strip{order:7}
+  #merch{order:8;scroll-margin-top:72px}
+  #main > .m-footer{order:9}
+
+  /* 6/8 — buy box: name, rating, price, variants, button, then the story */
+  .product-gallery .main-img{aspect-ratio:1/1}
+  .product-details{display:flex;flex-direction:column;padding:20px 20px 22px}
+  .product-details .price-row{order:1;margin-top:10px}
+  .product-details .pd-sub{order:2}
+  .product-details .pre-cart{display:none}
+  .product-details .cart-section{order:3;margin-top:16px}
+  .product-details .pd-quote{order:4}
+  .product-details .pd-about{order:5}
+
+  /* 11 — selected variant you can see from arm's length */
+  .variant-opt.selected{
+    border:2px solid #c76090;
+    padding:12px 11px 11px;
+    background:#fbe1ee;
+    box-shadow:0 4px 16px rgba(199,96,144,.22);
+  }
+  .variant-opt.selected::after{
+    content:'✓';position:absolute;right:10px;bottom:10px;
+    width:22px;height:22px;border-radius:50%;
+    background:#c76090;color:#fff;font-size:13px;font-style:normal;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .variant-flag{top:-10px}
+
+  /* 9 — 44px tap targets */
+  .qty-btn{width:44px;height:44px;font-size:18px}
+  .qty-val{width:40px;line-height:44px;font-size:16px}
+  .add-btn{min-height:48px}
+  .drawer-close{width:44px;height:44px}
+  .drawer-qty button{width:44px;height:44px;font-size:16px}
+  .drawer-qty span{width:36px;line-height:44px}
+  .drawer-remove,.drawer-survey-change{min-height:44px;padding:0 4px;margin-top:0}
+  .drawer-keep{display:flex;align-items:center;justify-content:center;min-height:44px;margin-top:6px}
+  .drawer-survey-opt{min-height:44px}
+  .merch-cta{display:inline-flex;align-items:center;min-height:44px;padding:0 16px}
+  .drop-strip{min-height:44px}
+  .rf-stars{gap:0}
+  .rf-stars span{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px}
+  .rf-input{min-height:44px}
+  .rf-submit{min-height:44px}
+  .collectible-stamp{display:inline-flex;align-items:center;min-height:44px;padding:0 16px}
+
+  /* 10 — type floor: 11px eyebrows, 13px anything you have to read */
+  .product-details .pd-label,.gallery-label,.gallery-badge,.variant-name,.variant-flag,.qty-label,
+  .box-title,.info-card .ic-title,.taste-item .tl,.review .r-author,.review .r-you,.rf-prompt,
+  .merch-eyebrow,.merch-badge,.merch-oneofone,.merch-look-label,.drop-strip .ds-pill,
+  .stamp-counter,.drawer-survey-q,.cart-float .cart-count{font-size:11px}
+  .price-note,.variant-meta,.info-card .ic-text,.review .r-stars,.drawer-survey-sub,
+  .drawer-survey-done-text,.drawer-ship-nudge{font-size:13px}
+  /* long or functional lines move off the pixel face */
+  .shipping-note,.drawer-item-variant,.drawer-remove,.drawer-survey-change,.badge,
+  .occasion,.collectible-stamp,.merch-note,.drop-strip{
+    font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+    text-transform:none;letter-spacing:.02em;font-size:13px;
+  }
+  .shipping-note,.drop-strip{font-size:14px}
+  .drawer-item-variant{color:#8a6a7a}
+  .collectible-stamp.collected::after{font-size:inherit}
+
+  /* 5 — cart always reachable */
+  .cart-float{
+    opacity:1;transform:scale(1);pointer-events:auto;
+    right:16px;bottom:calc(16px + env(safe-area-inset-bottom));
+  }
+  body.buybar-on .cart-float{bottom:calc(108px + env(safe-area-inset-bottom))}
+  body.drawer-open .cart-float{opacity:0;pointer-events:none}
+
+  /* toasts drop from under the header so they never land on the buy bar */
+  .toast{
+    top:calc(68px + env(safe-area-inset-top));bottom:auto;left:16px;right:16px;
+    text-align:center;transform:translateY(-12px);
+  }
+  .toast.show{transform:translateY(0)}
+
+  /* 4 — sticky buy bar */
+  .buybar{
+    display:block;position:fixed;left:0;right:0;bottom:0;z-index:10001;
+    padding:8px max(16px, env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 100%);
+    border-top:1px solid rgba(247,205,235,.7);
+    box-shadow:0 -6px 24px rgba(199,96,144,.12);
+    transform:translateY(110%);visibility:hidden;
+    transition:transform .3s ease, visibility 0s linear .3s;
+  }
+  body.buybar-on .buybar{transform:none;visibility:visible;transition:transform .3s ease}
+  body.drawer-open .buybar{transform:translateY(110%);visibility:hidden}
+  .buybar-info{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .buybar-variant{
+    font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:#c76090;
+  }
+  .buybar-price{font-size:18px;color:#4a3a3a}
+  .buybar-btn{
+    width:100%;min-height:48px;background:#c76090;color:#fff;border:none;border-radius:6px;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;letter-spacing:.08em;
+  }
+
+  /* 7 — footer */
+  .m-footer{
+    display:block;margin-top:8px;padding:22px 12px 4px;
+    border-top:1px dotted #f7cdeb;text-align:center;
+  }
+  .mf-block + .mf-block{margin-top:16px}
+  .mf-label{
+    font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:#c76090;margin-bottom:2px;
+  }
+  .m-footer p{font-size:14px;font-style:italic;color:#6a4a5a;line-height:1.6}
+  .mf-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-style:italic;color:#c76090}
+  .mf-legal{margin-top:18px;font-size:13px;font-style:italic;color:#8a6a7a}
+}
+/* landscape phones get the desktop layout — keep the sidebar out of the notch */
+@media(min-width:769px){
+  #sidebar{padding-left:max(20px, env(safe-area-inset-left))}
+}
 </style>
 </head>
 <body>
 
 <!-- MOBILE HEADER -->
 <div class="mobile-header">
-  <div class="logo"><span style="font-size:0.8em">Maison</span><br>Maxine</div>
+  <div class="logo">Maison Maxine</div>
   <div class="links">
     <a href="home.html">home</a>
     <a href="store-locator.html">find us</a>
-    <a href="compassion.html">♡</a>
-    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
+    <a href="compassion.html" aria-label="compassion">♡</a>
+    <button class="mobile-menu-btn" type="button" aria-controls="mobile-nav" aria-expanded="false" onclick="this.setAttribute('aria-expanded', document.getElementById('mobile-nav').classList.toggle('open'))">✦ menu</button>
   </div>
 </div>
 <div class="mobile-nav" id="mobile-nav">
@@ -1436,7 +1601,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
 
   <!-- BANNER -->
   <div class="banner">
-    <h1 style="color:#d371a1"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</h1>
+    <h1 style="color:#d371a1"><span class="nw" style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br><span class="nw">Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></h1>
     <div class="tagline">sip up, save pups ✦</div>
     <div class="divider"></div>
   </div>
@@ -1454,13 +1619,17 @@ div[style*="position: fixed"][style*="vinoshipper"],
     <div class="product-gallery">
       <span class="gallery-label">spring '26 batch</span>
       <span class="gallery-badge">our only sku</span>
-      <img class="main-img" src="IMG_3906.jpg" alt="maison maxine red wine spritzer can with pink knit">
+      <picture>
+        <source media="(max-width:768px)" srcset="IMG_3906-750.jpg">
+        <img class="main-img" src="IMG_3906.jpg" alt="maison maxine red wine spritzer can with pink knit" fetchpriority="high">
+      </picture>
     </div>
 
     <!-- RIGHT: DETAILS -->
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritzer</h2>
+      <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
       <div class="pd-sub">napa valley cabernet · 250ml cans</div>
 
       <div class="price-row">
@@ -1468,6 +1637,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <span class="price-note" id="priceNote">four-pack · 4 cans</span>
       </div>
 
+      <div class="pd-about">
       <div class="product-divider"></div>
 
       <p class="product-desc">our one and only — a napa valley cabernet blended with sparkling water and real fruit. light, clean, and made for the moments that matter.</p>
@@ -1482,8 +1652,9 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <li><span class="dot"></span> honey</li>
         <li><span class="dot"></span> nothing else — ever</li>
       </ul>
+      </div>
 
-      <div class="product-divider"></div>
+      <div class="product-divider pre-cart"></div>
 
       <div class="cart-section">
         <div class="variant-row">
@@ -1503,15 +1674,19 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <div class="qty-row">
           <span class="qty-label">quantity</span>
           <div class="qty-control">
-            <button class="qty-btn" onclick="updateQty(-1)">−</button>
-            <input class="qty-val" type="text" value="1" readonly id="qty">
-            <button class="qty-btn" onclick="updateQty(1)">+</button>
+            <button class="qty-btn" type="button" aria-label="one less" onclick="updateQty(-1)">−</button>
+            <span class="qty-val" id="qty" aria-live="polite">1</span>
+            <button class="qty-btn" type="button" aria-label="one more" onclick="updateQty(1)">+</button>
           </div>
         </div>
-        <button class="add-btn" id="addBtn">add to cart — $28</button>
         <div class="shipping-note">$7 flat shipping — one four-pack or six, it stays $7 ✦</div>
-        <div class="shipping-note ship-sub">one quick question before checkout ✦</div>
+        <button class="add-btn" id="addBtn">add to cart — $28</button>
       </div>
+
+      <blockquote class="pd-quote">
+        <p>“every other spritzer tastes like someone waved a grape near sparkling water.”</p>
+        <cite>— jules r., san francisco ★★★★★</cite>
+      </blockquote>
     </div>
 
   </div>
@@ -1531,14 +1706,14 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <div class="merch-img-wrap">
           <span class="merch-badge">new</span>
           <span class="merch-oneofone">one of one</span>
-          <img src="mm-tank-main.jpg" alt="white lace-trim cami tank with a hand-painted red wine glass" loading="lazy">
+          <img src="mm-tank-main-800.jpg" alt="white lace-trim cami tank with a hand-painted red wine glass" loading="lazy">
         </div>
         <div class="merch-info">
           <h3 class="merch-name">The Wine Glass Tank</h3>
           <div class="merch-desc">white ribbed lace-trim cami with a hand-painted pour of red — the little muse staple ✦</div>
           <div class="merch-price-row">
             <span class="merch-price">$54</span>
-            <a class="merch-cta" href="https://vinoshipper.com/shop/maison_maxine/maison_maxine_tank_196823" target="_blank" rel="noopener">shop now ✦</a>
+            <a class="merch-cta" href="https://vinoshipper.com/shop/maison_maxine/maison_maxine_tank_196823">shop now ✦</a>
           </div>
         </div>
       </div>
@@ -1548,14 +1723,14 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <div class="merch-img-wrap">
           <span class="merch-badge">new</span>
           <span class="merch-oneofone">one of one</span>
-          <img src="mm-hoodie-set.jpg" alt="black velour maison maxine hoodie and matching trousers, with an appliqué girl in curlers on the back and maison maxine hand-lettered across the trousers" loading="lazy">
+          <img src="mm-hoodie-set-800.jpg" alt="black velour maison maxine hoodie and matching trousers, with an appliqué girl in curlers on the back and maison maxine hand-lettered across the trousers" loading="lazy">
         </div>
         <div class="merch-info">
           <h3 class="merch-name">The Hoodie Set</h3>
           <div class="merch-desc">black velour hoodie + matching trousers, a girl in curlers stitched across the back and "maison maxine" hand-lettered ✦</div>
           <div class="merch-price-row">
             <span class="merch-price">$118</span>
-            <a class="merch-cta" href="https://vinoshipper.com/shop/maison_maxine/maison_maxine_tracksuit_196824" target="_blank" rel="noopener">shop now ✦</a>
+            <a class="merch-cta" href="https://vinoshipper.com/shop/maison_maxine/maison_maxine_tracksuit_196824">shop now ✦</a>
           </div>
         </div>
       </div>
@@ -1565,14 +1740,14 @@ div[style*="position: fixed"][style*="vinoshipper"],
         <div class="merch-img-wrap">
           <span class="merch-badge">new</span>
           <span class="merch-oneofone">one of one</span>
-          <img src="mm-jeans-back.jpg" alt="vintage bootcut jeans hand-painted with maison maxine across the back" loading="lazy">
+          <img src="mm-jeans-back-800.jpg" alt="vintage bootcut jeans hand-painted with maison maxine across the back" loading="lazy">
         </div>
         <div class="merch-info">
-          <h3 class="merch-name"><a href="jeans.html" style="color:inherit;text-decoration:none">The MM Jeans</a></h3>
+          <h3 class="merch-name">The MM Jeans</h3>
           <div class="merch-desc">vintage bootcut denim, hand-painted "maison maxine" across the back with a little muse on the hem ✦</div>
           <div class="merch-price-row">
             <span class="merch-price">$138</span>
-            <a class="merch-cta" href="jeans.html">shop now ✦</a>
+            <a class="merch-cta" href="jeans.html">choose your size ✦</a>
           </div>
         </div>
       </div>
@@ -1585,10 +1760,10 @@ div[style*="position: fixed"][style*="vinoshipper"],
     <div class="merch-lookbook">
       <div class="merch-look-label">the lookbook ✦</div>
       <div class="merch-look-grid">
-        <img src="mm-jeans-full.jpg" alt="front view — wine glass tank tucked into the painted jeans" loading="lazy">
-        <img src="mm-jeans-detail.jpg" alt="close-up of the hand-painted maison maxine back pockets" loading="lazy">
-        <img src="mm-jeans-art.jpg" alt="hand-painted fashion illustration on the jean hem with kitten heels" loading="lazy">
-        <img src="mm-jeans-lifestyle.jpg" alt="muse lounging in the wine glass tank and painted jeans" loading="lazy">
+        <img src="mm-jeans-full-600.jpg" alt="front view — wine glass tank tucked into the painted jeans" loading="lazy">
+        <img src="mm-jeans-detail-600.jpg" alt="close-up of the hand-painted maison maxine back pockets" loading="lazy">
+        <img src="mm-jeans-art-600.jpg" alt="hand-painted fashion illustration on the jean hem with kitten heels" loading="lazy">
+        <img src="mm-jeans-lifestyle-600.jpg" alt="muse lounging in the wine glass tank and painted jeans" loading="lazy">
       </div>
     </div>
   </div>
@@ -1613,7 +1788,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   </div>
 
   <!-- TASTING NOTES -->
-  <div class="box">
+  <div class="box" id="tasting">
     <div class="box-title">tasting notes ✦</div>
     <div class="tasting-notes">
       <div class="taste-item">
@@ -1636,7 +1811,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   </div>
 
   <!-- PERFECT FOR -->
-  <div class="box">
+  <div class="box" id="perfect">
     <div class="box-title">perfect for ✦</div>
     <div class="occasions">
       <span class="occasion">golden hour on the patio</span>
@@ -1651,7 +1826,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   </div>
 
   <!-- REVIEWS -->
-  <div class="box">
+  <div class="box" id="reviews">
     <div class="box-title">what the muses say ✦</div>
 
     <div class="review">
@@ -1712,7 +1887,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   </div>
 
   <!-- BADGES -->
-  <div class="box">
+  <div class="box" id="badges">
     <div class="box-title">badges ✦</div>
     <div class="badges">
       <span class="badge">malibu made</span>
@@ -1731,23 +1906,45 @@ div[style*="position: fixed"][style*="vinoshipper"],
 </div>
   </div>
 
+  <!-- FOOTER (phones) -->
+  <footer class="m-footer">
+    <div class="mf-block">
+      <div class="mf-label">say hi ✦</div>
+      <a class="mf-link" href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a>
+    </div>
+    <div class="mf-block">
+      <div class="mf-label">21+ only</div>
+      <p>you must be 21 or older to order, and an adult 21+ has to sign for every delivery.</p>
+    </div>
+    <div class="mf-legal">© 2026 maison maxine™ · sip up, save pups ✦</div>
+  </footer>
+
 </div>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <!-- FLOATING CART BUTTON -->
-<button class="cart-float" id="cartFloat" onclick="openDrawer()">
+<button class="cart-float" id="cartFloat" type="button" aria-label="open cart" onclick="openDrawer()">
   ✧
-  <span class="cart-count" id="cartCount">0</span>
+  <span class="cart-count is-empty" id="cartCount">0</span>
 </button>
+
+<!-- STICKY BUY BAR (phones) -->
+<div class="buybar" id="buybar" aria-hidden="true" inert>
+  <div class="buybar-info">
+    <span class="buybar-variant" id="buybarVariant">four-pack</span>
+    <span class="buybar-price" id="buybarPrice">$28</span>
+  </div>
+  <button class="buybar-btn" type="button" onclick="addToCart()">add to cart</button>
+</div>
 
 <!-- CART DRAWER -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer(event)">
   <div class="drawer" onclick="event.stopPropagation()">
     <div class="drawer-header">
       <div class="drawer-title">your cart</div>
-      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+      <button class="drawer-close" type="button" aria-label="close cart" onclick="closeDrawer()">✕</button>
     </div>
     <div class="drawer-body" id="drawerBody"></div>
     <div class="drawer-footer" id="drawerFooter"></div>
@@ -1762,6 +1959,7 @@ const VARIANTS = {
     name: 'Red Wine Spritzer',
     variant: 'four-pack · 250ml each',
     note: 'four-pack · 4 cans',
+    short: 'four-pack',
     price: 28
   },
   case: {
@@ -1770,47 +1968,50 @@ const VARIANTS = {
     variant: 'case of 24 · six four-packs',
     note: 'case of 24 · $24 per four-pack',
     pitch: 'six four-packs — and never buy a bottle of wine for a dinner party gift ever again ✦',
+    short: 'case of 24',
     price: 144
   }
 };
 const VARIANT_IDS = ['fourpack', 'case'];
-const PRODUCT_IMG = 'IMG_3906.jpg';
+const PRODUCT_IMG = 'IMG_3906-750.jpg';
 let selectedVariant = 'fourpack';
+let qty = 1;
 
 function selectVariant(id) {
   if (!VARIANTS[id]) return;
   selectedVariant = id;
   VARIANT_IDS.forEach(v => {
-    document.getElementById('variant-' + v).classList.toggle('selected', v === id);
+    const el = document.getElementById('variant-' + v);
+    el.classList.toggle('selected', v === id);
+    el.setAttribute('aria-pressed', v === id);
   });
   document.getElementById('priceMain').textContent = '$' + VARIANTS[id].price;
   document.getElementById('priceNote').textContent = VARIANTS[id].note;
   const pitch = document.getElementById('variantPitch');
   pitch.textContent = VARIANTS[id].pitch || '';
   pitch.classList.toggle('show', !!VARIANTS[id].pitch);
-  document.getElementById('qty').value = 1;
+  qty = 1;
   syncAddBtn();
 }
 
 // ═══ QUANTITY SELECTOR ═══
 function syncAddBtn() {
-  const v = parseInt(document.getElementById('qty').value);
-  document.getElementById('addBtn').textContent =
-    'add to cart — $' + (v * VARIANTS[selectedVariant].price);
+  const v = VARIANTS[selectedVariant];
+  const total = '$' + (qty * v.price);
+  document.getElementById('qty').textContent = qty;
+  document.getElementById('addBtn').textContent = 'add to cart — ' + total;
+  document.getElementById('buybarVariant').textContent = (qty > 1 ? qty + ' × ' : '') + v.short;
+  document.getElementById('buybarPrice').textContent = total;
 }
 function updateQty(delta) {
-  const el = document.getElementById('qty');
-  let v = parseInt(el.value) + delta;
-  if (v < 1) v = 1;
-  if (v > 12) v = 12;
-  el.value = v;
+  qty = Math.min(12, Math.max(1, qty + delta));
   syncAddBtn();
 }
 
 // ═══ CART STATE (localStorage) ═══
 const CART_KEY = 'maisonMaxineCart';
 
-// ═══ "WHERE DID YOU FIND US?" SURVEY (required before checkout) ═══
+// ═══ "WHERE DID YOU FIND US?" SURVEY (optional — never blocks checkout) ═══
 const SHIPPING_FLAT = 7;
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
@@ -1828,7 +2029,7 @@ function getSurvey() {
 function setSurvey(id) {
   try { localStorage.setItem(SURVEY_KEY, id); } catch(e) {}
   renderDrawer();
-  showToast('thank you — checkout\'s open ✦');
+  showToast('thank you ✦');
 }
 function clearSurvey() {
   try { localStorage.removeItem(SURVEY_KEY); } catch(e) {}
@@ -1869,7 +2070,6 @@ function saveCart(cart) {
 
 // ═══ ADD TO CART ═══
 function addToCart() {
-  const qty = parseInt(document.getElementById('qty').value);
   const cart = getCart();
   cart[selectedVariant] += qty;
   saveCart(cart);
@@ -1892,23 +2092,23 @@ function updateCartUI() {
   const n = cartCount(getCart());
   const btn = document.getElementById('cartFloat');
   const count = document.getElementById('cartCount');
-  if (n > 0) {
-    btn.classList.add('visible');
-    count.textContent = n;
-  } else {
-    btn.classList.remove('visible');
-  }
+  count.textContent = n;
+  count.classList.toggle('is-empty', n <= 0);
+  btn.classList.toggle('visible', n > 0);
+  btn.setAttribute('aria-label', n > 0 ? 'open cart, ' + n + ' in it' : 'open cart');
 }
 
 // ═══ DRAWER ═══
 function openDrawer() {
   document.getElementById('drawerOverlay').classList.add('open');
+  document.body.classList.add('drawer-open');
   document.body.style.overflow = 'hidden';
   renderDrawer();
 }
 function closeDrawer(e) {
   if (e && e.target !== document.getElementById('drawerOverlay')) return;
   document.getElementById('drawerOverlay').classList.remove('open');
+  document.body.classList.remove('drawer-open');
   document.body.style.overflow = '';
 }
 
@@ -1925,7 +2125,7 @@ function renderDrawer() {
 
   const subtotal = cartSubtotal(cart);
   const foundUs = getSurvey();
-  const shipping = SHIPPING_FLAT; // flat for everyone — the survey gates checkout, it doesn't price it
+  const shipping = SHIPPING_FLAT; // flat for everyone
   const total = subtotal + shipping;
 
   body.innerHTML = VARIANT_IDS.filter(id => cart[id] > 0).map(id => {
@@ -1962,8 +2162,8 @@ function renderDrawer() {
         <button class="drawer-survey-change" onclick="clearSurvey()">change</button>
       </div>`
     : `<div class="drawer-survey" id="drawerSurvey">
-        <div class="drawer-survey-q">one last thing</div>
-        <div class="drawer-survey-sub">where did you find us? answer and checkout opens up ✦</div>
+        <div class="drawer-survey-q">where did you find us?</div>
+        <div class="drawer-survey-sub">totally optional — it just helps us know where to show up ✦</div>
         <div class="drawer-survey-opts">
           ${SURVEY_OPTIONS.map(o => `<button class="drawer-survey-opt" onclick="setSurvey('${o.id}')">${o.label}</button>`).join('')}
         </div>
@@ -2022,26 +2222,8 @@ let checkoutRun = 0;
 function syncCheckoutButton() {
   const b = document.querySelector('.drawer-checkout');
   if (!b) return;
-  const locked = !getSurvey();
   b.disabled = checkingOut;
-  // locked stays clickable on purpose — the click is what points them at the
-  // question. a disabled button swallows it and just looks broken.
-  b.classList.toggle('is-locked', locked && !checkingOut);
-  b.textContent = checkingOut ? 'taking you to checkout…'
-    : locked ? 'answer above to check out'
-    : 'checkout with vinoshipper';
-}
-
-// they hit checkout without answering — walk them back to the question
-function nudgeSurvey() {
-  const el = document.getElementById('drawerSurvey');
-  if (el) {
-    el.classList.remove('is-nudged');
-    void el.offsetWidth; // restart the animation on a repeat click
-    el.classList.add('is-nudged');
-    el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
-  }
-  showToast('one quick question first ✦');
+  b.textContent = checkingOut ? 'taking you to checkout…' : 'checkout with vinoshipper';
 }
 
 // coming back from vinoshipper can restore this page from the browser's
@@ -2058,9 +2240,6 @@ function vsLine(V, variantId) {
 async function checkout() {
   const cart = getCart();
   if (checkingOut || cartCount(cart) <= 0) return;
-
-  // where-did-you-find-us is required — nobody leaves the drawer without it
-  if (!getSurvey()) { nudgeSurvey(); return; }
 
   const V = window.Vinoshipper;
 
@@ -2135,7 +2314,23 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
   }
 });
 
+// ═══ STICKY BUY BAR ═══
+// shows once the real add-to-cart has scrolled up and away — not before
+// they've reached it. css keeps it phone-only and out of the way of the drawer.
+(function () {
+  const bar = document.getElementById('buybar');
+  if (!('IntersectionObserver' in window)) return;
+  new IntersectionObserver(function (entries) {
+    const e = entries[0];
+    const on = !e.isIntersecting && e.boundingClientRect.bottom < 0;
+    document.body.classList.toggle('buybar-on', on);
+    bar.setAttribute('aria-hidden', on ? 'false' : 'true');
+    bar.inert = !on;
+  }).observe(document.getElementById('addBtn'));
+})();
+
 // ═══ INIT ═══
+syncAddBtn();
 updateCartUI();
 </script>
 
@@ -2246,8 +2441,9 @@ function updateStampCounter(){
   document.getElementById('np-artist').textContent=s.artist;
 })();
 
-// ═══ MALIBU WEATHER ═══
+// ═══ MALIBU WEATHER ═══ (sidebar only — phones never see it)
 (async()=>{
+  if(!matchMedia('(min-width:769px)').matches) return;
   try{
     const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0259&longitude=-118.7798&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph');
     const d=await r.json();
