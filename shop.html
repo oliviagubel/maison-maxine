@@ -513,6 +513,14 @@ body::before{
   opacity:.6;
 }
 
+.ship-line{
+  margin-top:10px;
+  text-align:center;
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.5;
+}
 .shipping-note{
   text-align:center;
   margin:0 0 10px;
@@ -1445,7 +1453,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .merch-eyebrow,.merch-badge,.merch-oneofone,.merch-look-label,.drop-strip .ds-pill,
   .stamp-counter,.drawer-survey-q,.cart-float .cart-count{font-size:11px}
   .price-note,.variant-meta,.info-card .ic-text,.review .r-stars,.drawer-survey-sub,
-  .drawer-survey-done-text,.drawer-ship-nudge,.drawer-secure{font-size:13px}
+  .drawer-survey-done-text,.drawer-ship-nudge,.drawer-secure,.ship-line{font-size:13px}
   /* long or functional lines move off the pixel face */
   .shipping-note,.drawer-item-variant,.drawer-remove,.drawer-survey-change,.badge,
   .occasion,.collectible-stamp,.merch-note,.drop-strip{
@@ -1505,6 +1513,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
     text-transform:uppercase;color:#c76090;margin-bottom:2px;
   }
   .m-footer p{font-size:14px;font-style:italic;color:#6a4a5a;line-height:1.6}
+  .m-footer .mf-states{font-size:13px;line-height:1.9;letter-spacing:.04em;text-transform:uppercase}
   .mf-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-style:italic;color:#c76090}
   .mf-legal{margin-top:18px;font-size:13px;font-style:italic;color:#8a6a7a}
 }
@@ -1689,6 +1698,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
         </div>
         <div class="shipping-note">$7 flat shipping — one four-pack or six, it stays $7 ✦</div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
+        <div class="ship-line" id="shipLine">ships to 37 states + dc ✦ an adult 21+ signs for it</div>
       </div>
 
       <blockquote class="pd-quote">
@@ -1919,6 +1929,10 @@ div[style*="position: fixed"][style*="vinoshipper"],
     <div class="mf-block">
       <div class="mf-label">say hi ✦</div>
       <a class="mf-link" href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a>
+    </div>
+    <div class="mf-block">
+      <div class="mf-label">where we ship ✦</div>
+      <p class="mf-states" id="mfStates">ak · az · ca · co · dc · fl · ga · hi · ia · id · il · in · ks · ky · la · ma · md · mn · mo · nc · nd · ne · nh · nm · nv · ny · oh · ok · or · pa · sc · tn · tx · vt · wa · wi · wv · wy</p>
     </div>
     <div class="mf-block">
       <div class="mf-label">21+ only</div>
@@ -2336,6 +2350,28 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
     bar.setAttribute('aria-hidden', on ? 'false' : 'true');
     bar.inert = !on;
   }).observe(document.getElementById('addBtn'));
+})();
+
+// ═══ WHERE WE SHIP ═══
+// the list lives in vinoshipper, so adding a state in the dashboard updates
+// the page on its own. the markup carries today's list for when this can't run.
+(function () {
+  const line = document.getElementById('shipLine');
+  const list = document.getElementById('mfStates');
+  let tries = 0;
+  const tick = setInterval(function () {
+    const d = window.Vinoshipper && window.Vinoshipper._deliveryOptions;
+    const to = d && Array.isArray(d.shipsTo) ? d.shipsTo : null;
+    if (to && to.length) {
+      clearInterval(tick);
+      const dc = to.some(s => s.abbr === 'DC');
+      const states = to.length - (dc ? 1 : 0);
+      if (line) line.textContent = 'ships to ' + states + ' states' + (dc ? ' + dc' : '') + ' ✦ an adult 21+ signs for it';
+      if (list) list.textContent = to.map(s => s.abbr.toLowerCase()).join(' · ');
+    } else if (++tries > 20) {
+      clearInterval(tick);
+    }
+  }, 500);
 })();
 
 // ═══ INIT ═══
