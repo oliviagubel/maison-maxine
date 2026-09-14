@@ -1698,7 +1698,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
         </div>
         <div class="shipping-note">$7 flat shipping — one four-pack or six, it stays $7 ✦</div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
-        <div class="ship-line" id="shipLine">ships to 37 states + dc ✦ an adult 21+ signs for it</div>
+        <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
       </div>
 
       <blockquote class="pd-quote">
@@ -1935,8 +1935,16 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <p class="mf-states" id="mfStates">ak · az · ca · co · dc · fl · ga · hi · ia · id · il · in · ks · ky · la · ma · md · mn · mo · nc · nd · ne · nh · nm · nv · ny · oh · ok · or · pa · sc · tn · tx · vt · wa · wi · wv · wy</p>
     </div>
     <div class="mf-block">
+      <div class="mf-label">shipping ✦</div>
+      <p>ups from los angeles, and you pick the speed at checkout — ground through next day air. $7 flat either way, however much you order.</p>
+    </div>
+    <div class="mf-block">
+      <div class="mf-label">returns ✦</div>
+      <p>if something turns up wrong, email us and we'll make it right. if ups can't deliver — three tries, then five days at a local center — it comes back to us, and the return trip comes out of the refund.</p>
+    </div>
+    <div class="mf-block">
       <div class="mf-label">21+ only</div>
-      <p>you must be 21 or older to order, and an adult 21+ has to sign for every delivery.</p>
+      <p>you must be 21 or older to order, and an adult 21+ has to sign for every delivery. ups won't leave it at the door.</p>
     </div>
     <div class="mf-legal">© 2026 maison maxine™ · sip up, save pups ✦</div>
   </footer>
@@ -2366,7 +2374,7 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
       clearInterval(tick);
       const dc = to.some(s => s.abbr === 'DC');
       const states = to.length - (dc ? 1 : 0);
-      if (line) line.textContent = 'ships to ' + states + ' states' + (dc ? ' + dc' : '') + ' ✦ an adult 21+ signs for it';
+      if (line) line.textContent = 'ships ups to ' + states + ' states' + (dc ? ' + dc' : '') + ' ✦ pick your speed at checkout ✦ an adult 21+ signs for it';
       if (list) list.textContent = to.map(s => s.abbr.toLowerCase()).join(' · ');
     } else if (++tries > 20) {
       clearInterval(tick);
