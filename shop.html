@@ -1107,6 +1107,14 @@ body::before{
   transform:translateY(-50%);
   opacity:.6;
 }
+.drawer-secure{
+  text-align:center;
+  margin-top:8px;
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  opacity:.85;
+}
 .drawer-keep{
   display:block;
   text-align:center;
@@ -1437,7 +1445,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .merch-eyebrow,.merch-badge,.merch-oneofone,.merch-look-label,.drop-strip .ds-pill,
   .stamp-counter,.drawer-survey-q,.cart-float .cart-count{font-size:11px}
   .price-note,.variant-meta,.info-card .ic-text,.review .r-stars,.drawer-survey-sub,
-  .drawer-survey-done-text,.drawer-ship-nudge{font-size:13px}
+  .drawer-survey-done-text,.drawer-ship-nudge,.drawer-secure{font-size:13px}
   /* long or functional lines move off the pixel face */
   .shipping-note,.drawer-item-variant,.drawer-remove,.drawer-survey-change,.badge,
   .occasion,.collectible-stamp,.merch-note,.drop-strip{
@@ -2175,7 +2183,8 @@ function renderDrawer() {
     ${shipNudge}
     <div class="drawer-total"><span>total</span><span>$${total}</span></div>
     ${surveyHtml}
-    <button class="drawer-checkout" onclick="checkout()">checkout with vinoshipper</button>
+    <button class="drawer-checkout" onclick="checkout()">checkout</button>
+    <div class="drawer-secure">secure checkout ✦ payment &amp; shipping handled by vinoshipper</div>
     <a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>
   `;
 
@@ -2223,7 +2232,7 @@ function syncCheckoutButton() {
   const b = document.querySelector('.drawer-checkout');
   if (!b) return;
   b.disabled = checkingOut;
-  b.textContent = checkingOut ? 'taking you to checkout…' : 'checkout with vinoshipper';
+  b.textContent = checkingOut ? 'taking you to checkout…' : 'checkout';
 }
 
 // coming back from vinoshipper can restore this page from the browser's
