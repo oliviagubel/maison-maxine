@@ -1,5 +1,41 @@
 # For the netlify copy of this site (himaisonmaxine.com) only.
 # github pages ignores this file, so maisonmaxine.world is unaffected.
-# every path -> the same path on maisonmaxine.world. the ! forces it even
-# when a file of that name exists in the deploy.
+#
+# order matters: first match wins, so the extensionless names are listed
+# before the catch-all. netlify reads netlify.toml first — keep the two in step.
+#
+# bare names -> the canonical .html url on maisonmaxine.world
+
+/blogroll   https://maisonmaxine.world/blogroll.html  301!
+/blogroll/  https://maisonmaxine.world/blogroll.html  301!
+/compassion   https://maisonmaxine.world/compassion.html  301!
+/compassion/  https://maisonmaxine.world/compassion.html  301!
+/home   https://maisonmaxine.world/home.html  301!
+/home/  https://maisonmaxine.world/home.html  301!
+/index-2   https://maisonmaxine.world/index-2.html  301!
+/index-2/  https://maisonmaxine.world/index-2.html  301!
+/index-5   https://maisonmaxine.world/index-5.html  301!
+/index-5/  https://maisonmaxine.world/index-5.html  301!
+/index_old   https://maisonmaxine.world/index_old.html  301!
+/index_old/  https://maisonmaxine.world/index_old.html  301!
+/jeans   https://maisonmaxine.world/jeans.html  301!
+/jeans/  https://maisonmaxine.world/jeans.html  301!
+/lookbook   https://maisonmaxine.world/lookbook.html  301!
+/lookbook/  https://maisonmaxine.world/lookbook.html  301!
+/muses   https://maisonmaxine.world/muses.html  301!
+/muses/  https://maisonmaxine.world/muses.html  301!
+/playlist   https://maisonmaxine.world/playlist.html  301!
+/playlist/  https://maisonmaxine.world/playlist.html  301!
+/quiz   https://maisonmaxine.world/quiz.html  301!
+/quiz/  https://maisonmaxine.world/quiz.html  301!
+/shop   https://maisonmaxine.world/shop.html  301!
+/shop/  https://maisonmaxine.world/shop.html  301!
+/spritz_map   https://maisonmaxine.world/spritz_map.html  301!
+/spritz_map/  https://maisonmaxine.world/spritz_map.html  301!
+/store-locator   https://maisonmaxine.world/store-locator.html  301!
+/store-locator/  https://maisonmaxine.world/store-locator.html  301!
+/sustainability   https://maisonmaxine.world/sustainability.html  301!
+/sustainability/  https://maisonmaxine.world/sustainability.html  301!
+
+# everything else, path for path
 /*  https://maisonmaxine.world/:splat  301!

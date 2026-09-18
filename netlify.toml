@@ -1,5 +1,190 @@
-# same rule as _redirects, for whichever one netlify reads first.
-# only affects the netlify deploy (himaisonmaxine.com), never github pages.
+# For the netlify copy of this site (himaisonmaxine.com) only.
+# only affects the netlify deploy, never github pages.
+#
+# netlify.toml is read before _redirects, so the full rule set lives here and
+# _redirects mirrors it. first match wins — catch-all stays last.
+
+[[redirects]]
+  from = "/blogroll"
+  to = "https://maisonmaxine.world/blogroll.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blogroll/"
+  to = "https://maisonmaxine.world/blogroll.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/compassion"
+  to = "https://maisonmaxine.world/compassion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/compassion/"
+  to = "https://maisonmaxine.world/compassion.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home"
+  to = "https://maisonmaxine.world/home.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home/"
+  to = "https://maisonmaxine.world/home.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index-2"
+  to = "https://maisonmaxine.world/index-2.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index-2/"
+  to = "https://maisonmaxine.world/index-2.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index-5"
+  to = "https://maisonmaxine.world/index-5.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index-5/"
+  to = "https://maisonmaxine.world/index-5.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index_old"
+  to = "https://maisonmaxine.world/index_old.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/index_old/"
+  to = "https://maisonmaxine.world/index_old.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/jeans"
+  to = "https://maisonmaxine.world/jeans.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/jeans/"
+  to = "https://maisonmaxine.world/jeans.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lookbook"
+  to = "https://maisonmaxine.world/lookbook.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lookbook/"
+  to = "https://maisonmaxine.world/lookbook.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/muses"
+  to = "https://maisonmaxine.world/muses.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/muses/"
+  to = "https://maisonmaxine.world/muses.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/playlist"
+  to = "https://maisonmaxine.world/playlist.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/playlist/"
+  to = "https://maisonmaxine.world/playlist.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz"
+  to = "https://maisonmaxine.world/quiz.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/quiz/"
+  to = "https://maisonmaxine.world/quiz.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/shop"
+  to = "https://maisonmaxine.world/shop.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/shop/"
+  to = "https://maisonmaxine.world/shop.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/spritz_map"
+  to = "https://maisonmaxine.world/spritz_map.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/spritz_map/"
+  to = "https://maisonmaxine.world/spritz_map.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/store-locator"
+  to = "https://maisonmaxine.world/store-locator.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/store-locator/"
+  to = "https://maisonmaxine.world/store-locator.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sustainability"
+  to = "https://maisonmaxine.world/sustainability.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sustainability/"
+  to = "https://maisonmaxine.world/sustainability.html"
+  status = 301
+  force = true
+
+# everything else, path for path
 [[redirects]]
   from = "/*"
   to = "https://maisonmaxine.world/:splat"
