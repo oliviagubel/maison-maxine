@@ -1677,7 +1677,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
 
       <div class="price-row">
         <span class="price" id="priceMain">$28</span>
-        <span class="price-note" id="priceNote">four-pack · 4 cans</span>
+        <span class="price-note" id="priceNote">four-pack gift box · 4 cans</span>
       </div>
 
       <div class="pd-about">
@@ -1702,7 +1702,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="cart-section">
         <div class="variant-row">
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
-            <span class="variant-name">four-pack</span>
+            <span class="variant-name">four-pack gift box</span>
             <span class="variant-meta">4 cans · 250ml each</span>
             <span class="variant-price">$28</span>
           </button>
@@ -1976,7 +1976,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
 <!-- STICKY BUY BAR (phones) -->
 <div class="buybar" id="buybar" aria-hidden="true" inert>
   <div class="buybar-info">
-    <span class="buybar-variant" id="buybarVariant">four-pack</span>
+    <span class="buybar-variant" id="buybarVariant">four-pack gift box</span>
     <span class="buybar-price" id="buybarPrice">$28</span>
   </div>
   <button class="buybar-btn" type="button" onclick="addToCart()">add to cart</button>
@@ -2000,9 +2000,9 @@ const VARIANTS = {
   fourpack: {
     id: 'fourpack',
     name: 'Red Wine Spritz',
-    variant: 'four-pack · 250ml each',
-    note: 'four-pack · 4 cans',
-    short: 'four-pack',
+    variant: 'four-pack gift box · 250ml each',
+    note: 'four-pack gift box · 4 cans',
+    short: 'four-pack gift box',
     price: 28
   },
   case: {
@@ -2202,7 +2202,7 @@ function renderDrawer() {
   // flat rate cuts both ways — worth saying out loud while the cart is open
   const shipNudge = cart.case > 0
     ? `<div class="drawer-ship-nudge">flat rate — anything else you add ships for the same $${SHIPPING_FLAT} ✦</div>`
-    : `<div class="drawer-ship-nudge">flat rate — another four-pack rides along for the same $${SHIPPING_FLAT} ✦</div>`;
+    : `<div class="drawer-ship-nudge">flat rate — another gift box rides along for the same $${SHIPPING_FLAT} ✦</div>`;
 
   const surveyHtml = foundUs
     ? `<div class="drawer-survey-done">
