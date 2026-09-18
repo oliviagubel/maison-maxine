@@ -1,0 +1,7 @@
+# same rule as _redirects, for whichever one netlify reads first.
+# only affects the netlify deploy (himaisonmaxine.com), never github pages.
+[[redirects]]
+  from = "/*"
+  to = "https://maisonmaxine.world/:splat"
+  status = 301
+  force = true

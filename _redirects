@@ -1,0 +1,5 @@
+# For the netlify copy of this site (himaisonmaxine.com) only.
+# github pages ignores this file, so maisonmaxine.world is unaffected.
+# every path -> the same path on maisonmaxine.world. the ! forces it even
+# when a file of that name exists in the deploy.
+/*  https://maisonmaxine.world/:splat  301!
