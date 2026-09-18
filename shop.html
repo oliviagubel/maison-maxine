@@ -4,13 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>shop ✦ Maison Maxine™</title>
+<meta name="description" content="Maison Maxine red wine spritzer: Napa Valley cabernet with ginger, lemon and honey. 5% abv, 250ml cans. $28 four-pack, $7 flat shipping.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://vinoshipper.com">
+<link rel="preload" as="image" href="IMG_3906-750.jpg" media="(max-width:768px)" fetchpriority="high">
+<link rel="stylesheet" href="https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script" media="print" onload="this.media='all'">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
 @media(min-width:769px){
   body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
   a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
 }
-@import url('https://db.onlinewebfonts.com/c/4fb4d0da1bed256241a7c41788e5d62e?family=Burgues+Script');
 @font-face{font-family:'Klickclack Swash';src:url('Klickclack-Swash.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
 
 *{margin:0;padding:0;box-sizing:border-box}
@@ -1517,6 +1522,29 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .mf-link{display:inline-flex;align-items:center;min-height:44px;font-size:15px;font-style:italic;color:#c76090}
   .mf-legal{margin-top:18px;font-size:13px;font-style:italic;color:#8a6a7a}
 }
+/* ═══ AD-TRAFFIC PASS ═══ */
+.m-cart{display:none}
+.drawer-tax{margin:-2px 0 12px;text-align:right;font-size:13px;font-style:italic;color:#8a6a7a}
+@media(max-width:768px){
+  /* the header already carries the name — the photo leads */
+  #main > .banner{display:none}
+  .m-cart{
+    display:inline-flex;align-items:center;justify-content:center;gap:5px;
+    min-width:44px;min-height:44px;padding:0 8px;background:none;border:none;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;color:#c76090;
+  }
+  .m-cart-n:not(:empty){
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:20px;height:20px;padding:0 5px;border-radius:10px;
+    background:#c76090;color:#fff;font-style:normal;font-size:12px;
+  }
+  /* cart lives in the header now, so nothing floats over the copy */
+  .cart-float{display:none!important}
+  /* badges repeated the info cards; the stamp game means nothing to a first visit */
+  #badges{display:none}
+  .pd-sub{line-height:1.5}
+  .drawer-secure{line-height:1.5}
+}
 /* landscape phones get the desktop layout — keep the sidebar out of the notch */
 @media(min-width:769px){
   #sidebar{padding-left:max(20px, env(safe-area-inset-left))}
@@ -1529,14 +1557,13 @@ div[style*="position: fixed"][style*="vinoshipper"],
 <div class="mobile-header">
   <div class="logo">Maison Maxine</div>
   <div class="links">
-    <a href="home.html">home</a>
-    <a href="store-locator.html">find us</a>
-    <a href="compassion.html" aria-label="compassion">♡</a>
+    <button class="m-cart" type="button" onclick="openDrawer()" aria-label="open cart">cart<span class="m-cart-n" id="mCartCount"></span></button>
     <button class="mobile-menu-btn" type="button" aria-controls="mobile-nav" aria-expanded="false" onclick="this.setAttribute('aria-expanded', document.getElementById('mobile-nav').classList.toggle('open'))">✦ menu</button>
   </div>
 </div>
 <div class="mobile-nav" id="mobile-nav">
   <a href="shop.html">shop</a>
+  <a href="#reviews" onclick="document.getElementById('mobile-nav').classList.remove('open')">reviews</a>
   <a href="home.html">home</a>
   <a href="store-locator.html">store locator</a>
   <a href="sustainability.html">sustainability</a>
@@ -1625,8 +1652,8 @@ div[style*="position: fixed"][style*="vinoshipper"],
 
   <!-- MERCH DROP ANNOUNCEMENT -->
   <a href="#merch" class="drop-strip">
-    <span class="ds-pill">new</span>
-    the summer merch drop is here — hand-painted &amp; one of one ✦
+    <span class="ds-pill">merch</span>
+    the summer merch drop — hand-painted &amp; one of one ✦
   </a>
 
   <!-- PRODUCT HERO -->
@@ -1647,7 +1674,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritzer</h2>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
-      <div class="pd-sub">napa valley cabernet · 250ml cans</div>
+      <div class="pd-sub">napa valley cabernet, ginger, lemon &amp; honey · 5% abv · 250ml cans</div>
 
       <div class="price-row">
         <span class="price" id="priceMain">$28</span>
@@ -1657,7 +1684,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="pd-about">
       <div class="product-divider"></div>
 
-      <p class="product-desc">our one and only — a napa valley cabernet blended with sparkling water and real fruit. light, clean, and made for the moments that matter.</p>
+      <p class="product-desc">our one and only — napa valley cabernet, lightly sparkling, with ginger, lemon juice and honey. light, clean, and made for the moments that matter.</p>
       <p class="product-desc">we don't do a million skus. we do one thing, and we do it beautifully.</p>
 
       <div class="product-divider"></div>
@@ -1712,7 +1739,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   <!-- ═══ THE MERCH DROP ═══ -->
   <div class="merch-drop" id="merch">
     <div class="merch-head">
-      <div class="merch-eyebrow">just dropped ✦ saturday, july 18</div>
+      <div class="merch-eyebrow">one of one ✦ hand-painted</div>
       <h2 class="merch-title">The Summer Merch Drop</h2>
       <div class="merch-sub">hand-painted, one of one, made in malibu — wear your wine ✦</div>
     </div>
@@ -1791,7 +1818,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
     <div class="info-card">
       <div class="ic-icon">✦</div>
       <div class="ic-title">clean sip</div>
-      <div class="ic-text">four ingredients, no added sugar, no sulfites, no nonsense</div>
+      <div class="ic-text">four ingredients, no refined sugar, no nonsense</div>
     </div>
     <div class="info-card">
       <div class="ic-icon">♡</div>
@@ -1889,19 +1916,6 @@ div[style*="position: fixed"][style*="vinoshipper"],
       <div class="r-author">— kayla c., new york</div>
     </div>
 
-    <!-- USER-SUBMITTED NOTES -->
-    <div id="userReviews"></div>
-
-    <!-- LEAVE A REVIEW -->
-    <div class="review-form">
-      <div class="rf-prompt">add your two cents ✦</div>
-      <div class="rf-stars" id="rfStars">
-        <span data-v="1">★</span><span data-v="2">★</span><span data-v="3">★</span><span data-v="4">★</span><span data-v="5">★</span>
-      </div>
-      <input class="rf-input" id="rfName" type="text" maxlength="40" placeholder="your name & city — e.g. maxine m., malibu">
-      <textarea class="rf-textarea" id="rfText" maxlength="500" placeholder="what did you think? ✦"></textarea>
-      <button class="rf-submit" id="rfSubmit">share your note ✦</button>
-    </div>
   </div>
 
   <!-- BADGES -->
@@ -2126,6 +2140,11 @@ function updateCartUI() {
   count.classList.toggle('is-empty', n <= 0);
   btn.classList.toggle('visible', n > 0);
   btn.setAttribute('aria-label', n > 0 ? 'open cart, ' + n + ' in it' : 'open cart');
+  const m = document.getElementById('mCartCount');
+  if (m) {
+    m.textContent = n > 0 ? n : '';
+    m.parentElement.setAttribute('aria-label', n > 0 ? 'open cart, ' + n + ' in it' : 'open cart');
+  }
 }
 
 // ═══ DRAWER ═══
@@ -2204,9 +2223,10 @@ function renderDrawer() {
     <div class="drawer-shipping"><span>shipping</span>${shippingHtml}</div>
     ${shipNudge}
     <div class="drawer-total"><span>total</span><span>$${total}</span></div>
-    ${surveyHtml}
+    <div class="drawer-tax">plus sales tax, shown at checkout</div>
     <button class="drawer-checkout" onclick="checkout()">checkout</button>
-    <div class="drawer-secure">secure checkout ✦ payment &amp; shipping handled by vinoshipper</div>
+    <div class="drawer-secure">next: our licensed wine shipper, vinoshipper. you'll add your birthday (21+), address and payment</div>
+    ${surveyHtml}
     <a href="#" class="drawer-keep" onclick="closeDrawer();return false">keep shopping</a>
   `;
 
@@ -2353,7 +2373,7 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
   if (!('IntersectionObserver' in window)) return;
   new IntersectionObserver(function (entries) {
     const e = entries[0];
-    const on = !e.isIntersecting && e.boundingClientRect.bottom < 0;
+    const on = !e.isIntersecting;
     document.body.classList.toggle('buybar-on', on);
     bar.setAttribute('aria-hidden', on ? 'false' : 'true');
     bar.inert = !on;
@@ -2387,64 +2407,6 @@ syncAddBtn();
 updateCartUI();
 </script>
 
-<script>
-// ═══ LEAVE A REVIEW (localStorage) ═══
-(function(){
-  const REVIEWS_KEY = 'maisonMaxineReviews';
-  const starsEl = document.getElementById('rfStars');
-  const stars = starsEl.querySelectorAll('span');
-  const nameEl = document.getElementById('rfName');
-  const textEl = document.getElementById('rfText');
-  const submitEl = document.getElementById('rfSubmit');
-  const listEl = document.getElementById('userReviews');
-  let rating = 5;
-
-  function paintStars(n){
-    stars.forEach(s => s.classList.toggle('on', parseInt(s.dataset.v) <= n));
-  }
-  paintStars(rating);
-  stars.forEach(s => {
-    s.addEventListener('mouseenter', () => paintStars(parseInt(s.dataset.v)));
-    s.addEventListener('click', () => { rating = parseInt(s.dataset.v); paintStars(rating); });
-  });
-  starsEl.addEventListener('mouseleave', () => paintStars(rating));
-
-  function getReviews(){
-    try { return JSON.parse(localStorage.getItem(REVIEWS_KEY)) || []; }
-    catch(e){ return []; }
-  }
-  function escapeHtml(str){
-    const d = document.createElement('div');
-    d.textContent = str;
-    return d.innerHTML;
-  }
-  function render(){
-    const reviews = getReviews();
-    listEl.innerHTML = reviews.map(r => `
-      <div class="review">
-        <div class="r-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</div>
-        <div class="r-text">${escapeHtml(r.text)}</div>
-        <div class="r-author">— ${escapeHtml(r.author)}<span class="r-you">your note</span></div>
-      </div>
-    `).join('');
-  }
-  render();
-
-  submitEl.addEventListener('click', () => {
-    const text = textEl.value.trim();
-    const author = nameEl.value.trim() || 'a muse';
-    if (!text) { textEl.focus(); return; }
-    const reviews = getReviews();
-    reviews.unshift({ rating, text, author, ts: Date.now() });
-    localStorage.setItem(REVIEWS_KEY, JSON.stringify(reviews));
-    textEl.value = '';
-    nameEl.value = '';
-    rating = 5; paintStars(rating);
-    render();
-    showToast('thank you for sharing, gorgeous ✦');
-  });
-})();
-</script>
 
 <script>
 // ═══ COLLECTIBLE BLINKIES ═══
