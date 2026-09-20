@@ -10,6 +10,14 @@
 <link rel="preconnect" href="https://vinoshipper.com">
 <link rel="preload" as="image" href="IMG_3906-750.jpg" media="(max-width:768px)" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<script>
+/* age gate: decide before first paint so a returning 21+ visitor never sees it.
+   fails closed — if storage throws (private window), the gate shows. */
+(function(){try{
+  var v=localStorage.getItem('mm_age_ok');
+  if(v && (Date.now()-parseInt(v,10)) < 2592000000) document.documentElement.className+=' age-ok';
+}catch(e){}})();
+</script>
 <style>
 /* ═══ BRAND PALETTE ═══
    #d371a1  brand pink — the only pink. type, fills, borders, glows.
@@ -1559,9 +1567,73 @@ div[style*="position: fixed"][style*="vinoshipper"],
 @media(min-width:769px){
   #sidebar{padding-left:max(20px, env(safe-area-inset-left))}
 }
+/* ═══ AGE GATE ═══ */
+html:not(.age-ok){overflow:hidden}
+html.age-ok .age-gate{display:none}
+.age-gate{
+  position:fixed;inset:0;z-index:20000;
+  display:flex;align-items:center;justify-content:center;
+  padding:24px calc(16px + env(safe-area-inset-right)) 24px calc(16px + env(safe-area-inset-left));
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  overflow-y:auto;
+}
+.ag-card{
+  width:100%;max-width:440px;margin:auto;text-align:center;
+  background:#fffcfe;border:1px solid #fce5f7;border-radius:14px;
+  padding:38px 26px 30px;box-shadow:0 10px 40px rgba(211,113,161,.16);
+}
+.ag-mark{
+  font-family:'Klickclack Swash','Great Vibes',cursive;
+  font-size:34px;line-height:1.05;color:#d371a1;margin-bottom:22px;
+}
+.ag-q{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:21px;line-height:1.45;color:#5a3a4a;margin:0 auto 26px;max-width:24ch;
+}
+.ag-yes{
+  width:100%;min-height:52px;background:#d371a1;color:#fff;
+  border:none;border-radius:6px;cursor:pointer;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:24px;letter-spacing:.08em;transition:all .25s;
+}
+.ag-yes:hover{box-shadow:0 6px 22px rgba(211,113,161,.3)}
+.ag-yes:focus-visible{outline:2px solid #d371a1;outline-offset:3px}
+.ag-fine{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:#8a6a7a;margin-top:16px;line-height:1.7;
+}
+@media(max-width:768px){
+  .ag-card{padding:30px 20px 24px}
+  .ag-mark{font-size:28px}
+  .ag-q{font-size:19px}
+}
 </style>
 </head>
 <body>
+
+<!-- AGE GATE -->
+<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="agQ">
+  <div class="ag-card">
+    <div class="ag-mark">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son&nbsp;Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
+    <p class="ag-q" id="agQ">you don't look a day over 21, but you are &mdash; right?</p>
+    <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
+    <div class="ag-fine">you must be 21+ to enter &#10022; please sip responsibly</div>
+  </div>
+</div>
+<script>
+(function(){
+  var g=document.getElementById('ageGate'), b=document.getElementById('agYes');
+  if(!g||!b) return;
+  b.focus();
+  /* keep tab focus on the one control while the gate is up */
+  g.addEventListener('keydown',function(e){ if(e.key==='Tab'){e.preventDefault();b.focus();} });
+  b.addEventListener('click',function(){
+    try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
+    document.documentElement.className+=' age-ok';
+    g.remove();
+  });
+})();
+</script>
 
 <!-- MOBILE HEADER -->
 <div class="mobile-header">
