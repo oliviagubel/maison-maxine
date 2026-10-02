@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Wine Glass Tank ✦ Maison Maxine™</title>
+<meta name="description" content="The Wine Glass Tank by Maison Maxine: a white ribbed lace-trim cami with a hand-sewn pour of red. One of one, $54.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
+
+body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
+*{margin:0;padding:0;box-sizing:border-box}
+::selection{background:#c0397a;color:#fff}
+
+:root{
+  --rasp:#bb3a72;
+  --rasp-soft:#c0559a;
+  --ink:#4a3a3a;
+  --muted:#6a4a5a;
+  --pink-line:#f3cfe3;
+  --green:#e9f4d0;
+  --green-line:#cbe39c;
+}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  color:var(--ink);
+  min-height:100vh;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:url('background.jpg') repeat center top;
+  background-size:600px;opacity:.45;z-index:-1;pointer-events:none;
+}
+
+/* ═══ FIXED SIDEBAR (desktop) ═══ */
+#sidebar{
+  position:fixed;left:0;top:0;bottom:0;width:230px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;flex-direction:column;padding:28px 20px;z-index:100;overflow-y:auto;
+}
+.sidebar-logo{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:26px;color:#d371a1;line-height:1.1}
+.sidebar-sub{font-size:13px;color:var(--rasp);letter-spacing:.1em;margin-top:3px;font-style:italic}
+.nav-section{margin-top:28px}
+.nav-label{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--rasp);margin-bottom:8px;font-family:'Pixelify Sans',sans-serif}
+#sidebar nav a{display:block;font-size:18px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:5px 0;border-bottom:1px solid rgba(247,205,235,.4);transition:color .2s}
+#sidebar nav a:hover{color:var(--rasp)}
+#sidebar nav a.active{color:var(--rasp);font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+.sidebar-widget{margin-top:24px;padding:12px;background:#edf6d3;border:1px dotted #f7cdeb;border-radius:4px}
+.sidebar-widget .wt{font-family:'Pixelify Sans',sans-serif;font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:var(--rasp);margin-bottom:6px}
+.sidebar-widget p{font-size:12px;font-style:italic;color:#8a6a7a;line-height:1.6}
+.sidebar-bottom{margin-top:auto;padding-top:20px;text-align:center}
+.sidebar-bottom .copyright{font-family:'Pixelify Sans',sans-serif;font-size:8px;color:var(--rasp);letter-spacing:.08em}
+
+/* ═══ MOBILE HEADER (hidden on desktop) ═══ */
+.mobile-header,.mobile-nav{display:none}
+
+/* ═══ LAYOUT ═══ */
+.jeans-wrap{
+  margin-left:230px;max-width:1200px;padding:30px 44px 70px;
+}
+
+/* ═══ BANNER ═══ */
+.banner{
+  text-align:center;padding:6px 20px 14px;margin-bottom:6px;position:relative;
+  filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff)
+    drop-shadow(0 0 14px rgba(247,205,235,.9)) drop-shadow(0 0 28px rgba(247,205,235,.55));
+}
+.banner h1{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:38px;color:#d371a1;line-height:1;font-weight:normal}
+.banner .tagline{font-style:italic;font-size:13px;color:var(--rasp-soft);margin-top:4px;letter-spacing:.08em}
+.banner .divider{width:60px;height:1px;background:#f7cdeb;margin:12px auto 0}
+
+/* ═══ DESKTOP TWO-COLUMN ═══ */
+.product-layout{
+  display:grid;grid-template-columns:1.05fr 1fr;gap:34px;align-items:start;margin-bottom:26px;
+}
+.product-layout .gallery{margin-bottom:0;position:sticky;top:24px}
+@media(max-width:900px){
+  .product-layout{grid-template-columns:1fr;gap:22px}
+  .product-layout .gallery{position:static}
+}
+
+/* ═══ MAIN STAGE ═══ */
+.gallery{margin-bottom:24px}
+.main-stage{
+  position:relative;
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border:1.5px dotted #eeb2d2;border-radius:18px;overflow:hidden;
+  height:min(56vh,460px);
+  display:flex;align-items:center;justify-content:center;
+  cursor:zoom-in;margin-bottom:12px;
+}
+.main-img-lg{width:100%;height:100%;object-fit:contain;display:block}
+.stage-counter,.stage-badge{
+  position:absolute;top:16px;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;border-radius:20px;padding:6px 14px;
+}
+.stage-counter{left:16px;background:rgba(255,255,255,.92);border:1px dotted #f0b9d4;color:var(--rasp)}
+.stage-badge{right:16px;background:var(--rasp);color:#fff}
+.stage-zoom{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;background:rgba(255,255,255,.9);border:1px dotted #f0b9d4;
+  border-radius:20px;padding:5px 12px;color:var(--rasp);pointer-events:none;
+}
+.stage-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:3;
+  width:48px;height:48px;border-radius:50%;
+  background:rgba(255,255,255,.92);border:1.5px dotted #eeb2d2;
+  color:var(--rasp);font-size:24px;font-family:'Cormorant Garamond',serif;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease;
+}
+.stage-nav:hover{background:#fff;border:1.5px solid #e79ec4;box-shadow:0 6px 18px rgba(247,205,235,.5)}
+.stage-prev{left:16px}
+.stage-next{right:16px}
+
+/* ═══ THUMBNAIL STRIP ═══ */
+.thumb-strip{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:0;
+}
+.thumb{
+  appearance:none;border:none;background:transparent;padding:0;
+  border-radius:12px;overflow:hidden;position:relative;
+  border:1.5px dotted #eeb2d2;padding:4px;background:#fff;
+  opacity:.55;transition:opacity .25s ease, transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.thumb img{display:block;width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px}
+.thumb:hover{opacity:.85;transform:translateY(-2px)}
+.thumb.active{
+  opacity:1;border:2px solid #d64f92;
+  box-shadow:0 6px 18px rgba(214,79,146,.28);
+}
+
+/* ═══ PRODUCT CARD ═══ */
+.jeans-card{
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border-radius:22px;
+  box-shadow:0 12px 44px rgba(247,205,235,.4);
+  padding:32px 34px 32px;
+}
+.pd-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--rasp);margin-bottom:9px;
+}
+.jeans-title{
+  font-family:'Playfair Display',Georgia,serif;font-weight:700;
+  font-size:clamp(28px,2.8vw,36px);line-height:1.05;color:var(--rasp);letter-spacing:0;
+}
+.jeans-sub{
+  font-style:italic;font-size:12px;color:var(--rasp-soft);margin-top:6px;letter-spacing:.02em;
+}
+.jeans-tag{
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:clamp(16px,1.9vw,20px);color:var(--rasp);line-height:1.25;margin-top:14px;
+}
+.jeans-tag .star{color:#d98cbb}
+
+.price-row{margin-top:18px;display:flex;align-items:baseline;gap:10px}
+.price{font-size:26px;color:var(--ink);letter-spacing:.01em}
+.price-note{font-size:12px;font-style:italic;color:var(--rasp-soft)}
+
+.divider{height:1px;background:var(--pink-line);margin:16px 0}
+
+.desc{font-size:14px;font-style:italic;color:var(--muted);line-height:1.75}
+.desc .star{color:var(--rasp)}
+
+.feature-list{list-style:none;margin:22px 0 4px}
+.feature-list li{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 4px;border-bottom:1px solid rgba(247,205,235,.5);
+  font-size:13px;font-style:italic;color:var(--muted);line-height:1.5;
+}
+.feature-list li:last-child{border-bottom:none}
+.feature-list .fm{color:var(--rasp);font-style:normal;font-size:12px;flex-shrink:0;margin-top:2px}
+.feature-list b{color:var(--rasp-soft);font-weight:500;font-style:italic}
+
+/* ═══ SIZE ═══ */
+.size-head{
+  display:flex;align-items:center;justify-content:space-between;margin-top:26px;margin-bottom:14px;
+}
+.size-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--rasp);
+}
+.fit-link{
+  font-style:italic;font-size:14px;color:var(--rasp-soft);text-decoration:underline;
+  text-underline-offset:3px;
+}
+.fit-link:hover{color:var(--rasp)}
+.size-grid{
+  display:grid;grid-template-columns:repeat(8,1fr);gap:10px;
+}
+.size-btn{
+  appearance:none;background:#fff;border:1.5px dotted #ecb0d0;border-radius:12px;
+  padding:11px 0;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;
+  color:var(--ink);cursor:pointer;transition:all .18s ease;
+}
+.size-btn:hover{border:1.5px solid #e79ec4;box-shadow:0 4px 12px rgba(247,205,235,.4)}
+.size-btn.active{
+  border:2px solid #d64f92;background:#fdeef6;color:var(--rasp);
+  box-shadow:0 5px 16px rgba(214,79,146,.25);
+}
+.size-note{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--rasp);margin-top:12px;line-height:1.5;
+}
+
+/* ═══ BUY BUTTON ═══ */
+.buy-btn{
+  display:flex;align-items:center;justify-content:center;
+  width:100%;margin-top:14px;padding:15px;
+  background:#b6567f;color:#fff;text-decoration:none;
+  border-radius:11px;position:relative;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;letter-spacing:.06em;
+  box-shadow:0 6px 20px rgba(182,86,127,.28);
+  transition:background .2s ease, box-shadow .2s ease, transform .12s ease;
+}
+.buy-btn::after{content:'✦';position:absolute;right:24px;top:50%;transform:translateY(-50%);opacity:.6}
+.buy-btn:not(.ready){pointer-events:none}
+.buy-btn.ready{background:#a8437a;box-shadow:0 8px 26px rgba(168,67,122,.4)}
+.buy-btn.ready:hover{background:#8a1a4a}
+.buy-btn.ready:active{transform:translateY(1px)}
+.buy-note{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--rasp);text-align:center;margin-top:12px;line-height:1.5;
+}
+
+/* ═══ GREEN BOXES ═══ */
+.guarantee-box{
+  margin-top:18px;background:var(--green);border:1.5px dotted var(--green-line);
+  border-radius:14px;padding:14px 18px;
+  font-size:13px;font-style:italic;color:var(--muted);line-height:1.55;
+  display:flex;gap:11px;align-items:flex-start;
+}
+.guarantee-box .gm{color:var(--rasp);font-style:normal;font-size:16px;margin-top:1px;flex-shrink:0}
+.guarantee-box b{color:var(--rasp-soft);font-weight:500;font-style:italic}
+.guarantee-box .star{color:var(--rasp)}
+
+/* ═══ FIT & CARE ═══ */
+.fitcare{
+  background:linear-gradient(180deg,#ffffff 0%,#fdf0f6 100%);
+  border-radius:22px;box-shadow:0 12px 44px rgba(247,205,235,.35);
+  padding:30px 34px 34px;margin-top:26px;
+}
+.fc-head{
+  font-family:'Pixelify Sans',sans-serif;font-size:12px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--rasp);margin-bottom:6px;
+}
+.fc-rule{height:1px;background:var(--pink-line);margin-bottom:22px}
+.fc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fc-box{
+  background:var(--green);border:1.5px dotted var(--green-line);
+  border-radius:14px;padding:20px 22px;
+}
+.fc-box .fc-label{
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rasp);margin-bottom:8px;
+}
+.fc-box p{font-size:13px;font-style:italic;color:var(--muted);line-height:1.5}
+
+/* ═══ LIGHTBOX ═══ */
+.lightbox{
+  position:fixed;inset:0;z-index:300;
+  display:none;align-items:center;justify-content:center;
+  background:rgba(250,244,248,.86);backdrop-filter:blur(3px);
+  padding:80px 70px;
+}
+.lightbox.open{display:flex}
+.lb-img{
+  max-width:min(86vw,720px);max-height:82vh;object-fit:contain;
+  border-radius:6px;box-shadow:0 14px 50px rgba(140,70,110,.35);
+  border:3px solid #fff;
+}
+.lb-counter,.lb-badge{
+  position:absolute;top:26px;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;background:rgba(255,255,255,.92);
+  border:1px dotted #f0b9d4;border-radius:20px;padding:6px 14px;color:var(--rasp);
+}
+.lb-counter{left:26px}
+.lb-badge{right:26px;background:var(--rasp);color:#fff;border:none}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(255,255,255,.9);border:1.5px dotted #eeb2d2;
+  color:var(--rasp);font-size:24px;font-family:'Cormorant Garamond',serif;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:all .2s ease;
+}
+.lb-nav:hover{background:#fff;border:1.5px solid #e79ec4;box-shadow:0 6px 18px rgba(247,205,235,.5)}
+.lb-prev{left:20px}
+.lb-next{right:20px}
+.lb-close{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--rasp);background:rgba(255,255,255,.92);
+  border:1px dotted #f0b9d4;border-radius:20px;padding:7px 16px;cursor:pointer;
+}
+
+/* ═══ FOOTER ═══ */
+.jeans-foot{
+  text-align:center;padding:30px 20px 50px;
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:#d98cbb;
+}
+
+/* ═══ RESPONSIVE ═══ */
+/* ═══ MOBILE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  .banner{display:none}
+  .main-stage{height:min(52vh,420px)}
+  .jeans-wrap{margin-left:0;max-width:100%;padding:60px 14px 50px}
+  .mobile-header{
+    display:flex;justify-content:space-between;align-items:center;padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);position:fixed;top:0;left:0;right:0;z-index:100;
+  }
+  .mobile-header .logo{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:22px;color:var(--rasp)}
+  .mobile-header .links{display:flex;gap:16px;align-items:center}
+  .mobile-header .links a{font-size:18px;color:var(--rasp);text-decoration:none;font-style:italic}
+  .mobile-menu-btn{font-size:19px;color:var(--rasp);cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:52px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:15px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
+  .thumb-strip{gap:8px}
+  .jeans-card{padding:28px 22px 30px;border-radius:18px}
+  .fitcare{padding:28px 22px 30px;border-radius:18px}
+  .size-grid{grid-template-columns:repeat(4,1fr)}
+  .fc-grid{grid-template-columns:1fr}
+  .lightbox{padding:72px 16px}
+  .lb-nav{width:44px;height:44px;font-size:20px}
+  .lb-prev{left:8px}.lb-next{right:8px}
+}
+@media(min-width:769px){
+  .mobile-header,.mobile-nav{display:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo"><span style="font-size:0.8em">Maison</span><br>Maxine</div>
+  <div class="links">
+    <a href="shop.html">shop</a>
+    <a href="home.html">home</a>
+    <a href="compassion.html">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
+  </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="shop.html">shop</a>
+  <a href="home.html">home</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="sustainability.html">sustainability</a>
+  <a href="compassion.html">compassion</a>
+</div>
+
+<!-- SIDEBAR (desktop) -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo" style="color:#d371a1"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="shop.html" class="active">shop</a>
+        <a href="home.html">home</a>
+        <a href="store-locator.html">store locator</a>
+        <a href="sustainability.html">sustainability</a>
+        <a href="compassion.html">compassion</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">extras</div>
+      <nav>
+        <a href="muses.html">the muses</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+        <a href="https://gubelfamilyvineyards.com" target="_blank">the vineyard</a>
+        <a href="https://www.instagram.com/maisonmaxine.world/" target="_blank">instagram</a>
+      </nav>
+    </div>
+
+    <div class="sidebar-widget">
+      <div class="wt">now playing ✦</div>
+      <p>california gurls — katy perry</p>
+    </div>
+  </div>
+
+  <div class="sidebar-bottom">
+    <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:10px">✦ ♡ ✦</div>
+    <div class="copyright">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+<main class="jeans-wrap">
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1 style="color:#d371a1"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</h1>
+    <div class="tagline">the summer merch drop ✦</div>
+    <div class="divider"></div>
+  </div>
+
+  <div class="product-layout">
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="main-stage" id="mainStage">
+      <span class="stage-counter" id="stageCounter" hidden></span>
+      <span class="stage-badge">one of one</span>
+      <img class="main-img-lg" id="mainImg" src="" alt="">
+      <span class="stage-zoom">click to zoom ✦</span>
+    </div>
+    <div class="thumb-strip" id="thumbStrip"></div>
+  </div>
+
+  <!-- PRODUCT CARD -->
+  <div class="jeans-card">
+    <div class="pd-label">the summer merch drop ✦</div>
+    <h1 class="jeans-title">The Wine Glass Tank</h1>
+    <div class="jeans-sub">ribbed lace-trim cami · hand-sewn · one of one</div>
+    <div class="jeans-tag">the little muse staple <span class="star">✦</span></div>
+
+    <div class="price-row">
+      <span class="price">$54</span>
+      <span class="price-note">one of one</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="desc">a white ribbed cami with a lace trim and a little button placket, and a pour of red sewn onto the front by hand — the can tipping into the glass, stitched panel by panel <span class="star">✦</span></p>
+
+    <ul class="feature-list">
+      <li><span class="fm">✦</span><span><b>hand-sewn, not printed</b> — the pour, the glass and the can are stitched on by hand, so the edges sit slightly proud of the fabric</span></li>
+      <li><span class="fm">✦</span><span><b>one of a kind</b> — sewn individually — no two tanks are ever quite the same</span></li>
+      <li><span class="fm">♡</span><span><b>the lace trim</b> — a narrow scalloped lace along the neckline and a row of little buttons down the front</span></li>
+    </ul>
+
+    <div class="size-head">
+      <a class="fit-link" href="#fitcare">the details ↓</a>
+    </div>
+
+    <a class="buy-btn ready" id="buyBtn" href="https://vinoshipper.com/shop/maison_maxine/maison_maxine_tank_196823" target="_blank" rel="noopener"><span class="buy-txt">continue to checkout</span></a>
+    <div class="buy-note">one of one – once it's gone it's gone ✦ secure checkout via vinoshipper</div>
+
+    <div class="guarantee-box">
+      <span class="gm">♡</span>
+      <span><b>the mm fit guarantee</b> — not quite right? we're happy to refund you or arrange a free return. no stress, ever <span class="star">✦</span></span>
+    </div>
+  </div>
+  </div><!-- /product-layout -->
+
+  <!-- FIT & CARE -->
+  <div class="fitcare" id="fitcare">
+    <div class="fc-head">fit &amp; care ✦</div>
+    <div class="fc-rule"></div>
+    <div class="fc-grid">
+      <div class="fc-box">
+        <div class="fc-label">the cut</div>
+        <p>a fitted ribbed cami that sits at the hip, with adjustable straps and a lace-trimmed neckline.</p>
+      </div>
+      <div class="fc-box">
+        <div class="fc-label">the art</div>
+        <p>a hand-sewn appliqué — the can, the pour and the glass are each stitched on separately.</p>
+      </div>
+      <div class="fc-box">
+        <div class="fc-label">the care</div>
+        <p>cold wash inside out, hang dry ✦ the hand-stitching likes to be treated gently.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <span class="lb-counter" id="lbCounter">1 / 1</span>
+  <span class="lb-badge">one of one</span>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="previous">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="next">›</button>
+  <button class="lb-close" id="lbClose">close ✕</button>
+</div>
+
+<div class="jeans-foot">© 2026 maison maxine™ ✦ hand-sewn, one of one</div>
+
+<script>
+/* ═══ GALLERY ═══ */
+const PHOTOS = [
+  {src:'mm-tank-main.jpg', alt:'the wine glass tank — a hand-sewn pour of red on a white ribbed lace-trim cami'}
+];
+const START_INDEX = 0; // the full-length front shot leads
+
+const thumbStrip = document.getElementById('thumbStrip');
+const mainImg = document.getElementById('mainImg');
+const stageCounter = document.getElementById('stageCounter');
+let main = START_INDEX;
+
+PHOTOS.forEach((p,i)=>{
+  const b=document.createElement('button');
+  b.className='thumb'+(i===START_INDEX?' active':'');
+  b.innerHTML='<img src="'+p.src+'" alt="'+p.alt+'" loading="lazy">';
+  b.addEventListener('click',()=>setMain(i));
+  thumbStrip.appendChild(b);
+});
+function setActiveThumb(i){
+  document.querySelectorAll('.thumb').forEach((t,ti)=>t.classList.toggle('active',ti===i));
+}
+function setMain(i){
+  main=(i+PHOTOS.length)%PHOTOS.length;
+  mainImg.src=PHOTOS[main].src;
+  mainImg.alt=PHOTOS[main].alt;
+  stageCounter.textContent=(main+1)+' / '+PHOTOS.length;
+  setActiveThumb(main);
+}
+setMain(START_INDEX);
+document.getElementById('mainStage').addEventListener('click',()=>openLightbox(main));
+
+/* ═══ LIGHTBOX ═══ */
+const lightbox=document.getElementById('lightbox');
+const lbImg=document.getElementById('lbImg');
+const lbCounter=document.getElementById('lbCounter');
+let cur=0;
+function renderLb(){
+  lbImg.src=PHOTOS[cur].src;
+  lbImg.alt=PHOTOS[cur].alt;
+  lbCounter.textContent=(cur+1)+' / '+PHOTOS.length;
+  setActiveThumb(cur);
+}
+function openLightbox(i){cur=i;renderLb();lightbox.classList.add('open');document.body.style.overflow='hidden';}
+function closeLightbox(){lightbox.classList.remove('open');document.body.style.overflow='';setMain(cur);}
+function step(d){cur=(cur+d+PHOTOS.length)%PHOTOS.length;renderLb();}
+document.getElementById('lbPrev').addEventListener('click',e=>{e.stopPropagation();step(-1);});
+document.getElementById('lbNext').addEventListener('click',e=>{e.stopPropagation();step(1);});
+document.getElementById('lbClose').addEventListener('click',closeLightbox);
+lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox();});
+document.addEventListener('keydown',e=>{
+  if(!lightbox.classList.contains('open'))return;
+  if(e.key==='Escape')closeLightbox();
+  if(e.key==='ArrowLeft')step(-1);
+  if(e.key==='ArrowRight')step(1);
+});
+
+</script>
+</body>
+</html>
