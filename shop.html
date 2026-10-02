@@ -1304,10 +1304,19 @@ body::before{
 .merch-sub{font-size:14px;font-style:italic;color:#d371a1;margin-top:6px;letter-spacing:.03em}
 .merch-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .merch-card{
+  position:relative;
   background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
   border:1px dotted #fce5f7;border-radius:8px;overflow:hidden;display:flex;flex-direction:column;
   transition:transform .25s, box-shadow .25s;
 }
+/* the whole card is the click target. the cta stays the only real anchor, so
+   there's still one link to tab to and one thing for a screen reader to read —
+   this just stretches its hit area over the card. z-index clears the badges,
+   which sit at 2. */
+.merch-cta::after{content:'';position:absolute;inset:0;z-index:3;border-radius:8px}
+/* keyboard users focus the cta, so show the ring on the card it now covers */
+.merch-card:has(.merch-cta:focus-visible){outline:2px solid #d371a1;outline-offset:3px}
+.merch-cta:focus-visible{outline:none}
 .merch-card:hover{transform:translateY(-4px);box-shadow:0 10px 30px rgba(211,113,161,.15)}
 .merch-img-wrap{position:relative;overflow:hidden}
 .merch-img-wrap img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 22%;display:block;transition:transform .5s}
