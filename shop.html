@@ -1567,6 +1567,32 @@ div[style*="position: fixed"][style*="vinoshipper"],
 @media(min-width:769px){
   #sidebar{padding-left:max(20px, env(safe-area-inset-left))}
 }
+/* ═══ OFFER: promise, guarantee, bonus stack ═══ */
+.pd-promise{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:19px;line-height:1.4;color:#d371a1;margin:6px 0 10px;
+}
+.pd-sub.below-btn{margin-top:10px;text-align:center}
+.guarantee{
+  margin-top:12px;text-align:center;
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.1em;
+  text-transform:uppercase;color:#d371a1;line-height:1.7;
+  border:1px dotted #fce5f7;border-radius:8px;padding:10px 12px;
+}
+.bonus-list{
+  list-style:none;margin:10px 0 0;padding:12px 14px;
+  background:#fffcfe;border:1px dotted #fce5f7;border-radius:8px;
+}
+.bonus-list li{
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-size:15px;color:#5a3a4a;line-height:1.6;padding-left:18px;position:relative;
+}
+.bonus-list li::before{content:'✦';position:absolute;left:0;color:#d371a1;font-style:normal}
+@media(max-width:768px){
+  .pd-promise{font-size:17px}
+  .bonus-list li{font-size:14px}
+}
+
 /* ═══ AGE GATE ═══ */
 html:not(.age-ok){overflow:hidden}
 html.age-ok .age-gate{display:none}
@@ -1755,12 +1781,11 @@ html.age-ok .age-gate{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
+      <p class="pd-promise">never buy a bottle of wine for a dinner party gift ever again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
-      <div class="pd-sub">napa valley cabernet, ginger, lemon &amp; honey · 5% abv · 250ml cans</div>
-
       <div class="price-row">
-        <span class="price" id="priceMain">$28</span>
-        <span class="price-note" id="priceNote">four-pack gift box · 4 cans</span>
+        <span class="price" id="priceMain">$56</span>
+        <span class="price-note" id="priceNote">the pair · 8 cans · 250ml each</span>
       </div>
 
       <div class="pd-about">
@@ -1785,9 +1810,9 @@ html.age-ok .age-gate{display:none}
       <div class="cart-section">
         <div class="variant-row">
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
-            <span class="variant-name">four-pack gift box</span>
-            <span class="variant-meta">4 cans · 250ml each</span>
-            <span class="variant-price">$28</span>
+            <span class="variant-name">the pair</span>
+            <span class="variant-meta">8 cans · two gift boxes</span>
+            <span class="variant-price">$56</span>
           </button>
           <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
             <span class="variant-flag">best value</span>
@@ -1797,16 +1822,19 @@ html.age-ok .age-gate{display:none}
           </button>
         </div>
         <div class="variant-pitch" id="variantPitch"></div>
+        <ul class="bonus-list" id="bonusList" hidden></ul>
         <div class="qty-row">
           <span class="qty-label">quantity</span>
           <div class="qty-control">
             <button class="qty-btn" type="button" aria-label="one less" onclick="updateQty(-1)">−</button>
-            <span class="qty-val" id="qty" aria-live="polite">2</span>
+            <span class="qty-val" id="qty" aria-live="polite">1</span>
             <button class="qty-btn" type="button" aria-label="one more" onclick="updateQty(1)">+</button>
           </div>
         </div>
-        <div class="shipping-note">two gift boxes minimum ✦ $7 flat shipping — two or six, it stays $7</div>
+        <div class="shipping-note">$7 flat shipping — one pair or a full case, it stays $7 ✦</div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
+        <div class="guarantee">don't love it? we'll replace it or credit you ✦ nothing to ship back</div>
+        <div class="pd-sub below-btn">napa valley cabernet, ginger, lemon &amp; honey · 5% abv · 250ml cans</div>
         <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
       </div>
 
@@ -2083,24 +2111,35 @@ const VARIANTS = {
   fourpack: {
     id: 'fourpack',
     name: 'Red Wine Spritz',
-    variant: 'four-pack gift box · 250ml each',
-    note: 'four-pack gift box · 4 cans',
-    short: 'four-pack gift box',
+    variant: 'the pair · two four-pack gift boxes',
+    note: 'the pair · 8 cans · 250ml each',
+    short: 'the pair',
     price: 28,
-    min: 2
+    min: 2,
+    unit: 2
   },
   case: {
     id: 'case',
     name: 'Red Wine Spritz',
     variant: 'case of 24 · six four-packs',
     note: 'case of 24 · $24 per four-pack',
-    pitch: 'six four-packs — and never buy a bottle of wine for a dinner party gift ever again ✦',
+    pitch: 'six gift boxes — one for every host, birthday and thank-you this season ✦',
     short: 'case of 24',
     price: 144,
-    min: 1
+    min: 1,
+    unit: 1,
+    bonuses: [
+      'six gift boxes, each with a handwritten note',
+      'our pairing playlist, on a card in the case'
+    ]
   }
 };
 const VARIANT_IDS = ['fourpack', 'case'];
+// cart quantities are always in four-pack boxes, because that's the sku
+// vinoshipper fulfils. `unit` converts to what the page sells: the pair is
+// two boxes, so 4 boxes reads as 2 pairs and prices at 4 x $28.
+const units = id => VARIANTS[id].unit || 1;
+const toUnits = (id, boxes) => boxes / units(id);
 const PRODUCT_IMG = 'shop-hero-750.jpg';
 let selectedVariant = 'fourpack';
 let qty = VARIANTS[selectedVariant].min;
@@ -2113,7 +2152,7 @@ function selectVariant(id) {
     el.classList.toggle('selected', v === id);
     el.setAttribute('aria-pressed', v === id);
   });
-  document.getElementById('priceMain').textContent = '$' + VARIANTS[id].price;
+  document.getElementById('priceMain').textContent = '$' + (VARIANTS[id].price * units(id));
   document.getElementById('priceNote').textContent = VARIANTS[id].note;
   const pitch = document.getElementById('variantPitch');
   pitch.textContent = VARIANTS[id].pitch || '';
@@ -2126,13 +2165,23 @@ function selectVariant(id) {
 function syncAddBtn() {
   const v = VARIANTS[selectedVariant];
   const total = '$' + (qty * v.price);
-  document.getElementById('qty').textContent = qty;
+  const shown = toUnits(selectedVariant, qty);
+  document.getElementById('qty').textContent = shown;
   document.getElementById('addBtn').textContent = 'add to cart — ' + total;
-  document.getElementById('buybarVariant').textContent = (qty > 1 ? qty + ' × ' : '') + v.short;
+  document.getElementById('buybarVariant').textContent = (shown > 1 ? shown + ' × ' : '') + v.short;
+  renderBonuses();
   document.getElementById('buybarPrice').textContent = total;
 }
+function renderBonuses() {
+  const el = document.getElementById('bonusList');
+  if (!el) return;
+  const b = VARIANTS[selectedVariant].bonuses;
+  el.innerHTML = b ? b.map(x => '<li>' + x + '</li>').join('') : '';
+  el.hidden = !b;
+}
 function updateQty(delta) {
-  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, qty + delta));
+  const u = units(selectedVariant);
+  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, qty + delta * u));
   syncAddBtn();
 }
 
@@ -2187,7 +2236,10 @@ function getCart() {
 // it reach vinoshipper.
 function normaliseCart(cart) {
   VARIANT_IDS.forEach(id => {
-    if (cart[id] > 0 && cart[id] < VARIANTS[id].min) cart[id] = VARIANTS[id].min;
+    if (cart[id] <= 0) { cart[id] = 0; return; }
+    const u = units(id);
+    if (cart[id] % u) cart[id] += u - (cart[id] % u);   // never a half pair
+    if (cart[id] < VARIANTS[id].min) cart[id] = VARIANTS[id].min;
   });
   return cart;
 }
@@ -2282,7 +2334,7 @@ function renderDrawer() {
         <div style="margin-top:8px">
           <div class="drawer-qty">
             <button onclick="changeCartQty('${id}', -1)">−</button>
-            <span>${cart[id]}</span>
+            <span>${toUnits(id, cart[id])}</span>
             <button onclick="changeCartQty('${id}', 1)">+</button>
           </div>
         </div>
@@ -2331,7 +2383,7 @@ function renderDrawer() {
 
 function changeCartQty(id, delta) {
   const cart = getCart();
-  cart[id] += delta;
+  cart[id] += delta * units(id);
   // below the minimum isn't a smaller order, it's no line at all — the
   // remove button is right there, so don't strand people at an un-decrementable floor
   if (cart[id] < VARIANTS[id].min) cart[id] = 0;
@@ -2498,7 +2550,9 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
 })();
 
 // ═══ INIT ═══
-syncAddBtn();
+// go through selectVariant, not syncAddBtn, so the price row, note, pitch and
+// bonus list come from VARIANTS on first paint instead of the static markup
+selectVariant(selectedVariant);
 updateCartUI();
 </script>
 
