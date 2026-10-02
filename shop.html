@@ -1801,11 +1801,11 @@ html.age-ok .age-gate{display:none}
           <span class="qty-label">quantity</span>
           <div class="qty-control">
             <button class="qty-btn" type="button" aria-label="one less" onclick="updateQty(-1)">−</button>
-            <span class="qty-val" id="qty" aria-live="polite">1</span>
+            <span class="qty-val" id="qty" aria-live="polite">2</span>
             <button class="qty-btn" type="button" aria-label="one more" onclick="updateQty(1)">+</button>
           </div>
         </div>
-        <div class="shipping-note">$7 flat shipping — one four-pack or six, it stays $7 ✦</div>
+        <div class="shipping-note">two gift boxes minimum ✦ $7 flat shipping — two or six, it stays $7</div>
         <button class="add-btn" id="addBtn">add to cart — $28</button>
         <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
       </div>
@@ -2086,7 +2086,8 @@ const VARIANTS = {
     variant: 'four-pack gift box · 250ml each',
     note: 'four-pack gift box · 4 cans',
     short: 'four-pack gift box',
-    price: 28
+    price: 28,
+    min: 2
   },
   case: {
     id: 'case',
@@ -2095,13 +2096,14 @@ const VARIANTS = {
     note: 'case of 24 · $24 per four-pack',
     pitch: 'six four-packs — and never buy a bottle of wine for a dinner party gift ever again ✦',
     short: 'case of 24',
-    price: 144
+    price: 144,
+    min: 1
   }
 };
 const VARIANT_IDS = ['fourpack', 'case'];
 const PRODUCT_IMG = 'shop-hero-750.jpg';
 let selectedVariant = 'fourpack';
-let qty = 1;
+let qty = VARIANTS[selectedVariant].min;
 
 function selectVariant(id) {
   if (!VARIANTS[id]) return;
@@ -2116,7 +2118,7 @@ function selectVariant(id) {
   const pitch = document.getElementById('variantPitch');
   pitch.textContent = VARIANTS[id].pitch || '';
   pitch.classList.toggle('show', !!VARIANTS[id].pitch);
-  qty = 1;
+  qty = VARIANTS[id].min;
   syncAddBtn();
 }
 
@@ -2130,7 +2132,7 @@ function syncAddBtn() {
   document.getElementById('buybarPrice').textContent = total;
 }
 function updateQty(delta) {
-  qty = Math.min(12, Math.max(1, qty + delta));
+  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, qty + delta));
   syncAddBtn();
 }
 
@@ -2173,12 +2175,21 @@ function getCart() {
   if (!raw || typeof raw !== 'object') return Object.assign({}, EMPTY_CART);
   // carts saved before the case sku existed stored a bare four-pack qty
   if (raw.qty !== undefined && raw.fourpack === undefined && raw.case === undefined) {
-    return { fourpack: parseInt(raw.qty) || 0, case: 0 };
+    return normaliseCart({ fourpack: parseInt(raw.qty) || 0, case: 0 });
   }
-  return {
+  return normaliseCart({
     fourpack: parseInt(raw.fourpack) || 0,
     case: parseInt(raw.case) || 0
-  };
+  });
+}
+// a cart saved before the 2-box minimum (or the legacy single-qty shape above)
+// can hold one four-pack. raise any short line to its floor rather than letting
+// it reach vinoshipper.
+function normaliseCart(cart) {
+  VARIANT_IDS.forEach(id => {
+    if (cart[id] > 0 && cart[id] < VARIANTS[id].min) cart[id] = VARIANTS[id].min;
+  });
+  return cart;
 }
 function cartCount(cart) {
   return VARIANT_IDS.reduce((n, id) => n + cart[id], 0);
@@ -2321,7 +2332,9 @@ function renderDrawer() {
 function changeCartQty(id, delta) {
   const cart = getCart();
   cart[id] += delta;
-  if (cart[id] < 0) cart[id] = 0;
+  // below the minimum isn't a smaller order, it's no line at all — the
+  // remove button is right there, so don't strand people at an un-decrementable floor
+  if (cart[id] < VARIANTS[id].min) cart[id] = 0;
   if (cart[id] > 24) cart[id] = 24;
   saveCart(cart);
   renderDrawer();
