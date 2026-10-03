@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://vinoshipper.com">
-<link rel="preload" as="image" href="shop-hero-750.jpg" media="(max-width:768px)" fetchpriority="high">
-<link rel="prefetch" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)">
+<link rel="preload" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)" fetchpriority="high">
+<link rel="prefetch" as="image" href="shop-hero-750.jpg" media="(max-width:768px)">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script>
 /* age gate: decide before first paint so a returning 21+ visitor never sees it.
@@ -1588,6 +1588,23 @@ div[style*="position: fixed"][style*="vinoshipper"],
 .hero-slide{opacity:0;transition:opacity .6s ease}
 .hero-slide.is-on{opacity:1}
 .hero-slide img{width:100%;height:100%;object-fit:cover}
+.hero-nav{
+  position:absolute;top:50%;transform:translateY(-50%);z-index:5;
+  width:38px;height:38px;border-radius:50%;cursor:pointer;
+  border:1px solid rgba(255,255,255,.85);background:rgba(255,255,255,.6);
+  backdrop-filter:blur(6px);color:#d371a1;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;padding:0 0 2px;
+  box-shadow:0 2px 8px rgba(90,58,74,.18);
+  opacity:0;transition:opacity .25s, background .25s;
+}
+.product-gallery:hover .hero-nav{opacity:1}
+.hero-nav:hover{background:rgba(255,255,255,.9)}
+.hero-nav:focus-visible{opacity:1;outline:2px solid #fff;outline-offset:2px}
+.hero-prev{left:10px}
+.hero-next{right:10px}
+/* a phone has no hover, so the arrows have to simply be there */
+@media(hover:none){.hero-nav{opacity:1}}
+@media(max-width:768px){.hero-nav{width:44px;height:44px;font-size:24px}}
 .hero-dots{
   position:absolute;left:0;right:0;bottom:12px;z-index:4;
   display:flex;justify-content:center;gap:7px;
@@ -1813,13 +1830,15 @@ html.age-ok .age-gate{display:none}
       <span class="gallery-badge">our only sku</span>
       <div class="hero-slides" id="heroSlides">
         <picture class="hero-slide is-on">
-          <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
-          <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" fetchpriority="high">
+          <source media="(max-width:768px)" srcset="shop-hero-2-750.jpg">
+          <img class="main-img" src="shop-hero-2.jpg" alt="the pastel pink maison maxine gift box, tied with a ribbon, held up against a blue sky" fetchpriority="high">
         </picture>
         <picture class="hero-slide">
-          <source media="(max-width:768px)" srcset="shop-hero-2-750.jpg">
-          <img class="main-img" src="shop-hero-2.jpg" alt="the pastel pink maison maxine gift box, tied with a ribbon, held up against a blue sky" decoding="async">
+          <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
+          <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" decoding="async">
         </picture>
+        <button class="hero-nav hero-prev" id="heroPrev" type="button" aria-label="previous photo">&lsaquo;</button>
+        <button class="hero-nav hero-next" id="heroNext" type="button" aria-label="next photo">&rsaquo;</button>
       </div>
       <div class="hero-dots" id="heroDots" role="tablist" aria-label="product photos"></div>
     </div>
@@ -1828,7 +1847,7 @@ html.age-ok .age-gate{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
-      <p class="pd-promise">never buy a bottle of wine as a gift again ✦</p>
+      <p class="pd-promise">never buy another bottle of wine again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
       <div class="price-row">
         <span class="price" id="priceMain">$56</span>
@@ -2619,6 +2638,22 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
     dots.appendChild(b);
   });
   const dotEls = [...dots.children];
+
+  // manual control: arrows on every device, swipe on touch
+  const prev = document.getElementById('heroPrev');
+  const next = document.getElementById('heroNext');
+  if (prev) prev.addEventListener('click', () => { show(i - 1); start(); });
+  if (next) next.addEventListener('click', () => { show(i + 1); start(); });
+
+  let x0 = null;
+  wrap.addEventListener('touchstart', e => { x0 = e.changedTouches[0].clientX; stop(); }, {passive:true});
+  wrap.addEventListener('touchend', e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0;
+    if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+    x0 = null;
+    start();
+  }, {passive:true});
 
   function show(n) {
     i = (n + slides.length) % slides.length;
