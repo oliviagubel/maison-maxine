@@ -1540,10 +1540,16 @@ body::before{
     },40);
   }
 
-  // record this visit and get total (abacus.jasoncameron.dev)
-  fetch('https://abacus.jasoncameron.dev/hit/maison-maxine/visitors')
-    .then(r=>r.json())
-    .then(data=>animateTo((data.value||0)+BASE))
+  // the visit itself is recorded by js/tracking.js, which runs on every page —
+  // so ad traffic landing on shop.html counts too, and a visitor browsing
+  // several pages still counts once. here we only display the total.
+  // (fallback kept in case tracking.js is blocked: read without incrementing,
+  // so a blocked script can never cause a double count.)
+  const total = window.mmVisitors ||
+    fetch('https://abacus.jasoncameron.dev/get/maison-maxine/visitors').then(r=>r.json()).then(d=>(d&&d.value)||0);
+
+  Promise.resolve(total)
+    .then(v=>animateTo((v||0)+BASE))
     .catch(()=>{ el.textContent='✦✦✦✦✦'; });
 })();
 

@@ -118,6 +118,35 @@
   }
   function tag(k, v) { try { if (window.clarity && v != null) clarity('set', k, String(v)); } catch (e) {} }
 
+  /* ═══ VISITOR COUNT ═══
+     The counter is displayed on home.html, but it used to be *recorded* there
+     too — so anyone who never reached that page was never counted. Ad traffic
+     is routed straight to shop.html, which meant none of it ever registered.
+     Counting from every page fixes that.
+
+     Once per session, not once per page load: /hit increments, /get only
+     reads, so a visitor browsing five pages counts as one. This is an
+     anonymous tally with no identifier attached, so it runs whether or not
+     someone has opted out of the ad tools. */
+  var COUNT_KEY = 'mmCounted';
+  var COUNT_BASE = 'https://abacus.jasoncameron.dev';
+  var COUNT_PATH = '/maison-maxine/visitors';
+
+  function countVisit() {
+    var already;
+    try { already = sessionStorage.getItem(COUNT_KEY) === '1'; } catch (e) { already = false; }
+    var url = COUNT_BASE + (already ? '/get' : '/hit') + COUNT_PATH;
+
+    window.mmVisitors = fetch(url)
+      .then(function (r) { return r.json(); })
+      .then(function (d) {
+        if (!already) { try { sessionStorage.setItem(COUNT_KEY, '1'); } catch (e) {} }
+        log('visitor count', already ? '(read)' : '(counted this visit)', d && d.value);
+        return (d && d.value) || 0;
+      });
+    return window.mmVisitors;
+  }
+
   /* ═══ THE LINK ═══
      Injected on every page so the control exists wherever someone lands, and
      rendered even when they have already opted out — otherwise there would be
@@ -188,6 +217,7 @@
 
   ready(function () {
     renderOptOut();
+    countVisit();   // a site feature, not ad tracking — runs for everyone
 
     if (optedOut()) { log('opted out — no pixel, no clarity, no events'); return; }
 
