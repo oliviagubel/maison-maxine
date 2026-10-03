@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://vinoshipper.com">
 <link rel="preload" as="image" href="shop-hero-750.jpg" media="(max-width:768px)" fetchpriority="high">
+<link rel="prefetch" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script>
 /* age gate: decide before first paint so a returning 21+ visitor never sees it.
@@ -280,6 +281,7 @@ body::before{
 }
 .gallery-label{
   position:absolute;
+  z-index:5;
   top:14px;
   left:14px;
   font-family:'Pixelify Sans',sans-serif;
@@ -295,6 +297,7 @@ body::before{
 }
 .gallery-badge{
   position:absolute;
+  z-index:5;
   top:14px;
   right:14px;
   font-family:'Pixelify Sans',sans-serif;
@@ -1576,6 +1579,34 @@ div[style*="position: fixed"][style*="vinoshipper"],
 @media(min-width:769px){
   #sidebar{padding-left:max(20px, env(safe-area-inset-left))}
 }
+/* ═══ HERO CAROUSEL ═══ */
+.hero-slides{position:relative}
+/* every slide is in flow-less overlay except the first, which holds the box
+   open at the right height — so swapping can't reflow the page */
+.hero-slide{display:block}
+.hero-slide:not(:first-child){position:absolute;inset:0}
+.hero-slide{opacity:0;transition:opacity .6s ease}
+.hero-slide.is-on{opacity:1}
+.hero-slide img{width:100%;height:100%;object-fit:cover}
+.hero-dots{
+  position:absolute;left:0;right:0;bottom:12px;z-index:4;
+  display:flex;justify-content:center;gap:7px;
+}
+.hero-dot{
+  width:8px;height:8px;border-radius:50%;padding:0;cursor:pointer;
+  border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.45);
+  box-shadow:0 1px 3px rgba(90,58,74,.25);transition:background .25s, transform .25s;
+}
+.hero-dot[aria-selected="true"]{background:#fff;transform:scale(1.25)}
+.hero-dot:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(max-width:768px){
+  .hero-dots{bottom:10px}
+  .hero-dot{width:9px;height:9px}
+}
+@media(prefers-reduced-motion:reduce){
+  .hero-slide{transition:none}
+}
+
 /* ═══ OFFER: promise, guarantee, bonus stack ═══ */
 .pd-promise{
   font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
@@ -1780,21 +1811,28 @@ html.age-ok .age-gate{display:none}
     <div class="product-gallery">
       <span class="gallery-label">spring '26 batch</span>
       <span class="gallery-badge">our only sku</span>
-      <picture>
-        <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
-        <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" fetchpriority="high">
-      </picture>
+      <div class="hero-slides" id="heroSlides">
+        <picture class="hero-slide is-on">
+          <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
+          <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" fetchpriority="high">
+        </picture>
+        <picture class="hero-slide">
+          <source media="(max-width:768px)" srcset="shop-hero-2-750.jpg">
+          <img class="main-img" src="shop-hero-2.jpg" alt="the pastel pink maison maxine gift box, tied with a ribbon, held up against a blue sky" decoding="async">
+        </picture>
+      </div>
+      <div class="hero-dots" id="heroDots" role="tablist" aria-label="product photos"></div>
     </div>
 
     <!-- RIGHT: DETAILS -->
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
-      <p class="pd-promise">never buy a bottle of wine for a dinner party gift ever again ✦</p>
+      <p class="pd-promise">never buy a bottle of wine as a gift again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
       <div class="price-row">
         <span class="price" id="priceMain">$56</span>
-        <span class="price-note" id="priceNote">the pair · 8 cans · 250ml each</span>
+        <span class="price-note" id="priceNote">2 luxury gift boxes · 8 cans · 250ml each</span>
       </div>
 
       <div class="pd-about">
@@ -1820,7 +1858,7 @@ html.age-ok .age-gate{display:none}
         <div class="variant-row">
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
             <span class="variant-name">the pair</span>
-            <span class="variant-meta">8 cans · two gift boxes</span>
+            <span class="variant-meta">2 luxury gift boxes · 8 cans</span>
             <span class="variant-price">$56</span>
           </button>
           <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
@@ -2120,8 +2158,8 @@ const VARIANTS = {
   fourpack: {
     id: 'fourpack',
     name: 'Red Wine Spritz',
-    variant: 'the pair · two four-pack gift boxes',
-    note: 'the pair · 8 cans · 250ml each',
+    variant: '2 luxury gift boxes · 8 cans · 250ml each',
+    note: '2 luxury gift boxes · 8 cans · 250ml each',
     short: 'the pair',
     price: 28,
     min: 2,
@@ -2556,6 +2594,57 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
       clearInterval(tick);
     }
   }, 500);
+})();
+
+// ═══ HERO CAROUSEL ═══
+(function(){
+  const wrap = document.getElementById('heroSlides');
+  const dots = document.getElementById('heroDots');
+  if (!wrap || !dots) return;
+  const slides = [...wrap.querySelectorAll('.hero-slide')];
+  if (slides.length < 2) return;
+
+  const DELAY = 3000;
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  let i = 0, timer = null;
+
+  slides.forEach((_, n) => {
+    const b = document.createElement('button');
+    b.className = 'hero-dot';
+    b.type = 'button';
+    b.setAttribute('role', 'tab');
+    b.setAttribute('aria-label', 'photo ' + (n + 1) + ' of ' + slides.length);
+    b.setAttribute('aria-selected', n === 0);
+    b.addEventListener('click', () => { show(n); start(); });   // a click restarts the clock
+    dots.appendChild(b);
+  });
+  const dotEls = [...dots.children];
+
+  function show(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('is-on', k === i));
+    dotEls.forEach((d, k) => d.setAttribute('aria-selected', k === i));
+  }
+  function start() {
+    stop();
+    // honour reduced motion, and don't animate to an empty room
+    if (still.matches || document.hidden) return;
+    timer = setInterval(() => show(i + 1), DELAY);
+  }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+  // pause while someone is looking at or interacting with the photo
+  wrap.addEventListener('mouseenter', stop);
+  wrap.addEventListener('mouseleave', start);
+  dots.addEventListener('mouseenter', stop);
+  dots.addEventListener('mouseleave', start);
+  dots.addEventListener('focusin', stop);
+  dots.addEventListener('focusout', start);
+  document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+  still.addEventListener?.('change', start);
+
+  show(0);
+  start();
 })();
 
 // ═══ INIT ═══
