@@ -26,9 +26,14 @@ body::after{
 }
 
 body{
+  background:#fdf0f6;
+  font-family:'Cormorant Garamond',Georgia,serif;
+}
+/* the striped wallpaper, as a layer that can travel with everything else */
+.backdrop{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
   background:url('idx-11cfe590.jpg') repeat;
   background-size:380px auto;
-  font-family:'Cormorant Garamond',Georgia,serif;
 }
 
 /* pin */
@@ -212,18 +217,26 @@ body{
    advanced. #pile carries the collage and .curtain the drapes, so both have to
    travel or half the screen would stay behind. ease-in, so it accelerates away
    rather than drifting. */
-#pile, .curtain{ will-change:transform }
+#pile, .curtain, .backdrop{ will-change:transform }
 body.lift #pile{
   transform:translate(-50%, calc(-50% - 118vh)) scale(1.035) !important;
-  transition:transform .42s cubic-bezier(.55,.06,.9,.28);
+  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
 }
-body.lift .curtain{
+body.lift .curtain,
+body.lift .backdrop{
   transform:translateY(-118vh);
-  transition:transform .42s cubic-bezier(.55,.06,.9,.28);
+  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
+}
+/* the white wash is a fixed pseudo on body, so it has to be told to travel too */
+body.lift::after{
+  transform:translateY(-118vh);
+  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
 }
 body.lift{ overflow:hidden }
 @media (prefers-reduced-motion: reduce){
-  body.lift #pile, body.lift .curtain{ transition:none; transform:none !important }
+  body.lift #pile, body.lift .curtain, body.lift .backdrop, body.lift::after{
+    transition:none; transform:none !important
+  }
 }
 
 .collage-item{transition:transform .4s ease, filter .4s ease;}
@@ -232,13 +245,14 @@ body.lift{ overflow:hidden }
 <script src="/js/tracking.js" defer></script>
 </head>
 <body>
+<div class="backdrop"></div>
 <script>
 function enterSite(){
   document.getElementById('curtain').classList.add('open');
   var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (still) { window.location.href = 'home.html'; return; }
   setTimeout(function(){ document.body.classList.add('lift'); }, 480);
-  setTimeout(function(){ window.location.href = 'home.html'; }, 900);
+  setTimeout(function(){ window.location.href = 'home.html'; }, 1180);
 }
 </script>
 <!-- CURTAIN OVERLAY (split open animation) -->
