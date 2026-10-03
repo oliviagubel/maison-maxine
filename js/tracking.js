@@ -29,7 +29,20 @@
     console.log.apply(console, a.concat([].slice.call(arguments)));
   }
 
+  /* ═══ CCPA OPT-OUT ═══
+     Checked before either tool loads. Kept in localStorage so it survives the
+     session; it is per browser, which is the honest limit of a client-side
+     opt-out and is stated as such on the privacy page. */
+  var OPT_KEY = 'mmDoNotSell';
+  function optedOut() {
+    try { return localStorage.getItem(OPT_KEY) === '1'; } catch (e) { return false; }
+  }
+  function setOptOut(v) {
+    try { v ? localStorage.setItem(OPT_KEY, '1') : localStorage.removeItem(OPT_KEY); } catch (e) {}
+  }
+
   var configured = { pixel: PIXEL_ID !== 'PIXEL_ID', clarity: CLARITY_ID !== 'CLARITY_ID' };
+  if (optedOut()) { configured.pixel = configured.clarity = false; }
   if (!configured.pixel)   log('Meta Pixel not loaded — PIXEL_ID is still a placeholder');
   if (!configured.clarity) log('Clarity not loaded — CLARITY_ID is still a placeholder');
 
@@ -105,6 +118,68 @@
   }
   function tag(k, v) { try { if (window.clarity && v != null) clarity('set', k, String(v)); } catch (e) {} }
 
+  /* ═══ THE LINK ═══
+     Injected on every page so the control exists wherever someone lands, and
+     rendered even when they have already opted out — otherwise there would be
+     no way back. Deliberately quiet: 10px, muted, at the very foot. */
+  function renderOptOut() {
+    if (document.getElementById('mmPrivacyBar')) return;
+    var off = optedOut();
+
+    var bar = document.createElement('div');
+    bar.id = 'mmPrivacyBar';
+    // body is display:flex on this site, so appending there would make the bar
+    // a stretched flex item beside the content — it belongs in the content column
+    var host = document.getElementById('main') || document.querySelector('main') || document.body;
+    // and on the shop page a sticky buy bar sits over the foot, so clear it
+    var sticky = document.querySelector('.buybar');
+    var clear = (sticky && getComputedStyle(sticky).display !== 'none') ? sticky.offsetHeight + 12 : 0;
+
+    // #main is a flex column on some pages and the footer carries order:9,
+    // so an unordered bar would land mid-page instead of at the foot
+    bar.style.cssText = 'order:99;flex:0 0 auto;width:100%;text-align:center;' +
+      'padding:14px 16px calc(18px + ' + clear + 'px);' +
+      'font-family:\'Pixelify Sans\',sans-serif;font-size:9px;letter-spacing:.1em;' +
+      'text-transform:uppercase;color:#8a6a7a;line-height:1.9;opacity:.75';
+
+    var privacy = document.createElement('a');
+    privacy.href = '/privacy.html';
+    privacy.textContent = 'privacy';
+    privacy.style.cssText = 'color:#8a6a7a;text-decoration:none;border-bottom:1px dotted #cbb3bf';
+
+    var sep = document.createElement('span');
+    sep.textContent = '  \u2726  ';
+
+    var dns = document.createElement('a');
+    dns.href = '/privacy.html#privacy';
+    dns.id = 'mmDns';
+    dns.style.cssText = privacy.style.cssText + ';cursor:pointer';
+    dns.textContent = off ? 'tracking is off \u2014 turn it back on'
+                          : 'do not sell or share my personal information';
+    dns.addEventListener('click', function (e) {
+      e.preventDefault();
+      var nowOff = !optedOut();
+      setOptOut(nowOff);
+      // a reload is the only way to actually stop clarity once it is recording
+      location.reload();
+    });
+
+    bar.appendChild(privacy); bar.appendChild(sep); bar.appendChild(dns);
+    host.appendChild(bar);
+
+    // the privacy page's own button, when present
+    var big = document.getElementById('dnsBig');
+    if (big) {
+      var txt = document.getElementById('dnsBigTxt');
+      var note = document.getElementById('dnsBigNote');
+      if (txt) txt.textContent = off ? 'turn tracking back on' : 'do not sell or share my personal information';
+      if (note) note.textContent = off
+        ? 'meta pixel and clarity are off in this browser \u2726 nothing is being collected'
+        : '';
+      big.addEventListener('click', function () { setOptOut(!optedOut()); location.reload(); });
+    }
+  }
+
   /* ═══ HOOKS ═══ */
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -112,6 +187,9 @@
   }
 
   ready(function () {
+    renderOptOut();
+
+    if (optedOut()) { log('opted out — no pixel, no clarity, no events'); return; }
 
     /* ── 1-3. age gate ───────────────────────────────────────────────────
        Read only. The gate decides before first paint and stamps .age-ok on
