@@ -186,7 +186,7 @@ body{
   background-image:url('curtain.png');
   background-size:154% 130%;
   background-repeat:no-repeat;
-  transition:transform 1.6s cubic-bezier(.77,0,.18,1);
+  transition:transform 1s cubic-bezier(.77,0,.18,1);
   will-change:transform;
 }
 .curtain-left{
@@ -207,12 +207,40 @@ body{
 }
 .curtain.gone{display:none}
 
+/* ═══ PROJECTOR LIFT ═══
+   on enter the whole frame pulls upward out of shot, like a slide being
+   advanced. #pile carries the collage and .curtain the drapes, so both have to
+   travel or half the screen would stay behind. ease-in, so it accelerates away
+   rather than drifting. */
+#pile, .curtain{ will-change:transform }
+body.lift #pile{
+  transform:translate(-50%, calc(-50% - 118vh)) scale(1.035) !important;
+  transition:transform .42s cubic-bezier(.55,.06,.9,.28);
+}
+body.lift .curtain{
+  transform:translateY(-118vh);
+  transition:transform .42s cubic-bezier(.55,.06,.9,.28);
+}
+body.lift{ overflow:hidden }
+@media (prefers-reduced-motion: reduce){
+  body.lift #pile, body.lift .curtain{ transition:none; transform:none !important }
+}
+
 .collage-item{transition:transform .4s ease, filter .4s ease;}
 .collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important;}
 </style>
 <script src="/js/tracking.js" defer></script>
 </head>
 <body>
+<script>
+function enterSite(){
+  document.getElementById('curtain').classList.add('open');
+  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still) { window.location.href = 'home.html'; return; }
+  setTimeout(function(){ document.body.classList.add('lift'); }, 480);
+  setTimeout(function(){ window.location.href = 'home.html'; }, 900);
+}
+</script>
 <!-- CURTAIN OVERLAY (split open animation) -->
 <div id="pile" style="position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.035);z-index:1">
 
@@ -294,11 +322,11 @@ body{
 
   <!-- XOXO NOTE -->
   <div class="xoxo-note" style="top:5px;left:5px;font-size:20px">xo xo</div>
-  <div class="xoxo-note" style="bottom:148px;right:18px;font-size:18px;transform:rotate(3deg)">with love from napa ♡</div>
+  <div class="xoxo-note" style="bottom:62px;right:24px;font-size:18px;transform:rotate(3deg)">with love from napa ♡</div>
   <!-- ENTER -->
-  <a href="#" id="enter" style="bottom:-15px;left:calc(50% - 78px);transform:translateX(-50%)" onclick="event.preventDefault();document.getElementById('curtain').classList.add('open');setTimeout(function(){window.location.href='home.html'},1400)">
+  <a href="#" id="enter" style="bottom:-15px;left:calc(50% - 78px);transform:translateX(-50%)" onclick="event.preventDefault();enterSite()">
     <span style="font-family:'IM Fell English',serif;font-style:italic;font-size:14px;color:#b75d83;letter-spacing:.12em;text-shadow:1px 1px 0 rgba(255,255,255,.9);opacity:.85">by entering you confirm you're 21+ ✦</span>
-    <svg width="132" height="132" viewBox="0 0 66 66" fill="none"
+    <svg width="88" height="88" viewBox="0 0 66 66" fill="none"
       style="filter:drop-shadow(2px 4px 8px rgba(0,0,0,.22))">
       <circle cx="33" cy="33" r="31" fill="#abd05d" stroke="#3f5a14" stroke-width="2.2"/>
       <circle cx="33" cy="33" r="25" fill="none" stroke="#e6f4d0" stroke-width=".8" stroke-dasharray="3 3"/>
