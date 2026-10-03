@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://vinoshipper.com">
 <link rel="preload" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)" fetchpriority="high">
 <link rel="prefetch" as="image" href="shop-hero-750.jpg" media="(max-width:768px)">
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
 /* age gate: decide before first paint so a returning 21+ visitor never sees it.
    fails closed — if storage throws (private window), the gate shows. */
@@ -20,6 +20,13 @@
 }catch(e){}})();
 </script>
 <style>
+/* ═══ COPY FACE ═══
+   gill sans is a licensed monotype face with no free webfont, so it can only
+   be asked for, not shipped. macos has "Gill Sans"; windows has "Gill Sans MT"
+   when office is installed. everyone else lands on calibri or trebuchet —
+   both humanist sans, the closest thing already on the machine.
+   headings stay klickclack and small labels stay pixelify.
+*/
 /* ═══ BRAND PALETTE ═══
    #d371a1  brand pink — the only pink. type, fills, borders, glows.
             3.16:1 on white, so it clears AA for large text only. small text
@@ -47,7 +54,7 @@
 
 body{
   background:#fafaf5;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   min-height:100vh;
   display:flex;
   color:#4a3a3a;
@@ -501,7 +508,7 @@ body::before{
   color:#d371a1;
   cursor:pointer;
   transition:background .2s;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
 }
 .qty-btn:hover{background:#fce5f7}
 .qty-val{
@@ -516,7 +523,7 @@ body::before{
   border-left:1px dotted #fce5f7;
   border-right:1px solid #fce5f7;box-shadow:4px 0 20px rgba(252,229,247,.2);
   background:transparent;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
 }
 
 .add-btn{
@@ -526,7 +533,7 @@ body::before{
   color:#fff;
   border:none;
   border-radius:6px;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   font-size:24px;
   font-style:italic;
   letter-spacing:.08em;
@@ -709,7 +716,7 @@ body::before{
   border:1px dotted #fce5f7;
   border-radius:4px;
   padding:10px 12px;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   font-size:14px;
   font-style:italic;
   color:#5a3a4a;
@@ -726,7 +733,7 @@ body::before{
   color:#fff;
   border:none;
   border-radius:6px;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   font-size:14px;
   font-style:italic;
   letter-spacing:.06em;
@@ -988,7 +995,7 @@ body::before{
   border:none;
   font-size:13px;
   color:#d371a1;
-  font-family:'Cormorant Garamond',serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
 }
 .drawer-qty button:hover{background:#fce5f7}
 .drawer-qty span{
@@ -1073,7 +1080,7 @@ body::before{
   background:#e6f4d0;
   border:1px dotted #fce5f7;
   border-radius:6px;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   font-size:13px;
   font-style:italic;
   color:#5a3a4a;
@@ -1130,7 +1137,7 @@ body::before{
   color:#fff;
   border:none;
   border-radius:6px;
-  font-family:'Cormorant Garamond',Georgia,serif;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;
   font-size:15px;
   font-style:italic;
   letter-spacing:.08em;
@@ -1350,7 +1357,7 @@ body::before{
 .merch-price-row{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:8px}
 .merch-price{font-size:20px;color:#4a3a3a;letter-spacing:.02em}
 .merch-cta{
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:13px;letter-spacing:.04em;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;font-size:13px;letter-spacing:.04em;
   background:#d371a1;color:#fff;text-decoration:none;padding:8px 14px;border-radius:6px;transition:all .25s;white-space:nowrap;
 }
 .merch-cta:hover{background:#d371a1;box-shadow:0 4px 16px rgba(211,113,161,.25)}
@@ -1421,7 +1428,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   }
   .mobile-menu-btn{
     background:none;border:none;
-    font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;color:#d371a1;
+    font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-size:16px;font-style:italic;color:#d371a1;
     gap:4px;
   }
   .mobile-nav{top:calc(56px + env(safe-area-inset-top))}
@@ -1501,7 +1508,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   /* long or functional lines move off the pixel face */
   .shipping-note,.drawer-item-variant,.drawer-remove,.drawer-survey-change,.badge,
   .occasion,.collectible-stamp,.merch-note,.drop-strip{
-    font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+    font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;
     text-transform:none;letter-spacing:.02em;font-size:13px;
   }
   .shipping-note,.drop-strip{font-size:14px}
@@ -1543,7 +1550,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .buybar-price{font-size:18px;color:#4a3a3a}
   .buybar-btn{
     width:100%;min-height:48px;background:#d371a1;color:#fff;border:none;border-radius:6px;
-    font-family:'Cormorant Garamond',Georgia,serif;font-size:24px;font-style:italic;letter-spacing:.08em;
+    font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-size:24px;font-style:italic;letter-spacing:.08em;
   }
 
   /* 7 — footer */
@@ -1570,7 +1577,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .m-cart{
     display:inline-flex;align-items:center;justify-content:center;gap:5px;
     min-width:44px;min-height:44px;padding:0 8px;background:none;border:none;
-    font-family:'Cormorant Garamond',Georgia,serif;font-size:16px;font-style:italic;color:#d371a1;
+    font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-size:16px;font-style:italic;color:#d371a1;
   }
   .m-cart-n:not(:empty){
     display:inline-flex;align-items:center;justify-content:center;
@@ -1635,7 +1642,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
 
 /* ═══ OFFER: promise, guarantee, bonus stack ═══ */
 .pd-promise{
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;
   font-size:19px;line-height:1.4;color:#d371a1;margin:6px 0 10px;
 }
 .pd-sub.below-btn{margin-top:10px;text-align:center}
@@ -1650,7 +1657,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
   background:#fffcfe;border:1px dotted #fce5f7;border-radius:8px;
 }
 .bonus-list li{
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;
   font-size:15px;color:#5a3a4a;line-height:1.6;padding-left:18px;position:relative;
 }
 .bonus-list li::before{content:'✦';position:absolute;left:0;color:#d371a1;font-style:normal}
@@ -1679,13 +1686,13 @@ html.age-ok .age-gate{display:none}
   font-size:34px;line-height:1.05;color:#d371a1;margin-bottom:22px;
 }
 .ag-q{
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;
   font-size:21px;line-height:1.45;color:#5a3a4a;margin:0 auto 26px;max-width:24ch;
 }
 .ag-yes{
   width:100%;min-height:52px;background:#d371a1;color:#fff;
   border:none;border-radius:6px;cursor:pointer;
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
+  font-family:'Gill Sans','Gill Sans MT',Calibri,'Trebuchet MS',sans-serif;font-style:italic;
   font-size:24px;letter-spacing:.08em;transition:all .25s;
 }
 .ag-yes:hover{box-shadow:0 6px 22px rgba(211,113,161,.3)}
