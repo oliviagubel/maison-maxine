@@ -3,6 +3,25 @@
 #
 # netlify.toml is read before _redirects, so the full rule set lives here and
 # _redirects mirrors it. first match wins — catch-all stays last.
+#
+# this deploy also hosts the checkout api as functions. the shop itself stays
+# on github pages and calls these cross-origin.
+
+[build]
+  functions = "netlify/functions"
+
+# MUST stay above the catch-all. that rule is force=true and matches every
+# path, so without this the api would be 301'd to the pages site and the
+# function would never run.
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
 
 [[redirects]]
   from = "/blogroll"

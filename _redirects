@@ -4,6 +4,12 @@
 # order matters: first match wins, so the extensionless names are listed
 # before the catch-all. netlify reads netlify.toml first — keep the two in step.
 #
+# the checkout api lives on this deploy as functions. MUST stay above the
+# catch-all below — that rule is forced and would otherwise 301 every api call
+# away to the pages site.
+/api/*                 /.netlify/functions/:splat   200
+/.netlify/functions/*  /.netlify/functions/:splat   200
+
 # bare names -> the canonical .html url on maisonmaxine.world
 
 /blogroll   https://maisonmaxine.world/blogroll.html  301!
