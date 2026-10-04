@@ -1080,13 +1080,14 @@ body::before{
   body.splash-locked{overflow:hidden}
 }
 </style>
+<link rel="preload" as="image" href="intro-bg-mobile.jpg" media="(max-width:768px)" fetchpriority="high">
 <script src="/js/tracking.js" defer></script>
 </head>
 <body>
 
 <!-- MOBILE INTRO SPLASH (mobile only) -->
 <div id="intro-splash" role="dialog" aria-label="Welcome to Maison Maxine">
-  <video class="intro-bg" src="covervideo.mp4" autoplay muted loop playsinline webkit-playsinline preload="auto" disableremoteplayback aria-hidden="true" tabindex="-1"></video>
+  <img class="intro-bg" src="intro-bg-mobile.jpg" alt="" aria-hidden="true" fetchpriority="high">
   <div class="intro-scrim" aria-hidden="true"></div>
   <div class="intro-title"><span style="font-size:0.8em">Maison</span><br>Maxine</div>
   <button id="intro-enter" type="button" aria-label="Enter the world (I'm 21+)">
@@ -1743,17 +1744,8 @@ function updateStampCounter(){
   var btn=document.getElementById('intro-enter');
   document.body.classList.add('splash-locked');
 
-  // force the cover video to autoplay inline (no play button) — retry on first touch for iOS Low Power Mode
-  var vid=splash.querySelector('.intro-bg');
-  if(vid){
-    vid.muted=true; vid.defaultMuted=true; vid.playsInline=true;
-    var tryPlay=function(){ try{ var p=vid.play(); if(p&&p.catch){p.catch(function(){});} }catch(e){} };
-    tryPlay();
-    vid.addEventListener('loadeddata',tryPlay);
-    ['touchstart','pointerdown','click'].forEach(function(ev){
-      document.addEventListener(ev,function once(){ tryPlay(); document.removeEventListener(ev,once); },{passive:true});
-    });
-  }
+  // the splash background is a still now, so there is nothing to coax into
+  // playing — the old autoplay/retry block went with the video
   // start the fill animation
   requestAnimationFrame(function(){
     setTimeout(function(){btn.classList.add('filling');},120);
