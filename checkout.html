@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>checkout ✦ Maison Maxine™</title>
+<meta name="description" content="Checkout for Maison Maxine Red Wine Spritz.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://himaisonmaxine.com">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  min-height:100vh;color:#4a3a3a;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  padding:28px 16px calc(40px + env(safe-area-inset-bottom));
+}
+.wrap{max-width:560px;margin:0 auto}
+.mark{
+  font-family:'Klickclack Swash','Great Vibes',cursive;
+  font-size:30px;color:#d371a1;text-align:center;line-height:1.05;margin-bottom:6px;
+}
+.step{
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:#8a6a7a;text-align:center;margin-bottom:22px;
+}
+.card{
+  background:#fffcfe;border:1px dotted #fce5f7;border-radius:12px;
+  padding:20px 18px;margin-bottom:16px;
+}
+.card h2{
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:#d371a1;font-weight:400;margin-bottom:14px;
+}
+label{display:block;font-size:13px;font-style:italic;color:#8a6a7a;margin:0 0 4px}
+input,select{
+  width:100%;padding:11px 12px;border:1px solid #fce5f7;border-radius:7px;
+  background:#fff;color:#4a3a3a;font-family:inherit;font-size:16px;
+}
+input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-color:#d371a1}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.row3{display:grid;grid-template-columns:1.2fr .8fr .9fr;gap:10px}
+.f{margin-bottom:12px}
+.hint{font-size:12px;font-style:italic;color:#8a6a7a;margin-top:5px}
+.lines{font-size:15px}
+.line{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
+.line.total{
+  border-top:1px dotted #fce5f7;margin-top:8px;padding-top:11px;font-size:19px;color:#4a3a3a;
+}
+.line .lbl{font-style:italic;color:#6a4a5a}
+.muted{color:#8a6a7a}
+.disc{color:#abd05d}
+.pill{
+  display:inline-block;font-family:'Pixelify Sans',sans-serif;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;background:#e6f4d0;color:#5a7a1e;
+  padding:3px 9px;border-radius:20px;margin-left:8px;
+}
+.go{
+  width:100%;min-height:54px;background:#d371a1;color:#fff;border:none;border-radius:7px;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px;
+  letter-spacing:.06em;cursor:pointer;transition:all .25s;
+}
+.go[disabled]{opacity:.45;cursor:default}
+.go:not([disabled]):hover{box-shadow:0 6px 22px rgba(211,113,161,.3)}
+.note{text-align:center;font-size:13px;font-style:italic;color:#8a6a7a;margin-top:12px;line-height:1.7}
+.msg{
+  border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:14px;line-height:1.6;
+}
+.msg.bad{background:#fff3f7;border:1px solid #f3c6da;color:#8a3a5a}
+.msg.info{background:#fffcfe;border:1px dotted #fce5f7;color:#8a6a7a;font-style:italic}
+.back{display:block;text-align:center;margin-top:18px;font-size:14px;font-style:italic;color:#d371a1}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="mark">Maison Maxine</div>
+  <div class="step">checkout</div>
+
+  <div id="msg" class="msg bad" hidden></div>
+
+  <!-- ORDER -->
+  <div class="card">
+    <h2>your order</h2>
+    <div class="lines" id="lines"></div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="card">
+    <h2>contact</h2>
+    <div class="row">
+      <div class="f"><label for="first">first name</label><input id="first" autocomplete="given-name" required></div>
+      <div class="f"><label for="last">last name</label><input id="last" autocomplete="family-name" required></div>
+    </div>
+    <div class="f"><label for="email">email</label><input id="email" type="email" autocomplete="email" required></div>
+    <div class="f"><label for="phone">phone</label><input id="phone" type="tel" autocomplete="tel" required></div>
+  </div>
+
+  <!-- AGE -->
+  <div class="card">
+    <h2>date of birth</h2>
+    <div class="row3">
+      <div class="f"><label for="dobM">month</label><select id="dobM"></select></div>
+      <div class="f"><label for="dobD">day</label><select id="dobD"></select></div>
+      <div class="f"><label for="dobY">year</label><select id="dobY"></select></div>
+    </div>
+    <div class="hint">you must be 21 or older. an adult 21+ signs for the delivery.</div>
+  </div>
+
+  <!-- ADDRESS -->
+  <div class="card">
+    <h2>ship to</h2>
+    <div class="f"><label for="street1">address</label><input id="street1" autocomplete="address-line1" required></div>
+    <div class="f"><label for="street2">apartment, suite (optional)</label><input id="street2" autocomplete="address-line2"></div>
+    <div class="f"><label for="city">city</label><input id="city" autocomplete="address-level2" required></div>
+    <div class="row">
+      <div class="f"><label for="state">state</label><select id="state" required></select></div>
+      <div class="f"><label for="zip">zip</label><input id="zip" inputmode="numeric" autocomplete="postal-code" required></div>
+    </div>
+    <div class="hint" id="stateHint">we ship to 37 states and dc.</div>
+  </div>
+
+  <!-- CODE -->
+  <div class="card">
+    <h2>creator code</h2>
+    <div class="f"><input id="code" placeholder="optional" autocapitalize="none" spellcheck="false"></div>
+    <div class="hint" id="codeHint">if someone sent you here, their code gets you a better price.</div>
+  </div>
+
+  <!-- TOTAL -->
+  <div class="card">
+    <h2>total</h2>
+    <div class="lines" id="totals">
+      <div class="line"><span class="lbl muted">add your address to see shipping and tax</span></div>
+    </div>
+  </div>
+
+  <button class="go" id="go" disabled>continue to payment</button>
+  <div class="note" id="goNote">you will enter card details on the next step. nothing is charged until then.</div>
+  <a class="back" href="shop.html">back to the shop</a>
+</div>
+
+<script>
+/* ═══ CONFIG ═══
+   The api lives on the netlify deploy; the shop is on github pages, so these
+   are cross origin calls. No key of any kind is in this page. */
+const API = 'https://himaisonmaxine.com/api';
+
+/* mirrors the shop: cart quantities are counted in four pack boxes */
+const PRODUCTS = {
+  fourpack: { id: '185926', name: 'Red Wine Spritz, gift box', unitPriceCents: 2800, kind: 'fourpack' },
+  case:     { id: '200144', name: 'Red Wine Spritz, case of 24', unitPriceCents: 14400, kind: 'case' }
+};
+const FALLBACK_STATES = 'AK AZ CA CO DC FL GA HI IA ID IL IN KS KY LA MA MD MN MO NC ND NE NH NM NV NY OH OK OR PA SC TN TX VT WA WI WV WY'.split(' ');
+
+const $ = id => document.getElementById(id);
+const money = c => '$' + (c/100).toFixed(2);
+function show(t){ const m=$('msg'); m.textContent=t; m.hidden=!t; if(t) m.scrollIntoView({block:'center',behavior:'smooth'}); }
+
+/* ═══ CART ═══ */
+function readCart(){
+  let raw=null;
+  try { raw = JSON.parse(localStorage.getItem('maisonMaxineCart')); } catch(e){}
+  const c = { fourpack: 0, case: 0 };
+  if (raw && typeof raw === 'object') {
+    c.fourpack = parseInt(raw.fourpack) || 0;
+    c.case     = parseInt(raw.case) || 0;
+  }
+  return c;
+}
+function items(){
+  const c = readCart(), out = [];
+  if (c.fourpack > 0) out.push(Object.assign({ quantity: c.fourpack, productId: PRODUCTS.fourpack.id }, PRODUCTS.fourpack));
+  if (c.case > 0)     out.push(Object.assign({ quantity: c.case,     productId: PRODUCTS.case.id },     PRODUCTS.case));
+  return out;
+}
+function renderOrder(){
+  const list = items();
+  if (!list.length){
+    $('lines').innerHTML = '<div class="line"><span class="lbl">your cart is empty</span></div>';
+    return false;
+  }
+  $('lines').innerHTML = list.map(i =>
+    '<div class="line"><span class="lbl">' + i.name + ' &times; ' + i.quantity + '</span>' +
+    '<span>' + money(i.unitPriceCents * i.quantity) + '</span></div>'
+  ).join('');
+  return true;
+}
+
+/* ═══ DATE OF BIRTH ═══ */
+(function fillDob(){
+  const m=$('dobM'), d=$('dobD'), y=$('dobY');
+  const months=['january','february','march','april','may','june','july','august','september','october','november','december'];
+  m.innerHTML = '<option value="">month</option>' + months.map((n,i)=>'<option value="'+(i+1)+'">'+n+'</option>').join('');
+  d.innerHTML = '<option value="">day</option>';
+  for (let i=1;i<=31;i++) d.innerHTML += '<option value="'+i+'">'+i+'</option>';
+  const now = new Date().getUTCFullYear();
+  y.innerHTML = '<option value="">year</option>';
+  for (let i=now-21;i>=now-100;i--) y.innerHTML += '<option value="'+i+'">'+i+'</option>';
+})();
+function dob(){
+  const y=+$('dobY').value, m=+$('dobM').value, d=+$('dobD').value;
+  if (!y||!m||!d) return null;
+  return { year:y, month:m, day:d };
+}
+function isOfAge(v){
+  if (!v) return false;
+  const born = new Date(Date.UTC(v.year, v.month-1, v.day));
+  if (born.getUTCDate() !== v.day || born.getUTCMonth() !== v.month-1) return false;  // rejects 31 february
+  const cutoff = new Date();
+  cutoff.setUTCFullYear(cutoff.getUTCFullYear()-21);
+  return born <= cutoff;
+}
+
+/* ═══ STATES ═══ */
+function fillStates(list){
+  $('state').innerHTML = '<option value="">state</option>' +
+    list.map(s => '<option value="'+s+'">'+s+'</option>').join('');
+  $('stateHint').textContent = 'we ship to ' + list.length + ' places. if yours is not listed we cannot ship there yet.';
+}
+fillStates(FALLBACK_STATES);
+fetch(API + '/catalog', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' })
+  .then(r => r.json())
+  .then(d => { if (d && Array.isArray(d.shipsTo) && d.shipsTo.length) fillStates(d.shipsTo); })
+  .catch(() => {});   // the fallback list is already in place
+
+/* ═══ QUOTE ═══ */
+let quote = null, quoting = false, timer = null;
+
+function customer(){
+  return {
+    firstName: $('first').value.trim(),
+    lastName:  $('last').value.trim(),
+    fullName: ($('first').value.trim() + ' ' + $('last').value.trim()).trim(),
+    email:     $('email').value.trim(),
+    wholesale: false,
+    dateOfBirth: dob(),
+    address: shipTo()
+  };
+}
+function shipTo(){
+  return {
+    firstName: $('first').value.trim(),
+    lastName:  $('last').value.trim(),
+    street1:   $('street1').value.trim(),
+    street2:   $('street2').value.trim(),
+    city:      $('city').value.trim(),
+    stateCode: $('state').value,
+    postalCode:$('zip').value.trim(),
+    country:   'US',
+    phone:     { number: $('phone').value.trim() }
+  };
+}
+function addressReady(){
+  const a = shipTo();
+  return a.street1 && a.city && a.stateCode && /^\d{5}/.test(a.postalCode);
+}
+
+function renderTotals(){
+  if (!quote || !quote.cents){
+    $('totals').innerHTML = '<div class="line"><span class="lbl muted">add your address to see shipping and tax</span></div>';
+    return;
+  }
+  const c = quote.cents;
+  let html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(c.subtotal)+'</span></div>';
+  if (c.discount > 0) html += '<div class="line"><span class="lbl disc">creator code '+quote.creatorCode+'</span><span class="disc">&minus;'+money(c.discount)+'</span></div>';
+  html += '<div class="line"><span class="lbl">shipping, ups ground</span><span>'+money(c.shipping)+'</span></div>';
+  if (c.taxes > 0) html += '<div class="line"><span class="lbl">tax</span><span>'+money(c.taxes)+'</span></div>';
+  if (c.fees > 0)  html += '<div class="line"><span class="lbl">state fees</span><span>'+money(c.fees)+'</span></div>';
+  html += '<div class="line total"><span class="lbl">total</span><span>'+money(c.total)+'</span></div>';
+  $('totals').innerHTML = html;
+}
+
+async function getQuote(){
+  if (quoting) return;
+  if (!items().length || !addressReady() || !isOfAge(dob())) { quote=null; renderTotals(); syncGo(); return; }
+  quoting = true; syncGo();
+  try{
+    const res = await fetch(API + '/quote', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: $('code').value.trim() })
+    });
+    const d = await res.json();
+    if (!res.ok){ quote=null; show(d.error || 'we could not price that order'); }
+    else if (d.compliant === false){ quote=null; show((d.problems||[]).join(' ')); }
+    else { quote = d; show(''); $('codeHint').textContent = d.creatorCode ? 'code applied.' : ($('code').value.trim() ? 'that code was not recognised.' : 'if someone sent you here, their code gets you a better price.'); }
+  }catch(e){
+    quote=null; show('we could not reach checkout. please try again.');
+  }
+  quoting = false; renderTotals(); syncGo();
+}
+function requote(){ clearTimeout(timer); timer = setTimeout(getQuote, 500); }
+
+/* ═══ STATE OF THE BUTTON ═══ */
+function syncGo(){
+  const ok = Boolean(quote && quote.compliant && !quoting
+    && $('first').value.trim() && $('last').value.trim()
+    && /\S+@\S+\.\S+/.test($('email').value.trim())
+    && $('phone').value.trim() && addressReady() && isOfAge(dob()));
+  $('go').disabled = !ok;
+  $('go').textContent = quoting ? 'checking...' : 'continue to payment';
+}
+
+['first','last','email','phone','street1','street2','city','state','zip','code','dobM','dobD','dobY']
+  .forEach(id => { $(id).addEventListener('input', requote); $(id).addEventListener('change', requote); });
+
+/* ═══ PAY ═══ */
+$('go').addEventListener('click', async () => {
+  if ($('go').disabled) return;
+  if (!isOfAge(dob())) { show('you must be 21 or older to order.'); return; }
+  $('go').disabled = true; $('go').textContent = 'taking you to payment...';
+  try{
+    const res = await fetch(API + '/create-session', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: $('code').value.trim() })
+    });
+    const d = await res.json();
+    if (d && d.compliant === false){ show((d.problems||[]).join(' ')); syncGo(); return; }
+    if (!res.ok || !d.url){ show(d.error || 'we could not start payment. please try again.'); syncGo(); return; }
+    window.location.href = d.url;          // stripe hosted payment
+  }catch(e){
+    show('we could not reach checkout. please try again.');
+    syncGo();
+  }
+});
+
+/* ═══ GO ═══ */
+if (!renderOrder()){
+  show('your cart is empty. add something from the shop first.');
+  $('go').disabled = true;
+}
+renderTotals();
+syncGo();
+</script>
+</body>
+</html>

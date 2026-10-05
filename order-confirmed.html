@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>thank you ✦ Maison Maxine™</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  min-height:100vh;color:#4a3a3a;font-family:'Cormorant Garamond',Georgia,serif;
+  display:flex;align-items:center;justify-content:center;
+  padding:40px 16px calc(40px + env(safe-area-inset-bottom));text-align:center;
+}
+.wrap{max-width:460px}
+.mark{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:34px;color:#d371a1;line-height:1.05;margin-bottom:18px}
+h1{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:30px;color:#d371a1;font-weight:400;margin-bottom:14px}
+p{font-size:17px;font-style:italic;color:#6a4a5a;line-height:1.75;margin-bottom:14px}
+.card{background:#fffcfe;border:1px dotted #fce5f7;border-radius:12px;padding:26px 22px;margin-bottom:20px}
+.ref{font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8a6a7a;margin-top:16px;word-break:break-all}
+.go{display:inline-block;background:#d371a1;color:#fff;text-decoration:none;border-radius:7px;padding:14px 26px;font-style:italic;font-size:20px;letter-spacing:.06em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">Maison Maxine</div>
+  <div class="card">
+    <h1>thank you ✦</h1>
+    <p>your order is in. a confirmation is on its way to your inbox.</p>
+    <p>it ships ups ground, and an adult 21+ will need to sign for it.</p>
+    <div class="ref" id="ref"></div>
+  </div>
+  <a class="go" href="shop.html">back to the shop</a>
+</div>
+<script>
+/* the cart has been paid for, so it should not follow anyone back to the shop */
+try { localStorage.removeItem('maisonMaxineCart'); } catch(e){}
+var id = new URLSearchParams(location.search).get('session');
+if (id) document.getElementById('ref').textContent = 'reference ' + id.slice(-12);
+</script>
+</body>
+</html>
