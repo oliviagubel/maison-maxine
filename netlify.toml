@@ -10,6 +10,23 @@
 [build]
   functions = "netlify/functions"
 
+  # Only build when something this deploy actually serves has changed.
+  #
+  # This site doesn't serve the shop — it serves the redirects and the
+  # checkout functions, and github pages serves everything else. So a commit
+  # that only touches html or images has nothing to deploy here, and in
+  # october 2026 twenty such commits consumed a whole month of free-plan
+  # credits and silently skipped the deploys that did matter.
+  #
+  # exit 0 tells netlify to SKIP. `git diff --quiet` exits 0 when the paths
+  # are unchanged, which is exactly the skip condition. if netlify gives us no
+  # previous commit to compare against (first build, cleared cache), exit 1 so
+  # it builds rather than guessing.
+  ignore = '''
+    if [ -z "$CACHED_COMMIT_REF" ]; then exit 1; fi
+    git diff --quiet "$CACHED_COMMIT_REF" "$COMMIT_REF" -- netlify/ package.json netlify.toml _redirects
+  '''
+
 # MUST stay above the catch-all. that rule is force=true and matches every
 # path, so without this the api would be 301'd to the pages site and the
 # function would never run.
