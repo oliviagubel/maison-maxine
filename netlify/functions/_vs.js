@@ -51,7 +51,7 @@ async function call(method, path, body) {
 
 const vs = {
   /* catalogue + the states we may ship to */
-  wineList:        ()     => call('GET',  '/api/v3/wine-list'),
+  wineList:        ()     => call('GET',  '/api/v3/wine-list?id=5982'),
   estimateShipping:(body) => call('POST', '/api/v3/p/orders/estimate-shipping', body),
   estimateTaxes:   (body) => call('POST', '/api/v3/p/orders/estimate-taxes', body),
   checkCompliance: (body) => call('POST', '/api/v3/p/orders/check-compliance', body),
