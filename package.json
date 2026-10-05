@@ -1,0 +1,8 @@
+{
+  "name": "maison-maxine-checkout",
+  "private": true,
+  "description": "Serverless checkout API for maisonmaxine.world (netlify functions).",
+  "dependencies": {
+    "stripe": "^16.12.0"
+  }
+}
