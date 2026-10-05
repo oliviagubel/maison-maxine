@@ -38,7 +38,7 @@ exports.handler = handler(async (body, origin) => {
   } catch (e) {
     if (e.configMissing) return json(503, { error: 'checkout is not configured yet' }, origin);
     console.error('[quote] compliance failed', e.status, JSON.stringify(e.data));
-    return json(502, { error: 'we could not check shipping rules for that address' }, origin);
+    return json(502, { error: 'we could not check shipping rules for that address', upstream: e.status || null, step: 'compliance' }, origin);
   }
 
   if (compliance && compliance.isCompliant === false) {
@@ -61,7 +61,7 @@ exports.handler = handler(async (body, origin) => {
         || rates[0] || null;
   } catch (e) {
     console.error('[quote] shipping failed', e.status, JSON.stringify(e.data));
-    return json(502, { error: 'we could not work out shipping for that address' }, origin);
+    return json(502, { error: 'we could not work out shipping for that address', upstream: e.status || null, step: 'shipping' }, origin);
   }
   if (!rate) return json(200, { compliant: false, problems: ['we cannot ship to that address'] }, origin);
 
@@ -76,7 +76,7 @@ exports.handler = handler(async (body, origin) => {
     feesTotal  = Math.round(((t && t.extraFeesTotal) || 0) * 100);
   } catch (e) {
     console.error('[quote] taxes failed', e.status, JSON.stringify(e.data));
-    return json(502, { error: 'we could not work out tax for that address' }, origin);
+    return json(502, { error: 'we could not work out tax for that address', upstream: e.status || null, step: 'taxes' }, origin);
   }
 
   const p = priceOrder(items, creatorCode);
