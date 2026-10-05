@@ -67,8 +67,8 @@ function handler(fn) {
 
 /* credentials, read from the environment at call time */
 function credentials() {
-  const key = process.env.VINOSHIPPER_API_KEY;
-  const secret = process.env.VINOSHIPPER_API_SECRET;
+  const key = (process.env.VINOSHIPPER_API_KEY || '').trim();
+  const secret = (process.env.VINOSHIPPER_API_SECRET || '').trim();
   return {
     present: Boolean(key && secret),
     // basic auth per Vinoshipper's server-to-server docs

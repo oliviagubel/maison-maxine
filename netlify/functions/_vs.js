@@ -14,8 +14,10 @@
 const BASE = 'https://vinoshipper.com';
 
 function auth() {
-  const key = process.env.VINOSHIPPER_API_KEY;
-  const secret = process.env.VINOSHIPPER_API_SECRET;
+  // trim: a trailing newline or stray space from pasting into the dashboard is
+  // invisible in the ui and produces a 401 that looks like a wrong key
+  const key = (process.env.VINOSHIPPER_API_KEY || '').trim();
+  const secret = (process.env.VINOSHIPPER_API_SECRET || '').trim();
   if (!key || !secret) {
     const e = new Error('vinoshipper credentials are not configured');
     e.configMissing = true;
