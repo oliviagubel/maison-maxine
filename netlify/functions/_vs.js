@@ -4,10 +4,10 @@
    auth. They are never returned to the caller, never logged, and never
    included in an error message that reaches the browser.
 
-   Vinoshipper accepts no card details. It charges the producer account and
-   bills by ACH; `paid: true` on an order means we captured the funds
-   ourselves (Stripe). That is why payment happens before the order is
-   created, never the other way round. */
+   Vinoshipper takes no card details from us. `paid: true` on an order means
+   we captured the funds ourselves (Square), and Vinoshipper collects the tax
+   and fees it calculated from the producer account instead. That is why
+   payment happens before the order is created, never the other way round. */
 
 'use strict';
 
@@ -63,6 +63,7 @@ const vs = {
   estimateTaxes:   (body) => call('POST', '/api/v3/p/orders/estimate-taxes', body),
   checkCompliance: (body) => call('POST', '/api/v3/p/orders/check-compliance', body),
   createOrder:     (body) => call('POST', '/api/v3/p/orders', body),
+  getOrder:        (num)  => call('GET',  '/api/v3/p/orders/' + encodeURIComponent(num)),
 };
 
 module.exports = { vs, BASE };

@@ -11,6 +11,7 @@
 'use strict';
 const { json, handler, credentials } = require('./_lib');
 const { vs } = require('./_vs');
+const { square } = require('./_square');
 
 exports.handler = handler(async (body, origin) => {
   const creds = credentials();
@@ -34,6 +35,20 @@ exports.handler = handler(async (body, origin) => {
     }
   }
 
+  /* square: the token works AND the location id belongs to that account */
+  const sq = square.settings();
+  let squareWorks = null, squareUpstream = null, squareLocationFound = null;
+  if (sq.present) {
+    try {
+      const r = await square.locations();
+      squareWorks = true;
+      squareLocationFound = ((r && r.locations) || []).some(l => l.id === sq.locationId);
+    } catch (e) {
+      squareWorks = false;
+      squareUpstream = e.status || null;
+    }
+  }
+
   return json(200, {
     ok: true,
     service: 'maison maxine checkout api',
@@ -42,8 +57,11 @@ exports.handler = handler(async (body, origin) => {
     credentialsWork,
     upstream,
     lengths,
-    stripeConfigured: Boolean((process.env.STRIPE_SECRET_KEY || '').trim()),
-    webhookConfigured: Boolean((process.env.STRIPE_WEBHOOK_SECRET || '').trim()),
+    squareConfigured: sq.present,
+    squareMode: sq.present ? (sq.sandbox ? 'sandbox' : 'production') : null,
+    squareWorks,
+    squareUpstream,
+    squareLocationFound,
     callerOrigin: origin || '(none)',
   }, origin);
 });
