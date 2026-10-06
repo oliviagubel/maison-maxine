@@ -56,8 +56,8 @@ exports.handler = handler(async (body, origin) => {
       shipToAddress, isResidential: true,
     }, base));
     const rates = (ship && ship.rates) || [];
-    rate = rates.find(r => /ground/i.test(r.description || '') && /ups/i.test(r.shippingClassCarrier || r.carrier || ''))
-        || rates.find(r => /ground/i.test(r.description || ''))
+    rate = rates.find(r => /ground/i.test(r.rateDescription || r.description || '') && /ups/i.test(r.shippingClassCarrier || r.carrier || ''))
+        || rates.find(r => /ground/i.test(r.rateDescription || r.description || ''))
         || rates[0] || null;
   } catch (e) {
     console.error('[quote] shipping failed', e.status, JSON.stringify(e.data));
@@ -70,7 +70,7 @@ exports.handler = handler(async (body, origin) => {
   try {
     const t = await vs.estimateTaxes(Object.assign({
       shipToAddress,
-      shippingRate: { carrier: 'UPS', rateCode: rate.code, price: money(FLAT_SHIPPING_CENTS) },
+      shippingRate: { carrier: 'UPS', rateCode: rate.rateCode || rate.code, price: money(FLAT_SHIPPING_CENTS) },
     }, base));
     taxesTotal = Math.round(((t && t.taxesTotal) || 0) * 100);
     feesTotal  = Math.round(((t && t.extraFeesTotal) || 0) * 100);
@@ -85,8 +85,8 @@ exports.handler = handler(async (body, origin) => {
   return json(200, {
     compliant: true,
     creatorCode: p.code,                       // null if the code was not valid
-    rateCode: rate.code,                       // carried into the order
-    carrierCost: rate.amountChargedToCustomer, // what vinoshipper would charge; we absorb the gap
+    rateCode: rate.rateCode || rate.code,                       // carried into the order
+    carrierCost: rate.price != null ? rate.price : rate.amountChargedToCustomer, // what vinoshipper would charge; we absorb the gap
     cents: {
       subtotal: p.subtotalCents,
       discount: p.discountCents,

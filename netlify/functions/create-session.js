@@ -45,14 +45,14 @@ exports.handler = handler(async (body, origin) => {
 
     const ship = await vs.estimateShipping(Object.assign({ shipToAddress, isResidential: true }, base));
     const rates = (ship && ship.rates) || [];
-    rate = rates.find(r => /ground/i.test(r.description || '') && /ups/i.test(r.shippingClassCarrier || r.carrier || ''))
-        || rates.find(r => /ground/i.test(r.description || ''))
+    rate = rates.find(r => /ground/i.test(r.rateDescription || r.description || '') && /ups/i.test(r.shippingClassCarrier || r.carrier || ''))
+        || rates.find(r => /ground/i.test(r.rateDescription || r.description || ''))
         || rates[0];
     if (!rate) return json(200, { compliant: false, problems: ['we cannot ship to that address'] }, origin);
 
     const t = await vs.estimateTaxes(Object.assign({
       shipToAddress,
-      shippingRate: { carrier: 'UPS', rateCode: rate.code, price: money(FLAT_SHIPPING_CENTS) },
+      shippingRate: { carrier: 'UPS', rateCode: rate.rateCode || rate.code, price: money(FLAT_SHIPPING_CENTS) },
     }, base));
     taxesCents = Math.round(((t && t.taxesTotal) || 0) * 100);
     feesCents  = Math.round(((t && t.extraFeesTotal) || 0) * 100);
@@ -96,12 +96,12 @@ exports.handler = handler(async (body, origin) => {
   /* what the webhook needs to raise the order, carried with the payment */
   const orderSeed = {
     customer, shipToAddress, products,
-    rateCode: rate.code,
+    rateCode: rate.rateCode || rate.code,
     taxes: money(taxesCents),
     fees: money(feesCents),
     discount: vsDiscount(items, creatorCode),
     creatorCode: p.code || '',
-    carrierCost: rate.amountChargedToCustomer,   // logged so the gap we absorb is visible
+    carrierCost: rate.price != null ? rate.price : rate.amountChargedToCustomer,   // logged so the gap we absorb is visible
   };
 
   const session = await s.checkout.sessions.create({
