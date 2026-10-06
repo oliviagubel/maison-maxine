@@ -74,6 +74,18 @@ select + .ok{right:38px}
 .err svg{flex:none}
 .hint{font-size:14px;font-style:italic;color:var(--soft);margin-top:6px;line-height:1.5}
 .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+
+/* address suggestions under the address field */
+.addr{
+  position:absolute;left:0;right:0;top:calc(100% + 4px);z-index:5;list-style:none;
+  background:#fff;border:1px solid var(--line);border-radius:8px;overflow:hidden;
+  box-shadow:0 10px 28px rgba(52,33,43,.14);
+}
+.addr li{padding:12px 14px;min-height:48px;cursor:pointer;font-size:17px;line-height:1.3}
+.addr li + li{border-top:1px dotted var(--blush)}
+.addr li span{display:block;font-size:14px;font-style:italic;color:var(--soft)}
+.addr li[aria-selected="true"],.addr li:hover{background:#fdf2f8}
+.addr li.by{min-height:0;padding:6px 14px;cursor:default;font-family:Arial,sans-serif;font-size:11px;color:#5f6368;text-align:right;background:#fff}
 .row .f{margin-bottom:16px}
 
 /* text links: the words are small, the tap area is 44px */
@@ -178,7 +190,7 @@ select + .ok{right:38px}
   <!-- 3. SHIP TO -->
   <div class="card">
     <h2>ship to</h2>
-    <div class="f" id="f-street1"><label for="street1">address</label><div class="box"><input id="street1" autocomplete="address-line1" required></div>
+    <div class="f" id="f-street1"><label for="street1">address</label><div class="box"><input id="street1" autocomplete="address-line1" role="combobox" aria-autocomplete="list" aria-controls="addrList" aria-expanded="false" required><ul class="addr" id="addrList" role="listbox" aria-label="address suggestions" hidden></ul></div>
       <button type="button" class="tlink" id="aptLink">add apt or suite</button>
     </div>
     <div class="f" id="f-street2" hidden><label for="street2">apt or suite (optional)</label><div class="box"><input id="street2" autocomplete="address-line2"></div></div>
@@ -360,7 +372,7 @@ const CHECKS = {
   phone:   () => v('phone').replace(/\D/g,'').length >= 10 ? '' : 'add a 10 digit phone number',
   street1: () => v('street1') ? '' : 'add your street address',
   city:    () => v('city') ? '' : 'add your city',
-  state:   () => v('state') ? '' : 'pick your state',
+  state:   () => v('state') ? '' : (stateMiss ? 'we cannot ship to ' + stateMiss + ' yet' : 'pick your state'),
   zip:     () => /^\d{5}(-?\d{4})?$/.test(v('zip')) ? '' : 'add a 5 digit zip',
   dob:     () => { const d = dob();
                    if (!d) return 'add your birthday as MM / DD / YYYY';
@@ -368,6 +380,7 @@ const CHECKS = {
                    return isOfAge(d) ? '' : 'you must be 21 or older to order'; }
 };
 const touched = {};
+let stateMiss = '';   // a picked address in a state we do not ship to
 function paint(id){
   const f = $('f-' + id), msg = CHECKS[id]();
   let err = f.querySelector('.err');
@@ -384,7 +397,92 @@ function paint(id){
 Object.keys(CHECKS).forEach(id => {
   $(id).addEventListener('blur', () => { if (v(id) || touched[id]) { touched[id] = 'shown'; paint(id); } });
   $(id).addEventListener('input', () => { touched[id] = touched[id] || 'typing'; if (touched[id] === 'shown') paint(id); else if (!CHECKS[id]()) paint(id); });
-  $(id).addEventListener('change', () => { if (id === 'state') { touched[id] = 'shown'; paint(id); } });
+  $(id).addEventListener('change', () => { if (id === 'state') { stateMiss = ''; touched[id] = 'shown'; paint(id); } });
+});
+
+/* ═══ ADDRESS SEARCH ═══
+   typing a street number and a few letters shows real addresses to pick
+   from; picking one fills street, city, state and zip. google does the
+   searching through our api (netlify/functions/address.js). if that is not
+   set up or fails, there is simply no dropdown and the fields work by hand. */
+let addrOn = true, addrSession = null, addrTimer = null, addrSeq = 0, addrPicks = [], addrActive = -1;
+
+function closeAddr(){
+  $('addrList').hidden = true; $('street1').setAttribute('aria-expanded', 'false');
+  $('street1').removeAttribute('aria-activedescendant'); addrActive = -1;
+}
+function drawAddr(){
+  const list = $('addrList');
+  list.innerHTML = '';
+  addrPicks.forEach((p, i) => {
+    const li = document.createElement('li');
+    li.id = 'addr-' + i; li.setAttribute('role', 'option');
+    li.setAttribute('aria-selected', i === addrActive ? 'true' : 'false');
+    li.textContent = p.main;
+    if (p.rest){ const r = document.createElement('span'); r.textContent = p.rest; li.appendChild(r); }
+    li.addEventListener('mousedown', e => e.preventDefault());   // keep focus in the field
+    li.addEventListener('click', () => pickAddr(i));
+    list.appendChild(li);
+  });
+  list.insertAdjacentHTML('beforeend', '<li class="by" aria-hidden="true">powered by Google</li>');
+  list.hidden = false; $('street1').setAttribute('aria-expanded', 'true');
+  if (addrActive >= 0) $('street1').setAttribute('aria-activedescendant', 'addr-' + addrActive);
+  else $('street1').removeAttribute('aria-activedescendant');
+}
+async function searchAddr(){
+  const q = v('street1');
+  if (!addrOn || q.length < 4 || !/\d/.test(q)) return closeAddr();
+  if (!addrSession) addrSession = newKey();
+  const seq = ++addrSeq;
+  try{
+    const res = await fetch(API + '/address', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ q, session: addrSession }) });
+    if (res.status === 503) { addrOn = false; return closeAddr(); }
+    const d = await res.json();
+    if (seq !== addrSeq || document.activeElement !== $('street1')) return;
+    addrPicks = (d && d.suggestions) || []; addrActive = -1;
+    addrPicks.length ? drawAddr() : closeAddr();
+  }catch(e){ closeAddr(); }
+}
+function fillField(id, val){ $(id).value = val; if (CHECKS[id]) { touched[id] = 'shown'; paint(id); } }
+async function pickAddr(i){
+  const p = addrPicks[i]; if (!p) return;
+  const typedNum = (v('street1').match(/^\s*(\d+[a-z]?)\b/i) || [])[1];
+  closeAddr();
+  try{
+    const res = await fetch(API + '/address', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ placeId: p.placeId, session: addrSession }) });
+    const d = await res.json();
+    addrSession = null;                       // a pick ends google's session
+    const a = d && d.address;
+    if (!res.ok || !a) throw new Error('no address');
+    // a street with no house number keeps the number the shopper typed
+    fillField('street1', a.hasNumber || !typedNum ? a.street1 : typedNum + ' ' + a.street1);
+    if (a.street2){ openApt(); fillField('street2', a.street2); }
+    fillField('city', a.city);
+    const ships = [...$('state').options].some(o => o.value === a.state);
+    stateMiss = ships ? '' : a.state;
+    fillField('state', ships ? a.state : '');
+    fillField('zip', a.zip);
+    $('street1').blur();
+    syncGo(); requote();
+  }catch(e){
+    // the suggestion text is still useful: put its first line in and let them finish by hand
+    fillField('street1', p.main);
+  }
+}
+$('street1').addEventListener('input', () => { clearTimeout(addrTimer); addrTimer = setTimeout(searchAddr, 220); });
+$('street1').addEventListener('blur', () => setTimeout(closeAddr, 150));
+$('street1').addEventListener('keydown', e => {
+  if ($('addrList').hidden || !addrPicks.length) return;
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp'){
+    e.preventDefault();
+    const n = addrPicks.length;
+    addrActive = e.key === 'ArrowDown' ? (addrActive + 1) % n : (addrActive - 1 + n) % n;
+    drawAddr();
+  } else if (e.key === 'Enter' && addrActive >= 0){
+    e.preventDefault(); pickAddr(addrActive);
+  } else if (e.key === 'Escape'){
+    closeAddr();
+  }
 });
 
 /* ═══ LINKS THAT OPEN A FIELD ═══ */
