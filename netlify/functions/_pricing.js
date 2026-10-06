@@ -10,42 +10,48 @@
 const FLAT_SHIPPING_CENTS = 700;      // we charge $7 UPS Ground and absorb the rest
 const MIN_FOURPACK_BOXES  = 2;        // a single box is not sold
 
-/* Creator codes: FirstNamexMaxine. 10% off four-packs, or a flat $99 case.
-   Validated here, server side — a code typed in the page is never trusted. */
+/* Creator codes: FirstNamexMaxine. Each code says what it takes off:
+     fourpackPercentOff  percent off gift boxes (four-packs)
+     casePriceCents      a flat price per case, or null for no case deal
+   Validated here, server side — a code typed in the page is never trusted.
+   Matching ignores capitals, so camxmaxine and CamXMaxine are the same code. */
 const CREATOR_CODES = [
-  'CierraxMaxine',
+  { code: 'CierraxMaxine', fourpackPercentOff: 10, casePriceCents: 9900 },
+  { code: 'CamXMaxine',    fourpackPercentOff: 10, casePriceCents: null },
 ];
-const CASE_CODE_PRICE_CENTS = 9900;
-const FOURPACK_PERCENT_OFF  = 10;
 
-function normaliseCode(input) {
+function findCode(input) {
   if (!input) return null;
   const want = String(input).trim().toLowerCase();
-  return CREATOR_CODES.find(c => c.toLowerCase() === want) || null;
+  return CREATOR_CODES.find(c => c.code.toLowerCase() === want) || null;
+}
+function normaliseCode(input) {
+  const c = findCode(input);
+  return c ? c.code : null;
 }
 
 /* lineItems: [{ productId, quantity, unitPriceCents, kind }]
    kind is 'fourpack' | 'case', used only to apply the creator rules. */
 function priceOrder(lineItems, code) {
-  const validCode = normaliseCode(code);
+  const rule = findCode(code);
   let subtotal = 0;
   let discount = 0;
 
   for (const li of lineItems) {
     const gross = li.unitPriceCents * li.quantity;
     subtotal += gross;
-    if (!validCode) continue;
+    if (!rule) continue;
 
-    if (li.kind === 'case') {
-      const target = CASE_CODE_PRICE_CENTS * li.quantity;
+    if (li.kind === 'case' && rule.casePriceCents != null) {
+      const target = rule.casePriceCents * li.quantity;
       if (target < gross) discount += gross - target;
-    } else if (li.kind === 'fourpack') {
-      discount += Math.round(gross * FOURPACK_PERCENT_OFF / 100);
+    } else if (li.kind === 'fourpack' && rule.fourpackPercentOff) {
+      discount += Math.round(gross * rule.fourpackPercentOff / 100);
     }
   }
 
   return {
-    code: validCode,
+    code: rule ? rule.code : null,
     subtotalCents: subtotal,
     discountCents: discount,
     shippingCents: FLAT_SHIPPING_CENTS,
