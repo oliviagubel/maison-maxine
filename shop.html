@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>shop ✦ Maison Maxine™</title>
-<meta name="description" content="Maison Maxine red wine spritzer: Napa Valley cabernet with ginger, lemon and honey. 5% abv, 250ml cans. $56 the pair, free shipping on orders over $100.">
+<meta name="description" content="Maison Maxine red wine spritzer: Napa Valley cabernet with ginger, lemon and honey. 5% abv, 250ml cans. $56 for two gift boxes, free shipping on orders over $100.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://vinoshipper.com">
@@ -2000,8 +2000,8 @@ html.age-ok .age-gate{display:none}
       <div class="cart-section">
         <div class="variant-row">
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
-            <span class="variant-name">the pair</span>
-            <span class="variant-meta">2 luxury gift boxes · 8 cans</span>
+            <span class="variant-name">gift boxes</span>
+            <span class="variant-meta">starts at 2 boxes · 8 cans<br>+$28 each extra box</span>
             <span class="variant-price">$56 <span class="variant-per">$7 a can</span></span>
           </button>
           <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
@@ -2009,7 +2009,7 @@ html.age-ok .age-gate{display:none}
             <span class="variant-name">the case</span>
             <span class="variant-meta">24 cans · six gift boxes</span>
             <span class="variant-price">$144 <span class="variant-per">$6 a can</span></span>
-            <span class="variant-save">save $24 vs. buying pairs ✦ ships free</span>
+            <span class="variant-save">save $24 vs. six gift boxes ✦ ships free</span>
           </button>
         </div>
         <div class="variant-pitch" id="variantPitch"></div>
@@ -2315,10 +2315,10 @@ const VARIANTS = {
     name: 'Red Wine Spritz',
     variant: '2 luxury gift boxes · 8 cans · 250ml each',
     note: '2 luxury gift boxes · 8 cans · 250ml each',
-    short: 'the pair',
+    short: 'gift boxes',
     price: 28,
     min: 2,
-    unit: 2
+    unit: 1
   },
   case: {
     id: 'case',
@@ -2338,8 +2338,8 @@ const VARIANTS = {
 };
 const VARIANT_IDS = ['fourpack', 'case'];
 // cart quantities are always in four-pack boxes, because that's the sku
-// vinoshipper fulfils. `unit` converts to what the page sells: the pair is
-// two boxes, so 4 boxes reads as 2 pairs and prices at 4 x $28.
+// vinoshipper fulfils. gift boxes start at 2 ($56) and go up one box ($28)
+// at a time; `unit` is kept for any variant sold in multiples.
 const units = id => VARIANTS[id].unit || 1;
 const toUnits = (id, boxes) => boxes / units(id);
 const PRODUCT_IMG = 'shop-hero-750.jpg';
@@ -2354,7 +2354,7 @@ function selectVariant(id) {
     el.classList.toggle('selected', v === id);
     el.setAttribute('aria-pressed', v === id);
   });
-  document.getElementById('priceMain').textContent = '$' + (VARIANTS[id].price * units(id));
+  document.getElementById('priceMain').textContent = '$' + (VARIANTS[id].price * VARIANTS[id].min);
   document.getElementById('priceNote').textContent = VARIANTS[id].note;
   const pitch = document.getElementById('variantPitch');
   pitch.textContent = VARIANTS[id].pitch || '';
@@ -2369,9 +2369,9 @@ function selectVariant(id) {
 const ADDON_BOX_PRICE = VARIANTS.fourpack.price;
 const addonOn = () => document.getElementById('addonBox').checked;
 function fillQtyPick() {
-  const max = 12 / units(selectedVariant);
+  const min = toUnits(selectedVariant, VARIANTS[selectedVariant].min), max = 12 / units(selectedVariant);
   const sel = document.getElementById('qtyPick');
-  sel.innerHTML = Array.from({ length: max }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + '</option>').join('');
+  sel.innerHTML = Array.from({ length: max - min + 1 }, (_, i) => '<option value="' + (min + i) + '">' + (min + i) + '</option>').join('');
   sel.value = String(toUnits(selectedVariant, qty));
 }
 function syncAddBtn() {
@@ -2381,7 +2381,7 @@ function syncAddBtn() {
   document.getElementById('qty').textContent = shown;
   document.getElementById('qtyPick').value = String(shown);
   document.getElementById('addBtn').textContent = 'add to bag · ' + total;
-  document.getElementById('buybarVariant').textContent = (shown > 1 ? shown + ' × ' : '') + v.short;
+  document.getElementById('buybarVariant').textContent = selectedVariant === 'fourpack' ? shown + ' ' + v.short : (shown > 1 ? shown + ' × ' : '') + v.short;
   renderBonuses();
   document.getElementById('buybarPrice').textContent = total;
 }
