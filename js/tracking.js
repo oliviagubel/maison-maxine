@@ -18,7 +18,7 @@
      Replace both placeholders with the real ids. While they're still
      "PIXEL_ID" / "CLARITY_ID" nothing loads, so the site never fires requests
      at a pixel that doesn't exist. */
-  var PIXEL_ID   = 'PIXEL_ID';
+  var PIXEL_ID   = '4576703702572580';
   var CLARITY_ID = 'CLARITY_ID';
   var DEBUG      = false;   // true → log every event to the console
   /* ──────────────────────────────────────────────────────────────────────── */
@@ -116,6 +116,13 @@
 
     log((standard ? 'track' : 'trackCustom') + ':', name, payload);
   }
+  /* pages report their own steps through mmTrack (checkout, order confirmed).
+     this file loads deferred, so a page's own script can run first: anything
+     it reported before now waits in window.mmQ and is sent here. */
+  window.mmTrack = function (name, standard, params) { track(name, !!standard, params); };
+  (window.mmQ || []).forEach(function (a) { window.mmTrack.apply(null, a); });
+  window.mmQ = { push: function (a) { window.mmTrack.apply(null, a); } };
+
   function tag(k, v) { try { if (window.clarity && v != null) clarity('set', k, String(v)); } catch (e) {} }
 
   /* ═══ VISITOR COUNT ═══
@@ -245,7 +252,9 @@
     if (product && 'IntersectionObserver' in window) {
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (en) {
-          if (!en.isIntersecting) return;
+          // a share of the box never works on phones, where the box is taller
+          // than three screens: count it once a solid 250px of it is in view
+          if (!en.isIntersecting || en.intersectionRect.height < Math.min(250, en.boundingClientRect.height)) return;
           track('ViewContent', true, {
             content_name: 'Red Wine Spritz',
             content_type: 'product',
@@ -254,7 +263,7 @@
           });
           io.disconnect();
         });
-      }, { threshold: 0.3 });
+      }, { threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.3, 0.5] });
       io.observe(product);
     }
 
@@ -279,7 +288,7 @@
     depth(); // a short page can already be at 100%
 
     /* ── 6. option selected ──────────────────────────────────────────── */
-    var OPTIONS = { 'variant-fourpack': { option: 'pair', value: 56 },
+    var OPTIONS = { 'variant-fourpack': { option: 'gift boxes', value: 56 },
                     'variant-case':     { option: 'case', value: 144 } };
     Object.keys(OPTIONS).forEach(function (id) {
       var el = document.getElementById(id);
@@ -291,29 +300,32 @@
       });
     });
 
-    /* which option is live right now, for AddToCart */
+    /* which option is live right now, and what the button says it costs
+       (quantity and the extra box add-on are already in that price) */
     function chosen() {
       var el = document.querySelector('.variant-opt.selected');
-      if (el && el.id === 'variant-case') return { option: 'case', value: 144 };
-      return { option: 'pair', value: 56 };
+      var btn = document.getElementById('addBtn');
+      var m = btn && /\$(\d+)/.exec(btn.textContent);
+      var isCase = el && el.id === 'variant-case';
+      return { option: isCase ? 'case' : 'gift boxes', value: m ? +m[1] : (isCase ? 144 : 56) };
     }
 
-    /* ── 7. add to cart (both the main button and the sticky bar) ────── */
-    var addEls = [document.getElementById('addBtn')].concat(
-      [].slice.call(document.querySelectorAll('.buybar-btn'))
-    ).filter(Boolean);
-    addEls.forEach(function (el) {
-      el.addEventListener('click', function () {
-        var c = chosen();
-        track('AddToCart', true, {
-          content_name: 'Red Wine Spritz',
-          content_type: 'product',
-          option: c.option,
-          value: c.value,
-          currency: 'USD'
-        });
-      });
-    });
+    /* ── 7. add to cart (both the main button and the sticky bar) ──────
+       caught on the way down, before the page's own handler resets the
+       add-on and rewrites the button price */
+    document.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest || !t.closest('#addBtn, .buybar-btn')) return;
+      var c = chosen();
+      // fires on every add, not once per page: adding twice is two adds
+      track('AddToCart', true, {
+        content_name: 'Red Wine Spritz',
+        content_type: 'product',
+        option: c.option,
+        value: c.value,
+        currency: 'USD'
+      }, 'AddToCart:' + Date.now());
+    }, true);
 
     /* ── 8. initiate checkout ────────────────────────────────────────── */
     function cartValue() {

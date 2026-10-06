@@ -269,6 +269,20 @@ const money = c => '$' + (c/100).toFixed(2);
 const ICON_ALERT = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="none" stroke="#ad587c" stroke-width="1.6"/><path d="M8 4.2v4.6" stroke="#ad587c" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="11.4" r="1.05" fill="#ad587c"/></svg>';
 const ICON_OK = '<svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#90c74b"/><path d="M4.6 8.3l2.3 2.3 4.5-4.7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
+/* ═══ FUNNEL ═══
+   each step reports once to meta (js/tracking.js), so events manager shows
+   where people stop. never anything personal: only the step, a price, and
+   for a blocked order the reason we showed them. tracking.js loads after
+   this script, so early steps wait in a queue it picks up. */
+function T(name, standard, params){ (window.mmQ = window.mmQ || []).push([name, standard, params]); }
+const boxesInCart = () => items().reduce((n, i) => n + (i.kind === 'case' ? 6 : 1) * i.quantity, 0);
+function trackSteps(){
+  if (!items().length) return;
+  if (['first','last','email','phone'].every(id => !CHECKS[id]())) T('CheckoutContactDone');
+  if (addressReady()) T('CheckoutAddressDone');
+  if (isOfAge(dob())) T('CheckoutBirthdayDone');
+}
+
 function show(t){
   const m=$('msg');
   m.innerHTML = t ? ICON_ALERT + '<span></span>' : '';
@@ -601,11 +615,11 @@ async function getQuote(){
       body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: v('code') })
     });
     const d = await res.json();
-    if (!res.ok){ quote=null; show(d.error || 'we could not price that order'); }
-    else if (d.compliant === false){ quote=null; show((d.problems||[]).join(' ')); }
-    else { quote = d; show(''); }
+    if (!res.ok){ quote=null; show(d.error || 'we could not price that order'); T('CheckoutBlocked', false, { reason: String(d.error || 'quote failed').slice(0,100), step: d.step || null }); }
+    else if (d.compliant === false){ quote=null; show((d.problems||[]).join(' ')); T('CheckoutBlocked', false, { reason: (d.problems||[]).join(' ').slice(0,100), step: 'compliance' }); }
+    else { quote = d; show(''); T('CheckoutPriced', false, { value: d.cents.total / 100, currency: 'USD' }); }
   }catch(e){
-    quote=null; show('we could not reach checkout. please try again.');
+    quote=null; show('we could not reach checkout. please try again.'); T('CheckoutBlocked', false, { reason: 'network', step: 'quote' });
   }
   quoting = false; renderTotals(); renderCodeHint(); syncGo();
 }
@@ -662,6 +676,7 @@ async function setupCard(){
   }catch(e){
     card = null;
     $('cardHint').textContent = 'the card form could not load. please refresh the page.';
+    T('CardFormFailed');
   }
 
   /* apple pay: square throws here when the device or browser can't do it */
@@ -704,6 +719,7 @@ function formReady(){
   return !nextMissing() && Boolean(quote && quote.compliant && !quoting && !paying);
 }
 function syncGo(){
+  trackSteps();
   const missing = nextMissing(), ready = formReady();
   const go = $('go');
   go.disabled = !(ready && card && cardValid);
@@ -739,6 +755,8 @@ async function submitPayment(token){
     });
     const d = await res.json();
     if (res.ok && d.ok){
+      // the confirmation page reports the purchase; this is what it reports
+      try { sessionStorage.setItem('mmPurchase', JSON.stringify({ order: String(d.orderNumber), value: quote.cents.total / 100, boxes: boxesInCart() })); } catch(e){}
       window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(d.orderNumber);
       return;
     }
@@ -747,10 +765,12 @@ async function submitPayment(token){
     if (d && d.compliant === false) { show((d.problems||[]).join(' ')); syncGo(); return; }
     if (res.status === 409 && d.cents) { quote = Object.assign({}, quote, { cents: d.cents }); renderTotals(); }
     show(d.error || 'that payment did not go through. you have not been charged.');
+    T('PaymentFailed', false, { reason: String(d.error || 'declined').slice(0,100), status: res.status });
     syncGo();
   }catch(e){
     // no answer: keep attemptKey so paying again cannot double charge
     paying = false; syncGo();
+    T('PaymentFailed', false, { reason: 'network' });
     show('we lost the connection before hearing back. press pay again: you will not be charged twice.');
   }
 }
@@ -758,6 +778,7 @@ async function submitPayment(token){
 $('go').addEventListener('click', async () => {
   if ($('go').disabled || paying) return;
   if (!isOfAge(dob())) { show('you must be 21 or older to order.'); return; }
+  T('AddPaymentInfo', true, { value: quote.cents.total / 100, currency: 'USD', payment: 'card' });
   show('');
   paying = true; syncGo();
 
@@ -782,6 +803,7 @@ $('go').addEventListener('click', async () => {
       paying = false; cardValid = false; syncGo();
       // square shows field errors inline under the card form
       if (result.errors && result.errors.length) show('please check your card details.');
+      T('PaymentFailed', false, { reason: 'card details' });
       return;
     }
     token = result.token;
@@ -803,6 +825,7 @@ async function payWithApple(){
   try{ result = await applePay.tokenize(); }
   catch(e){ return; }                       // sheet closed: nothing happened
   if (!result || result.status !== 'OK') return;
+  T('AddPaymentInfo', true, { value: quote.cents.total / 100, currency: 'USD', payment: 'apple pay' });
   paying = true; syncGo();
   await submitPayment(result.token);
 }
@@ -812,11 +835,15 @@ $('apple-pay-button').addEventListener('keydown', e => { if (e.key === 'Enter' |
 /* ═══ GO ═══ */
 if (!renderOrder()){
   show('your cart is empty. add something from the shop first.');
+  T('CheckoutEmptyCart');
+} else {
+  T('CheckoutView', false, { value: subtotalCents() / 100, currency: 'USD', num_items: boxesInCart() });
 }
 renderTotals();
 renderCodeHint();
 syncGo();
 setupCard();
 </script>
+<script src="/js/tracking.js" defer></script>
 </body>
 </html>
