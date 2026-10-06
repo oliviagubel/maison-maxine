@@ -2514,12 +2514,13 @@ function vsLine(V, variantId) {
 
 /* ═══ WHICH CHECKOUT ═══
    false -> vinoshipper's hosted checkout, which is what customers use today
-   true  -> our own at /checkout.html, stripe then the vinoshipper order api
+   true  -> our own at /checkout.html: square takes payment, then the
+            vinoshipper order api places the order (netlify/functions/pay.js)
 
    Flip this to true only once a real order has gone through the new path end
    to end and appeared in the vinoshipper dashboard. Flipping it back is the
    rollback: the handoff below is untouched and keeps working. */
-const USE_OWN_CHECKOUT = false;
+const USE_OWN_CHECKOUT = true;
 
 async function checkout() {
   const cart = getCart();
