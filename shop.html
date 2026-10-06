@@ -1700,19 +1700,16 @@ html.age-ok .age-gate{display:none}
   .ag-q{font-size:19px}
 }
 
-/* ═══ COMPUTER BUY AREA ═══
-   on a computer the decision gets a calm white card: options side by side,
-   the add-on, quantity beside the button, all on one screen. the wallpaper
-   and the loud brand look stay around it. phones keep their own layout, so
-   the new pieces below are hidden there. */
-.ship-strip,.pd-proof,.pd-why,.ing-chips,.addon,.qty-pick{display:none}
+/* ═══ BUY AREA ═══
+   the decision gets a calm white card: options side by side, the add-on,
+   quantity beside the button, all on one screen. the wallpaper and the loud
+   brand look stay around it. same on phones and computers; the few
+   differences are at the end. */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .variant-per{font-size:13px;font-style:italic;color:#6a4a5a}
 .variant-save{font-size:13px;font-style:italic;color:#4a7212;line-height:1.4}
 
-@media(min-width:769px){
-  /* 1 — the strip at the top sells free shipping, the merch drop waits below */
-  .drop-strip{display:none}
+/* 1 — the strip at the top sells free shipping */
   .ship-strip{
     display:block;margin:0 0 22px;padding:11px 18px;text-align:center;
     background:#fff;border:1px solid #d371a1;border-radius:30px;
@@ -1789,7 +1786,10 @@ html.age-ok .age-gate{display:none}
   .pd-sub.below-btn{display:none}
   .ship-line{text-align:left;margin-top:6px}
 
-  /* 9 — the sidebar widgets stay, smaller and at the foot of the sidebar */
+/* computers: the merch strip steps aside for the shipping strip, and the
+   sidebar widgets stay, smaller and at the foot of the sidebar */
+@media(min-width:769px){
+  .drop-strip{display:none}
   .side-quiet{opacity:.8;margin-bottom:6px}
   .side-quiet .now-playing,.side-quiet .sidebar-widget{
     margin-top:8px;padding:7px 9px;background:transparent;border:1px dotted #fce5f7;
@@ -1801,6 +1801,17 @@ html.age-ok .age-gate{display:none}
   .side-quiet .weather-icon{font-size:13px}
   .side-quiet .weather-temp{font-size:13px}
   .side-quiet .weather-details{display:none}
+}
+@media(max-width:768px){
+  .ship-strip{margin:0 0 12px;padding:9px 14px;font-size:16px}
+  .product-details .pd-about{order:2}
+  .product-details .cart-section{order:3;padding:16px}
+  .variant-opt{padding:14px 11px 12px}
+  .variant-opt.selected{padding:13px 10px 11px}
+  .variant-price{font-size:21px}
+  .addon-text{font-size:15px}
+  .buy-row .add-btn{font-size:20px;padding:12px 30px 12px 12px}
+  .qty-pick select{font-size:18px;padding:0 30px 0 12px}
 }
 </style>
 <script src="/js/tracking.js" defer></script>
@@ -2292,7 +2303,7 @@ html.age-ok .age-gate{display:none}
     <span class="buybar-variant" id="buybarVariant">four-pack gift box</span>
     <span class="buybar-price" id="buybarPrice">$28</span>
   </div>
-  <button class="buybar-btn" type="button" onclick="addToCart()">add to cart</button>
+  <button class="buybar-btn" type="button" onclick="addToCart()">add to bag</button>
 </div>
 
 <!-- CART DRAWER -->
