@@ -17,7 +17,7 @@ const MIN_FOURPACK_BOXES  = 2;        // a single box is not sold
    Matching ignores capitals, so camxmaxine and CamXMaxine are the same code. */
 const CREATOR_CODES = [
   { code: 'CierraxMaxine', fourpackPercentOff: 10, casePriceCents: 9900 },
-  { code: 'CamXMaxine',    fourpackPercentOff: 10, casePriceCents: null },
+  { code: 'CamXMaxine',    fourpackPercentOff: 10, casePriceCents: 9900 },
 ];
 
 function findCode(input) {
