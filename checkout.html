@@ -12,76 +12,132 @@
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap}
+/* the checkout palette, from the redesign brief:
+   rose #d371a1 for the wordmark only, deep rose #ad587c for anything small or
+   clickable, green #90c74b only for good news, brand black #34212b for text */
+:root{
+  --rose:#d371a1; --deep:#ad587c; --line:#b0718f; --blush:#fce5f7;
+  --ink:#34212b; --soft:#8a6a7a; --green:#90c74b;
+}
 *{margin:0;padding:0;box-sizing:border-box}
 body{
-  background:#fff;
-  min-height:100vh;color:#2a1d22;
+  background:var(--blush);min-height:100vh;color:var(--ink);
   font-family:'Cormorant Garamond',Georgia,serif;font-weight:500;
-  padding:28px 16px calc(40px + env(safe-area-inset-bottom));
+  padding:24px 16px calc(40px + env(safe-area-inset-bottom));
 }
 .wrap{max-width:560px;margin:0 auto}
 .mark{
   font-family:'Klickclack Swash','Great Vibes',cursive;
-  font-size:36px;color:#d371a1;text-align:center;line-height:1.05;margin-bottom:6px;
+  font-size:36px;color:var(--rose);text-align:center;line-height:1.05;margin-bottom:8px;
 }
 .step{
-  font-family:'Pixelify Sans',sans-serif;font-size:13px;letter-spacing:.14em;
-  text-transform:uppercase;color:#5a4550;text-align:center;margin-bottom:22px;
+  font-family:'Pixelify Sans',sans-serif;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--soft);text-align:center;margin-bottom:24px;
 }
 .card{
-  background:#fff;border:1px solid #ecd3e0;border-radius:12px;
-  padding:22px 20px;margin-bottom:16px;
+  background:#fff;border:1px solid var(--blush);border-radius:12px;
+  padding:24px;margin-bottom:16px;
 }
 .card h2{
-  font-family:'Pixelify Sans',sans-serif;font-size:14px;letter-spacing:.12em;
-  text-transform:uppercase;color:#a8437a;font-weight:500;margin-bottom:14px;
+  font-family:'Pixelify Sans',sans-serif;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--deep);font-weight:400;margin-bottom:16px;
 }
-label{display:block;font-size:17px;font-style:italic;color:#3d2c34;margin:0 0 5px}
+
+/* ── fields ── */
+.f{margin-bottom:16px}
+.f:last-child{margin-bottom:0}
+label{display:block;font-size:15px;font-style:italic;color:var(--soft);margin:0 0 8px}
+.box{position:relative}
 input,select{
-  width:100%;padding:12px 13px;border:1px solid #c9a9b9;border-radius:7px;
-  background:#fff;color:#2a1d22;font-family:inherit;font-weight:500;font-size:18px;
+  display:block;width:100%;height:48px;padding:0 40px 0 14px;
+  border:1px solid var(--line);border-radius:8px;
+  background:#fff;color:var(--ink);font-family:inherit;font-weight:500;font-size:18px;
+  -webkit-appearance:none;appearance:none;
 }
-input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-color:#d371a1}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.row3{display:grid;grid-template-columns:1.2fr .8fr .9fr;gap:10px}
-.f{margin-bottom:12px}
-.hint{font-size:15px;font-style:italic;color:#5a4550;margin-top:6px}
-.lines{font-size:19px}
-.line{display:flex;justify-content:space-between;gap:12px;padding:5px 0}
-.line.total{
-  border-top:1px solid #ecd3e0;margin-top:8px;padding-top:12px;font-size:23px;font-weight:600;color:#2a1d22;
+select{
+  cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23ad587c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center;
 }
-.line .lbl{font-style:italic;color:#3d2c34}
-.muted{color:#5a4550}
-.disc{color:#4a7212}
+input::placeholder{color:#a88a99}
+input:focus,select:focus{outline:2px solid var(--deep);outline-offset:2px}
+.f.bad input,.f.bad select{border:2px solid var(--deep)}
+.ok{
+  position:absolute;right:14px;top:50%;width:16px;height:16px;margin-top:-8px;
+  pointer-events:none;opacity:0;transition:opacity .2s;
+}
+.f.good .ok{opacity:1}
+select + .ok{right:38px}
+.err{
+  display:flex;align-items:center;gap:6px;margin-top:6px;
+  font-size:14px;font-weight:700;color:var(--deep);
+}
+.err svg{flex:none}
+.hint{font-size:14px;font-style:italic;color:var(--soft);margin-top:6px;line-height:1.5}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.row .f{margin-bottom:16px}
+
+/* text links: the words are small, the tap area is 44px */
+.tlink{
+  display:inline-flex;align-items:center;min-height:44px;padding:0;
+  background:none;border:none;cursor:pointer;
+  font-family:inherit;font-size:15px;font-style:italic;font-weight:500;
+  color:var(--deep);text-decoration:underline;text-underline-offset:3px;
+}
+
+/* ── order ── */
+.item{display:grid;grid-template-columns:56px 1fr auto;gap:14px;align-items:center;padding-bottom:16px}
+.item + .item{border-top:1px dotted var(--blush);padding-top:16px}
+.item img{width:56px;height:72px;object-fit:cover;border-radius:6px;background:var(--blush)}
+.iname{font-size:18px;line-height:1.25}
+.isub{font-size:14px;font-style:italic;color:var(--soft)}
+.qty{display:inline-flex;align-items:center;margin-top:6px;border:1px solid var(--line);border-radius:8px}
+.qty button{
+  width:44px;height:44px;background:none;border:none;cursor:pointer;
+  font-family:inherit;font-size:22px;color:var(--deep);line-height:1;
+}
+.qty button[disabled]{opacity:.3;cursor:default}
+.qty span{min-width:28px;text-align:center;font-size:18px}
+.iprice{font-size:18px;text-align:right;align-self:start;padding-top:2px}
+
+.lines{font-size:18px;border-top:1px dotted var(--blush);padding-top:12px}
+.line{display:flex;justify-content:space-between;gap:12px;padding:4px 0}
+.line > span:last-child{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.line .lbl{font-style:italic}
+.line .lbl.soft{color:var(--soft)}
+.line.total{border-top:1px dotted var(--blush);margin-top:8px;padding-top:12px;font-size:22px;font-weight:600}
 .pill{
-  display:inline-block;font-family:'Pixelify Sans',sans-serif;font-size:11px;
-  letter-spacing:.1em;text-transform:uppercase;background:#e6f4d0;color:#3f6410;
-  padding:3px 9px;border-radius:20px;margin-left:8px;
+  display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;
+  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--green);color:var(--ink);vertical-align:middle;
 }
-.go{
-  width:100%;min-height:54px;background:#d371a1;color:#fff;border:none;border-radius:7px;
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:24px;
-  letter-spacing:.06em;cursor:pointer;transition:all .25s;
-}
-.go[disabled]{opacity:.45;cursor:default}
-.go:not([disabled]):hover{box-shadow:0 6px 22px rgba(211,113,161,.3)}
-.note{text-align:center;font-size:16px;font-style:italic;color:#5a4550;margin-top:12px;line-height:1.7}
-.msg{
-  border-radius:8px;padding:12px 14px;margin-bottom:14px;font-size:17px;line-height:1.6;
-}
-.msg.bad{background:#fff3f7;border:1px solid #f3c6da;color:#8a3a5a}
-.msg.info{background:#fff;border:1px solid #ecd3e0;color:#5a4550;font-style:italic}
+.pill.test{background:#fff;border:1px solid var(--line);color:var(--deep)}
+.codewrap{margin-top:8px}
+.codewrap .f{margin-top:8px}
+
+/* ── pay ── */
 #card-container{min-height:90px}
 #apple-pay-button{
-  display:block;width:100%;height:50px;border-radius:7px;cursor:pointer;
+  display:block;width:100%;height:50px;border-radius:8px;cursor:pointer;
   -webkit-appearance:-apple-pay-button;-apple-pay-button-type:buy;-apple-pay-button-style:black;
 }
 #apple-pay-button.off{opacity:.35;pointer-events:none}
-.or{
-  text-align:center;font-size:16px;font-style:italic;color:#5a4550;margin:14px 0 12px;
+.or{text-align:center;font-size:15px;font-style:italic;color:var(--soft);margin:16px 0}
+.go{
+  display:block;width:100%;height:56px;background:var(--deep);color:#fff;border:none;border-radius:8px;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:500;font-size:22px;
+  letter-spacing:.04em;cursor:pointer;transition:box-shadow .25s,opacity .25s;
 }
-.back{display:block;text-align:center;margin-top:20px;font-size:17px;font-style:italic;color:#a8437a}
+.go[disabled]{opacity:.45;cursor:default}
+.go:not([disabled]):hover{box-shadow:0 6px 22px rgba(173,88,124,.3)}
+.go:focus-visible{outline:2px solid var(--deep);outline-offset:2px}
+.note{text-align:center;font-size:14px;font-style:italic;color:var(--soft);margin-top:16px;line-height:1.7}
+.msg{
+  display:flex;gap:10px;align-items:flex-start;
+  background:#fff;border:2px solid var(--deep);border-radius:12px;
+  padding:16px;margin-bottom:16px;font-size:16px;font-weight:600;line-height:1.5;color:var(--ink);
+}
+.msg svg{flex:none;margin-top:3px}
+.back{display:flex;justify-content:center;align-items:center;min-height:44px;margin-top:8px;font-size:15px;font-style:italic;color:var(--deep)}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -91,67 +147,60 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
   <div class="mark">Maison Maxine</div>
   <div class="step">checkout</div>
 
-  <div id="msg" class="msg bad" hidden></div>
+  <div id="msg" class="msg" role="alert" hidden></div>
 
-  <!-- ORDER -->
+  <!-- 1. ORDER: the price is on screen before any typing -->
   <div class="card">
     <h2>your order</h2>
-    <div class="lines" id="lines"></div>
+    <div id="items"></div>
+    <div class="lines" id="totals"></div>
+    <div class="codewrap">
+      <button type="button" class="tlink" id="codeLink">have a creator code?</button>
+      <div class="f" id="f-code" hidden>
+        <label for="code">creator code</label>
+        <div class="box"><input id="code" autocomplete="off" autocapitalize="none" spellcheck="false"></div>
+        <div class="hint" id="codeHint">your discount shows in the total once your address is in.</div>
+      </div>
+    </div>
   </div>
 
-  <!-- CONTACT -->
+  <!-- 2. CONTACT -->
   <div class="card">
     <h2>contact</h2>
     <div class="row">
-      <div class="f"><label for="first">first name</label><input id="first" autocomplete="given-name" required></div>
-      <div class="f"><label for="last">last name</label><input id="last" autocomplete="family-name" required></div>
+      <div class="f" id="f-first"><label for="first">first name</label><div class="box"><input id="first" autocomplete="given-name" required></div></div>
+      <div class="f" id="f-last"><label for="last">last name</label><div class="box"><input id="last" autocomplete="family-name" required></div></div>
     </div>
-    <div class="f"><label for="email">email</label><input id="email" type="email" autocomplete="email" required></div>
-    <div class="f"><label for="phone">phone</label><input id="phone" type="tel" autocomplete="tel" required></div>
+    <div class="f" id="f-email"><label for="email">email</label><div class="box"><input id="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" required></div></div>
+    <div class="f" id="f-phone"><label for="phone">phone</label><div class="box"><input id="phone" type="tel" autocomplete="tel" required></div><div class="hint">for ups delivery only</div></div>
   </div>
 
-  <!-- AGE -->
-  <div class="card">
-    <h2>date of birth</h2>
-    <div class="row3">
-      <div class="f"><label for="dobM">month</label><select id="dobM"></select></div>
-      <div class="f"><label for="dobD">day</label><select id="dobD"></select></div>
-      <div class="f"><label for="dobY">year</label><select id="dobY"></select></div>
-    </div>
-    <div class="hint">you must be 21 or older. an adult 21+ signs for the delivery.</div>
-  </div>
-
-  <!-- ADDRESS -->
+  <!-- 3. SHIP TO -->
   <div class="card">
     <h2>ship to</h2>
-    <div class="f"><label for="street1">address</label><input id="street1" autocomplete="address-line1" required></div>
-    <div class="f"><label for="street2">apartment, suite (optional)</label><input id="street2" autocomplete="address-line2"></div>
-    <div class="f"><label for="city">city</label><input id="city" autocomplete="address-level2" required></div>
+    <div class="f" id="f-street1"><label for="street1">address</label><div class="box"><input id="street1" autocomplete="address-line1" required></div>
+      <button type="button" class="tlink" id="aptLink">add apt or suite</button>
+    </div>
+    <div class="f" id="f-street2" hidden><label for="street2">apt or suite (optional)</label><div class="box"><input id="street2" autocomplete="address-line2"></div></div>
+    <div class="f" id="f-city"><label for="city">city</label><div class="box"><input id="city" autocomplete="address-level2" required></div></div>
     <div class="row">
-      <div class="f"><label for="state">state</label><select id="state" required></select></div>
-      <div class="f"><label for="zip">zip</label><input id="zip" inputmode="numeric" autocomplete="postal-code" required></div>
+      <div class="f" id="f-state"><label for="state">state</label><div class="box"><select id="state" autocomplete="address-level1" required></select></div></div>
+      <div class="f" id="f-zip"><label for="zip">zip</label><div class="box"><input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="10" required></div></div>
     </div>
-    <div class="hint" id="stateHint">we ship to 37 states and dc.</div>
+    <div class="hint" id="stateHint">ships to 36 states + dc</div>
   </div>
 
-  <!-- CODE -->
+  <!-- 4. BIRTHDAY, next to payment -->
   <div class="card">
-    <h2>creator code</h2>
-    <div class="f"><input id="code" placeholder="optional" autocapitalize="none" spellcheck="false"></div>
-    <div class="hint" id="codeHint">if someone sent you here, their code gets you a better price.</div>
-  </div>
-
-  <!-- TOTAL -->
-  <div class="card">
-    <h2>total</h2>
-    <div class="lines" id="totals">
-      <div class="line"><span class="lbl muted">add your address to see shipping and tax</span></div>
+    <h2>birthday</h2>
+    <div class="f" id="f-dob"><label for="dob">birthday</label><div class="box"><input id="dob" inputmode="numeric" autocomplete="bday" placeholder="MM / DD / YYYY" maxlength="14" required></div>
+      <div class="hint">wine shipping laws make us ask. an adult 21+ signs for it at the door.</div>
     </div>
   </div>
 
-  <!-- PAYMENT -->
+  <!-- 5. PAYMENT -->
   <div class="card">
-    <h2>payment <span class="pill" id="sandboxPill" hidden>test mode</span></h2>
+    <h2>payment <span class="pill test" id="sandboxPill" hidden>test mode</span></h2>
     <div id="applePayWrap" hidden>
       <div id="apple-pay-button" role="button" tabindex="0" aria-label="pay with apple pay"></div>
       <div class="or">or pay by card</div>
@@ -161,7 +210,7 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
   </div>
 
   <button class="go" id="go" disabled>pay</button>
-  <div class="note" id="goNote">card payments are processed securely by square. your card details never touch our site.</div>
+  <div class="note">don't love it? we'll replace it ✦ 5% goes to animal rescue ✦ secure checkout by square</div>
   <a class="back" href="shop.html">back to the shop</a>
 </div>
 
@@ -171,27 +220,42 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
    are cross origin calls. No key of any kind is in this page. */
 const API = 'https://himaisonmaxine.com/api';
 
-/* mirrors the shop: cart quantities are counted in four pack boxes */
+/* mirrors the shop: cart quantities are counted in four pack boxes.
+   the gift box is sold in pairs, so its stepper moves two boxes at a time. */
 const PRODUCTS = {
-  fourpack: { id: '185926', name: 'Red Wine Spritz, gift box', unitPriceCents: 2800, kind: 'fourpack' },
-  case:     { id: '200144', name: 'Red Wine Spritz, case of 24', unitPriceCents: 14400, kind: 'case' }
+  fourpack: { id: '185926', name: 'Red Wine Spritz, gift box', sub: '4 cans per box', unitPriceCents: 2800, kind: 'fourpack', step: 2, min: 2, max: 24 },
+  case:     { id: '200144', name: 'Red Wine Spritz, case of 24', sub: 'six gift boxes', unitPriceCents: 14400, kind: 'case', step: 1, min: 1, max: 12 }
 };
+const FLAT_SHIPPING_CENTS = 700;
+const CART_KEY = 'maisonMaxineCart';
+const CODE_KEY = 'maisonMaxineCode';
 const FALLBACK_STATES = 'AK AZ CA CO DC FL GA HI IA ID IL IN KS KY LA MA MD MN MO NC ND NE NH NM NV NY OH OK OR PA SC TN TX VT WA WI WV WY'.split(' ');
 
 const $ = id => document.getElementById(id);
 const money = c => '$' + (c/100).toFixed(2);
-function show(t){ const m=$('msg'); m.textContent=t; m.hidden=!t; if(t) m.scrollIntoView({block:'center',behavior:'smooth'}); }
+const ICON_ALERT = '<svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7.2" fill="none" stroke="#ad587c" stroke-width="1.6"/><path d="M8 4.2v4.6" stroke="#ad587c" stroke-width="1.8" stroke-linecap="round"/><circle cx="8" cy="11.4" r="1.05" fill="#ad587c"/></svg>';
+const ICON_OK = '<svg class="ok" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="8" fill="#90c74b"/><path d="M4.6 8.3l2.3 2.3 4.5-4.7" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+function show(t){
+  const m=$('msg');
+  m.innerHTML = t ? ICON_ALERT + '<span></span>' : '';
+  if (t) m.lastChild.textContent = t;
+  m.hidden = !t;
+  if (t) m.scrollIntoView({block:'center',behavior:'smooth'});
+}
 
 /* ═══ CART ═══ */
+function rawCart(){
+  try { const r = JSON.parse(localStorage.getItem(CART_KEY)); return (r && typeof r === 'object') ? r : {}; }
+  catch(e){ return {}; }
+}
 function readCart(){
-  let raw=null;
-  try { raw = JSON.parse(localStorage.getItem('maisonMaxineCart')); } catch(e){}
-  const c = { fourpack: 0, case: 0 };
-  if (raw && typeof raw === 'object') {
-    c.fourpack = parseInt(raw.fourpack) || 0;
-    c.case     = parseInt(raw.case) || 0;
-  }
-  return c;
+  const raw = rawCart();
+  return { fourpack: parseInt(raw.fourpack) || 0, case: parseInt(raw.case) || 0 };
+}
+function writeCart(c){
+  // keep anything else the shop stores alongside the quantities
+  try { localStorage.setItem(CART_KEY, JSON.stringify(Object.assign(rawCart(), c))); } catch(e){}
 }
 function items(){
   const c = readCart(), out = [];
@@ -199,49 +263,85 @@ function items(){
   if (c.case > 0)     out.push(Object.assign({ quantity: c.case,     productId: PRODUCTS.case.id },     PRODUCTS.case));
   return out;
 }
+function subtotalCents(){ return items().reduce((n, i) => n + i.unitPriceCents * i.quantity, 0); }
+
+/* a line can drop to zero only while the other line keeps the order valid */
+function nextQty(kind, dir){
+  const c = readCart(), p = PRODUCTS[kind];
+  const other = kind === 'case' ? 'fourpack' : 'case';
+  if (dir > 0) return Math.min(p.max, c[kind] + p.step);
+  const n = c[kind] - p.step;
+  if (n >= p.min) return n;
+  return c[other] > 0 ? 0 : c[kind];
+}
+function changeQty(kind, dir){
+  const c = readCart();
+  c[kind] = nextQty(kind, dir);
+  writeCart(c);
+  quote = null;
+  renderOrder(); renderTotals(); syncGo(); requote();
+}
+
 function renderOrder(){
   const list = items();
   if (!list.length){
-    $('lines').innerHTML = '<div class="line"><span class="lbl">your cart is empty</span></div>';
+    $('items').innerHTML = '<div class="line"><span class="lbl">your cart is empty</span></div>';
     return false;
   }
-  $('lines').innerHTML = list.map(i =>
-    '<div class="line"><span class="lbl">' + i.name + ' &times; ' + i.quantity + '</span>' +
-    '<span>' + money(i.unitPriceCents * i.quantity) + '</span></div>'
+  $('items').innerHTML = list.map(i =>
+    '<div class="item">' +
+      '<img src="checkout-box.jpg" alt="" width="56" height="72">' +
+      '<div><div class="iname">' + i.name + '</div><div class="isub">' + i.sub + '</div>' +
+        '<div class="qty">' +
+          '<button type="button" data-k="' + i.kind + '" data-d="-1" aria-label="fewer"' + (nextQty(i.kind,-1) === i.quantity ? ' disabled' : '') + '>&minus;</button>' +
+          '<span aria-live="polite">' + i.quantity + '</span>' +
+          '<button type="button" data-k="' + i.kind + '" data-d="1" aria-label="more"' + (nextQty(i.kind,1) === i.quantity ? ' disabled' : '') + '>+</button>' +
+        '</div></div>' +
+      '<div class="iprice">' + money(i.unitPriceCents * i.quantity) + '</div>' +
+    '</div>'
   ).join('');
   return true;
 }
+$('items').addEventListener('click', e => {
+  const b = e.target.closest('button[data-k]');
+  if (b && !b.disabled) changeQty(b.dataset.k, +b.dataset.d);
+});
 
-/* ═══ DATE OF BIRTH ═══ */
-(function fillDob(){
-  const m=$('dobM'), d=$('dobD'), y=$('dobY');
-  const months=['january','february','march','april','may','june','july','august','september','october','november','december'];
-  m.innerHTML = '<option value="">month</option>' + months.map((n,i)=>'<option value="'+(i+1)+'">'+n+'</option>').join('');
-  d.innerHTML = '<option value="">day</option>';
-  for (let i=1;i<=31;i++) d.innerHTML += '<option value="'+i+'">'+i+'</option>';
-  const now = new Date().getUTCFullYear();
-  y.innerHTML = '<option value="">year</option>';
-  for (let i=now-21;i>=now-100;i--) y.innerHTML += '<option value="'+i+'">'+i+'</option>';
-})();
+/* ═══ BIRTHDAY: one numeric field, MM / DD / YYYY ═══ */
+function formatDob(v){
+  const iso = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v.trim());   // what some autofill hands over
+  const d = iso ? iso[2] + iso[3] + iso[1] : v.replace(/\D/g, '').slice(0, 8);
+  return d.slice(0,2) + (d.length > 2 ? ' / ' + d.slice(2,4) : '') + (d.length > 4 ? ' / ' + d.slice(4,8) : '');
+}
+$('dob').addEventListener('input', () => {
+  const el = $('dob'), f = formatDob(el.value);
+  if (f !== el.value) el.value = f;
+});
 function dob(){
-  const y=+$('dobY').value, m=+$('dobM').value, d=+$('dobD').value;
-  if (!y||!m||!d) return null;
-  return { year:y, month:m, day:d };
+  const d = $('dob').value.replace(/\D/g, '');
+  if (d.length !== 8) return null;
+  return { month: +d.slice(0,2), day: +d.slice(2,4), year: +d.slice(4,8) };
+}
+function realDate(v){
+  if (!v || v.year < 1900) return false;
+  const born = new Date(Date.UTC(v.year, v.month-1, v.day));
+  return born.getUTCDate() === v.day && born.getUTCMonth() === v.month-1;   // rejects 31 february
 }
 function isOfAge(v){
-  if (!v) return false;
-  const born = new Date(Date.UTC(v.year, v.month-1, v.day));
-  if (born.getUTCDate() !== v.day || born.getUTCMonth() !== v.month-1) return false;  // rejects 31 february
+  if (!realDate(v)) return false;
   const cutoff = new Date();
   cutoff.setUTCFullYear(cutoff.getUTCFullYear()-21);
-  return born <= cutoff;
+  return new Date(Date.UTC(v.year, v.month-1, v.day)) <= cutoff;
 }
 
 /* ═══ STATES ═══ */
 function fillStates(list){
+  const keep = $('state').value;
   $('state').innerHTML = '<option value="">state</option>' +
     list.map(s => '<option value="'+s+'">'+s+'</option>').join('');
-  $('stateHint').textContent = 'we ship to ' + list.length + ' places. if yours is not listed we cannot ship there yet.';
+  if (keep && list.includes(keep)) $('state').value = keep;
+  const n = list.filter(s => s !== 'DC').length;
+  $('stateHint').textContent = 'ships to ' + n + ' states' + (list.includes('DC') ? ' + dc' : '');
 }
 fillStates(FALLBACK_STATES);
 fetch(API + '/catalog', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' })
@@ -249,15 +349,69 @@ fetch(API + '/catalog', { method:'POST', headers:{'Content-Type':'application/js
   .then(d => { if (d && Array.isArray(d.shipsTo) && d.shipsTo.length) fillStates(d.shipsTo); })
   .catch(() => {});   // the fallback list is already in place
 
+/* ═══ CHECKING FIELDS ═══
+   a field is checked when the shopper leaves it, never while they type. once
+   it has been checked, fixing it clears the error straight away. */
+const v = id => $(id).value.trim();
+const CHECKS = {
+  first:   () => v('first') ? '' : 'add your first name',
+  last:    () => v('last') ? '' : 'add your last name',
+  email:   () => /^\S+@\S+\.\S{2,}$/.test(v('email')) ? '' : (v('email') ? 'that email looks incomplete' : 'add your email'),
+  phone:   () => v('phone').replace(/\D/g,'').length >= 10 ? '' : 'add a 10 digit phone number',
+  street1: () => v('street1') ? '' : 'add your street address',
+  city:    () => v('city') ? '' : 'add your city',
+  state:   () => v('state') ? '' : 'pick your state',
+  zip:     () => /^\d{5}(-?\d{4})?$/.test(v('zip')) ? '' : 'add a 5 digit zip',
+  dob:     () => { const d = dob();
+                   if (!d) return 'add your birthday as MM / DD / YYYY';
+                   if (!realDate(d)) return 'that date does not exist';
+                   return isOfAge(d) ? '' : 'you must be 21 or older to order'; }
+};
+const touched = {};
+function paint(id){
+  const f = $('f-' + id), msg = CHECKS[id]();
+  let err = f.querySelector('.err');
+  if (!f.querySelector('.ok')) f.querySelector('.box').insertAdjacentHTML('beforeend', ICON_OK);
+  f.classList.toggle('good', !msg);
+  if (msg && touched[id] === 'shown'){
+    if (!err){ err = document.createElement('div'); err.className = 'err'; f.querySelector('.box').after(err); }
+    err.innerHTML = ICON_ALERT + '<span></span>'; err.lastChild.textContent = msg;
+    f.classList.add('bad'); $(id).setAttribute('aria-invalid','true');
+  } else if (!msg && err){
+    err.remove(); f.classList.remove('bad'); $(id).removeAttribute('aria-invalid');
+  }
+}
+Object.keys(CHECKS).forEach(id => {
+  $(id).addEventListener('blur', () => { if (v(id) || touched[id]) { touched[id] = 'shown'; paint(id); } });
+  $(id).addEventListener('input', () => { touched[id] = touched[id] || 'typing'; if (touched[id] === 'shown') paint(id); else if (!CHECKS[id]()) paint(id); });
+  $(id).addEventListener('change', () => { if (id === 'state') { touched[id] = 'shown'; paint(id); } });
+});
+
+/* ═══ LINKS THAT OPEN A FIELD ═══ */
+function openApt(){ $('aptLink').hidden = true; $('f-street2').hidden = false; }
+$('aptLink').addEventListener('click', () => { openApt(); $('street2').focus(); });
+function openCode(){ $('codeLink').hidden = true; $('f-code').hidden = false; }
+$('codeLink').addEventListener('click', () => { openCode(); $('code').focus(); });
+
+/* a creator's link (?code=Name) is remembered, so the code is already applied here */
+(function creatorLink(){
+  let code = new URLSearchParams(location.search).get('code');
+  try {
+    if (code) localStorage.setItem(CODE_KEY, code);
+    else code = localStorage.getItem(CODE_KEY);
+  } catch(e){}
+  if (code){ $('code').value = code; openCode(); }
+})();
+
 /* ═══ QUOTE ═══ */
 let quote = null, quoting = false, timer = null;
 
 function customer(){
   return {
-    firstName: $('first').value.trim(),
-    lastName:  $('last').value.trim(),
-    fullName: ($('first').value.trim() + ' ' + $('last').value.trim()).trim(),
-    email:     $('email').value.trim(),
+    firstName: v('first'),
+    lastName:  v('last'),
+    fullName: (v('first') + ' ' + v('last')).trim(),
+    email:     v('email'),
     wholesale: false,
     dateOfBirth: dob(),
     address: shipTo()
@@ -265,63 +419,80 @@ function customer(){
 }
 function shipTo(){
   return {
-    firstName: $('first').value.trim(),
-    lastName:  $('last').value.trim(),
-    street1:   $('street1').value.trim(),
-    street2:   $('street2').value.trim(),
-    city:      $('city').value.trim(),
+    firstName: v('first'),
+    lastName:  v('last'),
+    street1:   v('street1'),
+    street2:   v('street2'),
+    city:      v('city'),
     stateCode: $('state').value,
-    postalCode:$('zip').value.trim(),
+    postalCode:v('zip'),
     country:   'US',
-    phone:     { number: $('phone').value.trim() }
+    phone:     { number: v('phone') }
   };
 }
 function addressReady(){
-  const a = shipTo();
-  return a.street1 && a.city && a.stateCode && /^\d{5}/.test(a.postalCode);
+  return !CHECKS.street1() && !CHECKS.city() && !CHECKS.state() && !CHECKS.zip();
 }
 
+/* before the address is in, the page still shows the subtotal and the flat $7;
+   the server's quote replaces these lines once it can price the address */
 function renderTotals(){
-  if (!quote || !quote.cents){
-    $('totals').innerHTML = '<div class="line"><span class="lbl muted">add your address to see shipping and tax</span></div>';
-    return;
+  if (!items().length){ $('totals').innerHTML = ''; return; }
+  let html;
+  if (quote && quote.cents){
+    const c = quote.cents;
+    html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(c.subtotal)+'</span></div>';
+    if (c.discount > 0) html += '<div class="line"><span class="lbl">creator code <span class="pill">'+quote.creatorCode+'</span></span><span>&minus;'+money(c.discount)+'</span></div>';
+    html += '<div class="line"><span class="lbl">$7 flat shipping, ups ground</span><span>'+money(c.shipping)+'</span></div>';
+    html += '<div class="line"><span class="lbl">tax</span><span>'+money(c.taxes)+'</span></div>';
+    if (c.fees > 0) html += '<div class="line"><span class="lbl">state fees</span><span>'+money(c.fees)+'</span></div>';
+    html += '<div class="line total"><span class="lbl">total</span><span>'+money(c.total)+'</span></div>';
+  } else {
+    const sub = subtotalCents();
+    html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(sub)+'</span></div>' +
+      '<div class="line"><span class="lbl">$7 flat shipping, ups ground</span><span>'+money(FLAT_SHIPPING_CENTS)+'</span></div>' +
+      '<div class="line"><span class="lbl soft">tax added at your address</span><span></span></div>' +
+      '<div class="line total"><span class="lbl">total before tax</span><span>'+money(sub + FLAT_SHIPPING_CENTS)+'</span></div>';
   }
-  const c = quote.cents;
-  let html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(c.subtotal)+'</span></div>';
-  if (c.discount > 0) html += '<div class="line"><span class="lbl disc">creator code '+quote.creatorCode+'</span><span class="disc">&minus;'+money(c.discount)+'</span></div>';
-  html += '<div class="line"><span class="lbl">shipping, ups ground</span><span>'+money(c.shipping)+'</span></div>';
-  if (c.taxes > 0) html += '<div class="line"><span class="lbl">tax</span><span>'+money(c.taxes)+'</span></div>';
-  if (c.fees > 0)  html += '<div class="line"><span class="lbl">state fees</span><span>'+money(c.fees)+'</span></div>';
-  html += '<div class="line total"><span class="lbl">total</span><span>'+money(c.total)+'</span></div>';
   $('totals').innerHTML = html;
 }
 
+function renderCodeHint(){
+  if (!v('code') || !quote) { $('codeHint').textContent = 'your discount shows in the total once your address is in.'; return; }
+  if (quote.creatorCode) $('codeHint').innerHTML = '<span class="pill">code applied</span>';
+  else $('codeHint').textContent = 'we do not recognise that code. check the spelling with whoever sent it.';
+}
+
+/* the server will not price an order without an address and a 21+ birthday */
 async function getQuote(){
   if (quoting) return;
-  if (!items().length || !addressReady() || !isOfAge(dob())) { quote=null; renderTotals(); syncGo(); return; }
+  if (!items().length || !addressReady() || !isOfAge(dob())) { quote=null; renderTotals(); renderCodeHint(); syncGo(); return; }
   quoting = true; syncGo();
   try{
     const res = await fetch(API + '/quote', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: $('code').value.trim() })
+      body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: v('code') })
     });
     const d = await res.json();
     if (!res.ok){ quote=null; show(d.error || 'we could not price that order'); }
     else if (d.compliant === false){ quote=null; show((d.problems||[]).join(' ')); }
-    else { quote = d; show(''); $('codeHint').textContent = d.creatorCode ? 'code applied.' : ($('code').value.trim() ? 'that code was not recognised.' : 'if someone sent you here, their code gets you a better price.'); }
+    else { quote = d; show(''); }
   }catch(e){
     quote=null; show('we could not reach checkout. please try again.');
   }
-  quoting = false; renderTotals(); syncGo();
+  quoting = false; renderTotals(); renderCodeHint(); syncGo();
 }
-function requote(){ clearTimeout(timer); timer = setTimeout(getQuote, 500); }
+function requote(){
+  if (v('street2')) openApt();   // autofill can fill the hidden apt field
+  clearTimeout(timer); timer = setTimeout(getQuote, 500);
+}
 
 /* ═══ CARD FORM + APPLE PAY (square) ═══
    /config hands over the public application and location ids. Sandbox ids
    load square's sandbox script, so test mode needs no change to this page.
    Apple Pay only appears on devices and browsers that support it; everywhere
    else the card form is the only option. */
-let card = null, applePay = null, payRequest = null, paying = false;
+let card = null, cardValid = false, applePay = null, payRequest = null, paying = false;
 let attemptKey = null;          // one per payment attempt: a retry cannot charge twice
 const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
 
@@ -342,15 +513,23 @@ async function setupCard(){
     payments = window.Square.payments(cfg.applicationId, cfg.locationId);
     card = await payments.card({
       style: {
-        input: { color: '#2a1d22', fontSize: '18px' },
-        'input::placeholder': { color: '#8a7080' },
-        '.input-container': { borderColor: '#c9a9b9', borderRadius: '7px' },
-        '.input-container.is-focus': { borderColor: '#d371a1' },
-        '.message-text': { color: '#5a4550' },
-        '.message-icon': { color: '#5a4550' }
+        input: { color: '#34212b', fontSize: '18px' },
+        'input::placeholder': { color: '#a88a99' },
+        '.input-container': { borderColor: '#b0718f', borderRadius: '8px' },
+        '.input-container.is-focus': { borderColor: '#ad587c' },
+        '.message-text': { color: '#8a6a7a' },
+        '.message-icon': { color: '#8a6a7a' }
       }
     });
     await card.attach('#card-container');
+    // square reports whether the whole card is filled in; if an event ever
+    // arrives without that, let the pay button try and square will say what's wrong
+    ['focusClassAdded','focusClassRemoved','errorClassAdded','errorClassRemoved','cardBrandChanged','postalCodeChanged']
+      .forEach(ev => card.addEventListener(ev, e => {
+        const st = e && e.detail && e.detail.currentState;
+        cardValid = st ? !!st.isCompletelyValid : true;
+        syncGo();
+      }));
     $('cardHint').textContent = 'the billing zip is the one your card is registered to.';
     $('sandboxPill').hidden = !cfg.sandbox;
   }catch(e){
@@ -380,25 +559,40 @@ function syncPayRequest(){
   try{ payRequest.update({ total: { amount: (quote.cents.total / 100).toFixed(2), label: 'Maison Maxine' } }); }catch(e){}
 }
 
-/* ═══ STATE OF THE BUTTONS ═══ */
+/* ═══ STATE OF THE BUTTONS ═══
+   the pay button is never a silent grey block: it names the next thing missing */
+const MISSING = [
+  ['first','add your name'], ['last','add your name'], ['email','add your email'], ['phone','add your phone'],
+  ['street1','add your address'], ['city','add your city'], ['state','add your state'], ['zip','add your zip']
+];
+function nextMissing(){
+  if (!items().length) return 'your cart is empty';
+  for (const [id, words] of MISSING) if (CHECKS[id]()) return words;
+  const d = dob();
+  if (!d || !realDate(d)) return 'add your birthday';
+  if (!isOfAge(d)) return '21+ only';
+  return '';
+}
 function formReady(){
-  return Boolean(quote && quote.compliant && !quoting && !paying
-    && $('first').value.trim() && $('last').value.trim()
-    && /\S+@\S+\.\S+/.test($('email').value.trim())
-    && $('phone').value.trim() && addressReady() && isOfAge(dob()));
+  return !nextMissing() && Boolean(quote && quote.compliant && !quoting && !paying);
 }
 function syncGo(){
-  const ready = formReady();
-  $('go').disabled = !(ready && card);
-  $('go').textContent = paying ? 'paying...'
+  const missing = nextMissing(), ready = formReady();
+  const go = $('go');
+  go.disabled = !(ready && card && cardValid);
+  go.textContent = paying ? 'paying...'
+    : missing ? missing
     : quoting ? 'checking...'
-    : (quote && quote.cents ? 'pay ' + money(quote.cents.total) : 'pay');
+    : !quote ? 'pay'
+    : !card ? 'card form loading'
+    : !cardValid ? 'add your card'
+    : 'pay ' + money(quote.cents.total);
   $('apple-pay-button').classList.toggle('off', !(ready && applePay));
   syncPayRequest();
 }
 
-['first','last','email','phone','street1','street2','city','state','zip','code','dobM','dobD','dobY']
-  .forEach(id => { $(id).addEventListener('input', requote); $(id).addEventListener('change', requote); });
+['first','last','email','phone','street1','street2','city','state','zip','code','dob']
+  .forEach(id => { $(id).addEventListener('input', () => { syncGo(); requote(); }); $(id).addEventListener('change', requote); });
 
 /* ═══ PAY ═══
    square turns the card (or apple pay) into a one-time token; only the token
@@ -410,7 +604,7 @@ async function submitPayment(token){
       method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({
         customer: customer(), shipToAddress: shipTo(), items: items(),
-        creatorCode: $('code').value.trim(),
+        creatorCode: v('code'),
         sourceId: token,
         idempotencyKey: attemptKey,
         expectedTotalCents: quote.cents.total
@@ -451,14 +645,14 @@ $('go').addEventListener('click', async () => {
       sellerKeyedIn: false,
       billingContact: {
         givenName: c.firstName, familyName: c.lastName, email: c.email,
-        phone: $('phone').value.trim(),
-        addressLines: [$('street1').value.trim(), $('street2').value.trim()].filter(Boolean),
-        city: $('city').value.trim(), state: $('state').value,
-        postalCode: $('zip').value.trim(), countryCode: 'US'
+        phone: v('phone'),
+        addressLines: [v('street1'), v('street2')].filter(Boolean),
+        city: v('city'), state: $('state').value,
+        postalCode: v('zip'), countryCode: 'US'
       }
     });
     if (result.status !== 'OK') {
-      paying = false; syncGo();
+      paying = false; cardValid = false; syncGo();
       // square shows field errors inline under the card form
       if (result.errors && result.errors.length) show('please check your card details.');
       return;
@@ -491,9 +685,9 @@ $('apple-pay-button').addEventListener('keydown', e => { if (e.key === 'Enter' |
 /* ═══ GO ═══ */
 if (!renderOrder()){
   show('your cart is empty. add something from the shop first.');
-  $('go').disabled = true;
 }
 renderTotals();
+renderCodeHint();
 syncGo();
 setupCard();
 </script>

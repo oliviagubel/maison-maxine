@@ -2264,6 +2264,11 @@ function updateQty(delta) {
 
 // ═══ CART STATE (localStorage) ═══
 const CART_KEY = 'maisonMaxineCart';
+// a creator's link (shop.html?code=Name) is remembered so checkout can apply it
+try {
+  const creatorCode = new URLSearchParams(location.search).get('code');
+  if (creatorCode) localStorage.setItem('maisonMaxineCode', creatorCode);
+} catch(e) {}
 
 // ═══ "WHERE DID YOU FIND US?" SURVEY (optional — never blocks checkout) ═══
 const SHIPPING_FLAT = 7;
