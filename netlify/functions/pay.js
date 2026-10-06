@@ -21,7 +21,6 @@ const { json, handler } = require('./_lib');
 const { vs } = require('./_vs');
 const { square, declineMessage } = require('./_square');
 const { priceBasket, money } = require('./_basket');
-const { FLAT_SHIPPING_CENTS } = require('./_pricing');
 
 exports.handler = handler(async (body, origin) => {
   const { customer, shipToAddress, items, creatorCode, sourceId, verificationToken,
@@ -100,7 +99,7 @@ exports.handler = handler(async (body, origin) => {
     shipToAddress,
     productIdType: 'VS_ID',
     products: b.products,
-    shippingRate: { carrier: 'UPS', rateCode: b.rateCode, price: money(FLAT_SHIPPING_CENTS) },
+    shippingRate: { carrier: 'UPS', rateCode: b.rateCode, price: money(b.cents.shipping) },
     taxes: money(b.cents.taxes),
     fees: money(b.cents.fees),
     tipAmount: 0,

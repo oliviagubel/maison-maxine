@@ -10,7 +10,7 @@
 
 'use strict';
 const { vs } = require('./_vs');
-const { priceOrder, minimumsMet, isOfAge, vsDiscount, FLAT_SHIPPING_CENTS } = require('./_pricing');
+const { priceOrder, minimumsMet, isOfAge, vsDiscount } = require('./_pricing');
 
 const money = cents => +(cents / 100).toFixed(2);
 
@@ -93,11 +93,13 @@ async function priceBasket({ customer, shipToAddress, items, creatorCode }) {
   const rateCode = rate.rateCode || rate.code;
 
   /* ── 3. taxes and state fees ───────────────────────────────────── */
+  // priced first: a code can change shipping, and some states tax shipping
+  const p = priceOrder(lineItems, creatorCode);
   let taxesCents = 0, feesCents = 0;
   try {
     const t = await vs.estimateTaxes(Object.assign({
       shipToAddress,
-      shippingRate: { carrier: 'UPS', rateCode, price: money(FLAT_SHIPPING_CENTS) },
+      shippingRate: { carrier: 'UPS', rateCode, price: money(p.shippingCents) },
     }, base));
     taxesCents = Math.round(((t && t.taxesTotal) || 0) * 100);
     feesCents  = Math.round(((t && t.extraFeesTotal) || 0) * 100);
@@ -106,7 +108,6 @@ async function priceBasket({ customer, shipToAddress, items, creatorCode }) {
     return fail(502, { error: 'we could not work out tax for that address', upstream: e.status || null, step: 'taxes' });
   }
 
-  const p = priceOrder(lineItems, creatorCode);
   const totalCents = p.subtotalCents - p.discountCents + p.shippingCents + taxesCents + feesCents;
 
   return {

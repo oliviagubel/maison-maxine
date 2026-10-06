@@ -13,11 +13,15 @@ const MIN_FOURPACK_BOXES  = 2;        // a single box is not sold
 /* Creator codes: FirstNamexMaxine. Each code says what it takes off:
      fourpackPercentOff  percent off gift boxes (four-packs)
      casePriceCents      a flat price per case, or null for no case deal
+     orderDollarOffCents money off the whole order (never below $0)
+     freeShipping        true = the $7 shipping is waived
    Validated here, server side — a code typed in the page is never trusted.
    Matching ignores capitals, so camxmaxine and CamXMaxine are the same code. */
 const CREATOR_CODES = [
   { code: 'CierraxMaxine', fourpackPercentOff: 10, casePriceCents: 9900 },
   { code: 'CamXMaxine',    fourpackPercentOff: 10, casePriceCents: 9900 },
+  // Olivia's test code: $55 off the order and free shipping. Remove after testing.
+  { code: 'VJHEAAGUAWR47834', orderDollarOffCents: 5500, freeShipping: true },
 ];
 
 function findCode(input) {
@@ -49,12 +53,14 @@ function priceOrder(lineItems, code) {
       discount += Math.round(gross * rule.fourpackPercentOff / 100);
     }
   }
+  if (rule && rule.orderDollarOffCents) discount += rule.orderDollarOffCents;
+  discount = Math.min(discount, subtotal);      // a code never makes products negative
 
   return {
     code: rule ? rule.code : null,
     subtotalCents: subtotal,
     discountCents: discount,
-    shippingCents: FLAT_SHIPPING_CENTS,
+    shippingCents: rule && rule.freeShipping ? 0 : FLAT_SHIPPING_CENTS,
   };
 }
 
