@@ -116,6 +116,7 @@ select + .ok{right:38px}
 .line > span:last-child{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
 .line .lbl{font-style:italic}
 .line .lbl.soft{color:var(--soft)}
+.shipnote{display:block;font-size:14px;color:var(--soft)}
 .line.total{border-top:1px dotted var(--blush);margin-top:8px;padding-top:12px;font-size:22px;font-weight:600}
 .pill{
   display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:12px;
@@ -232,13 +233,14 @@ select + .ok{right:38px}
    are cross origin calls. No key of any kind is in this page. */
 const API = 'https://himaisonmaxine.com/api';
 
-/* mirrors the shop: cart quantities are counted in four pack boxes.
-   the gift box is sold in pairs, so its stepper moves two boxes at a time. */
+/* mirrors the shop: cart quantities are counted in four pack boxes, one box
+   at a time. boxes alone start at 2; next to a case a single box is fine. */
 const PRODUCTS = {
-  fourpack: { id: '185926', name: 'Red Wine Spritz, gift box', sub: '4 cans per box', unitPriceCents: 2800, kind: 'fourpack', step: 2, min: 2, max: 24 },
+  fourpack: { id: '185926', name: 'Red Wine Spritz, gift box', sub: '4 cans per box', unitPriceCents: 2800, kind: 'fourpack', step: 1, min: 2, max: 24 },
   case:     { id: '200144', name: 'Red Wine Spritz, case of 24', sub: 'six gift boxes', unitPriceCents: 14400, kind: 'case', step: 1, min: 1, max: 12 }
 };
 const FLAT_SHIPPING_CENTS = 700;
+const FREE_SHIPPING_FROM_CENTS = 10000;   // mirrors _pricing.js: $100+ of product ships free
 const CART_KEY = 'maisonMaxineCart';
 const CODE_KEY = 'maisonMaxineCode';
 const FALLBACK_STATES = 'AK AZ CA CO DC FL GA HI IA ID IL IN KS KY LA MA MD MN MO NC ND NE NH NM NV NY OH OK OR PA SC TN TX VT WA WI WV WY'.split(' ');
@@ -283,8 +285,10 @@ function nextQty(kind, dir){
   const other = kind === 'case' ? 'fourpack' : 'case';
   if (dir > 0) return Math.min(p.max, c[kind] + p.step);
   const n = c[kind] - p.step;
-  if (n >= p.min) return n;
-  return c[other] > 0 ? 0 : c[kind];
+  const min = kind === 'fourpack' && c.case > 0 ? 1 : p.min;
+  if (n >= min) return n;
+  // a case can go only if the boxes left still make an order on their own
+  return (kind === 'case' ? c.fourpack >= 2 : c.case > 0) ? 0 : c[kind];
 }
 function changeQty(kind, dir){
   const c = readCart();
@@ -541,18 +545,24 @@ function renderTotals(){
     const c = quote.cents;
     html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(c.subtotal)+'</span></div>';
     if (c.discount > 0) html += '<div class="line"><span class="lbl">creator code <span class="pill">'+quote.creatorCode+'</span></span><span>&minus;'+money(c.discount)+'</span></div>';
-    html += '<div class="line"><span class="lbl">$7 flat shipping, ups ground</span><span>'+money(c.shipping)+'</span></div>';
+    html += shipLine(c.shipping);
     html += '<div class="line"><span class="lbl">tax</span><span>'+money(c.taxes)+'</span></div>';
     if (c.fees > 0) html += '<div class="line"><span class="lbl">state fees</span><span>'+money(c.fees)+'</span></div>';
     html += '<div class="line total"><span class="lbl">total</span><span>'+money(c.total)+'</span></div>';
   } else {
-    const sub = subtotalCents();
+    const sub = subtotalCents(), ship = sub >= FREE_SHIPPING_FROM_CENTS ? 0 : FLAT_SHIPPING_CENTS;
     html = '<div class="line"><span class="lbl">subtotal</span><span>'+money(sub)+'</span></div>' +
-      '<div class="line"><span class="lbl">$7 flat shipping, ups ground</span><span>'+money(FLAT_SHIPPING_CENTS)+'</span></div>' +
+      shipLine(ship) +
       '<div class="line"><span class="lbl soft">tax added at your address</span><span></span></div>' +
-      '<div class="line total"><span class="lbl">total before tax</span><span>'+money(sub + FLAT_SHIPPING_CENTS)+'</span></div>';
+      '<div class="line total"><span class="lbl">total before tax</span><span>'+money(sub + ship)+'</span></div>';
   }
   $('totals').innerHTML = html;
+}
+
+function shipLine(cents){
+  return cents === 0
+    ? '<div class="line"><span class="lbl">shipping, ups ground</span><span><span class="pill">free</span></span></div>'
+    : '<div class="line"><span class="lbl">shipping, ups ground<span class="shipnote">free on orders over $100</span></span><span>'+money(cents)+'</span></div>';
 }
 
 function renderCodeHint(){

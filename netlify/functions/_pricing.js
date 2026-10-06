@@ -8,6 +8,9 @@
 'use strict';
 
 const FLAT_SHIPPING_CENTS = 700;      // we charge $7 UPS Ground and absorb the rest
+// orders of $100+ ship free. measured on the product subtotal before any
+// creator discount, so a case always ships free, even at the $99 code price
+const FREE_SHIPPING_FROM_CENTS = 10000;
 const MIN_FOURPACK_BOXES  = 2;        // a single box is not sold
 
 /* Creator codes: FirstNamexMaxine. Each code says what it takes off:
@@ -60,7 +63,7 @@ function priceOrder(lineItems, code) {
     code: rule ? rule.code : null,
     subtotalCents: subtotal,
     discountCents: discount,
-    shippingCents: rule && rule.freeShipping ? 0 : FLAT_SHIPPING_CENTS,
+    shippingCents: (rule && rule.freeShipping) || subtotal >= FREE_SHIPPING_FROM_CENTS ? 0 : FLAT_SHIPPING_CENTS,
   };
 }
 
@@ -105,6 +108,6 @@ function isOfAge(dob) {
 }
 
 module.exports = {
-  FLAT_SHIPPING_CENTS, MIN_FOURPACK_BOXES, CREATOR_CODES,
+  FLAT_SHIPPING_CENTS, FREE_SHIPPING_FROM_CENTS, MIN_FOURPACK_BOXES, CREATOR_CODES,
   normaliseCode, priceOrder, vsDiscount, minimumsMet, isOfAge,
 };

@@ -141,7 +141,7 @@ exports.handler = handler(async (body, origin) => {
   }
 
   console.log('[pay] order', orderNumber, 'paid', payment.id, money(b.cents.total),
-              '| charged $7 shipping, carrier cost', b.carrierCost);
+              '| charged shipping', money(b.cents.shipping), '| carrier cost', b.carrierCost);
 
   return json(200, { ok: true, orderNumber }, origin);
 });

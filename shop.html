@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>shop ✦ Maison Maxine™</title>
-<meta name="description" content="Maison Maxine red wine spritzer: Napa Valley cabernet with ginger, lemon and honey. 5% abv, 250ml cans. $56 the pair, $7 flat shipping.">
+<meta name="description" content="Maison Maxine red wine spritzer: Napa Valley cabernet with ginger, lemon and honey. 5% abv, 250ml cans. $56 the pair, free shipping on orders over $100.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://vinoshipper.com">
@@ -1699,6 +1699,109 @@ html.age-ok .age-gate{display:none}
   .ag-mark{font-size:28px}
   .ag-q{font-size:19px}
 }
+
+/* ═══ COMPUTER BUY AREA ═══
+   on a computer the decision gets a calm white card: options side by side,
+   the add-on, quantity beside the button, all on one screen. the wallpaper
+   and the loud brand look stay around it. phones keep their own layout, so
+   the new pieces below are hidden there. */
+.ship-strip,.pd-proof,.pd-why,.ing-chips,.addon,.qty-pick{display:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.variant-per{font-size:13px;font-style:italic;color:#6a4a5a}
+.variant-save{font-size:13px;font-style:italic;color:#4a7212;line-height:1.4}
+
+@media(min-width:769px){
+  /* 1 — the strip at the top sells free shipping, the merch drop waits below */
+  .drop-strip{display:none}
+  .ship-strip{
+    display:block;margin:0 0 22px;padding:11px 18px;text-align:center;
+    background:#fff;border:1px solid #d371a1;border-radius:30px;
+    font-size:18px;font-style:italic;color:#4a3a3a;letter-spacing:.02em;
+  }
+  .ship-strip span{color:#d371a1;margin:0 6px}
+
+  /* 2 — the price lives on the button, not under the stars */
+  .product-details .price-row{display:none}
+
+  /* 6 — proof beside the stars */
+  .pd-proof{
+    display:block;margin:2px 0 4px;font-size:15px;font-style:italic;color:#5a3a4a;
+    text-decoration:none;line-height:1.4;
+  }
+  .pd-proof:hover{text-decoration:underline;text-underline-offset:3px}
+
+  /* 7 — a reason to buy, then the ingredients as one row of chips */
+  .product-details .pd-story,.product-details .ingredients{display:none}
+  .product-desc{font-size:16px;color:#5a3a4a}
+  .pd-why{display:block;margin-top:10px;font-size:16px;color:#4a3a3a;line-height:1.6}
+  .pd-why span{color:#d371a1;margin:0 3px}
+  .ing-chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:14px 0 0;padding:0}
+  .ing-chips li{
+    padding:4px 11px;border:1px solid #f3cfe2;border-radius:20px;background:#fff;
+    font-size:14px;font-style:italic;color:#5a3a4a;
+  }
+  .product-details .pre-cart{display:none}
+
+  /* 8 — the calm white card */
+  .cart-section{
+    margin-top:22px;padding:20px;text-align:left;
+    background:#fff;border:1px solid #ecd3e0;border-radius:12px;
+    box-shadow:0 8px 28px rgba(211,113,161,.10);
+  }
+  .variant-row{gap:12px;margin-bottom:14px}
+  .variant-opt{padding:16px 14px 14px;background:#fff;border:1px solid #e3cfd9}
+  .variant-opt:hover{border-color:#8a6a7a;transform:none}
+  .variant-opt.selected{border:2px solid #34212b;padding:15px 13px 13px;background:#fff;box-shadow:none}
+  .variant-name{font-size:11px}
+  .variant-meta{font-size:14px;color:#6a4a5a}
+  .variant-price{font-size:24px;color:#34212b}
+  .variant-flag{font-size:10px;padding:4px 9px;top:-10px}
+  .variant-pitch,.variant-pitch.show{display:none}
+  .bonus-list{margin:0 0 12px;padding:8px 12px}
+  .bonus-list li{font-size:14px}
+
+  /* 4 — one-tap add-on right above the button */
+  .addon{
+    display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:10px 12px;
+    border:1px dashed #d371a1;border-radius:8px;cursor:pointer;
+  }
+  .addon:has(input:checked){border-style:solid;border-color:#34212b;background:#fffafd}
+  .addon input{width:18px;height:18px;flex:none;accent-color:#34212b;cursor:pointer}
+  .addon img{width:34px;height:44px;flex:none;object-fit:cover;border-radius:4px}
+  .addon-text{flex:1;font-size:16px;color:#34212b;line-height:1.3}
+  .addon-sub{display:block;font-size:13px;font-style:italic;color:#6a4a5a}
+  .addon-price{font-size:17px;color:#34212b}
+
+  /* 5 — quantity beside the button */
+  .qty-row,.shipping-note{display:none}
+  .buy-row{display:flex;gap:10px;align-items:stretch}
+  .qty-pick{display:block;flex:none}
+  .qty-pick select{
+    height:100%;min-height:56px;padding:0 34px 0 16px;cursor:pointer;
+    border:1px solid #b0718f;border-radius:6px;color:#34212b;
+    font-family:'Cormorant Garamond',Georgia,serif;font-size:20px;
+    -webkit-appearance:none;appearance:none;
+    background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23ad587c' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 13px center;
+  }
+  .qty-pick select:focus-visible{outline:2px solid #34212b;outline-offset:2px}
+  .buy-row .add-btn{flex:1;min-height:56px;padding:12px 40px 12px 14px;font-size:23px;letter-spacing:.04em}
+  .guarantee{margin-top:12px;text-align:left;border:none;padding:0;font-size:10px}
+  .pd-sub.below-btn{display:none}
+  .ship-line{text-align:left;margin-top:6px}
+
+  /* 9 — the sidebar widgets stay, smaller and at the foot of the sidebar */
+  .side-quiet{opacity:.8;margin-bottom:6px}
+  .side-quiet .now-playing,.side-quiet .sidebar-widget{
+    margin-top:8px;padding:7px 9px;background:transparent;border:1px dotted #fce5f7;
+  }
+  .side-quiet .np-header,.side-quiet .wt{margin-bottom:3px}
+  .side-quiet .eq-bars{height:10px}
+  .side-quiet .eq-bars span{animation:none;height:6px}
+  .side-quiet .weather-display{margin:0;gap:5px}
+  .side-quiet .weather-icon{font-size:13px}
+  .side-quiet .weather-temp{font-size:13px}
+  .side-quiet .weather-details{display:none}
+}
 </style>
 <script src="/js/tracking.js" defer></script>
 </head>
@@ -1774,6 +1877,11 @@ html.age-ok .age-gate{display:none}
       </nav>
     </div>
 
+  </div>
+
+  <div style="text-align:center;margin-top:20px;font-size:10px;color:#fce5f7;letter-spacing:8px">✦ ♡ ✦</div>
+  <div class="sidebar-bottom">
+    <div class="side-quiet">
     <!-- NOW PLAYING -->
     <div class="now-playing">
       <div class="np-header">now playing ✦</div>
@@ -1801,10 +1909,7 @@ html.age-ok .age-gate{display:none}
         <span id="w-humidity">humidity 62%</span>
       </div>
     </div>
-  </div>
-
-  <div style="text-align:center;margin-top:20px;font-size:10px;color:#fce5f7;letter-spacing:8px">✦ ♡ ✦</div>
-  <div class="sidebar-bottom">
+    </div>
     <div class="blinkies">
       <span class="blinkie">muse life</span>
       <span class="blinkie">sip sip</span>
@@ -1825,7 +1930,10 @@ html.age-ok .age-gate{display:none}
     <div class="divider"></div>
   </div>
 
-  <!-- MERCH DROP ANNOUNCEMENT -->
+  <!-- FREE SHIPPING (computers) -->
+  <div class="ship-strip">free shipping on orders over $100 <span aria-hidden="true">✦</span> the case ships free</div>
+
+  <!-- MERCH DROP ANNOUNCEMENT (phones; computers see the shipping strip above) -->
   <a href="#merch" class="drop-strip">
     <span class="ds-pill">merch</span>
     the summer merch drop — hand-sewn &amp; one of one ✦
@@ -1859,6 +1967,7 @@ html.age-ok .age-gate{display:none}
       <h2>Red Wine Spritz</h2>
       <p class="pd-promise">never buy another bottle of wine again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
+      <a class="pd-proof" href="store-locator.html">sold in 17 shops, including monsieur marcel, farmshop &amp; happier grocery</a>
       <div class="price-row">
         <span class="price" id="priceMain">$56</span>
         <span class="price-note" id="priceNote">2 luxury gift boxes · 8 cans · 250ml each</span>
@@ -1869,7 +1978,11 @@ html.age-ok .age-gate{display:none}
 
       <div class="desc-eyebrow">inspired by red wine &amp; ginger ale.</div>
       <p class="product-desc">Napa Valley Cabernet, lightly sparkling, with ginger, lemon and honey.</p>
-      <p class="product-desc">Bright, clean, and made for the moments that matter.</p>
+      <p class="product-desc pd-story">Bright, clean, and made for the moments that matter.</p>
+      <p class="pd-why">no refined sugar <span aria-hidden="true">✦</span> 5% abv <span aria-hidden="true">✦</span> four ingredients <span aria-hidden="true">✦</span> made at our family's vineyard</p>
+      <ul class="ing-chips" aria-label="ingredients">
+        <li>napa valley cabernet</li><li>real ginger</li><li>lemon juice</li><li>honey</li><li>nothing else</li>
+      </ul>
 
       <div class="product-divider"></div>
 
@@ -1889,13 +2002,14 @@ html.age-ok .age-gate{display:none}
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
             <span class="variant-name">the pair</span>
             <span class="variant-meta">2 luxury gift boxes · 8 cans</span>
-            <span class="variant-price">$56</span>
+            <span class="variant-price">$56 <span class="variant-per">$7 a can</span></span>
           </button>
           <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
             <span class="variant-flag">best value</span>
-            <span class="variant-name">case</span>
-            <span class="variant-meta">24 cans · six four-packs</span>
-            <span class="variant-price">$144</span>
+            <span class="variant-name">the case</span>
+            <span class="variant-meta">24 cans · six gift boxes</span>
+            <span class="variant-price">$144 <span class="variant-per">$6 a can</span></span>
+            <span class="variant-save">save $24 vs. buying pairs ✦ ships free</span>
           </button>
         </div>
         <div class="variant-pitch" id="variantPitch"></div>
@@ -1908,8 +2022,19 @@ html.age-ok .age-gate{display:none}
             <button class="qty-btn" type="button" aria-label="one more" onclick="updateQty(1)">+</button>
           </div>
         </div>
-        <div class="shipping-note">$7 flat shipping — one pair or a full case, it stays $7 ✦</div>
-        <button class="add-btn" id="addBtn">add to cart — $56</button>
+        <div class="shipping-note">free shipping on orders over $100 ✦ the case ships free</div>
+        <label class="addon" for="addonBox">
+          <input type="checkbox" id="addonBox">
+          <img src="checkout-box.jpg" alt="" width="34" height="44">
+          <span class="addon-text">add an extra gift box <span class="addon-sub">four more cans, for a host or a friend</span></span>
+          <span class="addon-price">+$28</span>
+        </label>
+        <div class="buy-row">
+          <label class="qty-pick"><span class="sr">quantity</span>
+            <select id="qtyPick" aria-label="quantity"></select>
+          </label>
+          <button class="add-btn" id="addBtn">add to bag · $56</button>
+        </div>
         <div class="guarantee">don't love it? we'll replace it or credit you ✦ nothing to ship back</div>
         <div class="pd-sub below-btn">napa valley cabernet, ginger, lemon &amp; honey · 5% abv · 250ml cans</div>
         <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
@@ -2235,16 +2360,27 @@ function selectVariant(id) {
   pitch.textContent = VARIANTS[id].pitch || '';
   pitch.classList.toggle('show', !!VARIANTS[id].pitch);
   qty = VARIANTS[id].min;
+  fillQtyPick();
   syncAddBtn();
 }
 
 // ═══ QUANTITY SELECTOR ═══
+// the "extra gift box" add-on: one more box on top of whatever is picked
+const ADDON_BOX_PRICE = VARIANTS.fourpack.price;
+const addonOn = () => document.getElementById('addonBox').checked;
+function fillQtyPick() {
+  const max = 12 / units(selectedVariant);
+  const sel = document.getElementById('qtyPick');
+  sel.innerHTML = Array.from({ length: max }, (_, i) => '<option value="' + (i + 1) + '">' + (i + 1) + '</option>').join('');
+  sel.value = String(toUnits(selectedVariant, qty));
+}
 function syncAddBtn() {
   const v = VARIANTS[selectedVariant];
-  const total = '$' + (qty * v.price);
+  const total = '$' + (qty * v.price + (addonOn() ? ADDON_BOX_PRICE : 0));
   const shown = toUnits(selectedVariant, qty);
   document.getElementById('qty').textContent = shown;
-  document.getElementById('addBtn').textContent = 'add to cart — ' + total;
+  document.getElementById('qtyPick').value = String(shown);
+  document.getElementById('addBtn').textContent = 'add to bag · ' + total;
   document.getElementById('buybarVariant').textContent = (shown > 1 ? shown + ' × ' : '') + v.short;
   renderBonuses();
   document.getElementById('buybarPrice').textContent = total;
@@ -2256,6 +2392,11 @@ function renderBonuses() {
   el.innerHTML = b ? b.map(x => '<li>' + x + '</li>').join('') : '';
   el.hidden = !b;
 }
+document.getElementById('qtyPick').addEventListener('change', e => {
+  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, (parseInt(e.target.value, 10) || 1) * units(selectedVariant)));
+  syncAddBtn();
+});
+document.getElementById('addonBox').addEventListener('change', syncAddBtn);
 function updateQty(delta) {
   const u = units(selectedVariant);
   qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, qty + delta * u));
@@ -2272,6 +2413,7 @@ try {
 
 // ═══ "WHERE DID YOU FIND US?" SURVEY (optional — never blocks checkout) ═══
 const SHIPPING_FLAT = 7;
+const FREE_SHIPPING_FROM = 100;   // mirrors netlify/functions/_pricing.js
 const SURVEY_KEY = 'maisonMaxineFoundUs';
 const SURVEY_OPTIONS = [
   { id: 'event',           label: 'at an event' },
@@ -2315,15 +2457,18 @@ function getCart() {
 }
 // a cart saved before the 2-box minimum (or the legacy single-qty shape above)
 // can hold one four-pack. raise any short line to its floor rather than letting
-// it reach vinoshipper.
+// it reach vinoshipper. odd box counts above the floor are fine: the extra
+// gift box add-on makes a pair into three boxes.
 function normaliseCart(cart) {
   VARIANT_IDS.forEach(id => {
     if (cart[id] <= 0) { cart[id] = 0; return; }
-    const u = units(id);
-    if (cart[id] % u) cart[id] += u - (cart[id] % u);   // never a half pair
-    if (cart[id] < VARIANTS[id].min) cart[id] = VARIANTS[id].min;
+    if (cart[id] < lineMin(id, cart)) cart[id] = lineMin(id, cart);
   });
   return cart;
+}
+// the 2-box floor is for an order of boxes alone; next to a case, one extra box is fine
+function lineMin(id, cart) {
+  return id === 'fourpack' && cart.case > 0 ? 1 : VARIANTS[id].min;
 }
 function cartCount(cart) {
   return VARIANT_IDS.reduce((n, id) => n + cart[id], 0);
@@ -2343,7 +2488,10 @@ function saveCart(cart) {
 function addToCart() {
   const cart = getCart();
   cart[selectedVariant] += qty;
+  if (addonOn()) cart.fourpack += 1;          // a single extra box rides on any order
   saveCart(cart);
+  document.getElementById('addonBox').checked = false;
+  syncAddBtn();
   openDrawer();
 }
 document.getElementById('addBtn').addEventListener('click', addToCart);
@@ -2401,7 +2549,7 @@ function renderDrawer() {
 
   const subtotal = cartSubtotal(cart);
   const foundUs = getSurvey();
-  const shipping = SHIPPING_FLAT; // flat for everyone
+  const shipping = subtotal >= FREE_SHIPPING_FROM ? 0 : SHIPPING_FLAT;
   const total = subtotal + shipping;
 
   body.innerHTML = VARIANT_IDS.filter(id => cart[id] > 0).map(id => {
@@ -2411,12 +2559,12 @@ function renderDrawer() {
       <img class="drawer-item-img" src="${PRODUCT_IMG}" alt="${v.name}">
       <div class="drawer-item-info">
         <div class="drawer-item-name">${v.name}</div>
-        <div class="drawer-item-variant">${v.variant}</div>
+        <div class="drawer-item-variant">${id === 'fourpack' ? cart[id] + ' luxury gift boxes · ' + cart[id] * 4 + ' cans' : v.variant}</div>
         <div class="drawer-item-price">$${cart[id] * v.price}</div>
         <div style="margin-top:8px">
           <div class="drawer-qty">
             <button onclick="changeCartQty('${id}', -1)">−</button>
-            <span>${toUnits(id, cart[id])}</span>
+            <span>${id === 'fourpack' ? cart[id] : toUnits(id, cart[id])}</span>
             <button onclick="changeCartQty('${id}', 1)">+</button>
           </div>
         </div>
@@ -2425,12 +2573,12 @@ function renderDrawer() {
     </div>`;
   }).join('');
 
-  const shippingHtml = `<span>$${SHIPPING_FLAT} flat</span>`;
+  const shippingHtml = shipping ? `<span>$${shipping}</span>` : `<span>free</span>`;
 
-  // flat rate cuts both ways — worth saying out loud while the cart is open
-  const shipNudge = cart.case > 0
-    ? `<div class="drawer-ship-nudge">flat rate — anything else you add ships for the same $${SHIPPING_FLAT} ✦</div>`
-    : `<div class="drawer-ship-nudge">flat rate — another gift box rides along for the same $${SHIPPING_FLAT} ✦</div>`;
+  // say how close they are while the cart is open
+  const shipNudge = shipping
+    ? `<div class="drawer-ship-nudge">add $${FREE_SHIPPING_FROM - subtotal} more and shipping is free ✦</div>`
+    : `<div class="drawer-ship-nudge">your order ships free ✦</div>`;
 
   const surveyHtml = foundUs
     ? `<div class="drawer-survey-done">
@@ -2465,10 +2613,10 @@ function renderDrawer() {
 
 function changeCartQty(id, delta) {
   const cart = getCart();
-  cart[id] += delta * units(id);
+  cart[id] += delta * (id === 'fourpack' ? 1 : units(id));
   // below the minimum isn't a smaller order, it's no line at all — the
   // remove button is right there, so don't strand people at an un-decrementable floor
-  if (cart[id] < VARIANTS[id].min) cart[id] = 0;
+  if (cart[id] < lineMin(id, cart)) cart[id] = 0;
   if (cart[id] > 24) cart[id] = 24;
   saveCart(cart);
   renderDrawer();
