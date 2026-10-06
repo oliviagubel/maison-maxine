@@ -239,6 +239,11 @@ body.lift{ overflow:hidden }
   }
 }
 
+/* the beach poster hangs in the wall space left of the collage: smaller on
+   smaller laptops, and gone once there is no wall left to hang it on */
+@media (max-width:1320px){ .wall-poster{width:215px!important;left:-245px!important} }
+@media (max-width:1200px){ .wall-poster{display:none} }
+
 .collage-item{transition:transform .4s ease, filter .4s ease;}
 .collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important;}
 </style>
@@ -257,6 +262,13 @@ function enterSite(){
 </script>
 <!-- CURTAIN OVERLAY (split open animation) -->
 <div id="pile" style="position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.035);z-index:1">
+
+  <!-- BEACH POSTER: taped to the wall left of the collage -->
+  <div class="collage-item wall-poster" style="position:absolute;width:250px;top:170px;left:-290px;transform:rotate(-4deg);z-index:12;background:#fff;padding:6px;box-shadow:3px 5px 14px rgba(0,0,0,.18)">
+    <div class="tape" style="width:58px;height:18px;top:-9px;left:-14px;transform:rotate(-38deg)"></div>
+    <div class="tape" style="width:58px;height:18px;top:-9px;right:-14px;transform:rotate(38deg)"></div>
+    <img loading="lazy" src="beach-spritz-poster.jpg" alt="hit the beach with your board, your girls, and the season's hottest spritz" style="width:100%;height:auto;display:block">
+  </div>
 
   <!-- TENNIS GIRL -->
   <div class="sk collage-item" style="width:145px;position:absolute;top:55px;left:-35px;z-index:10;transform:rotate(3deg)">
@@ -342,10 +354,10 @@ function enterSite(){
     <span style="font-family:'IM Fell English',serif;font-style:italic;font-size:14px;color:#b75d83;letter-spacing:.12em;text-shadow:1px 1px 0 rgba(255,255,255,.9);opacity:.85">by entering you confirm you're 21+ ✦</span>
     <svg width="80" height="80" viewBox="0 0 66 66" fill="none"
       style="filter:drop-shadow(2px 4px 8px rgba(0,0,0,.22))">
-      <circle cx="33" cy="33" r="31" fill="#abd05d" stroke="#3f5a14" stroke-width="2.2"/>
-      <circle cx="33" cy="33" r="25" fill="none" stroke="#e6f4d0" stroke-width=".8" stroke-dasharray="3 3"/>
+      <circle cx="33" cy="33" r="31" fill="#fbdcec" stroke="#b75d83" stroke-width="2.2"/>
+      <circle cx="33" cy="33" r="25" fill="none" stroke="#fff" stroke-width=".9" stroke-dasharray="3 3"/>
       <path d="M20 33L46 33M37 23L46 33L37 43"
-        stroke="#3f5a14" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        stroke="#8a1a4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <span id="etxt">come inside ♡</span>
   </a>
