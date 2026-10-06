@@ -72,6 +72,7 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
 }
 .msg.bad{background:#fff3f7;border:1px solid #f3c6da;color:#8a3a5a}
 .msg.info{background:#fffcfe;border:1px dotted #fce5f7;color:#8a6a7a;font-style:italic}
+#card-container{min-height:90px}
 .back{display:block;text-align:center;margin-top:18px;font-size:14px;font-style:italic;color:#d371a1}
 [hidden]{display:none!important}
 </style>
@@ -140,8 +141,15 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
     </div>
   </div>
 
-  <button class="go" id="go" disabled>continue to payment</button>
-  <div class="note" id="goNote">you will enter card details on the next step. nothing is charged until then.</div>
+  <!-- PAYMENT -->
+  <div class="card">
+    <h2>payment <span class="pill" id="sandboxPill" hidden>test mode</span></h2>
+    <div id="card-container"></div>
+    <div class="hint" id="cardHint">loading the card form...</div>
+  </div>
+
+  <button class="go" id="go" disabled>pay</button>
+  <div class="note" id="goNote">card payments are processed securely by square. your card details never touch our site.</div>
   <a class="back" href="shop.html">back to the shop</a>
 </div>
 
@@ -296,36 +304,128 @@ async function getQuote(){
 }
 function requote(){ clearTimeout(timer); timer = setTimeout(getQuote, 500); }
 
+/* ═══ CARD FORM (square) ═══
+   /config hands over the public application and location ids. Sandbox ids
+   load square's sandbox script, so test mode needs no change to this page. */
+let card = null, paying = false;
+let attemptKey = null;          // one per payment attempt: a retry cannot charge twice
+const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+
+function loadScript(src){
+  return new Promise((ok, bad) => {
+    const s = document.createElement('script');
+    s.src = src; s.onload = ok; s.onerror = bad;
+    document.head.appendChild(s);
+  });
+}
+async function setupCard(){
+  try{
+    const res = await fetch(API + '/config', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+    const cfg = await res.json();
+    if (!res.ok || !cfg.applicationId) throw new Error('no config');
+    await loadScript(cfg.sandbox ? 'https://sandbox.web.squarecdn.com/v1/square.js' : 'https://web.squarecdn.com/v1/square.js');
+    const payments = window.Square.payments(cfg.applicationId, cfg.locationId);
+    card = await payments.card({
+      style: {
+        input: { color: '#4a3a3a', fontSize: '16px' },
+        'input::placeholder': { color: '#b89aa8' },
+        '.input-container': { borderColor: '#fce5f7', borderRadius: '7px' },
+        '.input-container.is-focus': { borderColor: '#d371a1' },
+        '.message-text': { color: '#8a6a7a' },
+        '.message-icon': { color: '#8a6a7a' }
+      }
+    });
+    await card.attach('#card-container');
+    $('cardHint').textContent = 'the billing zip is the one your card is registered to.';
+    $('sandboxPill').hidden = !cfg.sandbox;
+  }catch(e){
+    card = null;
+    $('cardHint').textContent = 'the card form could not load. please refresh the page.';
+  }
+  syncGo();
+}
+
 /* ═══ STATE OF THE BUTTON ═══ */
 function syncGo(){
-  const ok = Boolean(quote && quote.compliant && !quoting
+  const ok = Boolean(quote && quote.compliant && !quoting && !paying && card
     && $('first').value.trim() && $('last').value.trim()
     && /\S+@\S+\.\S+/.test($('email').value.trim())
     && $('phone').value.trim() && addressReady() && isOfAge(dob()));
   $('go').disabled = !ok;
-  $('go').textContent = quoting ? 'checking...' : 'continue to payment';
+  $('go').textContent = paying ? 'paying...'
+    : quoting ? 'checking...'
+    : (quote && quote.cents ? 'pay ' + money(quote.cents.total) : 'pay');
 }
 
 ['first','last','email','phone','street1','street2','city','state','zip','code','dobM','dobD','dobY']
   .forEach(id => { $(id).addEventListener('input', requote); $(id).addEventListener('change', requote); });
 
-/* ═══ PAY ═══ */
+/* ═══ PAY ═══
+   square turns the card into a one-time token; only the token goes to our
+   server, which re-prices everything, charges, and places the order. */
 $('go').addEventListener('click', async () => {
-  if ($('go').disabled) return;
+  if ($('go').disabled || paying) return;
   if (!isOfAge(dob())) { show('you must be 21 or older to order.'); return; }
-  $('go').disabled = true; $('go').textContent = 'taking you to payment...';
+  show('');
+  paying = true; syncGo();
+
+  let token;
   try{
-    const res = await fetch(API + '/create-session', {
+    const c = customer();
+    const result = await card.tokenize({
+      amount: (quote.cents.total / 100).toFixed(2),
+      currencyCode: 'USD',
+      intent: 'CHARGE',
+      customerInitiated: true,
+      sellerKeyedIn: false,
+      billingContact: {
+        givenName: c.firstName, familyName: c.lastName, email: c.email,
+        phone: $('phone').value.trim(),
+        addressLines: [$('street1').value.trim(), $('street2').value.trim()].filter(Boolean),
+        city: $('city').value.trim(), state: $('state').value,
+        postalCode: $('zip').value.trim(), countryCode: 'US'
+      }
+    });
+    if (result.status !== 'OK') {
+      paying = false; syncGo();
+      // square shows field errors inline under the card form
+      if (result.errors && result.errors.length) show('please check your card details.');
+      return;
+    }
+    token = result.token;
+  }catch(e){
+    paying = false; syncGo();
+    show('please check your card details and try again.');
+    return;
+  }
+
+  if (!attemptKey) attemptKey = newKey();
+  try{
+    const res = await fetch(API + '/pay', {
       method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ customer: customer(), shipToAddress: shipTo(), items: items(), creatorCode: $('code').value.trim() })
+      body: JSON.stringify({
+        customer: customer(), shipToAddress: shipTo(), items: items(),
+        creatorCode: $('code').value.trim(),
+        sourceId: token,
+        idempotencyKey: attemptKey,
+        expectedTotalCents: quote.cents.total
+      })
     });
     const d = await res.json();
-    if (d && d.compliant === false){ show((d.problems||[]).join(' ')); syncGo(); return; }
-    if (!res.ok || !d.url){ show(d.error || 'we could not start payment. please try again.'); syncGo(); return; }
-    window.location.href = d.url;          // stripe hosted payment
-  }catch(e){
-    show('we could not reach checkout. please try again.');
+    if (res.ok && d.ok){
+      window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(d.orderNumber);
+      return;
+    }
+    attemptKey = null;                      // a definite answer: the next try is a new attempt
+    paying = false;
+    if (d && d.compliant === false) { show((d.problems||[]).join(' ')); syncGo(); return; }
+    if (res.status === 409 && d.cents) { quote = Object.assign({}, quote, { cents: d.cents }); renderTotals(); }
+    show(d.error || 'that payment did not go through. you have not been charged.');
     syncGo();
+  }catch(e){
+    // no answer: keep attemptKey so pressing pay again cannot double charge
+    paying = false; syncGo();
+    show('we lost the connection before hearing back. press pay again: you will not be charged twice.');
   }
 });
 
@@ -336,6 +436,7 @@ if (!renderOrder()){
 }
 renderTotals();
 syncGo();
+setupCard();
 </script>
 </body>
 </html>

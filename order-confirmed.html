@@ -40,8 +40,8 @@ p{font-size:17px;font-style:italic;color:#6a4a5a;line-height:1.75;margin-bottom:
 <script>
 /* the cart has been paid for, so it should not follow anyone back to the shop */
 try { localStorage.removeItem('maisonMaxineCart'); } catch(e){}
-var id = new URLSearchParams(location.search).get('session');
-if (id) document.getElementById('ref').textContent = 'reference ' + id.slice(-12);
+var id = new URLSearchParams(location.search).get('order');
+if (id) document.getElementById('ref').textContent = 'order ' + id;
 </script>
 </body>
 </html>
