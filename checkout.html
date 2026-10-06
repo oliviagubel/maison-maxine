@@ -73,6 +73,14 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
 .msg.bad{background:#fff3f7;border:1px solid #f3c6da;color:#8a3a5a}
 .msg.info{background:#fffcfe;border:1px dotted #fce5f7;color:#8a6a7a;font-style:italic}
 #card-container{min-height:90px}
+#apple-pay-button{
+  display:block;width:100%;height:50px;border-radius:7px;cursor:pointer;
+  -webkit-appearance:-apple-pay-button;-apple-pay-button-type:buy;-apple-pay-button-style:black;
+}
+#apple-pay-button.off{opacity:.35;pointer-events:none}
+.or{
+  text-align:center;font-size:13px;font-style:italic;color:#8a6a7a;margin:12px 0 10px;
+}
 .back{display:block;text-align:center;margin-top:18px;font-size:14px;font-style:italic;color:#d371a1}
 [hidden]{display:none!important}
 </style>
@@ -144,6 +152,10 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
   <!-- PAYMENT -->
   <div class="card">
     <h2>payment <span class="pill" id="sandboxPill" hidden>test mode</span></h2>
+    <div id="applePayWrap" hidden>
+      <div id="apple-pay-button" role="button" tabindex="0" aria-label="pay with apple pay"></div>
+      <div class="or">or pay by card</div>
+    </div>
     <div id="card-container"></div>
     <div class="hint" id="cardHint">loading the card form...</div>
   </div>
@@ -304,10 +316,12 @@ async function getQuote(){
 }
 function requote(){ clearTimeout(timer); timer = setTimeout(getQuote, 500); }
 
-/* ═══ CARD FORM (square) ═══
+/* ═══ CARD FORM + APPLE PAY (square) ═══
    /config hands over the public application and location ids. Sandbox ids
-   load square's sandbox script, so test mode needs no change to this page. */
-let card = null, paying = false;
+   load square's sandbox script, so test mode needs no change to this page.
+   Apple Pay only appears on devices and browsers that support it; everywhere
+   else the card form is the only option. */
+let card = null, applePay = null, payRequest = null, paying = false;
 let attemptKey = null;          // one per payment attempt: a retry cannot charge twice
 const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
 
@@ -319,12 +333,13 @@ function loadScript(src){
   });
 }
 async function setupCard(){
+  let payments;
   try{
     const res = await fetch(API + '/config', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
     const cfg = await res.json();
     if (!res.ok || !cfg.applicationId) throw new Error('no config');
     await loadScript(cfg.sandbox ? 'https://sandbox.web.squarecdn.com/v1/square.js' : 'https://web.squarecdn.com/v1/square.js');
-    const payments = window.Square.payments(cfg.applicationId, cfg.locationId);
+    payments = window.Square.payments(cfg.applicationId, cfg.locationId);
     card = await payments.card({
       style: {
         input: { color: '#4a3a3a', fontSize: '16px' },
@@ -342,27 +357,83 @@ async function setupCard(){
     card = null;
     $('cardHint').textContent = 'the card form could not load. please refresh the page.';
   }
+
+  /* apple pay: square throws here when the device or browser can't do it */
+  if (payments) {
+    try{
+      payRequest = payments.paymentRequest({
+        countryCode: 'US', currencyCode: 'USD',
+        total: { amount: '0.00', label: 'Maison Maxine', pending: true }
+      });
+      applePay = await payments.applePay(payRequest);
+      $('applePayWrap').hidden = false;
+    }catch(e){
+      applePay = null;
+    }
+  }
   syncGo();
 }
 
-/* ═══ STATE OF THE BUTTON ═══ */
-function syncGo(){
-  const ok = Boolean(quote && quote.compliant && !quoting && !paying && card
+/* keep the amount on the apple pay sheet equal to the quote */
+function syncPayRequest(){
+  if (!payRequest || !quote || !quote.cents) return;
+  try{ payRequest.update({ total: { amount: (quote.cents.total / 100).toFixed(2), label: 'Maison Maxine' } }); }catch(e){}
+}
+
+/* ═══ STATE OF THE BUTTONS ═══ */
+function formReady(){
+  return Boolean(quote && quote.compliant && !quoting && !paying
     && $('first').value.trim() && $('last').value.trim()
     && /\S+@\S+\.\S+/.test($('email').value.trim())
     && $('phone').value.trim() && addressReady() && isOfAge(dob()));
-  $('go').disabled = !ok;
+}
+function syncGo(){
+  const ready = formReady();
+  $('go').disabled = !(ready && card);
   $('go').textContent = paying ? 'paying...'
     : quoting ? 'checking...'
     : (quote && quote.cents ? 'pay ' + money(quote.cents.total) : 'pay');
+  $('apple-pay-button').classList.toggle('off', !(ready && applePay));
+  syncPayRequest();
 }
 
 ['first','last','email','phone','street1','street2','city','state','zip','code','dobM','dobD','dobY']
   .forEach(id => { $(id).addEventListener('input', requote); $(id).addEventListener('change', requote); });
 
 /* ═══ PAY ═══
-   square turns the card into a one-time token; only the token goes to our
-   server, which re-prices everything, charges, and places the order. */
+   square turns the card (or apple pay) into a one-time token; only the token
+   goes to our server, which re-prices everything, charges, and places the order. */
+async function submitPayment(token){
+  if (!attemptKey) attemptKey = newKey();
+  try{
+    const res = await fetch(API + '/pay', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        customer: customer(), shipToAddress: shipTo(), items: items(),
+        creatorCode: $('code').value.trim(),
+        sourceId: token,
+        idempotencyKey: attemptKey,
+        expectedTotalCents: quote.cents.total
+      })
+    });
+    const d = await res.json();
+    if (res.ok && d.ok){
+      window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(d.orderNumber);
+      return;
+    }
+    attemptKey = null;                      // a definite answer: the next try is a new attempt
+    paying = false;
+    if (d && d.compliant === false) { show((d.problems||[]).join(' ')); syncGo(); return; }
+    if (res.status === 409 && d.cents) { quote = Object.assign({}, quote, { cents: d.cents }); renderTotals(); }
+    show(d.error || 'that payment did not go through. you have not been charged.');
+    syncGo();
+  }catch(e){
+    // no answer: keep attemptKey so paying again cannot double charge
+    paying = false; syncGo();
+    show('we lost the connection before hearing back. press pay again: you will not be charged twice.');
+  }
+}
+
 $('go').addEventListener('click', async () => {
   if ($('go').disabled || paying) return;
   if (!isOfAge(dob())) { show('you must be 21 or older to order.'); return; }
@@ -398,36 +469,24 @@ $('go').addEventListener('click', async () => {
     show('please check your card details and try again.');
     return;
   }
-
-  if (!attemptKey) attemptKey = newKey();
-  try{
-    const res = await fetch(API + '/pay', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        customer: customer(), shipToAddress: shipTo(), items: items(),
-        creatorCode: $('code').value.trim(),
-        sourceId: token,
-        idempotencyKey: attemptKey,
-        expectedTotalCents: quote.cents.total
-      })
-    });
-    const d = await res.json();
-    if (res.ok && d.ok){
-      window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(d.orderNumber);
-      return;
-    }
-    attemptKey = null;                      // a definite answer: the next try is a new attempt
-    paying = false;
-    if (d && d.compliant === false) { show((d.problems||[]).join(' ')); syncGo(); return; }
-    if (res.status === 409 && d.cents) { quote = Object.assign({}, quote, { cents: d.cents }); renderTotals(); }
-    show(d.error || 'that payment did not go through. you have not been charged.');
-    syncGo();
-  }catch(e){
-    // no answer: keep attemptKey so pressing pay again cannot double charge
-    paying = false; syncGo();
-    show('we lost the connection before hearing back. press pay again: you will not be charged twice.');
-  }
+  await submitPayment(token);
 });
+
+async function payWithApple(){
+  if (!applePay || paying) return;
+  if (!formReady()) { show('fill in your details above first, then tap apple pay.'); return; }
+  show('');
+  syncPayRequest();
+  // tokenize must run straight from the tap, before anything else awaits
+  let result;
+  try{ result = await applePay.tokenize(); }
+  catch(e){ return; }                       // sheet closed: nothing happened
+  if (!result || result.status !== 'OK') return;
+  paying = true; syncGo();
+  await submitPayment(result.token);
+}
+$('apple-pay-button').addEventListener('click', payWithApple);
+$('apple-pay-button').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); payWithApple(); } });
 
 /* ═══ GO ═══ */
 if (!renderOrder()){
