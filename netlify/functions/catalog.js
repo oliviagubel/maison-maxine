@@ -12,8 +12,8 @@ exports.handler = handler(async (body, origin) => {
   try {
     const list = await vs.wineList();
     return json(200, {
-      shipsTo: list.shipsTo || [],
-      wines: (list.wines || []).map(w => ({
+      shipsTo: (list.states || []).map(st => st.abbr),
+      wines: (list.products || []).map(w => ({
         id: w.id, name: w.name, sku: w.sku, price: w.price,
       })),
     }, origin);

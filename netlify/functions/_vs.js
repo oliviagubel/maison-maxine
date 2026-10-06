@@ -12,6 +12,7 @@
 'use strict';
 
 const BASE = 'https://vinoshipper.com';
+const PRODUCER_ID = 5982; // maison maxine's vinoshipper account
 
 function auth() {
   // trim: a trailing newline or stray space from pasting into the dashboard is
@@ -52,8 +53,12 @@ async function call(method, path, body) {
 }
 
 const vs = {
-  /* catalogue + the states we may ship to */
-  wineList:        ()     => call('GET',  '/api/v3/wine-list'),
+  /* catalogue + the states we may ship to. /api/v3/wine-list no longer
+     exists (it answers 400 for any caller); the producer feed is the current
+     source and returns { producer, products, states }. */
+  wineList:        ()     => call('GET',  '/api/v3/feeds/vs/' + PRODUCER_ID + '/products'),
+  /* authenticated read with no side effects: proves the key and secret work */
+  activeShippers:  ()     => call('GET',  '/api/v3/p/shippers/active'),
   estimateShipping:(body) => call('POST', '/api/v3/p/orders/estimate-shipping', body),
   estimateTaxes:   (body) => call('POST', '/api/v3/p/orders/estimate-taxes', body),
   checkCompliance: (body) => call('POST', '/api/v3/p/orders/check-compliance', body),

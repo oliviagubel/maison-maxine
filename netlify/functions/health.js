@@ -21,7 +21,7 @@ exports.handler = handler(async (body, origin) => {
   let credentialsWork = null, upstream = null, lengths = null;
   if (creds.present) {
     try {
-      await vs.wineList();
+      await vs.activeShippers();
       credentialsWork = true;
     } catch (e) {
       credentialsWork = false;
