@@ -73,6 +73,12 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
 .msg.bad{background:#fff3f7;border:1px solid #f3c6da;color:#8a3a5a}
 .msg.info{background:#fffcfe;border:1px dotted #fce5f7;color:#8a6a7a;font-style:italic}
 #card-container{min-height:90px}
+#apple-pay{
+  -webkit-appearance:-apple-pay-button;-apple-pay-button-type:buy;-apple-pay-button-style:black;
+  width:100%;height:50px;border-radius:7px;cursor:pointer;margin-bottom:6px;
+}
+#apple-pay.off{opacity:.45}
+.or{text-align:center;font-size:13px;font-style:italic;color:#8a6a7a;margin:10px 0 12px}
 .back{display:block;text-align:center;margin-top:18px;font-size:14px;font-style:italic;color:#d371a1}
 [hidden]{display:none!important}
 </style>
@@ -144,12 +150,14 @@ input:focus,select:focus{outline:2px solid #d371a1;outline-offset:1px;border-col
   <!-- PAYMENT -->
   <div class="card">
     <h2>payment <span class="pill" id="sandboxPill" hidden>test mode</span></h2>
+    <div id="apple-pay" role="button" aria-label="pay with apple pay" tabindex="0" hidden></div>
+    <div class="or" id="applePayOr" hidden>or pay by card</div>
     <div id="card-container"></div>
     <div class="hint" id="cardHint">loading the card form...</div>
   </div>
 
   <button class="go" id="go" disabled>pay</button>
-  <div class="note" id="goNote">card payments are processed securely by square. your card details never touch our site.</div>
+  <div class="note" id="goNote">payments are processed securely by square. your card details never touch our site.</div>
   <a class="back" href="shop.html">back to the shop</a>
 </div>
 
@@ -282,6 +290,7 @@ function renderTotals(){
   if (c.fees > 0)  html += '<div class="line"><span class="lbl">state fees</span><span>'+money(c.fees)+'</span></div>';
   html += '<div class="line total"><span class="lbl">total</span><span>'+money(c.total)+'</span></div>';
   $('totals').innerHTML = html;
+  syncApplePayTotal();
 }
 
 async function getQuote(){
@@ -338,6 +347,7 @@ async function setupCard(){
     await card.attach('#card-container');
     $('cardHint').textContent = 'the billing zip is the one your card is registered to.';
     $('sandboxPill').hidden = !cfg.sandbox;
+    setupApplePay(payments);
   }catch(e){
     card = null;
     $('cardHint').textContent = 'the card form could not load. please refresh the page.';
@@ -345,12 +355,67 @@ async function setupCard(){
   syncGo();
 }
 
+/* ═══ APPLE PAY (square) ═══
+   only appears in safari with a wallet set up, and only once this domain is
+   registered for apple pay in the square dashboard. anywhere else square
+   throws and the button simply stays hidden. the token goes to the same /pay
+   as a card token, so the server re-prices and charges it exactly the same. */
+let applePay = null, applePayRequest = null;
+
+function applePayTotal(){
+  return { amount: quote && quote.cents ? (quote.cents.total / 100).toFixed(2) : '0.00', label: 'Maison Maxine' };
+}
+function syncApplePayTotal(){
+  if (applePayRequest) applePayRequest.update({ total: applePayTotal() });
+}
+async function setupApplePay(payments){
+  try{
+    applePayRequest = payments.paymentRequest({ countryCode: 'US', currencyCode: 'USD', total: applePayTotal() });
+    applePay = await payments.applePay(applePayRequest);
+  }catch(e){
+    applePay = null;          // not safari, no wallet, or domain not registered yet
+    return;
+  }
+  $('apple-pay').hidden = false;
+  $('applePayOr').hidden = false;
+  syncGo();
+}
+async function payWithApplePay(){
+  if (!applePay || paying) return;
+  if (!formReady()) { show(whatIsMissing()); return; }
+  show('');
+  syncApplePayTotal();
+  paying = true; syncGo();
+  let token;
+  try{
+    const result = await applePay.tokenize();
+    if (result.status !== 'OK') { paying = false; syncGo(); return; }   // closed the sheet
+    token = result.token;
+  }catch(e){
+    paying = false; syncGo();
+    show('apple pay did not go through. you have not been charged.');
+    return;
+  }
+  await submit(token);
+}
+$('apple-pay').addEventListener('click', payWithApplePay);
+$('apple-pay').addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); payWithApplePay(); } });
+
 /* ═══ STATE OF THE BUTTON ═══ */
-function syncGo(){
-  const ok = Boolean(quote && quote.compliant && !quoting && !paying && card
+function formReady(){
+  return Boolean(quote && quote.compliant && !quoting && !paying
     && $('first').value.trim() && $('last').value.trim()
     && /\S+@\S+\.\S+/.test($('email').value.trim())
     && $('phone').value.trim() && addressReady() && isOfAge(dob()));
+}
+function whatIsMissing(){
+  if (!isOfAge(dob())) return 'you must be 21 or older to order. please add your date of birth.';
+  if (quoting) return 'one moment, we are checking your total.';
+  return 'please fill in your details and address above first.';
+}
+function syncGo(){
+  const ok = formReady() && Boolean(card);
+  $('apple-pay').classList.toggle('off', !formReady());
   $('go').disabled = !ok;
   $('go').textContent = paying ? 'paying...'
     : quoting ? 'checking...'
@@ -398,7 +463,11 @@ $('go').addEventListener('click', async () => {
     show('please check your card details and try again.');
     return;
   }
+  await submit(token);
+});
 
+/* the card and apple pay both end here with a one-time square token */
+async function submit(token){
   if (!attemptKey) attemptKey = newKey();
   try{
     const res = await fetch(API + '/pay', {
@@ -427,7 +496,7 @@ $('go').addEventListener('click', async () => {
     paying = false; syncGo();
     show('we lost the connection before hearing back. press pay again: you will not be charged twice.');
   }
-});
+}
 
 /* ═══ GO ═══ */
 if (!renderOrder()){
