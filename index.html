@@ -239,10 +239,6 @@ body.lift{ overflow:hidden }
   }
 }
 
-/* the beach poster hangs in the wall space left of the collage: smaller on
-   smaller laptops, and gone once there is no wall left to hang it on */
-@media (max-width:1320px){ .wall-poster{width:430px!important;left:-290px!important} }
-@media (max-width:1200px){ .wall-poster{display:none} }
 
 .collage-item{transition:transform .4s ease, filter .4s ease;}
 .collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important;}
@@ -263,12 +259,6 @@ function enterSite(){
 <!-- CURTAIN OVERLAY (split open animation) -->
 <div id="pile" style="position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.035);z-index:1">
 
-  <!-- BEACH POSTER: taped to the wall left of the collage -->
-  <div class="collage-item wall-poster" style="position:absolute;width:500px;top:110px;left:-330px;transform:rotate(-4deg);z-index:9;background:#fff;padding:6px;box-shadow:3px 5px 14px rgba(0,0,0,.18)">
-    <div class="tape" style="width:58px;height:18px;top:-9px;left:-14px;transform:rotate(-38deg)"></div>
-    <div class="tape" style="width:58px;height:18px;top:-9px;right:-14px;transform:rotate(38deg)"></div>
-    <img loading="lazy" src="beach-spritz-poster.jpg" alt="hit the beach with your board, your girls, and the season's hottest spritz" style="width:100%;height:auto;display:block">
-  </div>
 
   <!-- TENNIS GIRL -->
   <div class="sk collage-item" style="width:145px;position:absolute;top:55px;left:-35px;z-index:10;transform:rotate(3deg)">
@@ -338,11 +328,10 @@ function enterSite(){
   <div class="sk collage-item" style="width:220px;position:absolute;top:370px;left:140px;transform:rotate(-8deg);z-index:22">
     <img loading="lazy" src="flower.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
   </div>
-  <!-- FOUNDERS NOTE -->
-  <div style="position:absolute;width:480px;top:75px;left:85px;transform:rotate(-1.5deg);z-index:18">
+  <!-- BEACH POSTER: pinned in the middle, where the founder's note was -->
+  <div class="collage-item" style="position:absolute;width:480px;top:75px;left:85px;transform:rotate(-1.5deg);z-index:18;background:#fff;padding:6px;box-shadow:3px 5px 14px rgba(0,0,0,.18)">
     <div class="pin pp" style="left:50%"></div>
-    <img loading="lazy" src="letter.jpg" alt="from the founder" style="width:100%;display:block;border-radius:4px;box-shadow:2px 3px 12px rgba(0,0,0,.15)">
-    <div style="font-family:'IM Fell English',serif;font-size:10px;font-style:italic;color:#5a3a4a;text-align:center;margin-top:6px;letter-spacing:.06em">from the founder ♡</div>
+    <img loading="lazy" src="beach-spritz-poster.jpg" alt="hit the beach with your board, your girls, and the season's hottest spritz" style="width:100%;height:auto;display:block">
   </div>
 
 
