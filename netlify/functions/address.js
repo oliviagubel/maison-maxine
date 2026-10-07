@@ -4,7 +4,7 @@
      { q, session }        -> up to five US suggestions to show under the field
      { placeId, session }  -> that place broken into street, city, state, zip
 
-   The key is GOOGLE_PLACES_KEY in netlify's env and never leaves the server.
+   The key is GOOGLE_PLACES_API_KEY in netlify's env (any casing) and never leaves the server.
    With no key set this answers 503 and the page simply shows no dropdown, so
    typing the address by hand (and phone autofill) keep working regardless. */
 
@@ -13,7 +13,10 @@ const { json, handler } = require('./_lib');
 
 const BASE = 'https://places.googleapis.com/v1';
 
-function key() { return (process.env.GOOGLE_PLACES_KEY || '').trim(); }
+function key() {
+  const e = process.env;
+  return (e.GOOGLE_PLACES_API_KEY || e.google_places_api_key || e.GOOGLE_PLACES_KEY || '').trim();
+}
 
 async function suggest(q, session) {
   const res = await fetch(BASE + '/places:autocomplete', {
