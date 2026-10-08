@@ -1405,6 +1405,7 @@ div[style*="position: fixed"][style*="vinoshipper"],
 
 /* phones only — hidden on desktop */
 .buybar,.m-footer{display:none}
+.buybar-pick{display:none}
 
 /* ═══ MOBILE PASS ═══ */
 @media(max-width:768px){
@@ -1841,6 +1842,269 @@ html.age-ok .age-gate{display:none}
 }
 </style>
 <script src="/js/tracking.js" defer></script>
+
+
+<style>
+/* ═══ PHONES: THE RHODE-STYLE SHOP ═══
+   on phones the shop trades the scrapbook for soft warm-gray panels on white,
+   one sans-serif, a big lowercase product name, rounded option cards, a pink
+   pill to buy, and the long read folded into accordions. modelled on rhode's
+   product page. computers keep the original; nothing here applies above 768px. */
+.rh-acc,.rh-spec{display:none}
+@media(max-width:768px){
+  html body{
+    background:#fff !important;
+    --rh-ink:#5e5c57; --rh-dark:#3f3d39; --rh-panel:#efeeec; --rh-line:#d3d0cb; --rh-pink:#d371a1;
+    --rh-sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  }
+  html body::before, html body::after{display:none !important}
+  #main{background:#fff !important;padding:calc(84px + env(safe-area-inset-top)) 14px 0 !important;max-width:none !important;margin:0 !important;gap:0 !important;min-width:0 !important;width:100% !important;flex:1 1 auto}
+  #main, #main *, .buybar, .buybar *, .drawer, .drawer *, .mobile-nav, .mobile-nav *{font-family:var(--rh-sans) !important;font-style:normal !important}
+
+  /* header: a rounded panel, menu · name · bag */
+  .mobile-header{
+    display:grid !important;grid-template-columns:1fr auto 1fr;align-items:center;
+    top:calc(8px + env(safe-area-inset-top)) !important;left:14px !important;right:14px !important;
+    height:58px !important;padding:0 10px !important;
+    background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;
+    box-shadow:0 0 0 8px #fff, 0 -40px 0 8px #fff !important;
+  }
+  .mobile-header .links{display:contents !important}
+  .mobile-header .logo{grid-column:2;grid-row:1;font-size:22px !important;color:var(--rh-pink) !important}
+  .mobile-menu-btn{grid-column:1;grid-row:1;justify-self:start}
+  .mobile-header .m-cart{grid-column:3;grid-row:1;justify-self:end}
+  .mobile-menu-btn, .mobile-header .m-cart{
+    font-family:var(--rh-sans) !important;font-style:normal !important;font-size:11px !important;font-weight:600 !important;
+    letter-spacing:.12em !important;text-transform:uppercase !important;color:var(--rh-ink) !important;background:none !important;border:none !important;
+  }
+  .mobile-nav{top:calc(70px + env(safe-area-inset-top)) !important;left:14px !important;right:14px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;padding:8px 18px !important}
+  .mobile-nav a{font-size:13px !important;font-weight:600 !important;letter-spacing:.1em !important;text-transform:uppercase;color:var(--rh-ink) !important;border-bottom:1px solid var(--rh-line) !important}
+
+  #main .banner, #main .drop-strip, #main .pd-label, #main .gallery-label, #main .gallery-badge,
+  #main .hero-nav, .cart-float, .sparkle, .falling-sparkle, #main .price-row, #main .shipping-note, #main .qty-pick,
+  #main .info-grid, #main #tasting, #main #perfect, #main .badges, #main .badge-row{display:none !important}
+
+  /* announcement pill */
+  #main .ship-strip{
+    order:1 !important;display:block !important;margin:0 0 12px !important;padding:11px 14px !important;border:none !important;border-radius:12px !important;
+    background:var(--rh-panel) !important;color:var(--rh-ink) !important;
+    font-size:11.5px !important;font-weight:600 !important;letter-spacing:.06em !important;text-transform:uppercase;text-align:center;line-height:1.4 !important;
+  }
+  #main .ship-strip span{color:var(--rh-ink) !important}
+
+  /* the product panel */
+  #main .product-hero{
+    order:2 !important;display:block !important;margin:0 !important;padding:0 !important;
+    background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;overflow:hidden;
+  }
+  #main .product-gallery{position:relative;margin:0 !important;padding:0 !important;border:none !important;border-radius:0 !important;box-shadow:none !important;background:none !important}
+  #main .hero-slides{border-radius:0 !important;aspect-ratio:4/5;height:auto !important}
+  #main .hero-slides .main-img{width:100% !important;height:100% !important;aspect-ratio:auto !important;object-fit:cover;border-radius:0 !important}
+  #main .hero-slide{height:100%}
+  #main .hero-dots{position:static !important;display:flex !important;gap:0 !important;margin:12px 16px 0 !important;height:3px;background:var(--rh-line);border-radius:2px;overflow:hidden}
+  #main .hero-dot{flex:1;width:auto !important;height:3px !important;border-radius:0 !important;border:none !important;background:transparent !important;padding:0;margin:0}
+  #main .hero-dot[aria-selected="true"]{background:var(--rh-ink) !important}
+
+  #main .product-details{
+    display:flex !important;flex-direction:column;margin:0 !important;padding:24px 20px 26px !important;
+    background:none !important;border:none !important;border-radius:0 !important;box-shadow:none !important;
+  }
+  #main .product-details h2{
+    order:1;margin:0 0 12px !important;color:var(--rh-ink) !important;text-transform:lowercase;
+    font-size:46px !important;font-weight:800 !important;letter-spacing:-.05em !important;line-height:.95 !important;text-shadow:none !important;
+  }
+  #main .pd-promise{order:2;margin:0 0 10px !important;color:var(--rh-ink) !important;font-size:13.5px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;line-height:1.4 !important}
+  #main .pd-rating{order:3;display:flex !important;align-items:center;gap:6px;margin:0 0 16px !important;text-decoration:none}
+  #main .pd-stars{color:var(--rh-ink) !important;font-size:14px !important;letter-spacing:.04em}
+  #main .pd-count{color:var(--rh-ink) !important;font-size:14px !important;text-decoration:none !important}
+  #main .pd-count::before{content:'('}
+  #main .pd-count::after{content:')'}
+  #main .pd-about{order:4;display:block !important;margin:0 0 6px !important;padding:0 !important;background:none !important;border:none !important}
+  #main .pd-about > *:not(.product-desc){display:none !important}
+  #main .product-desc{margin:0 0 14px !important;font-size:16px !important;line-height:1.55 !important;color:var(--rh-ink) !important;text-align:left !important}
+  #main .pd-proof{order:5;margin:0 0 22px !important;color:var(--rh-ink) !important;font-size:13px !important;line-height:1.5 !important;text-decoration:underline !important;text-underline-offset:3px;opacity:.85}
+  #main .cart-section{order:6;margin:0 !important;padding:0 !important;background:none !important;border:none !important;box-shadow:none !important}
+  #main .rh-acc{order:7;display:block}
+  #main .pd-quote{order:8}
+
+  /* size: rounded option cards */
+  #main .variant-row{display:grid !important;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px !important}
+  #main .variant-opt{
+    position:relative;display:flex !important;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;
+    padding:16px 14px 14px !important;margin:0 !important;background:#fff !important;
+    border:2px solid transparent !important;border-radius:14px !important;box-shadow:none !important;transform:none !important;color:var(--rh-ink) !important;
+  }
+  #main .variant-opt.selected{border-color:var(--rh-ink) !important}
+  #main .variant-name{font-size:14px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:.04em !important;text-transform:uppercase !important}
+  #main .variant-meta{font-size:12px !important;line-height:1.45 !important;color:var(--rh-ink) !important;opacity:.8}
+  #main .variant-price{font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important;margin-top:6px}
+  #main .variant-per{display:block;font-size:12px !important;font-weight:400 !important;color:var(--rh-ink) !important;opacity:.8}
+  #main .variant-save{font-size:11.5px !important;color:var(--rh-ink) !important;line-height:1.4 !important}
+  #main .variant-flag{
+    position:absolute !important;top:-10px !important;right:10px !important;left:auto !important;transform:none !important;
+    background:var(--rh-ink) !important;color:#fff !important;border:none !important;border-radius:20px !important;
+    font-size:9.5px !important;font-weight:700 !important;letter-spacing:.1em !important;text-transform:uppercase;padding:4px 9px !important;
+  }
+  #main .variant-pitch{font-size:13px !important;color:var(--rh-ink) !important;margin:0 0 10px !important;text-align:left !important}
+  #main .bonus-list{margin:0 0 14px !important;padding:0 0 0 18px !important;font-size:13px !important;color:var(--rh-ink) !important}
+  #main .bonus-list li{list-style:disc;background:none !important;padding:0 !important}
+
+  /* quantity */
+  #main .qty-row{display:flex !important;align-items:center;justify-content:space-between;margin:4px 0 14px !important;padding:0 !important;border:none !important;background:none !important}
+  #main .qty-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
+  #main .qty-control{display:flex !important;align-items:center;border:1.5px solid var(--rh-ink) !important;border-radius:30px !important;background:#fff !important;box-shadow:none !important;overflow:hidden}
+  #main .qty-btn{width:42px !important;height:40px !important;border:none !important;background:none !important;color:var(--rh-ink) !important;font-size:18px !important;border-radius:0 !important;box-shadow:none !important}
+  #main .qty-val{border:none !important;background:none !important;min-width:26px;text-align:center;font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important}
+
+  /* the add-on, like a "complete your routine" card */
+  #main .addon{
+    display:flex !important;align-items:center;gap:14px;margin:0 0 16px !important;padding:14px 16px !important;
+    background:#fff !important;border:none !important;border-radius:14px !important;box-shadow:none !important;cursor:pointer;
+  }
+  #main .addon img{width:40px !important;height:auto !important;border-radius:4px !important;order:0}
+  #main .addon-text{order:1;flex:1;font-size:13.5px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important;line-height:1.3}
+  #main .addon-sub{display:block;margin-top:3px;font-size:13px !important;font-weight:400 !important;letter-spacing:0;text-transform:none;color:var(--rh-ink) !important}
+  #main .addon-price{order:2;font-size:14px !important;font-weight:700 !important;color:var(--rh-ink) !important}
+  #main .addon input{
+    order:3;-webkit-appearance:none;appearance:none;flex:0 0 26px;width:26px;height:26px;margin:0;
+    border:2px solid var(--rh-ink);border-radius:7px;background:#fff;display:grid;place-items:center;
+  }
+  #main .addon input:checked{background:var(--rh-ink)}
+  #main .addon input:checked::after{content:'';width:7px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+
+  /* buy */
+  #main .buy-row{display:block !important;margin:0 0 14px !important}
+  #main .add-btn{
+    display:block;width:100% !important;height:56px !important;margin:0 !important;padding:0 !important;
+    background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
+    font-size:17px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
+  }
+  #main .add-btn:active{opacity:.88}
+  #main .add-btn::after, #main .add-btn::before, #main .variant-opt.selected::after, #main .variant-opt::after{display:none !important;content:none !important}
+  #main .guarantee, #main .pd-sub, #main .ship-line{
+    margin:0 0 6px !important;padding:0 !important;background:none !important;border:none !important;
+    font-size:13px !important;line-height:1.5 !important;color:var(--rh-ink) !important;text-align:left !important;
+    text-transform:none !important;letter-spacing:0 !important;font-weight:400 !important;
+  }
+
+  /* accordions */
+  #main .rh-acc{margin:20px 0 0;border-top:1.5px solid var(--rh-line)}
+  #main .rh-acc details{border-bottom:1.5px solid var(--rh-line)}
+  #main .rh-acc summary{
+    list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+    padding:20px 0;font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink);
+  }
+  #main .rh-acc summary::-webkit-details-marker{display:none}
+  #main .rh-acc summary::after{
+    content:'+';flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--rh-ink);color:var(--rh-panel);
+    display:grid;place-items:center;font-size:19px;font-weight:700;line-height:22px;text-align:center;
+  }
+  #main .rh-acc details[open] summary::after{content:'\2212'}
+  #main .rh-acc-body{padding:0 0 20px}
+  #main .rh-acc-body p{margin:0 0 10px;font-size:15px;line-height:1.55;color:var(--rh-ink)}
+  #main .rh-acc-body p:last-child{margin-bottom:0}
+  #main .rh-acc-body b{font-weight:700}
+
+  #main .pd-quote{margin:24px 0 0 !important;padding:0 !important;border:none !important;background:none !important;text-align:left}
+  #main .pd-quote p{font-size:19px !important;font-weight:600 !important;line-height:1.35 !important;letter-spacing:-.01em;color:var(--rh-ink) !important}
+  #main .pd-quote cite{display:block;margin-top:10px;font-size:12px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
+
+  /* spec card: good for / tastes like */
+  #main .rh-spec{order:3 !important;display:block;margin:14px 0 0;padding:26px 20px 8px;background:var(--rh-panel);border-radius:16px}
+  #main .rh-spec-lead{margin:0 0 22px;font-size:31px;line-height:1.12;letter-spacing:-.02em;color:var(--rh-ink)}
+  #main .rh-spec-lead b{font-weight:400}
+  #main .rh-spec dl{margin:0}
+  #main .rh-spec dt{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink);margin:0 0 8px}
+  #main .rh-spec dd{margin:0 0 18px;padding:0 0 18px;border-bottom:1.5px solid var(--rh-line);font-size:15.5px;line-height:1.5;color:var(--rh-ink)}
+  #main .rh-spec dd:last-child{border-bottom:none}
+
+  /* merch: panel with a swipe row */
+  #main .merch-drop{order:4 !important;margin:14px 0 0 !important;padding:26px 0 22px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;overflow:hidden}
+  #main .merch-head{padding:0 20px;margin:0 0 18px !important;text-align:left !important}
+  #main .merch-eyebrow{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 6px !important}
+  #main .merch-title{font-size:31px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:-.02em !important;line-height:1.1 !important;margin:0 !important;text-shadow:none !important;text-transform:lowercase}
+  #main .merch-sub, #main .merch-note, #main .merch-desc, #main .merch-badge, #main .merch-oneofone{display:none !important}
+  #main .merch-grid{display:flex !important;width:auto !important;max-width:none;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 4px !important;margin:0 !important;scrollbar-width:none;scroll-padding:0 20px}
+  #main .merch-grid::-webkit-scrollbar{display:none}
+  #main .merch-card{flex:0 0 240px;width:240px;min-width:0;scroll-snap-align:start;margin:0 !important;padding:0 !important;background:#fff !important;border:none !important;border-radius:14px !important;box-shadow:none !important;transform:none !important;overflow:hidden}
+  #main .merch-img-wrap{border-radius:0 !important;aspect-ratio:4/5;overflow:hidden;margin:0 !important;background:#fff}
+  #main .merch-img-wrap img{width:100%;height:100%;object-fit:cover;border-radius:0 !important}
+  #main .merch-info{padding:14px 14px 16px !important;text-align:left !important}
+  #main .merch-name{font-size:14px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 8px !important}
+  #main .merch-price-row{display:flex !important;justify-content:space-between;align-items:baseline;margin:0 !important}
+  #main .merch-price{font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important}
+  #main .merch-cta{font-size:13px !important;color:var(--rh-ink) !important;text-decoration:underline;text-underline-offset:4px;background:none !important;border:none !important;padding:0 !important}
+  #main .merch-lookbook{padding:22px 20px 0 !important;margin:0 !important}
+  #main .merch-look-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 12px !important;text-align:left !important}
+  #main .merch-look-grid{gap:8px !important}
+  #main .merch-look-grid img{border-radius:12px !important;box-shadow:none !important;border:none !important}
+
+  /* reviews */
+  #main #reviews{order:5 !important;margin:14px 0 0 !important;padding:26px 20px 10px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important}
+  #main #reviews .box-title{font-size:31px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:-.02em !important;line-height:1.1 !important;text-transform:lowercase !important;margin:0 0 6px !important;text-align:left !important}
+  #main .review{padding:20px 0 !important;margin:0 !important;background:none !important;border:none !important;border-bottom:1.5px solid var(--rh-line) !important;border-radius:0 !important;box-shadow:none !important}
+  #main .review:last-child{border-bottom:none !important}
+  #main .r-stars{color:var(--rh-ink) !important;font-size:14px !important;margin:0 0 8px !important}
+  #main .r-text{font-size:15.5px !important;line-height:1.55 !important;color:var(--rh-ink) !important}
+  #main .r-author{margin-top:10px !important;font-size:12px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
+
+  /* footer */
+  #main .m-footer{order:6 !important;margin:14px 0 14px !important;padding:26px 20px calc(18px) !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;text-align:left !important}
+  #main .mf-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 6px !important}
+  #main .m-footer p, #main .mf-link, #main .mf-states{font-size:14px !important;line-height:1.55 !important;color:var(--rh-ink) !important}
+  #main .mf-link{min-height:0 !important;text-decoration:underline;text-underline-offset:3px}
+  #main .mf-block{margin:0 0 18px !important;padding:0 0 18px !important;border:none !important;border-bottom:1.5px solid var(--rh-line) !important;background:none !important}
+  #main .mf-legal{font-size:12px !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 !important}
+
+  /* sticky bar: a pill with the pick, and the buy pill */
+  .buybar{
+    display:flex !important;align-items:center;gap:10px;
+    background:linear-gradient(180deg,rgba(255,255,255,0),#fff 30%) !important;border:none !important;box-shadow:none !important;border-radius:0 !important;
+    padding:14px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+  }
+  .buybar-info{
+    flex:1;display:flex !important;align-items:center;justify-content:space-between;gap:8px;margin:0 !important;min-width:0;
+    height:50px;padding:0 18px;background:#fff;border:1.5px solid var(--rh-ink);border-radius:40px;
+  }
+  .buybar-variant{font-size:14px !important;font-weight:600 !important;letter-spacing:0 !important;text-transform:none !important;color:var(--rh-ink) !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .buybar-pick{display:block !important}
+  .buybar-info{position:relative}
+  .buybar-info::after{content:'';width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--rh-ink);flex:0 0 auto}
+  .buybar-price{display:none !important}
+  .buybar-pick{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer}
+  .buybar-btn{
+    flex:1;width:auto !important;min-height:50px !important;height:50px;background:var(--rh-ink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
+    font-size:15px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
+  }
+
+  /* the bag */
+  .drawer{background:#fff !important;border-radius:0 !important;box-shadow:none !important}
+  .drawer-header{background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;margin:10px 12px 0 !important}
+  .drawer-title{font-size:14px !important;font-weight:700 !important;letter-spacing:.06em !important;text-transform:uppercase;color:var(--rh-ink) !important}
+  .drawer-close{color:var(--rh-ink) !important;background:none !important;border:none !important}
+  .drawer-body{padding-left:12px !important;padding-right:12px !important}
+  .drawer-item{background:var(--rh-panel) !important;border:none !important;border-radius:14px !important;box-shadow:none !important;margin:10px 0 0 !important;padding:14px !important}
+  .drawer-item-img{border-radius:10px !important}
+  .drawer-item-name{font-size:14px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important}
+  .drawer-item-variant, .drawer-tax, .drawer-secure, .drawer-survey-sub{font-size:12.5px !important;color:var(--rh-ink) !important;opacity:.85}
+  .drawer-item-price, .drawer-subtotal, .drawer-shipping{font-size:14px !important;color:var(--rh-ink) !important}
+  .drawer-total{font-size:16px !important;font-weight:700 !important;color:var(--rh-ink) !important}
+  .drawer-qty{display:inline-flex !important;width:auto !important;border:1.5px solid var(--rh-ink) !important;border-radius:30px !important;background:#fff !important}
+  .drawer-checkout::after,.drawer-checkout::before{display:none !important;content:none !important}
+  .drawer-qty button{color:var(--rh-ink) !important;background:none !important;border:none !important;border-radius:0 !important}
+  .drawer-remove, .drawer-keep, .drawer-survey-change{color:var(--rh-ink) !important;font-size:12.5px !important;text-decoration:underline;text-underline-offset:3px}
+  .drawer-ship-nudge{background:var(--rh-panel) !important;color:var(--rh-ink) !important;border:none !important;border-radius:12px !important;font-size:12px !important;font-weight:600 !important;letter-spacing:.04em;text-transform:uppercase}
+  .drawer-checkout{
+    background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
+    height:56px;font-size:17px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
+  }
+  .drawer-footer{background:#fff !important;border-top:1.5px solid var(--rh-line) !important}
+  .drawer-survey{background:var(--rh-panel) !important;border:none !important;border-radius:14px !important}
+  .drawer-survey-q{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important}
+  .drawer-survey-opt{background:#fff !important;border:1.5px solid var(--rh-line) !important;border-radius:30px !important;color:var(--rh-ink) !important;font-size:13px !important;box-shadow:none !important}
+  .drawer-empty-text{color:var(--rh-ink) !important;font-size:15px !important}
+}
+</style>
 </head>
 <body>
 
@@ -2084,6 +2348,32 @@ html.age-ok .age-gate{display:none}
         <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
       </div>
 
+
+      <!-- DETAILS ACCORDIONS (phones only; computers keep the long page) -->
+      <div class="rh-acc">
+        <details>
+          <summary>tasting notes</summary>
+          <div class="rh-acc-body">
+            <p><b>On the nose</b> bright lemon zest, warm ginger, honey sweetness, dark fruit underneath.</p>
+            <p><b>On the palate</b> light and fizzy, citrus-forward with a warm ginger kick, smooth cabernet finish.</p>
+            <p><b>The finish</b> honey-kissed, clean, leaves you wanting another sip.</p>
+          </div>
+        </details>
+        <details>
+          <summary>ingredients</summary>
+          <div class="rh-acc-body">
+            <p>Napa Valley Cabernet, real ginger, lemon juice, honey. Nothing else, ever.</p>
+          </div>
+        </details>
+        <details>
+          <summary>shipping &amp; returns</summary>
+          <div class="rh-acc-body">
+            <p>Ships UPS from Los Angeles, and you pick the speed at checkout. Free on orders over $100; the case always ships free.</p>
+            <p>An adult 21+ signs for every delivery. Don't love it? We'll replace it or credit you, nothing to ship back.</p>
+          </div>
+        </details>
+      </div>
+
       <blockquote class="pd-quote">
         <p>“trust that my drink of choice is mm. in fact i don't even like drinking except for mm.”</p>
         <cite>— kayla c., new york ★★★★★</cite>
@@ -2091,6 +2381,17 @@ html.age-ok .age-gate{display:none}
     </div>
 
   </div>
+
+  <!-- THE SPEC CARD (phones only) -->
+  <section class="rh-spec" aria-label="about the spritz">
+    <p class="rh-spec-lead">A red wine spritz for <b>BRIGHT</b>, clean sipping + <b>GOLDEN</b> hours.</p>
+    <dl>
+      <dt>good for:</dt><dd>golden hour, girls night, picnics, date night, literally any tuesday</dd>
+      <dt>tastes like:</dt><dd>bright lemon, warm ginger and honey over smooth Napa Cabernet</dd>
+      <dt>feels like:</dt><dd>light, fizzy and clean, best chilled or on ice</dd>
+      <dt>fyi:</dt><dd>5% abv · no refined sugar · four ingredients · 5% of every order goes to animal rescue</dd>
+    </dl>
+  </section>
 
   <!-- ═══ THE MERCH DROP ═══ -->
   <div class="merch-drop" id="merch">
@@ -2335,6 +2636,11 @@ html.age-ok .age-gate{display:none}
   <div class="buybar-info">
     <span class="buybar-variant" id="buybarVariant">four-pack gift box</span>
     <span class="buybar-price" id="buybarPrice">$28</span>
+    <label class="sr" for="buybarPick">choose gift boxes or the case</label>
+    <select class="buybar-pick" id="buybarPick" onchange="selectVariant(this.value)">
+      <option value="fourpack">gift boxes · from $56</option>
+      <option value="case">the case · $144</option>
+    </select>
   </div>
   <button class="buybar-btn" type="button" onclick="addToCart()">add to bag</button>
 </div>
@@ -2424,7 +2730,13 @@ function syncAddBtn() {
   const shown = toUnits(selectedVariant, qty);
   document.getElementById('qty').textContent = shown;
   document.getElementById('qtyPick').value = String(shown);
-  document.getElementById('addBtn').textContent = 'add to bag · ' + total;
+  // phones read it the rhode way: the product and the price on the button
+  const phone = matchMedia('(max-width:768px)').matches;
+  document.getElementById('addBtn').textContent = phone ? 'buy red wine spritz · ' + total : 'add to bag · ' + total;
+  const bbBtn = document.querySelector('.buybar-btn');
+  if (bbBtn) bbBtn.textContent = phone ? 'buy · ' + total : 'add to bag';
+  const bbPick = document.getElementById('buybarPick');
+  if (bbPick) bbPick.value = selectedVariant;
   document.getElementById('buybarVariant').textContent = selectedVariant === 'fourpack' ? shown + ' ' + v.short : (shown > 1 ? shown + ' × ' : '') + v.short;
   renderBonuses();
   document.getElementById('buybarPrice').textContent = total;
