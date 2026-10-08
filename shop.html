@@ -2135,8 +2135,8 @@ html.age-ok .age-gate{display:none}
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){ t.textContent=q; ready(); }
     else setTimeout(function step(){
       t.textContent=q.slice(0,++i);
-      if(i<q.length) setTimeout(step, 90+Math.random()*70); else setTimeout(ready, 250);
-    }, 400);
+      if(i<q.length) setTimeout(step, 40+Math.random()*30); else setTimeout(ready, 150);
+    }, 200);
   }
   b.addEventListener('click',function(){
     try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
