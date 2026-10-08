@@ -1694,10 +1694,24 @@ html.age-ok .age-gate{display:none}
   font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;color:#8a6a7a;margin-top:16px;line-height:1.7;
 }
+.ag-phone-img{display:none}
+/* phones get the pink phone instead of the card: tapping "yes" on its
+   screen lets them in. the button is still the real control, just laid
+   over the word, so tracking, focus and screen readers work as before */
 @media(max-width:768px){
-  .ag-card{padding:30px 20px 24px}
-  .ag-mark{font-size:28px}
-  .ag-q{font-size:19px}
+  .age-gate{padding:0;background:#f6fafd}
+  .ag-card{max-width:none;padding:0 0 calc(18px + env(safe-area-inset-bottom));background:none;border:none;border-radius:0;box-shadow:none}
+  .ag-mark{display:none}
+  .ag-q{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
+  .ag-phone{position:relative}
+  .ag-phone-img{display:block;width:100%;height:auto}
+  .ag-yes{
+    position:absolute;left:60%;top:58.5%;width:22%;height:11.5%;min-height:0;
+    background:transparent;color:transparent;border-radius:8px;
+    -webkit-tap-highlight-color:rgba(211,113,161,.25);
+  }
+  .ag-yes:hover{box-shadow:none}
+  .ag-fine{margin-top:6px;padding:0 16px}
 }
 
 /* ═══ BUY AREA ═══
@@ -1823,7 +1837,10 @@ html.age-ok .age-gate{display:none}
   <div class="ag-card">
     <div class="ag-mark">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son&nbsp;Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
     <p class="ag-q" id="agQ">you don't look a day over 21, but you are &mdash; right?</p>
-    <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
+    <div class="ag-phone">
+      <img class="ag-phone-img" src="agegate-mobile.jpg" alt="a pink phone asking: are you 21?" width="800" height="1081" loading="lazy">
+      <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
+    </div>
     <div class="ag-fine">you must be 21+ to enter &#10022; please sip responsibly</div>
   </div>
 </div>
