@@ -2129,7 +2129,7 @@ html.age-ok .age-gate{display:none}
   g.addEventListener('keydown',function(e){ if(e.key==='Tab'){e.preventDefault();b.focus();} });
   /* phones: type the question out, then offer the way in */
   if(matchMedia('(max-width:768px)').matches){
-    b.textContent='enter';
+    b.textContent='yes, enter';
     var t=document.getElementById('agTyped'), q='are you 21?', i=0;
     var ready=function(){ g.classList.add('ag-ready'); b.focus(); };
     if(matchMedia('(prefers-reduced-motion: reduce)').matches){ t.textContent=q; ready(); }
