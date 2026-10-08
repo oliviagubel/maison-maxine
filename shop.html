@@ -1706,8 +1706,8 @@ html.age-ok .age-gate{display:none}
   .ag-phone{position:relative}
   .ag-phone-img{display:block;width:100%;height:auto}
   .ag-yes{
-    position:absolute;left:60%;top:58.5%;width:22%;height:11.5%;min-height:0;
-    background:transparent;color:transparent;border-radius:8px;
+    position:absolute;left:64.2%;top:61.3%;width:13.4%;height:8%;min-height:0;
+    background:transparent;color:transparent;border:2.5px solid #2a2a2a;border-radius:3px;
     -webkit-tap-highlight-color:rgba(211,113,161,.25);
   }
   .ag-yes:hover{box-shadow:none}
@@ -1851,6 +1851,10 @@ html.age-ok .age-gate{display:none}
   b.focus();
   /* keep tab focus on the one control while the gate is up */
   g.addEventListener('keydown',function(e){ if(e.key==='Tab'){e.preventDefault();b.focus();} });
+  /* on phones, a tap anywhere on the right half of the screen counts as yes */
+  g.addEventListener('click',function(e){
+    if(e.target!==b && matchMedia('(max-width:768px)').matches && e.clientX>=window.innerWidth/2) b.click();
+  });
   b.addEventListener('click',function(){
     try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
     document.documentElement.className+=' age-ok';
