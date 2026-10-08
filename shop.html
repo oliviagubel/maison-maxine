@@ -1706,19 +1706,20 @@ html.age-ok .age-gate{display:none}
   .ag-q{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
   .ag-type{
     display:block;margin:0 0 34px;min-height:1.2em;
-    font-family:'Pixelify Sans',monospace;font-size:34px;font-weight:500;line-height:1.2;color:#5a3a4a;
+    font-family:'Pixelify Sans',monospace;font-size:34px;font-weight:500;line-height:1.2;color:#111;
   }
-  .ag-caret{display:inline-block;width:.5em;height:.9em;margin-left:3px;vertical-align:-.08em;background:#d371a1;animation:ag-blink 1s steps(1) infinite}
+  .ag-caret{display:inline-block;width:.5em;height:.9em;margin-left:3px;vertical-align:-.08em;background:#111;animation:ag-blink 1s steps(1) infinite}
   @keyframes ag-blink{50%{opacity:0}}
   .ag-yes{
     width:auto;min-width:180px;min-height:52px;padding:0 34px;border-radius:0;
     font-family:'Pixelify Sans',monospace;font-style:normal;font-size:20px;letter-spacing:.14em;text-transform:uppercase;
-    background:#d371a1;color:#fff;box-shadow:4px 4px 0 #5a3a4a;
+    background:#111;color:#fff;box-shadow:4px 4px 0 #bbb;
     opacity:0;transform:translateY(6px);transition:opacity .4s ease, transform .4s ease;pointer-events:none;
   }
   .ag-ready .ag-yes{opacity:1;transform:none;pointer-events:auto}
-  .ag-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #5a3a4a}
-  .ag-fine{margin-top:26px;opacity:0;transition:opacity .4s ease .15s}
+  .ag-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #bbb}
+  .ag-yes:focus-visible{outline:2px solid #111}
+  .ag-fine{margin-top:26px;color:#666;opacity:0;transition:opacity .4s ease .15s}
   .ag-ready .ag-fine{opacity:1}
 }
 @media(max-width:768px) and (prefers-reduced-motion:reduce){
