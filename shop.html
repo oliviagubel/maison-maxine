@@ -1695,36 +1695,35 @@ html.age-ok .age-gate{display:none}
   font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
   text-transform:uppercase;color:#8a6a7a;margin-top:16px;line-height:1.7;
 }
-.ag-phone-img{display:none}
-/* phones get the pink phone instead of the card: tapping "yes" on its
-   screen lets them in. the button is still the real control, just laid
-   over the word, so tracking, focus and screen readers work as before */
+.ag-type{display:none}
+/* phones: a white screen types "are you 21?" in pixelify sans, then the
+   enter button fades in. the button is the same control as on computers,
+   so tracking, focus and screen readers work as before */
 @media(max-width:768px){
-  .age-gate{padding:0;background:#f6fafd;overflow:hidden;display:block}
-  .ag-card{position:static;max-width:none;margin:0;padding:0;background:none;border:none;border-radius:0;box-shadow:none}
+  .age-gate{padding:24px;background:#fff;align-items:center;justify-content:center}
+  .ag-card{max-width:none;margin:0;padding:0;background:none;border:none;border-radius:0;box-shadow:none;text-align:center}
   .ag-mark{display:none}
   .ag-q{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
-  /* the phone covers the whole screen: as wide as the screen, or tall enough
-     to fill it, whichever is bigger, centered. sides crop on tall phones */
-  .ag-phone{
-    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
-    width:max(100vw, calc(100vh * 1079 / 1457));
-    width:max(100vw, calc(100dvh * 1079 / 1457));
-    aspect-ratio:1079/1457;
+  .ag-type{
+    display:block;margin:0 0 34px;min-height:1.2em;
+    font-family:'Pixelify Sans',monospace;font-size:34px;font-weight:500;line-height:1.2;color:#5a3a4a;
   }
-  .ag-phone-img{display:block;width:100%;height:100%}
+  .ag-caret{display:inline-block;width:.5em;height:.9em;margin-left:3px;vertical-align:-.08em;background:#d371a1;animation:ag-blink 1s steps(1) infinite}
+  @keyframes ag-blink{50%{opacity:0}}
   .ag-yes{
-    position:absolute;left:64.2%;top:61.3%;width:13.4%;height:8%;min-height:0;
-    background:transparent;color:transparent;border:2.5px solid #2a2a2a;border-radius:3px;
-    -webkit-tap-highlight-color:transparent;
+    width:auto;min-width:180px;min-height:52px;padding:0 34px;border-radius:0;
+    font-family:'Pixelify Sans',monospace;font-style:normal;font-size:20px;letter-spacing:.14em;text-transform:uppercase;
+    background:#d371a1;color:#fff;box-shadow:4px 4px 0 #5a3a4a;
+    opacity:0;transform:translateY(6px);transition:opacity .4s ease, transform .4s ease;pointer-events:none;
   }
-  .ag-yes:hover{box-shadow:none}
-  .ag-yes:focus,.ag-yes:focus-visible{outline:none}
-  .ag-fine{
-    position:absolute;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));
-    width:max-content;max-width:calc(100vw - 32px);margin:0;padding:5px 12px;
-    color:#5a3a4a;background:rgba(255,255,255,.82);border-radius:20px;
-  }
+  .ag-ready .ag-yes{opacity:1;transform:none;pointer-events:auto}
+  .ag-yes:active{transform:translate(2px,2px);box-shadow:2px 2px 0 #5a3a4a}
+  .ag-fine{margin-top:26px;opacity:0;transition:opacity .4s ease .15s}
+  .ag-ready .ag-fine{opacity:1}
+}
+@media(max-width:768px) and (prefers-reduced-motion:reduce){
+  .ag-caret{animation:none}
+  .ag-yes,.ag-fine{transition:none}
 }
 
 /* ═══ BUY AREA ═══
@@ -2116,10 +2115,8 @@ html.age-ok .age-gate{display:none}
   <div class="ag-card">
     <div class="ag-mark">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son&nbsp;Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
     <p class="ag-q" id="agQ">you don't look a day over 21, but you are &mdash; right?</p>
-    <div class="ag-phone">
-      <img class="ag-phone-img" src="agegate-mobile.jpg" alt="a pink phone asking: are you 21?" width="1079" height="1457" loading="lazy">
-      <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
-    </div>
+    <p class="ag-type" aria-hidden="true"><span id="agTyped"></span><span class="ag-caret"></span></p>
+    <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
     <div class="ag-fine">you must be 21+ to enter &#10022; please sip responsibly</div>
   </div>
 </div>
@@ -2130,10 +2127,17 @@ html.age-ok .age-gate{display:none}
   b.focus();
   /* keep tab focus on the one control while the gate is up */
   g.addEventListener('keydown',function(e){ if(e.key==='Tab'){e.preventDefault();b.focus();} });
-  /* on phones, a tap anywhere on the right half of the screen counts as yes */
-  g.addEventListener('click',function(e){
-    if(e.target!==b && matchMedia('(max-width:768px)').matches && e.clientX>=window.innerWidth/2) b.click();
-  });
+  /* phones: type the question out, then offer the way in */
+  if(matchMedia('(max-width:768px)').matches){
+    b.textContent='enter';
+    var t=document.getElementById('agTyped'), q='are you 21?', i=0;
+    var ready=function(){ g.classList.add('ag-ready'); b.focus(); };
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ t.textContent=q; ready(); }
+    else setTimeout(function step(){
+      t.textContent=q.slice(0,++i);
+      if(i<q.length) setTimeout(step, 90+Math.random()*70); else setTimeout(ready, 250);
+    }, 400);
+  }
   b.addEventListener('click',function(){
     try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
     document.documentElement.className+=' age-ok';
