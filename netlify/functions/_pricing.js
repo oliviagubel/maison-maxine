@@ -23,8 +23,6 @@ const MIN_FOURPACK_BOXES  = 2;        // a single box is not sold
 const CREATOR_CODES = [
   { code: 'CierraxMaxine', fourpackPercentOff: 10, casePriceCents: 9900 },
   { code: 'CamXMaxine',    fourpackPercentOff: 10, casePriceCents: 9900 },
-  // Olivia's test code: $55 off the order and free shipping. Remove after testing.
-  { code: 'VJHEAAGUAWR47834', orderDollarOffCents: 5500, freeShipping: true },
 ];
 
 function findCode(input) {
