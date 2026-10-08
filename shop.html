@@ -1855,11 +1855,13 @@ html.age-ok .age-gate{display:none}
   html body{
     background:#fff !important;
     --rh-ink:#5a3a4a; --rh-dark:#5a3a4a; --rh-panel:#fdf0f6; --rh-line:#f4d2e4; --rh-pink:#d371a1;
-    --rh-sans:"Helvetica Neue",-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    --rh-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
   }
   html body::before, html body::after{display:none !important}
   #main{background:#fff !important;padding:calc(84px + env(safe-area-inset-top)) 14px 0 !important;max-width:none !important;margin:0 !important;gap:0 !important;min-width:0 !important;width:100% !important;flex:1 1 auto}
   #main, #main *, .buybar, .buybar *, .drawer, .drawer *, .mobile-nav, .mobile-nav *{font-family:var(--rh-sans) !important;font-style:normal !important}
+  /* body copy in gill sans light; headings and labels keep their own weights */
+  #main *, .buybar *, .drawer *{font-weight:300}
 
   /* header: a rounded panel, menu · name · bag */
   .mobile-header{
