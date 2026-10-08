@@ -637,32 +637,56 @@ let card = null, cardValid = false, applePay = null, payRequest = null, paying =
 let attemptKey = null;          // one per payment attempt: a retry cannot charge twice
 const newKey = () => (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
 
+// instagram and facebook open links in their own browser, where the card form
+// is most likely to fail; those shoppers get told how to get out of it
+const IN_APP = /Instagram|FBAN|FBAV|FB_IAB/i.test(navigator.userAgent);
+const scripts = {};             // one load per url, so a retry never adds square.js twice
 function loadScript(src){
-  return new Promise((ok, bad) => {
+  if (scripts[src]) return scripts[src];
+  return scripts[src] = new Promise((ok, bad) => {
     const s = document.createElement('script');
-    s.src = src; s.onload = ok; s.onerror = bad;
+    s.src = src; s.onload = ok;
+    s.onerror = () => { s.remove(); delete scripts[src]; bad(new Error('could not load ' + src)); };
     document.head.appendChild(s);
   });
 }
+// marks which step failed, for the CardFormFailed event
+const failedAt = (reason, e) => Object.assign(e instanceof Error ? e : new Error(String(e)), { reason });
 async function setupCard(){
-  let payments;
-  try{
-    const res = await fetch(API + '/config', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
-    const cfg = await res.json();
-    if (!res.ok || !cfg.applicationId) throw new Error('no config');
-    await loadScript(cfg.sandbox ? 'https://sandbox.web.squarecdn.com/v1/square.js' : 'https://web.squarecdn.com/v1/square.js');
-    payments = window.Square.payments(cfg.applicationId, cfg.locationId);
-    card = await payments.card({
-      style: {
-        input: { color: '#34212b', fontSize: '18px' },
-        'input::placeholder': { color: '#a88a99' },
-        '.input-container': { borderColor: '#b0718f', borderRadius: '8px' },
-        '.input-container.is-focus': { borderColor: '#ad587c' },
-        '.message-text': { color: '#8a6a7a' },
-        '.message-icon': { color: '#8a6a7a' }
-      }
-    });
-    await card.attach('#card-container');
+  let payments, cfg;
+  const attempt = async () => {
+    try{
+      const res = await fetch(API + '/config', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' });
+      cfg = await res.json();
+      if (!res.ok || !cfg.applicationId) throw new Error('no config');
+    }catch(e){ throw failedAt('config', e); }
+    try{
+      await loadScript(cfg.sandbox ? 'https://sandbox.web.squarecdn.com/v1/square.js' : 'https://web.squarecdn.com/v1/square.js');
+    }catch(e){ throw failedAt('script', e); }
+    try{
+      payments = window.Square.payments(cfg.applicationId, cfg.locationId);
+      $('card-container').innerHTML = '';     // clear anything a failed first try left behind
+      card = await payments.card({
+        style: {
+          input: { color: '#34212b', fontSize: '18px' },
+          'input::placeholder': { color: '#a88a99' },
+          '.input-container': { borderColor: '#b0718f', borderRadius: '8px' },
+          '.input-container.is-focus': { borderColor: '#ad587c' },
+          '.message-text': { color: '#8a6a7a' },
+          '.message-icon': { color: '#8a6a7a' }
+        }
+      });
+      await card.attach('#card-container');
+    }catch(e){ card = null; throw failedAt('attach', e); }
+  };
+  // one retry, about 1.5s later, before telling anyone it failed
+  let err = null;
+  try{ await attempt(); }
+  catch(e){
+    await new Promise(r => setTimeout(r, 1500));
+    try{ await attempt(); }catch(e2){ err = e2; }
+  }
+  if (!err){
     // square reports whether the whole card is filled in; if an event ever
     // arrives without that, let the pay button try and square will say what's wrong
     ['focusClassAdded','focusClassRemoved','errorClassAdded','errorClassRemoved','cardBrandChanged','postalCodeChanged']
@@ -673,10 +697,12 @@ async function setupCard(){
       }));
     $('cardHint').textContent = 'the billing zip is the one your card is registered to.';
     $('sandboxPill').hidden = !cfg.sandbox;
-  }catch(e){
+  } else {
     card = null;
-    $('cardHint').textContent = 'the card form could not load. please refresh the page.';
-    T('CardFormFailed');
+    $('cardHint').textContent = IN_APP
+      ? "to pay, tap \u2022\u2022\u2022 at the top and choose 'open in browser' (safari or chrome)."
+      : 'the card form could not load. please refresh the page.';
+    T('CardFormFailed', false, { reason: err.reason || 'attach', message: String(err.message || err).slice(0,100), inApp: IN_APP });
   }
 
   /* apple pay: square throws here when the device or browser can't do it */
