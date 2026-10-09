@@ -702,7 +702,7 @@ async function setupCard(){
     $('cardHint').textContent = IN_APP
       ? "to pay, tap \u2022\u2022\u2022 at the top and choose 'open in browser' (safari or chrome)."
       : 'the card form could not load. please refresh the page.';
-    T('CardFormFailed', false, { reason: err.reason || 'attach', message: String(err.message || err).slice(0,100), inApp: IN_APP });
+    T('CardFormFailed', false, { reason: err.reason || 'attach', msg: String(err.message || err).slice(0,100), inApp: IN_APP });
   }
 
   /* apple pay: square throws here when the device or browser can't do it */

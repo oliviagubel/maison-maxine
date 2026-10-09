@@ -12,8 +12,8 @@
 <link rel="prefetch" as="image" href="shop-hero-750.jpg" media="(max-width:768px)">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script>
-/* age gate: decide before first paint so a returning 21+ visitor never sees it.
-   fails closed — if storage throws (private window), the gate shows. */
+/* 21+ notice: a remembered dismissal (same key and 30-day window the old
+   full-screen gate used) hides the bar before first paint */
 (function(){try{
   var v=localStorage.getItem('mm_age_ok');
   if(v && (Date.now()-parseInt(v,10)) < 2592000000) document.documentElement.className+=' age-ok';
@@ -1660,71 +1660,34 @@ div[style*="position: fixed"][style*="vinoshipper"],
   .bonus-list li{font-size:14px}
 }
 
-/* ═══ AGE GATE ═══ */
-html:not(.age-ok){overflow:hidden}
-html.age-ok .age-gate{display:none}
-.age-gate{
-  position:fixed;inset:0;z-index:20000;
-  display:flex;align-items:center;justify-content:center;
-  padding:24px calc(16px + env(safe-area-inset-right)) 24px calc(16px + env(safe-area-inset-left));
-  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
-  overflow-y:auto;
+/* ═══ 21+ NOTICE ═══
+   a slim bar pinned to the bottom of the screen. it never blocks the page:
+   real age checks happen at checkout (birthday) and at the door (an adult signs). */
+html.age-ok .age-bar{display:none}
+.age-bar{
+  position:fixed;left:0;right:0;bottom:0;z-index:9000;
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  padding:9px calc(12px + env(safe-area-inset-right)) calc(9px + env(safe-area-inset-bottom)) calc(16px + env(safe-area-inset-left));
+  background:#fce5f7;border-top:1px solid #f3c6e4;color:#34212b;
+  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-size:16px;line-height:1.35;text-align:center;
+  transition:bottom .3s ease;
 }
-.ag-card{
-  width:100%;max-width:440px;margin:auto;text-align:center;
-  background:#fffcfe;border:1px solid #fce5f7;border-radius:14px;
-  padding:38px 26px 30px;box-shadow:0 10px 40px rgba(211,113,161,.16);
+.age-bar-star{color:#d371a1;font-style:normal}
+.age-bar-x{
+  flex:0 0 auto;display:grid;place-items:center;width:32px;height:32px;margin:-4px 0;padding:0;
+  background:none;border:none;border-radius:50%;cursor:pointer;
+  color:#ad587c;font-size:16px;font-style:normal;line-height:1;
 }
-.ag-mark{
-  font-family:'Klickclack Swash','Great Vibes',cursive;
-  font-size:34px;line-height:1.05;color:#d371a1;margin-bottom:22px;
-}
-.ag-q{
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
-  font-size:21px;line-height:1.45;color:#5a3a4a;margin:0 auto 26px;max-width:24ch;
-}
-.ag-yes{
-  width:100%;min-height:52px;background:#d371a1;color:#fff;
-  border:none;border-radius:6px;cursor:pointer;
-  font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
-  font-size:24px;letter-spacing:.08em;transition:all .25s;
-}
-.ag-yes:hover{box-shadow:0 6px 22px rgba(211,113,161,.3)}
-.ag-yes:focus-visible{outline:2px solid #d371a1;outline-offset:3px}
-.ag-fine{
-  font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.14em;
-  text-transform:uppercase;color:#8a6a7a;margin-top:16px;line-height:1.7;
-}
-.ag-type{display:none}
-/* phones: a white screen types "are you 21?" in pixelify sans, then the
-   enter button fades in. the button is the same control as on computers,
-   so tracking, focus and screen readers work as before */
+.age-bar-x:hover{background:rgba(211,113,161,.12)}
+.age-bar-x:focus-visible{outline:2px solid #ad587c;outline-offset:1px}
 @media(max-width:768px){
-  .age-gate{padding:24px;background:#fff;align-items:center;justify-content:center}
-  .ag-card{max-width:none;margin:0;padding:0;background:none;border:none;border-radius:0;box-shadow:none;text-align:center}
-  .ag-mark{display:none}
-  .ag-q{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;margin:0}
-  .ag-type{
-    display:block;margin:0 0 34px;min-height:1.2em;
-    font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;font-size:40px;font-weight:300;line-height:1.15;letter-spacing:.01em;color:#5a3a4a;
+  .age-bar{
+    font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+    font-style:normal;font-weight:300;font-size:13px;text-align:left;justify-content:space-between;
   }
-  .ag-caret{display:inline-block;width:2px;height:.85em;margin-left:4px;vertical-align:-.06em;background:#5a3a4a;animation:ag-blink 1s steps(1) infinite}
-  @keyframes ag-blink{50%{opacity:0}}
-  .ag-yes{
-    width:auto;min-width:180px;min-height:56px;padding:0 34px;border-radius:16px;
-    font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;font-style:normal;font-size:17px;font-weight:400;letter-spacing:.16em;text-transform:uppercase;
-    background:#fce5f7;color:#5a3a4a;box-shadow:none;
-    opacity:0;transform:translateY(6px);transition:opacity .4s ease, transform .4s ease;pointer-events:none;
-  }
-  .ag-ready .ag-yes{opacity:1;transform:none;pointer-events:auto}
-  .ag-yes:active{transform:scale(.97);box-shadow:none}
-  .ag-yes:focus-visible{outline:2px solid #5a3a4a}
-  .ag-fine{margin-top:26px;color:#8a6a7a;font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;font-size:11px;font-weight:400;letter-spacing:.14em;line-height:1.6;opacity:0;transition:opacity .4s ease .15s}
-  .ag-ready .ag-fine{opacity:1}
-}
-@media(max-width:768px) and (prefers-reduced-motion:reduce){
-  .ag-caret{animation:none}
-  .ag-yes,.ag-fine{transition:none}
+  /* sits above the sticky buy bar instead of under it */
+  body.buybar-on .age-bar{bottom:calc(74px + env(safe-area-inset-bottom))}
+  body.drawer-open .age-bar{display:none}
 }
 
 /* ═══ BUY AREA ═══
@@ -2111,38 +2074,18 @@ html.age-ok .age-gate{display:none}
 </head>
 <body>
 
-<!-- AGE GATE -->
-<div class="age-gate" id="ageGate" role="dialog" aria-modal="true" aria-labelledby="agQ">
-  <div class="ag-card">
-    <div class="ag-mark">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son&nbsp;Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
-    <p class="ag-q" id="agQ">you don't look a day over 21, but you are &mdash; right?</p>
-    <p class="ag-type" aria-hidden="true"><span id="agTyped"></span><span class="ag-caret"></span></p>
-    <button class="ag-yes" id="agYes" type="button">yes, i'm 21+ &#10022;</button>
-    <div class="ag-fine">you must be 21+ to enter &#10022; please sip responsibly</div>
-  </div>
+<!-- 21+ NOTICE -->
+<div class="age-bar" id="ageBar" role="region" aria-label="21+ notice">
+  <span>21+ only <span class="age-bar-star" aria-hidden="true">✦</span> we check your birthday at checkout and an adult signs at delivery</span>
+  <button class="age-bar-x" id="ageBarX" type="button" aria-label="dismiss the 21+ notice">✕</button>
 </div>
 <script>
 (function(){
-  var g=document.getElementById('ageGate'), b=document.getElementById('agYes');
-  if(!g||!b) return;
-  b.focus();
-  /* keep tab focus on the one control while the gate is up */
-  g.addEventListener('keydown',function(e){ if(e.key==='Tab'){e.preventDefault();b.focus();} });
-  /* phones: type the question out, then offer the way in */
-  if(matchMedia('(max-width:768px)').matches){
-    b.textContent='yes, enter';
-    var t=document.getElementById('agTyped'), q='are you 21?', i=0;
-    var ready=function(){ g.classList.add('ag-ready'); b.focus(); };
-    if(matchMedia('(prefers-reduced-motion: reduce)').matches){ t.textContent=q; ready(); }
-    else setTimeout(function step(){
-      t.textContent=q.slice(0,++i);
-      if(i<q.length) setTimeout(step, 40+Math.random()*30); else setTimeout(ready, 150);
-    }, 200);
-  }
-  b.addEventListener('click',function(){
+  var bar=document.getElementById('ageBar'), x=document.getElementById('ageBarX');
+  if(!bar||!x) return;
+  x.addEventListener('click',function(){
     try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
     document.documentElement.className+=' age-ok';
-    g.remove();
   });
 })();
 </script>

@@ -4,7 +4,7 @@
 
    Loads Meta Pixel + Microsoft Clarity, then reports the funnel. Every hook
    here is a passive listener or an observer: nothing in this file changes how
-   the site looks or behaves, and nothing touches the age gate's own logic or
+   the site looks or behaves, and nothing touches the 21+ notice's own logic or
    the Vinoshipper checkout.
 
    No personal information is ever sent — no names, emails, birth dates, cart
@@ -228,23 +228,14 @@
 
     if (optedOut()) { log('opted out — no pixel, no clarity, no events'); return; }
 
-    /* ── 1-3. age gate ───────────────────────────────────────────────────
-       Read only. The gate decides before first paint and stamps .age-ok on
-       <html> for a remembered visitor; we look at the result rather than
-       touching the logic. */
-    var gate = document.getElementById('ageGate');
-    var remembered = document.documentElement.classList.contains('age-ok');
-
-    // NB: the gate is position:fixed, so offsetParent is always null on it —
-    // getComputedStyle is the check that actually works here
-    var gateVisible = gate && getComputedStyle(gate).display !== 'none';
-
-    if (gate && !remembered && gateVisible) {
-      track('AgeGateShown', false);
-      var yes = document.getElementById('agYes');
-      if (yes) yes.addEventListener('click', function () { track('AgeGatePassed', false); });
-    } else if (remembered) {
-      track('AgeGateSkipped', false);
+    /* ── 1-2. 21+ notice ─────────────────────────────────────────────────
+       The shop's slim 21+ bar. A visitor who dismissed it in the last 30 days
+       has .age-ok on <html> and never sees it, so nothing is sent for them. */
+    var notice = document.getElementById('ageBar');
+    if (notice && getComputedStyle(notice).display !== 'none') {
+      track('AgeNoticeShown', false);
+      var x = document.getElementById('ageBarX');
+      if (x) x.addEventListener('click', function () { track('AgeNoticeDismissed', false); });
     }
 
     /* ── 4. ViewContent: the product section reaches the screen ───────── */
