@@ -8,15 +8,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://vinoshipper.com">
-<link rel="preload" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)" fetchpriority="high">
-<link rel="prefetch" as="image" href="shop-hero-750.jpg" media="(max-width:768px)">
+<link rel="preload" as="image" href="watercolor-cans-750.jpg" media="(max-width:768px)" fetchpriority="high">
+<link rel="prefetch" as="image" href="shop-hero-2-750.jpg" media="(max-width:768px)">
 <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <script>
-/* 21+ notice: a remembered dismissal (same key and 30-day window the old
-   full-screen gate used) hides the bar before first paint */
+/* 21+ notice: once dismissed (or scrolled past), it stays away for the
+   session. decided before first paint so it never flashes */
 (function(){try{
-  var v=localStorage.getItem('mm_age_ok');
-  if(v && (Date.now()-parseInt(v,10)) < 2592000000) document.documentElement.className+=' age-ok';
+  if(sessionStorage.getItem('mm_age_notice')) document.documentElement.className+=' age-ok';
 }catch(e){}})();
 </script>
 <style>
@@ -1690,11 +1689,10 @@ html.age-ok .age-bar{display:none}
 @media(max-width:768px){
   .age-bar{
     font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
-    font-style:normal;font-weight:300;font-size:13px;text-align:left;justify-content:space-between;
+    font-style:normal;font-weight:400;font-size:14px;text-align:left;justify-content:space-between;
   }
-  /* sits above the sticky buy bar instead of under it */
-  body.buybar-on .age-bar{bottom:calc(74px + env(safe-area-inset-bottom))}
-  body.drawer-open .age-bar{display:none}
+  /* never stacked on the sticky buy bar */
+  body.buybar-on .age-bar, body.drawer-open .age-bar{display:none}
 }
 
 /* ═══ BUY AREA ═══
@@ -1815,269 +1813,258 @@ html.age-ok .age-bar{display:none}
 
 
 <style>
-/* ═══ PHONES: THE RHODE-STYLE SHOP ═══
-   on phones the shop trades the scrapbook for soft warm-gray panels on white,
-   one sans-serif, a big lowercase product name, rounded option cards, a pink
-   pill to buy, and the long read folded into accordions. modelled on rhode's
-   product page. computers keep the original; nothing here applies above 768px. */
+/* ═══ THE BUY AREA, EVERYWHERE ═══
+   pieces the redesign added that computers show too */
 .rh-acc,.rh-spec{display:none}
+.product-details .price-row{display:flex;flex-direction:column;gap:2px;margin:10px 0 6px}
+.product-details .price{font-size:24px;color:#34212b}
+.product-details .price-note{font-size:15px;color:#6a4a5a;font-style:normal}
+.buy-row{display:flex;gap:10px;align-items:stretch}
+.buy-row .add-btn{flex:1}
+.xpay-btn{flex:1;min-height:52px;border:none;border-radius:12px;cursor:pointer;background:#000;color:#fff;font-size:17px;font-weight:600;letter-spacing:.02em}
+.xpay-btn.is-apple{-webkit-appearance:-apple-pay-button;-apple-pay-button-type:plain;-apple-pay-button-style:black;font-size:0}
+.trust-rows{list-style:none;margin:16px 0 0;padding:0}
+.trust-rows li{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:15px;color:#34212b}
+.trust-rows svg{flex:0 0 22px;width:22px;height:22px;fill:none;stroke:#34212b;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
+.ship-line{margin:10px 0 0;font-size:14px;color:#6a4a5a}
+.pd-quote{max-width:640px;margin:30px auto;text-align:center}
+.pd-quote p{font-size:20px;line-height:1.45;color:#34212b}
+.pd-quote cite{display:block;margin-top:8px;font-size:14px;font-style:normal;color:#6a4a5a}
+
+/* express pay: the birthday sheet */
+.xp-sheet{position:fixed;inset:0;z-index:20001;display:flex;align-items:flex-end;justify-content:center}
+.xp-sheet[hidden]{display:none}
+.xp-scrim{position:absolute;inset:0;background:rgba(52,33,43,.45)}
+.xp-panel{
+  position:relative;width:100%;max-width:440px;background:#fff;color:#34212b;
+  border-radius:16px 16px 0 0;padding:26px 20px calc(22px + env(safe-area-inset-bottom));
+  font-family:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+}
+@media(min-width:769px){.xp-sheet{align-items:center}.xp-panel{border-radius:16px}}
+.xp-close{position:absolute;top:10px;right:10px;width:40px;height:40px;border:none;background:none;font-size:18px;color:#34212b;cursor:pointer}
+.xp-panel h3{margin:0 0 6px;font-size:20px;font-weight:500}
+.xp-sub{margin:0 0 18px;font-size:14px;color:#6a4a5a;line-height:1.45}
+.xp-label{display:block;margin:0 0 6px;font-size:14px}
+.xp-dob{width:100%;height:50px;padding:0 14px;border:1px solid #d9c9d2;border-radius:12px;font-size:16px;color:#34212b;font-family:inherit}
+.xp-dob:focus{outline:2px solid #34212b;outline-offset:1px}
+.xp-msg{min-height:20px;margin:8px 0 10px;font-size:14px;line-height:1.4}
+.xp-msg.is-error{color:#a3324f}
+.xp-msg.is-busy{color:#34212b}
+.xp-apple,.xp-google{display:block;width:100%;height:52px;border:none;border-radius:12px;cursor:pointer}
+.xp-apple{-webkit-appearance:-apple-pay-button;-apple-pay-button-type:buy;-apple-pay-button-style:black}
+.xp-apple[hidden],.xp-google[hidden]{display:none}
+.xp-total{margin:12px 0 0;font-size:14px;color:#6a4a5a;text-align:center}
+
+/* ═══ PHONES: THE SHOP PAGE ═══
+   white page, flat sections split by thin lines, one sans-serif (gill sans),
+   three text sizes under the title (20 / 16 / 14), dark plum-black text.
+   rose is kept for the buy button and small accents, so buy is the loudest
+   thing on the page. the bubbly display font is only for the product name.
+   computers keep the original page; nothing below applies above 768px. */
 @media(max-width:768px){
   html body{
     background:#fff !important;
-    --rh-ink:#5a3a4a; --rh-dark:#5a3a4a; --rh-panel:#fdf0f6; --rh-line:#f4d2e4; --rh-pink:#d371a1;
-    --rh-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+    --ink:#34212b; --mute:#6a4a5a; --rose:#d371a1; --tint:#fce5f7; --line:#eee2e8;
+    --sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
   }
   html body::before, html body::after{display:none !important}
-  #main{background:#fff !important;padding:calc(84px + env(safe-area-inset-top)) 14px 0 !important;max-width:none !important;margin:0 !important;gap:0 !important;min-width:0 !important;width:100% !important;flex:1 1 auto}
-  #main, #main *, .buybar, .buybar *, .drawer, .drawer *, .mobile-nav, .mobile-nav *{font-family:var(--rh-sans) !important;font-style:normal !important}
-  /* body copy in gill sans light; headings and labels keep their own weights */
-  #main *, .buybar *, .drawer *{font-weight:300}
+  #main{
+    background:#fff !important;padding:calc(57px + env(safe-area-inset-top)) 0 0 !important;
+    max-width:none !important;margin:0 !important;gap:0 !important;min-width:0 !important;width:100% !important;flex:1 1 auto;
+  }
+  #main, #main *, .buybar, .buybar *, .drawer, .drawer *, .mobile-nav, .mobile-nav *, .age-bar, .age-bar *{
+    font-family:var(--sans) !important;font-style:normal !important;
+  }
+  #main *, .buybar *, .drawer *{font-weight:400}
+  #main{color:var(--ink)}
 
-  /* header: a rounded panel, menu · name · bag */
+  /* header: a plain bar */
   .mobile-header{
     display:grid !important;grid-template-columns:1fr auto 1fr;align-items:center;
-    top:calc(8px + env(safe-area-inset-top)) !important;left:14px !important;right:14px !important;
-    height:58px !important;padding:0 10px !important;
-    background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;
-    box-shadow:0 0 0 8px #fff, 0 -40px 0 8px #fff !important;
+    top:0 !important;left:0 !important;right:0 !important;
+    height:calc(56px + env(safe-area-inset-top)) !important;padding:env(safe-area-inset-top) 8px 0 !important;
+    background:#fff !important;border:none !important;border-bottom:1px solid var(--line) !important;border-radius:0 !important;box-shadow:none !important;
   }
   .mobile-header .links{display:contents !important}
-  .mobile-header .logo{grid-column:2;grid-row:1;font-size:22px !important;color:var(--rh-pink) !important}
+  .mobile-header .logo{grid-column:2;grid-row:1;font-size:22px !important;color:var(--ink) !important;font-family:'Klickclack Swash','Great Vibes',cursive !important}
   .mobile-menu-btn{grid-column:1;grid-row:1;justify-self:start}
   .mobile-header .m-cart{grid-column:3;grid-row:1;justify-self:end}
   .mobile-menu-btn, .mobile-header .m-cart{
-    font-family:var(--rh-sans) !important;font-style:normal !important;font-size:11px !important;font-weight:600 !important;
-    letter-spacing:.12em !important;text-transform:uppercase !important;color:var(--rh-ink) !important;background:none !important;border:none !important;
+    font-family:var(--sans) !important;font-style:normal !important;font-size:16px !important;font-weight:400 !important;
+    letter-spacing:0 !important;text-transform:none !important;color:var(--ink) !important;background:none !important;border:none !important;
   }
-  .mobile-nav{top:calc(70px + env(safe-area-inset-top)) !important;left:14px !important;right:14px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;padding:8px 18px !important}
-  .mobile-nav a{font-size:13px !important;font-weight:600 !important;letter-spacing:.1em !important;text-transform:uppercase;color:var(--rh-ink) !important;border-bottom:1px solid var(--rh-line) !important}
+  .mobile-nav{
+    top:calc(56px + env(safe-area-inset-top)) !important;left:0 !important;right:0 !important;
+    background:#fff !important;border:none !important;border-bottom:1px solid var(--line) !important;border-radius:0 !important;box-shadow:none !important;padding:4px 20px 8px !important;
+  }
+  .mobile-nav a{font-size:16px !important;letter-spacing:0 !important;text-transform:none;color:var(--ink) !important;border-bottom:1px solid var(--line) !important}
 
-  #main .banner, #main .drop-strip, #main .pd-label, #main .gallery-label, #main .gallery-badge,
-  #main .hero-nav, .cart-float, .sparkle, .falling-sparkle, #main .price-row, #main .shipping-note, #main .qty-pick,
+  /* off the phone page: the long scrapbook bits and anything that isn't buying */
+  #main .banner, #main .ship-strip, #main .pd-label, #main .gallery-label, #main .gallery-badge, #main .pd-about,
+  #main .product-divider, #main .hero-nav, .cart-float, .sparkle, .falling-sparkle,
   #main .info-grid, #main #tasting, #main #perfect, #main .badges, #main .badge-row{display:none !important}
 
-  /* announcement pill */
-  #main .ship-strip{
-    order:1 !important;display:block !important;margin:0 0 12px !important;padding:11px 14px !important;border:none !important;border-radius:12px !important;
-    background:var(--rh-panel) !important;color:var(--rh-ink) !important;
-    font-size:11.5px !important;font-weight:600 !important;letter-spacing:.06em !important;text-transform:uppercase;text-align:center;line-height:1.4 !important;
-  }
-  #main .ship-strip span{color:var(--rh-ink) !important}
+  /* page order */
+  #main .product-hero{order:1 !important}
+  #main .rh-spec{order:2 !important}
+  #main .pd-quote{order:3 !important}
+  #main .rh-acc{order:4 !important}
+  #main #reviews{order:5 !important}
+  #main .m-footer{order:6 !important}
 
-  /* the product panel */
-  #main .product-hero{
-    order:2 !important;display:block !important;margin:0 !important;padding:0 !important;
-    background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;overflow:hidden;
-  }
+  /* gallery: edge to edge, the next photo peeks in at the right */
+  #main .product-hero{display:block !important;margin:0 !important;padding:0 !important;background:none !important;border:none !important;border-radius:0 !important;box-shadow:none !important}
   #main .product-gallery{position:relative;margin:0 !important;padding:0 !important;border:none !important;border-radius:0 !important;box-shadow:none !important;background:none !important}
-  #main .hero-slides{border-radius:0 !important;aspect-ratio:4/5;height:auto !important}
+  #main .hero-slides{border-radius:0 !important;height:auto !important}
+  #main .hero-slides.is-swipe{
+    position:relative;display:flex;gap:4px;overflow-x:auto;scroll-snap-type:x mandatory;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;aspect-ratio:auto;
+  }
+  #main .hero-slides.is-swipe::-webkit-scrollbar{display:none}
+  #main .hero-slides.is-swipe .hero-slide{
+    position:relative !important;inset:auto !important;opacity:1 !important;transition:none !important;
+    flex:0 0 88%;aspect-ratio:4/5;scroll-snap-align:start;background:#f6f1f3;
+  }
   #main .hero-slides .main-img{width:100% !important;height:100% !important;aspect-ratio:auto !important;object-fit:cover;border-radius:0 !important}
-  #main .hero-slide{height:100%}
-  /* dots under the photo: each is a 32px-wide tap target around an 9px dot */
-  #main .hero-dots{position:static !important;display:flex !important;justify-content:center;gap:2px !important;margin:6px 0 0 !important;height:auto;background:none;border-radius:0;overflow:visible}
-  #main .hero-dot{flex:0 0 auto;position:relative;width:32px !important;height:32px !important;padding:0 !important;margin:0 !important;border:none !important;border-radius:0 !important;background:none !important;box-shadow:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}
-  #main .hero-dot::after{content:'';position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:var(--rh-line);transition:background .2s, transform .2s}
-  #main .hero-dot[aria-selected="true"]::after{background:var(--rh-pink);transform:translate(-50%,-50%) scale(1.15)}
+  #main .hero-dots{position:static !important;display:flex !important;justify-content:center;gap:2px !important;margin:4px 0 0 !important;background:none;overflow:visible}
+  #main .hero-dot{flex:0 0 auto;position:relative;width:28px !important;height:28px !important;padding:0 !important;margin:0 !important;border:none !important;border-radius:0 !important;background:none !important;box-shadow:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  #main .hero-dot::after{content:'';position:absolute;left:50%;top:50%;width:7px;height:7px;transform:translate(-50%,-50%);border-radius:50%;background:#dccbd4}
+  #main .hero-dot[aria-selected="true"]::after{background:var(--ink)}
 
+  /* title, stars, price */
   #main .product-details{
-    display:flex !important;flex-direction:column;margin:0 !important;padding:24px 20px 26px !important;
+    display:flex !important;flex-direction:column;margin:0 !important;padding:8px 20px 28px !important;
     background:none !important;border:none !important;border-radius:0 !important;box-shadow:none !important;
   }
   #main .product-details h2{
-    order:1;margin:0 0 12px !important;color:var(--rh-pink) !important;text-transform:none;
-    font-family:'Klickclack Swash','Great Vibes',cursive !important;
-    font-size:min(38px, 9.3vw) !important;white-space:nowrap;font-weight:400 !important;letter-spacing:0 !important;line-height:1.1 !important;text-shadow:none !important;
+    order:1;margin:0 0 4px !important;color:var(--ink) !important;
+    font-family:'Klickclack Swash','Great Vibes',cursive !important;font-weight:400 !important;
+    font-size:min(36px, 9vw) !important;white-space:nowrap;letter-spacing:0 !important;line-height:1.1 !important;text-shadow:none !important;
   }
-  #main .pd-pack{order:2;margin:0 0 6px !important;color:var(--rh-ink) !important;font-size:14px !important;font-weight:400 !important;letter-spacing:.01em !important;text-transform:none !important;line-height:1.45 !important}
-  #main .pd-pack span{color:var(--rh-pink) !important}
-  #main .pd-promise{order:2;margin:0 0 10px !important;color:var(--rh-ink) !important;font-size:13.5px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;line-height:1.4 !important}
-  #main .pd-rating{order:3;display:flex !important;align-items:center;gap:6px;margin:0 0 16px !important;text-decoration:none}
-  #main .pd-stars{color:var(--rh-ink) !important;font-size:14px !important;letter-spacing:.04em}
-  #main .pd-count{color:var(--rh-ink) !important;font-size:14px !important;text-decoration:none !important}
-  #main .pd-about{order:4;display:block !important;margin:0 0 6px !important;padding:0 !important;background:none !important;border:none !important}
-  #main .pd-about > *:not(.product-desc){display:none !important}
-  #main .product-desc{margin:0 0 14px !important;font-size:16px !important;line-height:1.55 !important;color:var(--rh-ink) !important;text-align:left !important}
-  #main .pd-proof{order:5;margin:0 0 22px !important;color:var(--rh-ink) !important;font-size:13px !important;line-height:1.5 !important;text-decoration:underline !important;text-underline-offset:3px;opacity:.85}
-  #main .cart-section{order:6;margin:0 !important;padding:0 !important;background:none !important;border:none !important;box-shadow:none !important}
-  #main .rh-acc{order:7;display:block}
-  #main .pd-quote{order:8}
+  #main .pd-rating{order:2;display:inline-flex !important;margin:0 0 10px !important;text-decoration:none;align-self:flex-start}
+  #main .pd-stars{color:var(--rose) !important;font-size:16px !important;letter-spacing:.06em}
+  #main .price-row{order:3;display:flex !important;flex-direction:column;gap:2px;margin:0 0 6px !important}
+  #main .price{font-size:20px !important;font-weight:500 !important;color:var(--ink) !important;letter-spacing:0 !important}
+  #main .price-note{font-size:16px !important;color:var(--mute) !important}
+  #main .pd-proof{order:4;margin:0 0 18px !important;font-size:14px !important;line-height:1.45 !important;color:var(--mute) !important;text-decoration:none !important}
+  #main .cart-section{order:5;margin:0 !important;padding:0 !important;background:none !important;border:none !important;box-shadow:none !important}
 
-  /* size: rounded option cards */
-  #main .variant-row{display:grid !important;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 12px !important}
+  /* one choice: two option cards */
+  #main .variant-row{display:grid !important;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 14px !important}
   #main .variant-opt{
-    position:relative;display:flex !important;flex-direction:column;align-items:flex-start;gap:3px;text-align:left;
-    padding:16px 14px 14px !important;margin:0 !important;background:#fff !important;
-    border:2px solid transparent !important;border-radius:14px !important;box-shadow:none !important;transform:none !important;color:var(--rh-ink) !important;
+    position:relative;display:flex !important;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;
+    padding:14px 12px !important;margin:0 !important;background:#fff !important;min-height:0 !important;
+    border:1px solid #dccbd4 !important;border-radius:12px !important;box-shadow:none !important;transform:none !important;color:var(--ink) !important;
   }
-  #main .variant-opt.selected{border-color:var(--rh-pink) !important}
-  #main .variant-name{font-size:14px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:.04em !important;text-transform:uppercase !important}
-  #main .variant-meta{font-size:12px !important;line-height:1.45 !important;color:var(--rh-ink) !important;opacity:.8}
-  #main .variant-price{font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important;margin-top:6px}
-  #main .variant-per{display:block;font-size:12px !important;font-weight:400 !important;color:var(--rh-ink) !important;opacity:.8}
-  #main .variant-save{font-size:11.5px !important;color:var(--rh-ink) !important;line-height:1.4 !important}
+  #main .variant-opt.selected{border:2px solid var(--ink) !important;padding:13px 11px !important}
+  #main .variant-opt::after, #main .variant-opt.selected::after, #main .variant-opt::before{display:none !important;content:none !important}
+  #main .variant-name{font-size:16px !important;line-height:1.3 !important;color:var(--ink) !important;letter-spacing:0 !important;text-transform:none !important}
+  #main .variant-price{font-size:20px !important;font-weight:500 !important;color:var(--ink) !important;margin:4px 0 0 !important}
+  #main .variant-per{display:block;font-size:14px !important;color:var(--mute) !important}
   #main .variant-flag{
-    position:absolute !important;top:-10px !important;right:10px !important;left:auto !important;transform:none !important;
-    background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:20px !important;
-    font-size:9.5px !important;font-weight:700 !important;letter-spacing:.1em !important;text-transform:uppercase;padding:4px 9px !important;
+    position:absolute !important;top:-11px !important;right:10px !important;left:auto !important;transform:none !important;
+    background:var(--rose) !important;color:#fff !important;border:none !important;border-radius:20px !important;
+    font-size:14px !important;letter-spacing:0 !important;text-transform:none;padding:1px 9px !important;
   }
-  #main .variant-pitch{font-size:13px !important;color:var(--rh-ink) !important;margin:0 0 10px !important;text-align:left !important}
-  #main .bonus-list{margin:0 0 14px !important;padding:0 0 0 18px !important;font-size:13px !important;color:var(--rh-ink) !important}
-  #main .bonus-list li{list-style:disc;background:none !important;padding:0 !important}
+  #main .variant-flag::first-letter{text-transform:uppercase}
 
-  /* quantity */
-  #main .qty-row{display:flex !important;align-items:center;justify-content:space-between;margin:4px 0 14px !important;padding:0 !important;border:none !important;background:none !important}
-  #main .qty-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
-  #main .qty-control{display:flex !important;align-items:center;border:1.5px solid var(--rh-pink) !important;border-radius:30px !important;background:#fff !important;box-shadow:none !important;overflow:hidden}
-  #main .qty-btn{width:42px !important;height:40px !important;border:none !important;background:none !important;color:var(--rh-ink) !important;font-size:18px !important;border-radius:0 !important;box-shadow:none !important}
-  #main .qty-val{border:none !important;background:none !important;min-width:26px;text-align:center;font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important}
+  /* buy: one button style everywhere */
+  #main .buy-row{display:flex !important;gap:10px;margin:0 !important}
+  #main .add-btn, .buybar-btn{
+    flex:1;display:block;width:auto !important;height:52px !important;min-height:52px !important;margin:0 !important;padding:0 12px !important;
+    background:var(--rose) !important;color:#fff !important;border:none !important;border-radius:12px !important;box-shadow:none !important;
+    font-size:16px !important;font-weight:500 !important;letter-spacing:.01em !important;text-transform:none !important;animation:none !important;
+  }
+  #main .add-btn::after, #main .add-btn::before, .buybar-btn::after, .buybar-btn::before{display:none !important;content:none !important}
+  #main .add-btn:active, .buybar-btn:active{opacity:.88}
+  .xpay-btn{height:52px;min-height:52px;border-radius:12px}
 
-  /* the add-on, like a "complete your routine" card */
-  #main .addon{
-    display:flex !important;align-items:center;gap:14px;margin:0 0 16px !important;padding:14px 16px !important;
-    background:#fff !important;border:none !important;border-radius:14px !important;box-shadow:none !important;cursor:pointer;
-  }
-  #main .addon img{width:40px !important;height:auto !important;border-radius:4px !important;order:0}
-  #main .addon-text{order:1;flex:1;font-size:13.5px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important;line-height:1.3}
-  #main .addon-sub{display:block;margin-top:3px;font-size:13px !important;font-weight:400 !important;letter-spacing:0;text-transform:none;color:var(--rh-ink) !important}
-  #main .addon-price{order:2;font-size:14px !important;font-weight:700 !important;color:var(--rh-ink) !important}
-  #main .addon input{
-    order:3;-webkit-appearance:none;appearance:none;flex:0 0 26px;width:26px;height:26px;margin:0;
-    border:2px solid var(--rh-pink);border-radius:7px;background:#fff;display:grid;place-items:center;
-  }
-  #main .addon input:checked{background:var(--rh-pink)}
-  #main .addon input:checked::after{content:'';width:7px;height:12px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:translateY(-1px) rotate(45deg)}
+  /* trust rows and the delivery promise */
+  #main .trust-rows{margin:18px 0 0 !important;padding:14px 0 0 !important;border-top:1px solid var(--line)}
+  #main .trust-rows li{font-size:16px !important;color:var(--ink) !important;padding:7px 0 !important}
+  #main .ship-line{margin:10px 0 0 !important;font-size:14px !important;color:var(--mute) !important;text-align:left !important}
 
-  /* buy */
-  #main .buy-row{display:block !important;margin:0 0 14px !important}
-  #main .add-btn{
-    display:block;width:100% !important;height:56px !important;margin:0 !important;padding:0 !important;
-    background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
-    font-size:17px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
-  }
-  #main .add-btn:active{opacity:.88}
-  #main .add-btn::after, #main .add-btn::before, #main .variant-opt.selected::after, #main .variant-opt::after{display:none !important;content:none !important}
-  #main .guarantee, #main .pd-sub, #main .ship-line{
-    margin:0 0 6px !important;padding:0 !important;background:none !important;border:none !important;
-    font-size:13px !important;line-height:1.5 !important;color:var(--rh-ink) !important;text-align:left !important;
-    text-transform:none !important;letter-spacing:0 !important;font-weight:400 !important;
-  }
-
-  /* accordions */
-  #main .rh-acc{margin:20px 0 0;border-top:1.5px solid var(--rh-line)}
-  #main .rh-acc details{border-bottom:1.5px solid var(--rh-line)}
-  #main .rh-acc summary{
-    list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
-    padding:20px 0;font-size:15px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink);
-  }
-  #main .rh-acc summary::-webkit-details-marker{display:none}
-  #main .rh-acc summary::after{
-    content:'+';flex:0 0 22px;width:22px;height:22px;border-radius:50%;background:var(--rh-pink);color:#fff;
-    display:grid;place-items:center;font-size:19px;font-weight:700;line-height:22px;text-align:center;
-  }
-  #main .rh-acc details[open] summary::after{content:'\2212'}
-  #main .rh-acc-body{padding:0 0 20px}
-  #main .rh-acc-body p{margin:0 0 10px;font-size:15px;line-height:1.55;color:var(--rh-ink)}
-  #main .rh-acc-body p:last-child{margin-bottom:0}
-  #main .rh-acc-body b{font-weight:700}
-
-  #main .pd-quote{margin:24px 0 0 !important;padding:0 !important;border:none !important;background:none !important;text-align:left}
-  #main .pd-quote p{font-size:19px !important;font-weight:600 !important;line-height:1.35 !important;letter-spacing:-.01em;color:var(--rh-ink) !important}
-  #main .pd-quote cite{display:block;margin-top:10px;font-size:12px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
-
-  /* spec card: good for / tastes like */
-  #main .rh-spec{order:3 !important;display:block;margin:14px 0 0;padding:26px 20px 8px;background:var(--rh-panel);border-radius:16px}
-  #main .rh-spec-lead{margin:0 0 22px;font-size:31px;line-height:1.12;letter-spacing:-.02em;color:var(--rh-ink)}
-  #main .rh-spec-lead b{font-weight:400}
+  /* the story, on the one tinted section */
+  #main .rh-spec{display:block;margin:0;padding:32px 20px 12px;background:var(--tint);border-radius:0}
+  #main .rh-spec-lead{margin:0 0 20px;font-size:20px;line-height:1.35;color:var(--ink)}
   #main .rh-spec dl{margin:0}
-  #main .rh-spec dt{font-size:14px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink);margin:0 0 8px}
-  #main .rh-spec dd{margin:0 0 18px;padding:0 0 18px;border-bottom:1.5px solid var(--rh-line);font-size:15.5px;line-height:1.5;color:var(--rh-ink)}
+  #main .rh-spec dt{font-size:14px;font-weight:500;color:var(--ink);margin:0 0 4px}
+  #main .rh-spec dd{margin:0 0 16px;padding:0 0 16px;border-bottom:1px solid #f1cfe5;font-size:16px;line-height:1.5;color:var(--ink)}
   #main .rh-spec dd:last-child{border-bottom:none}
 
-  /* merch: panel with a swipe row */
-  #main .merch-drop{order:4 !important;margin:14px 0 0 !important;padding:26px 0 22px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important;overflow:hidden}
-  #main .merch-head{padding:0 20px;margin:0 0 18px !important;text-align:left !important}
-  #main .merch-eyebrow{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 6px !important}
-  #main .merch-title{font-size:31px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:-.02em !important;line-height:1.1 !important;margin:0 !important;text-shadow:none !important;text-transform:lowercase}
-  #main .merch-sub, #main .merch-note, #main .merch-desc, #main .merch-badge, #main .merch-oneofone{display:none !important}
-  #main .merch-grid{display:flex !important;width:auto !important;max-width:none;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:0 20px 4px !important;margin:0 !important;scrollbar-width:none;scroll-padding:0 20px}
-  #main .merch-grid::-webkit-scrollbar{display:none}
-  #main .merch-card{flex:0 0 240px;width:240px;min-width:0;scroll-snap-align:start;margin:0 !important;padding:0 !important;background:#fff !important;border:none !important;border-radius:14px !important;box-shadow:none !important;transform:none !important;overflow:hidden}
-  #main .merch-img-wrap{border-radius:0 !important;aspect-ratio:4/5;overflow:hidden;margin:0 !important;background:#fff}
-  #main .merch-img-wrap img{width:100%;height:100%;object-fit:cover;border-radius:0 !important}
-  #main .merch-info{padding:14px 14px 16px !important;text-align:left !important}
-  #main .merch-name{font-size:14px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 8px !important}
-  #main .merch-price-row{display:flex !important;justify-content:space-between;align-items:baseline;margin:0 !important}
-  #main .merch-price{font-size:15px !important;font-weight:700 !important;color:var(--rh-ink) !important}
-  #main .merch-cta{font-size:13px !important;color:var(--rh-ink) !important;text-decoration:underline;text-underline-offset:4px;background:none !important;border:none !important;padding:0 !important}
-  #main .merch-lookbook{padding:22px 20px 0 !important;margin:0 !important}
-  #main .merch-look-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 12px !important;text-align:left !important}
-  #main .merch-look-grid{gap:8px !important}
-  #main .merch-look-grid img{border-radius:12px !important;box-shadow:none !important;border:none !important}
+  /* the quote */
+  #main .pd-quote{margin:0 !important;padding:30px 20px !important;border:none !important;background:none !important;text-align:left;max-width:none}
+  #main .pd-quote p{font-size:20px !important;line-height:1.4 !important;color:var(--ink) !important}
+  #main .pd-quote cite{margin-top:10px;font-size:14px !important;color:var(--mute) !important;text-transform:none !important;letter-spacing:0 !important}
+
+  /* accordions */
+  #main .rh-acc{display:block;margin:0 20px;border-top:1px solid var(--line)}
+  #main .rh-acc details{border-bottom:1px solid var(--line)}
+  #main .rh-acc summary{
+    list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;
+    padding:18px 0;font-size:16px;color:var(--ink);
+  }
+  #main .rh-acc summary::-webkit-details-marker{display:none}
+  #main .rh-acc summary::after{content:'+';font-size:22px;font-weight:300;line-height:1;color:var(--ink)}
+  #main .rh-acc details[open] summary::after{content:'\2212'}
+  #main .rh-acc-body{padding:0 0 18px}
+  #main .rh-acc-body p{margin:0 0 10px;font-size:16px;line-height:1.55;color:var(--ink)}
+  #main .rh-acc-body p:last-child{margin-bottom:0}
+  #main .rh-acc-body b{font-weight:500}
 
   /* reviews */
-  #main #reviews{order:5 !important;margin:14px 0 0 !important;padding:26px 20px 10px !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;box-shadow:none !important}
-  #main #reviews .box-title{font-size:31px !important;font-weight:700 !important;color:var(--rh-ink) !important;letter-spacing:-.02em !important;line-height:1.1 !important;text-transform:lowercase !important;margin:0 0 6px !important;text-align:left !important}
-  #main .review{padding:20px 0 !important;margin:0 !important;background:none !important;border:none !important;border-bottom:1.5px solid var(--rh-line) !important;border-radius:0 !important;box-shadow:none !important}
+  #main #reviews{margin:0 !important;padding:32px 20px 8px !important;background:none !important;border:none !important;border-radius:0 !important;box-shadow:none !important}
+  #main #reviews .box-title .deco{display:none}
+  #main #reviews .box-title::first-letter{text-transform:uppercase}
+  #main #reviews .box-title{font-size:20px !important;color:var(--ink) !important;letter-spacing:0 !important;text-transform:none !important;margin:0 0 4px !important;text-align:left !important}
+  #main .review{padding:18px 0 !important;margin:0 !important;background:none !important;border:none !important;border-bottom:1px solid var(--line) !important;border-radius:0 !important;box-shadow:none !important}
   #main .review:last-child{border-bottom:none !important}
-  #main .r-stars{color:var(--rh-ink) !important;font-size:14px !important;margin:0 0 8px !important}
-  #main .r-text{font-size:15.5px !important;line-height:1.55 !important;color:var(--rh-ink) !important}
-  #main .r-author{margin-top:10px !important;font-size:12px !important;font-weight:700 !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important}
+  #main .r-stars{color:var(--rose) !important;font-size:14px !important;margin:0 0 6px !important}
+  #main .r-text{font-size:16px !important;line-height:1.55 !important;color:var(--ink) !important}
+  #main .r-author{margin-top:8px !important;font-size:14px !important;letter-spacing:0 !important;text-transform:none !important;color:var(--mute) !important}
 
   /* footer */
-  #main .m-footer{order:6 !important;margin:14px 0 14px !important;padding:26px 20px calc(18px) !important;background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;text-align:left !important}
-  #main .mf-label{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em !important;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 0 6px !important}
-  #main .m-footer p, #main .mf-link, #main .mf-states{font-size:14px !important;line-height:1.55 !important;color:var(--rh-ink) !important}
-  #main .mf-link{min-height:0 !important;text-decoration:underline;text-underline-offset:3px}
-  #main .mf-block{margin:0 0 18px !important;padding:0 0 18px !important;border:none !important;border-bottom:1.5px solid var(--rh-line) !important;background:none !important}
-  #main .mf-legal{font-size:12px !important;letter-spacing:.06em;text-transform:uppercase;color:var(--rh-ink) !important;margin:0 !important}
+  #main .m-footer{margin:24px 0 0 !important;padding:24px 20px calc(96px + env(safe-area-inset-bottom)) !important;background:none !important;border:none !important;border-top:1px solid var(--line) !important;border-radius:0 !important;text-align:left !important}
+  #main .mf-label{font-size:14px !important;font-weight:500 !important;letter-spacing:0 !important;text-transform:none !important;color:var(--ink) !important;margin:0 0 4px !important}
+  #main .m-footer p, #main .mf-link, #main .mf-states{font-size:14px !important;line-height:1.55 !important;color:var(--mute) !important;text-transform:none !important;letter-spacing:0 !important}
+  #main .m-footer p::first-letter{text-transform:uppercase}
+  #main .m-footer .mf-states{text-transform:uppercase !important}
+  #main .mf-block{margin:0 0 18px !important;padding:0 !important;border:none !important;background:none !important}
+  #main .mf-legal{font-size:14px !important;letter-spacing:0 !important;text-transform:none !important;color:var(--mute) !important;margin:0 !important}
 
-  /* sticky bar: a pill with the pick, and the buy pill */
+  /* sticky buy bar: wallet + buy, nothing else */
   .buybar{
-    display:flex !important;align-items:center;gap:10px;
-    background:linear-gradient(180deg,rgba(255,255,255,0),#fff 30%) !important;border:none !important;box-shadow:none !important;border-radius:0 !important;
-    padding:14px 12px calc(10px + env(safe-area-inset-bottom)) !important;
+    display:flex !important;gap:10px;align-items:center;
+    background:#fff !important;border:none !important;border-top:1px solid var(--line) !important;box-shadow:none !important;border-radius:0 !important;
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom)) !important;
   }
-  .buybar-info{
-    flex:1;display:flex !important;align-items:center;justify-content:space-between;gap:8px;margin:0 !important;min-width:0;
-    height:50px;padding:0 18px;background:#fff;border:1.5px solid var(--rh-pink);border-radius:40px;
-  }
-  .buybar-variant{font-size:14px !important;font-weight:600 !important;letter-spacing:0 !important;text-transform:none !important;color:var(--rh-ink) !important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .buybar-pick{display:block !important}
-  .buybar-info{position:relative}
-  .buybar-info::after{content:'';width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid var(--rh-ink);flex:0 0 auto}
-  .buybar-price{display:none !important}
-  .buybar-pick{position:absolute;inset:0;width:100%;height:100%;opacity:0;font-size:16px;cursor:pointer}
-  .buybar-btn{
-    flex:1;width:auto !important;min-height:50px !important;height:50px;background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
-    font-size:15px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
-  }
+  body.xp-open .buybar{transform:translateY(110%);visibility:hidden}
 
   /* the bag */
   .drawer{background:#fff !important;border-radius:0 !important;box-shadow:none !important}
-  .drawer-header{background:var(--rh-panel) !important;border:none !important;border-radius:16px !important;margin:10px 12px 0 !important}
-  .drawer-title{font-size:14px !important;font-weight:700 !important;letter-spacing:.06em !important;text-transform:uppercase;color:var(--rh-ink) !important}
-  .drawer-close{color:var(--rh-ink) !important;background:none !important;border:none !important}
-  .drawer-body{padding-left:12px !important;padding-right:12px !important}
-  .drawer-item{background:var(--rh-panel) !important;border:none !important;border-radius:14px !important;box-shadow:none !important;margin:10px 0 0 !important;padding:14px !important}
-  .drawer-item-img{border-radius:10px !important}
-  .drawer-item-name{font-size:14px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important}
-  .drawer-item-variant, .drawer-tax, .drawer-secure, .drawer-survey-sub{font-size:12.5px !important;color:var(--rh-ink) !important;opacity:.85}
-  .drawer-item-price, .drawer-subtotal, .drawer-shipping{font-size:14px !important;color:var(--rh-ink) !important}
-  .drawer-total{font-size:16px !important;font-weight:700 !important;color:var(--rh-ink) !important}
-  .drawer-qty{display:inline-flex !important;width:auto !important;border:1.5px solid var(--rh-pink) !important;border-radius:30px !important;background:#fff !important}
-  .drawer-checkout::after,.drawer-checkout::before{display:none !important;content:none !important}
-  .drawer-qty button{color:var(--rh-ink) !important;background:none !important;border:none !important;border-radius:0 !important}
-  .drawer-remove, .drawer-keep, .drawer-survey-change{color:var(--rh-ink) !important;font-size:12.5px !important;text-decoration:underline;text-underline-offset:3px}
-  .drawer-ship-nudge{background:var(--rh-panel) !important;color:var(--rh-ink) !important;border:none !important;border-radius:12px !important;font-size:12px !important;font-weight:600 !important;letter-spacing:.04em;text-transform:uppercase}
+  .drawer-header{background:#fff !important;border:none !important;border-bottom:1px solid var(--line) !important;border-radius:0 !important}
+  .drawer-title{font-size:20px !important;letter-spacing:0 !important;text-transform:none !important;color:var(--ink) !important}
+  .drawer-close{color:var(--ink) !important;background:none !important;border:none !important}
+  .drawer-item{background:none !important;border:none !important;border-bottom:1px solid var(--line) !important;border-radius:0 !important;box-shadow:none !important}
+  .drawer-item-img{border-radius:8px !important}
+  .drawer-item-name{font-size:16px !important;color:var(--ink) !important;letter-spacing:0 !important;text-transform:none !important}
+  .drawer-item-variant, .drawer-tax, .drawer-secure, .drawer-survey-sub{font-size:14px !important;color:var(--mute) !important}
+  .drawer-item-price, .drawer-subtotal, .drawer-shipping{font-size:16px !important;color:var(--ink) !important}
+  .drawer-total{font-size:20px !important;font-weight:500 !important;color:var(--ink) !important}
+  .drawer-qty{display:inline-flex !important;width:auto !important;border:1px solid #dccbd4 !important;border-radius:10px !important;background:#fff !important}
+  .drawer-qty button{color:var(--ink) !important;background:none !important;border:none !important;border-radius:0 !important}
+  .drawer-remove, .drawer-keep, .drawer-survey-change{color:var(--mute) !important;font-size:14px !important;text-decoration:underline;text-underline-offset:3px;text-transform:none !important;letter-spacing:0 !important}
+  .drawer-ship-nudge{background:var(--tint) !important;color:var(--ink) !important;border:none !important;border-radius:10px !important;font-size:14px !important;letter-spacing:0 !important;text-transform:none !important}
   .drawer-checkout{
-    background:var(--rh-pink) !important;color:#fff !important;border:none !important;border-radius:40px !important;box-shadow:none !important;
-    height:56px;font-size:17px !important;font-weight:500 !important;letter-spacing:.02em !important;text-transform:uppercase;animation:none !important;
+    background:var(--rose) !important;color:#fff !important;border:none !important;border-radius:12px !important;box-shadow:none !important;
+    height:52px;font-size:16px !important;font-weight:500 !important;letter-spacing:.01em !important;text-transform:none !important;animation:none !important;
   }
-  .drawer-footer{background:#fff !important;border-top:1.5px solid var(--rh-line) !important}
-  .drawer-survey{background:var(--rh-panel) !important;border:none !important;border-radius:14px !important}
-  .drawer-survey-q{font-size:13px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;color:var(--rh-ink) !important}
-  .drawer-survey-opt{background:#fff !important;border:1.5px solid var(--rh-line) !important;border-radius:30px !important;color:var(--rh-ink) !important;font-size:13px !important;box-shadow:none !important}
-  .drawer-empty-text{color:var(--rh-ink) !important;font-size:15px !important}
+  .drawer-checkout::after,.drawer-checkout::before{display:none !important;content:none !important}
+  .drawer-footer{background:#fff !important;border-top:1px solid var(--line) !important}
+  .drawer-survey{background:var(--tint) !important;border:none !important;border-radius:12px !important}
+  .drawer-survey-q{font-size:16px !important;color:var(--ink) !important;letter-spacing:0 !important;text-transform:none !important}
+  .drawer-survey-opt{background:#fff !important;border:1px solid #dccbd4 !important;border-radius:10px !important;color:var(--ink) !important;font-size:14px !important;box-shadow:none !important}
+  .drawer-empty-text{color:var(--ink) !important;font-size:16px !important}
 }
 </style>
 </head>
@@ -2092,10 +2079,18 @@ html.age-ok .age-bar{display:none}
 (function(){
   var bar=document.getElementById('ageBar'), x=document.getElementById('ageBarX');
   if(!bar||!x) return;
-  x.addEventListener('click',function(){
-    try{ localStorage.setItem('mm_age_ok', String(Date.now())); }catch(e){}
-    document.documentElement.className+=' age-ok';
-  });
+  function hide(){
+    try{ sessionStorage.setItem('mm_age_notice','1'); }catch(e){}
+    if(!/\bage-ok\b/.test(document.documentElement.className)) document.documentElement.className+=' age-ok';
+  }
+  x.addEventListener('click',hide);
+  /* it folds away by itself after the first real scroll */
+  var y0=window.scrollY;
+  window.addEventListener('scroll',function on(){
+    if(Math.abs(window.scrollY-y0)<60) return;
+    window.removeEventListener('scroll',on);
+    setTimeout(hide,1200);
+  },{passive:true});
 })();
 </script>
 
@@ -2109,6 +2104,7 @@ html.age-ok .age-bar{display:none}
 </div>
 <div class="mobile-nav" id="mobile-nav">
   <a href="shop.html">shop</a>
+  <a href="merch.html">merch</a>
   <a href="#reviews" onclick="document.getElementById('mobile-nav').classList.remove('open')">reviews</a>
   <a href="home.html">home</a>
   <a href="store-locator.html">store locator</a>
@@ -2128,6 +2124,7 @@ html.age-ok .age-bar{display:none}
       <div class="nav-label">sitely</div>
       <nav>
         <a href="shop.html" class="active">shop</a>
+        <a href="merch.html">merch</a>
         <a href="home.html">home</a>
         <a href="store-locator.html">store locator</a>
         <a href="sustainability.html">sustainability</a>
@@ -2201,12 +2198,6 @@ html.age-ok .age-bar{display:none}
   <!-- FREE SHIPPING (computers) -->
   <div class="ship-strip">free shipping on orders over $100 <span aria-hidden="true">✦</span> the case ships free</div>
 
-  <!-- MERCH DROP ANNOUNCEMENT (phones; computers see the shipping strip above) -->
-  <a href="#merch" class="drop-strip">
-    <span class="ds-pill">merch</span>
-    the summer merch drop — hand-sewn &amp; one of one ✦
-  </a>
-
   <!-- PRODUCT HERO -->
   <div class="product-hero">
 
@@ -2216,20 +2207,20 @@ html.age-ok .age-bar{display:none}
       <span class="gallery-badge">our only sku</span>
       <div class="hero-slides" id="heroSlides">
         <picture class="hero-slide is-on">
-          <source media="(max-width:768px)" srcset="shop-hero-2-750.jpg">
-          <img class="main-img" src="shop-hero-2.jpg" alt="the pastel pink maison maxine gift box, tied with a ribbon, held up against a blue sky" fetchpriority="high">
+          <source media="(max-width:768px)" srcset="watercolor-cans-750.jpg">
+          <img class="main-img" src="watercolor-cans.jpg" alt="eight maison maxine red wine spritzer cans, hand-painted in watercolor with tulips, wine and seashells" fetchpriority="high">
         </picture>
         <picture class="hero-slide">
-          <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
-          <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" decoding="async">
+          <source media="(max-width:768px)" srcset="shop-hero-2-750.jpg">
+          <img class="main-img" src="shop-hero-2.jpg" alt="the pastel pink maison maxine gift box, tied with a ribbon, held up against a blue sky" decoding="async">
         </picture>
         <picture class="hero-slide">
           <source media="(max-width:768px)" srcset="golden-hour-toast-760.jpg">
           <img class="main-img" src="golden-hour-toast.jpg" alt="two maison maxine cans raised in a toast at golden hour" decoding="async">
         </picture>
         <picture class="hero-slide">
-          <source media="(max-width:768px)" srcset="watercolor-cans-750.jpg">
-          <img class="main-img" src="watercolor-cans.jpg" alt="eight maison maxine red wine spritzer cans, hand-painted in watercolor with tulips, wine and seashells" decoding="async">
+          <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
+          <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" decoding="async">
         </picture>
         <button class="hero-nav hero-prev" id="heroPrev" type="button" aria-label="previous photo">&lsaquo;</button>
         <button class="hero-nav hero-next" id="heroNext" type="button" aria-label="next photo">&rsaquo;</button>
@@ -2241,19 +2232,15 @@ html.age-ok .age-bar{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
-      <p class="pd-pack">8 cans per order <span aria-hidden="true">✦</span> equivalent to 2 bottles <span aria-hidden="true">✦</span> in collectible gift boxes</p>
-      <p class="pd-promise">never buy another bottle of wine again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read the reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span></a>
-      <a class="pd-proof" href="store-locator.html">sold in 17 shops, including monsieur marcel, farmshop &amp; happier grocery</a>
       <div class="price-row">
-        <s class="price-was" id="priceWas" aria-label="was $64">$64</s>
-        <span class="price" id="priceMain">$56</span>
-        <span class="price-note" id="priceNote">2 luxury gift boxes · 8 cans · 250ml each</span>
+        <span class="price" id="priceMain">8 cans · $56</span>
+        <span class="price-note" id="priceNote">$7 a can, about 2 bottles of wine</span>
       </div>
+      <a class="pd-proof" href="store-locator.html">Sold in 17 shops, including Monsieur Marcel, Farmshop &amp; Happier Grocery</a>
 
       <div class="pd-about">
       <div class="product-divider"></div>
-
       <div class="desc-eyebrow">inspired by red wine &amp; ginger ale.</div>
       <p class="product-desc">Napa Valley Cabernet, lightly sparkling, with ginger, lemon and honey.</p>
       <p class="product-desc pd-story">Bright, clean, and made for the moments that matter.</p>
@@ -2261,183 +2248,84 @@ html.age-ok .age-bar{display:none}
       <ul class="ing-chips" aria-label="ingredients">
         <li>napa valley cabernet</li><li>real ginger</li><li>lemon juice</li><li>honey</li><li>nothing else</li>
       </ul>
-
-      <div class="product-divider"></div>
-
-      <ul class="ingredients">
-        <li><span class="dot"></span> napa valley cabernet</li>
-        <li><span class="dot"></span> real ginger</li>
-        <li><span class="dot"></span> lemon juice</li>
-        <li><span class="dot"></span> honey</li>
-        <li><span class="dot"></span> nothing else — ever</li>
-      </ul>
       </div>
 
       <div class="product-divider pre-cart"></div>
 
       <div class="cart-section">
-        <div class="variant-row">
-          <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
-            <span class="variant-name">gift boxes</span>
-            <span class="variant-meta">starts at 2 boxes · 8 cans<br>+$28 each extra box</span>
-            <span class="variant-price"><s class="price-was" aria-label="was $64">$64</s> $56 <span class="variant-per">$7 a can</span></span>
+        <!-- ONE CHOICE: the two ways to buy -->
+        <div class="variant-row" role="group" aria-label="choose how many">
+          <button class="variant-opt selected" id="variant-fourpack" type="button" aria-pressed="true" onclick="selectVariant('fourpack')">
+            <span class="variant-name">8 cans · 2 gift boxes</span>
+            <span class="variant-price">$56</span>
+            <span class="variant-per">$7 a can</span>
           </button>
-          <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
+          <button class="variant-opt" id="variant-case" type="button" aria-pressed="false" onclick="selectVariant('case')">
             <span class="variant-flag">best value</span>
-            <span class="variant-name">the case</span>
-            <span class="variant-meta">24 cans · six gift boxes</span>
-            <span class="variant-price">$144 <span class="variant-per">$6 a can</span></span>
-            <span class="variant-save">save $24 vs. six gift boxes ✦ ships free</span>
+            <span class="variant-name">24 cans · 6 gift boxes</span>
+            <span class="variant-price">$144</span>
+            <span class="variant-per">$6 a can · ships free</span>
           </button>
         </div>
-        <div class="variant-pitch" id="variantPitch"></div>
-        <ul class="bonus-list" id="bonusList" hidden></ul>
-        <div class="qty-row">
-          <span class="qty-label">quantity</span>
-          <div class="qty-control">
-            <button class="qty-btn" type="button" aria-label="one less" onclick="updateQty(-1)">−</button>
-            <span class="qty-val" id="qty" aria-live="polite">1</span>
-            <button class="qty-btn" type="button" aria-label="one more" onclick="updateQty(1)">+</button>
-          </div>
-        </div>
-        <div class="shipping-note">free shipping on orders over $100 ✦ the case ships free</div>
-        <label class="addon" for="addonBox">
-          <input type="checkbox" id="addonBox">
-          <img src="checkout-box.jpg" alt="" width="34" height="44">
-          <span class="addon-text">add an extra gift box <span class="addon-sub">four more cans, for a host or a friend</span></span>
-          <span class="addon-price">+$28</span>
-        </label>
+
+        <!-- BUY: express wallet on the left (when the device has one), buy on the right -->
         <div class="buy-row">
-          <label class="qty-pick"><span class="sr">quantity</span>
-            <select id="qtyPick" aria-label="quantity"></select>
-          </label>
-          <button class="add-btn" id="addBtn">add to bag · $56</button>
+          <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
+          <button class="add-btn" id="addBtn" type="button">Buy · $56</button>
         </div>
-        <div class="guarantee">don't love it? we'll replace it or credit you ✦ nothing to ship back</div>
-        <div class="pd-sub below-btn">napa valley cabernet, ginger, lemon &amp; honey · 5% abv · 250ml cans</div>
-        <div class="ship-line" id="shipLine">ships ups to 37 states + dc ✦ pick your speed at checkout ✦ an adult 21+ signs for it</div>
+
+        <ul class="trust-rows">
+          <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>Free shipping over $100, the case ships free</li>
+          <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 16.5 12 21 12 21z"/></svg>Don't love it? We'll replace it or credit you</li>
+          <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Secure checkout</li>
+        </ul>
+        <p class="ship-line" id="shipLine"></p>
       </div>
-
-
-      <!-- DETAILS ACCORDIONS (phones only; computers keep the long page) -->
-      <div class="rh-acc">
-        <details>
-          <summary>tasting notes</summary>
-          <div class="rh-acc-body">
-            <p><b>On the nose</b> bright lemon zest, warm ginger, honey sweetness, dark fruit underneath.</p>
-            <p><b>On the palate</b> light and fizzy, citrus-forward with a warm ginger kick, smooth cabernet finish.</p>
-            <p><b>The finish</b> honey-kissed, clean, leaves you wanting another sip.</p>
-          </div>
-        </details>
-        <details>
-          <summary>ingredients</summary>
-          <div class="rh-acc-body">
-            <p>Napa Valley Cabernet, real ginger, lemon juice, honey. Nothing else, ever.</p>
-          </div>
-        </details>
-        <details>
-          <summary>shipping &amp; returns</summary>
-          <div class="rh-acc-body">
-            <p>Ships UPS from Los Angeles, and you pick the speed at checkout. Free on orders over $100; the case always ships free.</p>
-            <p>An adult 21+ signs for every delivery. Don't love it? We'll replace it or credit you, nothing to ship back.</p>
-          </div>
-        </details>
-      </div>
-
-      <blockquote class="pd-quote">
-        <p>“trust that my drink of choice is mm. in fact i don't even like drinking except for mm.”</p>
-        <cite>— kayla c., new york ★★★★★</cite>
-      </blockquote>
     </div>
 
   </div>
 
-  <!-- THE SPEC CARD (phones only) -->
+  <!-- THE STORY -->
   <section class="rh-spec" aria-label="about the spritz">
-    <p class="rh-spec-lead">A red wine spritz for <b>BRIGHT</b>, clean sipping + <b>GOLDEN</b> hours.</p>
+    <p class="rh-spec-lead">A red wine spritz for bright, clean sipping + golden hours.</p>
     <dl>
-      <dt>good for:</dt><dd>golden hour, girls night, picnics, date night, literally any tuesday</dd>
-      <dt>tastes like:</dt><dd>bright lemon, warm ginger and honey over smooth Napa Cabernet</dd>
-      <dt>feels like:</dt><dd>light, fizzy and clean, best chilled or on ice</dd>
-      <dt>fyi:</dt><dd>5% abv · no refined sugar · four ingredients · 5% of every order goes to animal rescue</dd>
+      <dt>Good for</dt><dd>Golden hour, girls night, picnics, date night, literally any Tuesday</dd>
+      <dt>Tastes like</dt><dd>Bright lemon, warm ginger and honey over smooth Napa Cabernet</dd>
+      <dt>Feels like</dt><dd>Light, fizzy and clean, best chilled or on ice</dd>
+      <dt>FYI</dt><dd>5% abv, no refined sugar, four ingredients. 5% of every order goes to animal rescue.</dd>
     </dl>
   </section>
 
-  <!-- ═══ THE MERCH DROP ═══ -->
-  <div class="merch-drop" id="merch">
-    <div class="merch-head">
-      <div class="merch-eyebrow">one of one ✦ hand-sewn</div>
-      <h2 class="merch-title">The Summer Merch Drop</h2>
-      <div class="merch-sub">hand-sewn, one of one, made in malibu — wear your wine ✦</div>
-    </div>
+  <!-- THE QUOTE -->
+  <blockquote class="pd-quote">
+    <p>“trust that my drink of choice is mm. in fact i don't even like drinking except for mm.”</p>
+    <cite>Kayla C., New York</cite>
+  </blockquote>
 
-    <div class="merch-grid">
-
-      <!-- TANK -->
-      <div class="merch-card">
-        <div class="merch-img-wrap">
-          <span class="merch-badge">new</span>
-          <span class="merch-oneofone">one of one</span>
-          <img src="mm-tank-main-800.jpg" alt="white lace-trim cami tank with a hand-sewn red wine glass" loading="lazy">
-        </div>
-        <div class="merch-info">
-          <h3 class="merch-name">The Wine Glass Tank</h3>
-          <div class="merch-desc">white ribbed lace-trim cami with a hand-sewn pour of red — the little muse staple ✦</div>
-          <div class="merch-price-row">
-            <span class="merch-price">$54</span>
-            <a class="merch-cta" href="tank.html">see the tank ✦</a>
-          </div>
-        </div>
+  <!-- DETAILS ACCORDIONS -->
+  <div class="rh-acc">
+    <details>
+      <summary>Tasting notes</summary>
+      <div class="rh-acc-body">
+        <p><b>On the nose</b> bright lemon zest, warm ginger, honey sweetness, dark fruit underneath.</p>
+        <p><b>On the palate</b> light and fizzy, citrus-forward with a warm ginger kick, smooth cabernet finish.</p>
+        <p><b>The finish</b> honey-kissed, clean, leaves you wanting another sip.</p>
       </div>
-
-      <!-- HOODIE SET -->
-      <div class="merch-card">
-        <div class="merch-img-wrap">
-          <span class="merch-badge">new</span>
-          <span class="merch-oneofone">one of one</span>
-          <img src="mm-hoodie-set-800.jpg" alt="black velour maison maxine hoodie and matching velour flare leggings, with an appliqué girl in curlers on the back and maison maxine hand-lettered across the leggings" loading="lazy">
-        </div>
-        <div class="merch-info">
-          <h3 class="merch-name">The Hoodie Set</h3>
-          <div class="merch-desc">black velour hoodie + matching velour flare leggings, a girl in curlers stitched across the back and "maison maxine" hand-lettered ✦</div>
-          <div class="merch-price-row">
-            <span class="merch-price">$118</span>
-            <a class="merch-cta" href="hoodie.html">see the set ✦</a>
-          </div>
-        </div>
+    </details>
+    <details>
+      <summary>Ingredients</summary>
+      <div class="rh-acc-body">
+        <p>Napa Valley Cabernet, real ginger, lemon juice, honey. Nothing else, ever.</p>
       </div>
-
-      <!-- JEANS -->
-      <div class="merch-card">
-        <div class="merch-img-wrap">
-          <span class="merch-badge">new</span>
-          <span class="merch-oneofone">one of one</span>
-          <img src="mm-jeans-back-800.jpg" alt="vintage bootcut jeans hand-sewn with maison maxine across the back" loading="lazy">
-        </div>
-        <div class="merch-info">
-          <h3 class="merch-name">The MM Jeans</h3>
-          <div class="merch-desc">vintage bootcut denim, hand-sewn "maison maxine" across the back with a little muse on the hem ✦</div>
-          <div class="merch-price-row">
-            <span class="merch-price">$138</span>
-            <a class="merch-cta" href="jeans.html">choose your size ✦</a>
-          </div>
-        </div>
+    </details>
+    <details>
+      <summary>Shipping &amp; returns</summary>
+      <div class="rh-acc-body">
+        <p>21+ only. We check your birthday at checkout, and an adult 21+ signs at delivery. We ship to <span class="ship-states">36 states + DC</span>.</p>
+        <p>Ships UPS from Los Angeles. Free on orders over $100, and the case always ships free.</p>
+        <p>Don't love it? We'll replace it or credit you, nothing to ship back.</p>
       </div>
-
-    </div>
-
-    <div class="merch-note">hand-sewn in malibu ✦ one of one, so once it's gone it's gone ✦ secure checkout via vinoshipper</div>
-
-    <!-- LOOKBOOK -->
-    <div class="merch-lookbook">
-      <div class="merch-look-label">the lookbook ✦</div>
-      <div class="merch-look-grid">
-        <img src="mm-jeans-full-600.jpg" alt="front view — wine glass tank tucked into the painted jeans" loading="lazy">
-        <img src="mm-jeans-detail-600.jpg" alt="close-up of the hand-sewn maison maxine back pockets" loading="lazy">
-        <img src="mm-jeans-art-600.jpg" alt="hand-sewn fashion illustration on the jean hem with kitten heels" loading="lazy">
-        <img src="mm-jeans-lifestyle-600.jpg" alt="muse lounging in the wine glass tank and painted jeans" loading="lazy">
-      </div>
-    </div>
+    </details>
   </div>
 
   <!-- INFO CARDS -->
@@ -2499,48 +2387,48 @@ html.age-ok .age-bar{display:none}
 
   <!-- REVIEWS -->
   <div class="box" id="reviews">
-    <div class="box-title">what the muses say ✦</div>
+    <div class="box-title">what the muses say <span class="deco" aria-hidden="true">✦</span></div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">ok so i bought one case to try and now there's like permanently three in my fridge. the ginger is so good? i don't even know why i'm surprised.</div>
-      <div class="r-author">— sophia m., los angeles</div>
+      <div class="r-author">sophia m., los angeles</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">every other spritzer tastes like someone waved a grape near sparkling water. this one actually tastes like wine. i was honestly shocked.</div>
-      <div class="r-author">— jules r., san francisco</div>
+      <div class="r-author">jules r., san francisco</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">brought a pack to my friend's thing and literally everyone was like where did you get these. i don't share my sources but i shared these.</div>
-      <div class="r-author">— amara k., malibu</div>
+      <div class="r-author">amara k., malibu</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">four ingredients. i flipped the can over and was like wait that's it? no weird stuff? and then i tasted it and was like ok yeah this is my new thing.</div>
-      <div class="r-author">— lily t., santa monica</div>
+      <div class="r-author">lily t., santa monica</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">i sampled some at monsieur marcel recently! i bought two cans and enjoyed them while on vacation in los angeles. i live in alabama and wondered if the spritzers might be available for mail order someday.</div>
-      <div class="r-author">— camille s., alabama</div>
+      <div class="r-author">camille s., alabama</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">i literally drink on a weeknight more now in the best way. because i used to have to open a whole bottle if i wanted a cute glass of something.</div>
-      <div class="r-author">— katherine k., los angeles</div>
+      <div class="r-author">katherine k., los angeles</div>
     </div>
 
     <div class="review">
       <div class="r-stars">★★★★★</div>
       <div class="r-text">trust that my drink of choice is mm. in fact i don't even like drinking except for mm.</div>
-      <div class="r-author">— kayla c., new york</div>
+      <div class="r-author">kayla c., new york</div>
     </div>
 
   </div>
@@ -2568,26 +2456,26 @@ html.age-ok .age-bar{display:none}
   <!-- FOOTER (phones) -->
   <footer class="m-footer">
     <div class="mf-block">
-      <div class="mf-label">say hi ✦</div>
+      <div class="mf-label">Say hi</div>
       <a class="mf-link" href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a>
     </div>
     <div class="mf-block">
-      <div class="mf-label">where we ship ✦</div>
+      <div class="mf-label">Where we ship</div>
       <p class="mf-states" id="mfStates">ak · az · ca · co · dc · fl · ga · hi · ia · id · il · in · ks · ky · la · ma · md · mn · mo · nc · nd · ne · nh · nm · nv · ny · oh · ok · or · pa · sc · tn · tx · vt · wa · wi · wv · wy</p>
     </div>
     <div class="mf-block">
-      <div class="mf-label">shipping ✦</div>
-      <p>free shipping on orders over $100, and the case always ships free. under $100 it's $7, whichever speed you pick. ups from los angeles — ground through next day air.</p>
+      <div class="mf-label">Shipping</div>
+      <p>Free shipping on orders over $100, and the case always ships free. Under $100 it's $7, whichever speed you pick. UPS from Los Angeles, ground through next day air.</p>
     </div>
     <div class="mf-block">
-      <div class="mf-label">returns ✦</div>
-      <p>if something turns up wrong, email us and we'll make it right. if ups can't deliver — three tries, then five days at a local center — it comes back to us, and the return trip comes out of the refund.</p>
+      <div class="mf-label">Returns</div>
+      <p>If something turns up wrong, email us and we'll make it right. If UPS can't deliver (three tries, then five days at a local center), it comes back to us, and the return trip comes out of the refund.</p>
     </div>
     <div class="mf-block">
       <div class="mf-label">21+ only</div>
-      <p>you must be 21 or older to order, and an adult 21+ has to sign for every delivery. ups won't leave it at the door.</p>
+      <p>You must be 21 or older to order, and an adult 21+ has to sign for every delivery. UPS won't leave it at the door.</p>
     </div>
-    <div class="mf-legal">© 2026 maison maxine™ · sip up, save pups ✦</div>
+    <div class="mf-legal">© 2026 Maison Maxine™ · sip up, save pups</div>
   </footer>
 
 </div>
@@ -2603,16 +2491,26 @@ html.age-ok .age-bar{display:none}
 
 <!-- STICKY BUY BAR (phones) -->
 <div class="buybar" id="buybar" aria-hidden="true" inert>
-  <div class="buybar-info">
-    <span class="buybar-variant" id="buybarVariant">four-pack gift box</span>
-    <span class="buybar-price" id="buybarPrice">$28</span>
-    <label class="sr" for="buybarPick">choose gift boxes or the case</label>
-    <select class="buybar-pick" id="buybarPick" onchange="selectVariant(this.value)">
-      <option value="fourpack">gift boxes · from $56</option>
-      <option value="case">the case · $144</option>
-    </select>
+  <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
+  <button class="buybar-btn" type="button" onclick="addToCart()">Buy · $56</button>
+</div>
+
+<!-- EXPRESS PAY: birthday first (wine law), then the wallet sheet -->
+<div class="xp-sheet" id="xpSheet" hidden>
+  <div class="xp-scrim" data-xp-close></div>
+  <div class="xp-panel" role="dialog" aria-modal="true" aria-labelledby="xpTitle">
+    <button class="xp-close" type="button" data-xp-close aria-label="close">✕</button>
+    <h3 id="xpTitle">One quick check</h3>
+    <p class="xp-sub">Wine shipping laws make us ask. An adult 21+ signs at delivery.</p>
+    <label class="xp-label" for="xpDob">Your birthday</label>
+    <input class="xp-dob" id="xpDob" inputmode="numeric" autocomplete="bday" placeholder="MM / DD / YYYY" maxlength="14">
+    <p class="xp-msg" id="xpMsg" role="alert"></p>
+    <div class="xp-pay" id="xpPay">
+      <button class="xp-apple" id="xpApple" type="button" hidden aria-label="pay with apple pay"></button>
+      <div class="xp-google" id="xpGoogle" hidden></div>
+    </div>
+    <p class="xp-total" id="xpTotal"></p>
   </div>
-  <button class="buybar-btn" type="button" onclick="addToCart()">add to bag</button>
 </div>
 
 <!-- CART DRAWER -->
@@ -2666,6 +2564,11 @@ const PRODUCT_IMG = 'shop-hero-750.jpg';
 let selectedVariant = 'fourpack';
 let qty = VARIANTS[selectedVariant].min;
 
+// what the price line says for each option
+const PRICE_LINE = {
+  fourpack: { main: '8 cans · $56',   note: '$7 a can, about 2 bottles of wine' },
+  case:     { main: '24 cans · $144', note: '$6 a can, ships free' }
+};
 function selectVariant(id) {
   if (!VARIANTS[id]) return;
   selectedVariant = id;
@@ -2674,60 +2577,18 @@ function selectVariant(id) {
     el.classList.toggle('selected', v === id);
     el.setAttribute('aria-pressed', v === id);
   });
-  document.getElementById('priceMain').textContent = '$' + (VARIANTS[id].price * VARIANTS[id].min);
-  document.getElementById('priceWas').hidden = id !== 'fourpack';   // the crossed-out $64 is for the gift boxes only
-  document.getElementById('priceNote').textContent = VARIANTS[id].note;
-  const pitch = document.getElementById('variantPitch');
-  pitch.textContent = VARIANTS[id].pitch || '';
-  pitch.classList.toggle('show', !!VARIANTS[id].pitch);
-  qty = VARIANTS[id].min;
-  fillQtyPick();
+  document.getElementById('priceMain').textContent = PRICE_LINE[id].main;
+  document.getElementById('priceNote').textContent = PRICE_LINE[id].note;
+  qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
   syncAddBtn();
 }
 
-// ═══ QUANTITY SELECTOR ═══
-// the "extra gift box" add-on: one more box on top of whatever is picked
-const ADDON_BOX_PRICE = VARIANTS.fourpack.price;
-const addonOn = () => document.getElementById('addonBox').checked;
-function fillQtyPick() {
-  const min = toUnits(selectedVariant, VARIANTS[selectedVariant].min), max = 12 / units(selectedVariant);
-  const sel = document.getElementById('qtyPick');
-  sel.innerHTML = Array.from({ length: max - min + 1 }, (_, i) => '<option value="' + (min + i) + '">' + (min + i) + '</option>').join('');
-  sel.value = String(toUnits(selectedVariant, qty));
-}
+// ═══ THE BUY BUTTONS ═══
+// every buy button says the price of the option that is picked
 function syncAddBtn() {
-  const v = VARIANTS[selectedVariant];
-  const total = '$' + (qty * v.price + (addonOn() ? ADDON_BOX_PRICE : 0));
-  const shown = toUnits(selectedVariant, qty);
-  document.getElementById('qty').textContent = shown;
-  document.getElementById('qtyPick').value = String(shown);
-  // phones read it the rhode way: the product and the price on the button
-  const phone = matchMedia('(max-width:768px)').matches;
-  document.getElementById('addBtn').textContent = phone ? 'buy red wine spritz · ' + total : 'add to bag · ' + total;
-  const bbBtn = document.querySelector('.buybar-btn');
-  if (bbBtn) bbBtn.textContent = phone ? 'buy · ' + total : 'add to bag';
-  const bbPick = document.getElementById('buybarPick');
-  if (bbPick) bbPick.value = selectedVariant;
-  document.getElementById('buybarVariant').textContent = selectedVariant === 'fourpack' ? shown + ' ' + v.short : (shown > 1 ? shown + ' × ' : '') + v.short;
-  renderBonuses();
-  document.getElementById('buybarPrice').textContent = total;
-}
-function renderBonuses() {
-  const el = document.getElementById('bonusList');
-  if (!el) return;
-  const b = VARIANTS[selectedVariant].bonuses;
-  el.innerHTML = b ? b.map(x => '<li>' + x + '</li>').join('') : '';
-  el.hidden = !b;
-}
-document.getElementById('qtyPick').addEventListener('change', e => {
-  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, (parseInt(e.target.value, 10) || 1) * units(selectedVariant)));
-  syncAddBtn();
-});
-document.getElementById('addonBox').addEventListener('change', syncAddBtn);
-function updateQty(delta) {
-  const u = units(selectedVariant);
-  qty = Math.min(12, Math.max(VARIANTS[selectedVariant].min, qty + delta * u));
-  syncAddBtn();
+  const total = '$' + (qty * VARIANTS[selectedVariant].price);
+  document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = 'Buy · ' + total; });
+  if (window.xpSync) window.xpSync();
 }
 
 // ═══ CART STATE (localStorage) ═══
@@ -2815,9 +2676,7 @@ function saveCart(cart) {
 function addToCart() {
   const cart = getCart();
   cart[selectedVariant] += qty;
-  if (addonOn()) cart.fourpack += 1;          // a single extra box rides on any order
   saveCart(cart);
-  document.getElementById('addonBox').checked = false;
   syncAddBtn();
   openDrawer();
 }
@@ -3100,11 +2959,18 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
   }).observe(document.getElementById('addBtn'));
 })();
 
+// ═══ DELIVERY PROMISE ═══
+// edit these two when shipping times change
+const SHIPS_IN_DAYS = '1 to 2';      // business days to leave los angeles
+const ARRIVES_IN_DAYS = '3 to 5';    // business days in transit, ups ground
+document.getElementById('shipLine').textContent =
+  'Ships in ' + SHIPS_IN_DAYS + ' business days · arrives in ' + ARRIVES_IN_DAYS + ' with UPS Ground.';
+
 // ═══ WHERE WE SHIP ═══
 // the list lives in vinoshipper, so adding a state in the dashboard updates
 // the page on its own. the markup carries today's list for when this can't run.
+let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipper has loaded
 (function () {
-  const line = document.getElementById('shipLine');
   const list = document.getElementById('mfStates');
   let tries = 0;
   const tick = setInterval(function () {
@@ -3112,9 +2978,10 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
     const to = d && Array.isArray(d.shipsTo) ? d.shipsTo : null;
     if (to && to.length) {
       clearInterval(tick);
+      SHIP_STATES = to.map(s => s.abbr);
       const dc = to.some(s => s.abbr === 'DC');
       const states = to.length - (dc ? 1 : 0);
-      if (line) line.textContent = 'ships ups to ' + states + ' states' + (dc ? ' + dc' : '') + ' ✦ pick your speed at checkout ✦ an adult 21+ signs for it';
+      document.querySelectorAll('.ship-states').forEach(el => { el.textContent = states + ' states' + (dc ? ' + DC' : ''); });
       if (list) list.textContent = to.map(s => s.abbr.toLowerCase()).join(' · ');
     } else if (++tries > 20) {
       clearInterval(tick);
@@ -3133,6 +3000,34 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
   const DELAY = 3000;
   const still = matchMedia('(prefers-reduced-motion: reduce)');
   let i = 0, timer = null;
+
+  /* phones: a swipeable row with the next photo peeking in at the right
+     edge. no fading and no autoplay; the dots follow the swipe and jump to a
+     photo when tapped. computers keep the fading slideshow below. */
+  if (matchMedia('(max-width:768px)').matches) {
+    wrap.classList.add('is-swipe');
+    slides.forEach((_, n) => {
+      const b = document.createElement('button');
+      b.className = 'hero-dot';
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'photo ' + (n + 1) + ' of ' + slides.length);
+      b.setAttribute('aria-selected', n === 0);
+      b.addEventListener('click', () => wrap.scrollTo({ left: slides[n].offsetLeft, behavior: still.matches ? 'auto' : 'smooth' }));
+      dots.appendChild(b);
+    });
+    const dotEls = [...dots.children];
+    let raf = 0;
+    wrap.addEventListener('scroll', () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const step = slides[1].offsetLeft - slides[0].offsetLeft;
+        const n = Math.max(0, Math.min(slides.length - 1, Math.round(wrap.scrollLeft / step)));
+        dotEls.forEach((d, k) => d.setAttribute('aria-selected', k === n));
+      });
+    }, { passive: true });
+    return;
+  }
 
   slides.forEach((_, n) => {
     const b = document.createElement('button');
@@ -3190,8 +3085,8 @@ document.querySelectorAll('.mobile-header .links a').forEach(a => {
 })();
 
 // ═══ INIT ═══
-// go through selectVariant, not syncAddBtn, so the price row, note, pitch and
-// bonus list come from VARIANTS on first paint instead of the static markup
+// go through selectVariant, not syncAddBtn, so the price line and every buy
+// button come from the picked option on first paint
 selectVariant(selectedVariant);
 updateCartUI();
 </script>
@@ -3262,6 +3157,193 @@ function updateStampCounter(){
     document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
     document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
   }catch(e){}
+})();
+</script>
+
+<script>
+/* ═══ EXPRESS PAY: apple pay / google pay from the product page ═══
+   wine can't ship without a birthday, and wallets don't carry one, so the
+   black button opens a small sheet that asks for it first. the wallet button
+   inside that sheet starts the payment straight from the tap (apple requires
+   it). the wallet hands back the shipping address, then the order goes
+   through the same /quote and /pay as checkout: priced and checked against
+   shipping rules with the real address before anything is charged. on a
+   device with no wallet the black button never appears. */
+(function () {
+  const API = 'https://himaisonmaxine.com/api';
+  const PRODUCT_IDS = { fourpack: '185926', case: '200144' };   // vinoshipper ids, as in checkout.html
+  const FLAT_SHIPPING = 7, FREE_SHIPPING_FROM = 100;            // mirrors netlify/functions/_pricing.js
+  const T = (name, standard, params) => (window.mmQ = window.mmQ || []).push([name, standard, params]);
+  const byId = id => document.getElementById(id);
+  const sheet = byId('xpSheet'), dobEl = byId('xpDob'), msgEl = byId('xpMsg');
+  const pageButtons = [...document.querySelectorAll('.xpay-btn')];
+  let payments = null, req = null, apple = null, google = null, googleAttached = false, busy = false;
+
+  const STATES = {alabama:'AL',alaska:'AK',arizona:'AZ',arkansas:'AR',california:'CA',colorado:'CO',connecticut:'CT',delaware:'DE','district of columbia':'DC',florida:'FL',georgia:'GA',hawaii:'HI',idaho:'ID',illinois:'IL',indiana:'IN',iowa:'IA',kansas:'KS',kentucky:'KY',louisiana:'LA',maine:'ME',maryland:'MD',massachusetts:'MA',michigan:'MI',minnesota:'MN',mississippi:'MS',missouri:'MO',montana:'MT',nebraska:'NE',nevada:'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM','new york':'NY','north carolina':'NC','north dakota':'ND',ohio:'OH',oklahoma:'OK',oregon:'OR',pennsylvania:'PA','rhode island':'RI','south carolina':'SC','south dakota':'SD',tennessee:'TN',texas:'TX',utah:'UT',vermont:'VT',virginia:'VA',washington:'WA','west virginia':'WV',wisconsin:'WI',wyoming:'WY'};
+  const stateCode = v => { v = String(v || '').trim(); return v.length === 2 ? v.toUpperCase() : (STATES[v.toLowerCase()] || ''); };
+
+  function amounts() {
+    const sub = qty * VARIANTS[selectedVariant].price;
+    const ship = sub >= FREE_SHIPPING_FROM ? 0 : FLAT_SHIPPING;
+    return {
+      lineItems: [
+        { label: selectedVariant === 'case' ? 'Red Wine Spritz, 24 cans' : 'Red Wine Spritz, 8 cans', amount: sub.toFixed(2) },
+        { label: 'Shipping', amount: ship.toFixed(2) }
+      ],
+      taxLineItems: [{ label: 'Sales tax', amount: '0.00', pending: true }],
+      total: { label: 'Maison Maxine', amount: (sub + ship).toFixed(2), pending: true }
+    };
+  }
+  window.xpSync = function () {
+    if (req) { try { req.update(amounts()); } catch (e) {} }
+    const a = amounts();
+    byId('xpTotal').textContent = a.lineItems[0].label + ' · $' + Number(a.lineItems[0].amount) +
+      (Number(a.lineItems[1].amount) ? ' + $' + Number(a.lineItems[1].amount) + ' shipping' : ', ships free') + ', plus tax';
+  };
+
+  /* ── the birthday ── */
+  function readDob() {
+    const d = dobEl.value.replace(/\D/g, '');
+    if (d.length !== 8) return null;
+    const v = { month: +d.slice(0, 2), day: +d.slice(2, 4), year: +d.slice(4, 8) };
+    const dt = new Date(Date.UTC(v.year, v.month - 1, v.day));
+    if (v.year < 1900 || dt.getUTCMonth() !== v.month - 1 || dt.getUTCDate() !== v.day) return null;
+    return v;
+  }
+  function ofAge(v) {
+    const cutoff = new Date();
+    cutoff.setUTCFullYear(cutoff.getUTCFullYear() - 21);
+    return new Date(Date.UTC(v.year, v.month - 1, v.day)) <= cutoff;
+  }
+  dobEl.addEventListener('input', () => {
+    const d = dobEl.value.replace(/\D/g, '').slice(0, 8);
+    dobEl.value = d.length > 4 ? d.slice(0, 2) + ' / ' + d.slice(2, 4) + ' / ' + d.slice(4)
+                : d.length > 2 ? d.slice(0, 2) + ' / ' + d.slice(2) : d;
+    say('');
+  });
+  function say(text, kind) { msgEl.textContent = text; msgEl.className = 'xp-msg' + (kind ? ' is-' + kind : ''); }
+
+  /* ── the sheet ── */
+  function openSheet() {
+    window.xpSync();
+    say('');
+    sheet.hidden = false;
+    document.body.classList.add('xp-open');
+    if (google && !googleAttached) {
+      googleAttached = true;
+      google.attach('#xpGoogle', { buttonColor: 'black', buttonSizeMode: 'fill', buttonType: 'buy' }).catch(() => {});
+    }
+    setTimeout(() => dobEl.focus(), 50);
+  }
+  function closeSheet() {
+    if (busy) return;
+    sheet.hidden = true;
+    document.body.classList.remove('xp-open');
+  }
+  pageButtons.forEach(b => b.addEventListener('click', openSheet));
+  sheet.addEventListener('click', e => { if (e.target.closest('[data-xp-close]')) closeSheet(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
+
+  /* ── paying ── no await may come before tokenize(): the wallet only opens from the tap itself */
+  function start(method) {
+    if (busy) return;
+    const d = readDob();
+    if (!d) return say('add your birthday as MM / DD / YYYY', 'error');
+    if (!ofAge(d)) return say('sorry, you have to be 21 or older to order.', 'error');
+    busy = true;
+    say('');
+    method.tokenize().then(r => finish(r, d), () => { busy = false; say('that did not go through. you have not been charged.', 'error'); });
+  }
+  byId('xpApple').addEventListener('click', () => apple && start(apple));
+  byId('xpGoogle').addEventListener('click', () => google && start(google));
+
+  async function finish(r, dob) {
+    if (!r || r.status !== 'OK') { busy = false; return; }          // they closed the wallet
+    const c = (r.details && r.details.shipping && r.details.shipping.contact) || {};
+    const b = (r.details && r.details.billing) || {};
+    const email = c.email || b.email || '', phone = c.phone || b.phone || '';
+    const ship = {
+      firstName: c.givenName || b.givenName || '', lastName: c.familyName || b.familyName || '',
+      street1: (c.addressLines || [])[0] || '', street2: (c.addressLines || [])[1] || '',
+      city: c.city || '', stateCode: stateCode(c.state), postalCode: String(c.postalCode || '').slice(0, 10),
+      country: 'US', phone: { number: phone }
+    };
+    if (!email || !ship.street1 || !ship.stateCode) {
+      busy = false;
+      return say('your wallet did not share an email and full address, so nothing was charged. tap Buy to check out instead.', 'error');
+    }
+    const customer = { firstName: ship.firstName, lastName: ship.lastName, fullName: (ship.firstName + ' ' + ship.lastName).trim(),
+                       email, wholesale: false, dateOfBirth: dob, address: ship };
+    const items = [{ productId: PRODUCT_IDS[selectedVariant], quantity: qty }];
+    let creatorCode = '';
+    try { creatorCode = localStorage.getItem('maisonMaxineCode') || ''; } catch (e) {}
+    const post = (path, body) => fetch(API + path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+      .then(res => res.json().then(d => ({ res, d })));
+    say('placing your order...', 'busy');
+    try {
+      // 1. price it with the real address; nothing is charged if this says no
+      const q = await post('/quote', { customer, shipToAddress: ship, items, creatorCode });
+      if (!q.res.ok || q.d.compliant === false) {
+        const why = q.res.ok ? (q.d.problems || []).join(' ') : (q.d.error || 'we could not price that order');
+        T('CheckoutBlocked', false, { reason: String(why).slice(0, 100), step: q.res.ok ? 'compliance' : (q.d.step || 'quote') });
+        busy = false;
+        return say(why + ' you have not been charged.', 'error');
+      }
+      // 2. charge and place the order
+      const key = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
+      const p = await post('/pay', { customer, shipToAddress: ship, items, creatorCode, sourceId: r.token,
+                                     idempotencyKey: key, expectedTotalCents: q.d.cents.total });
+      if (p.res.ok && p.d.ok) {
+        const boxes = selectedVariant === 'case' ? 6 * qty : qty;
+        try { sessionStorage.setItem('mmPurchase', JSON.stringify({ order: String(p.d.orderNumber), value: q.d.cents.total / 100, boxes })); } catch (e) {}
+        window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(p.d.orderNumber);
+        return;
+      }
+      T('PaymentFailed', false, { reason: String(p.d.error || 'declined').slice(0, 100), status: p.res.status });
+      busy = false;
+      say(p.d.error || 'that payment did not go through. you have not been charged.', 'error');
+    } catch (e) {
+      T('PaymentFailed', false, { reason: 'network' });
+      busy = false;
+      say('we could not reach checkout. please try again.', 'error');
+    }
+  }
+
+  /* ── set up after the page has loaded, so it never slows the first paint ── */
+  function loadScript(src) {
+    return new Promise((ok, bad) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = bad; document.head.appendChild(s); });
+  }
+  async function init() {
+    try {
+      const res = await fetch(API + '/config', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      const cfg = await res.json();
+      if (!res.ok || !cfg.applicationId) return;
+      await loadScript(cfg.sandbox ? 'https://sandbox.web.squarecdn.com/v1/square.js' : 'https://web.squarecdn.com/v1/square.js');
+      payments = window.Square.payments(cfg.applicationId, cfg.locationId);
+      req = payments.paymentRequest(Object.assign({ countryCode: 'US', currencyCode: 'USD',
+        requestShippingContact: true, requestBillingContact: true }, amounts()));
+      // the wallet says which state before they pay; turn away the ones we can't ship to
+      req.addEventListener('shippingcontactchanged', contact => {
+        const st = stateCode(contact && contact.state);
+        if (st && Array.isArray(SHIP_STATES) && !SHIP_STATES.includes(st)) return { error: "we can't ship wine to " + st + ' yet' };
+        return amounts();
+      });
+      try { apple = await payments.applePay(req); } catch (e) { apple = null; }
+      if (!apple) { try { google = await payments.googlePay(req); } catch (e) { google = null; } }
+      if (!apple && !google) return;
+      const kind = apple ? 'apple' : 'google';
+      pageButtons.forEach(b => {
+        b.classList.add('is-' + kind);
+        b.setAttribute('aria-label', apple ? 'buy with apple pay' : 'buy with google pay');
+        if (!apple) b.textContent = 'G Pay';
+        b.hidden = false;
+      });
+      byId(apple ? 'xpApple' : 'xpGoogle').hidden = false;
+      document.body.classList.add('has-xpay');
+    } catch (e) { /* no wallet: buy still works */ }
+  }
+  if (document.readyState === 'complete') setTimeout(init, 800);
+  else window.addEventListener('load', () => setTimeout(init, 800));
 })();
 </script>
 
