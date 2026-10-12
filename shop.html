@@ -1639,6 +1639,11 @@ div[style*="position: fixed"][style*="vinoshipper"],
   font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;
   font-size:19px;line-height:1.4;color:#d371a1;margin:6px 0 10px;
 }
+.pd-pack{
+  font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:#5a3a4a;line-height:1.7;margin:8px 0 0;
+}
+.pd-pack span{color:#d371a1}
 .pd-sub.below-btn{margin-top:10px;text-align:center}
 .guarantee{
   margin-top:12px;text-align:center;
@@ -1881,6 +1886,8 @@ html.age-ok .age-bar{display:none}
     font-family:'Klickclack Swash','Great Vibes',cursive !important;
     font-size:min(38px, 9.3vw) !important;white-space:nowrap;font-weight:400 !important;letter-spacing:0 !important;line-height:1.1 !important;text-shadow:none !important;
   }
+  #main .pd-pack{order:2;margin:0 0 6px !important;color:var(--rh-ink) !important;font-size:14px !important;font-weight:400 !important;letter-spacing:.01em !important;text-transform:none !important;line-height:1.45 !important}
+  #main .pd-pack span{color:var(--rh-pink) !important}
   #main .pd-promise{order:2;margin:0 0 10px !important;color:var(--rh-ink) !important;font-size:13.5px !important;font-weight:700 !important;letter-spacing:.04em;text-transform:uppercase;line-height:1.4 !important}
   #main .pd-rating{order:3;display:flex !important;align-items:center;gap:6px;margin:0 0 16px !important;text-decoration:none}
   #main .pd-stars{color:var(--rh-ink) !important;font-size:14px !important;letter-spacing:.04em}
@@ -2234,6 +2241,7 @@ html.age-ok .age-bar{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
+      <p class="pd-pack">8 cans per order <span aria-hidden="true">✦</span> equivalent to 2 bottles <span aria-hidden="true">✦</span> in collectible gift boxes</p>
       <p class="pd-promise">never buy another bottle of wine again ✦</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read all 7 reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span><span class="pd-count">7 reviews</span></a>
       <a class="pd-proof" href="store-locator.html">sold in 17 shops, including monsieur marcel, farmshop &amp; happier grocery</a>
