@@ -1868,7 +1868,7 @@ html.age-ok .age-bar{display:none}
   #main .hero-slide{height:100%}
   /* dots under the photo: each is a 32px-wide tap target around an 9px dot */
   #main .hero-dots{position:static !important;display:flex !important;justify-content:center;gap:2px !important;margin:6px 0 0 !important;height:auto;background:none;border-radius:0;overflow:visible}
-  #main .hero-dot{flex:0 0 auto;position:relative;width:32px !important;height:32px !important;padding:0 !important;margin:0 !important;border:none !important;border-radius:0 !important;background:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  #main .hero-dot{flex:0 0 auto;position:relative;width:32px !important;height:32px !important;padding:0 !important;margin:0 !important;border:none !important;border-radius:0 !important;background:none !important;box-shadow:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}
   #main .hero-dot::after{content:'';position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:var(--rh-line);transition:background .2s, transform .2s}
   #main .hero-dot[aria-selected="true"]::after{background:var(--rh-pink);transform:translate(-50%,-50%) scale(1.15)}
 
@@ -2219,6 +2219,10 @@ html.age-ok .age-bar{display:none}
         <picture class="hero-slide">
           <source media="(max-width:768px)" srcset="shop-hero-750.jpg">
           <img class="main-img" src="shop-hero.jpg" alt="a maison maxine red wine spritzer can held up to a kiss" decoding="async">
+        </picture>
+        <picture class="hero-slide">
+          <source media="(max-width:768px)" srcset="golden-hour-toast-760.jpg">
+          <img class="main-img" src="golden-hour-toast.jpg" alt="two maison maxine cans raised in a toast at golden hour" decoding="async">
         </picture>
         <button class="hero-nav hero-prev" id="heroPrev" type="button" aria-label="previous photo">&lsaquo;</button>
         <button class="hero-nav hero-next" id="heroNext" type="button" aria-label="next photo">&rsaquo;</button>
