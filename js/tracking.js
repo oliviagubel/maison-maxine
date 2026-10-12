@@ -306,7 +306,7 @@
        add-on and rewrites the button price */
     document.addEventListener('click', function (e) {
       var t = e.target;
-      if (!t || !t.closest || !t.closest('#addBtn, .buybar-btn')) return;
+      if (!t || !t.closest || !t.closest('#addBtn, .buybar-btn, .xpay-btn')) return;
       var c = chosen();
       // fires on every add, not once per page: adding twice is two adds
       track('AddToCart', true, {
@@ -333,13 +333,14 @@
       if (!t || !t.closest) return;
       var hit = t.closest(
         'vinoshipper-cart, vinoshipper-cart-icon, [class*="vinoshipper"], ' +
-        '.drawer-checkout, ' +
+        '.drawer-checkout, .xpay-btn, ' +
         'a[href*="vinoshipper.com/cart"], a[href*="/apps/checkout"]'
       );
       if (!hit) return;
       track('InitiateCheckout', true, {
         content_name: 'Red Wine Spritz',
-        value: cartValue(),
+        // express pay skips the bag, so its value is the picked option
+        value: hit.classList.contains('xpay-btn') ? chosen().value : cartValue(),
         currency: 'USD'
       });
     }, true);

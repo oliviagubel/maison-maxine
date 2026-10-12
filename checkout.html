@@ -226,7 +226,7 @@ select + .ok{right:38px}
   <div class="card">
     <h2>birthday</h2>
     <div class="f" id="f-dob"><label for="dob">birthday</label><div class="box"><input id="dob" inputmode="numeric" autocomplete="bday" placeholder="MM / DD / YYYY" maxlength="14" required></div>
-      <div class="hint">wine shipping laws make us ask. an adult 21+ signs for it at the door.</div>
+      <div class="hint">21+ only. wine shipping laws make us check your birthday here, and an adult 21+ signs at delivery. we ship to <span class="ship-count">36 states + dc</span>.</div>
     </div>
   </div>
 
@@ -391,6 +391,7 @@ function fillStates(list){
   if (keep && list.includes(keep)) $('state').value = keep;
   const n = list.filter(s => s !== 'DC').length;
   $('stateHint').textContent = 'ships to ' + n + ' states' + (list.includes('DC') ? ' + dc' : '');
+  document.querySelectorAll('.ship-count').forEach(el => { el.textContent = n + ' states' + (list.includes('DC') ? ' + dc' : ''); });
 }
 fillStates(FALLBACK_STATES);
 fetch(API + '/catalog', { method:'POST', headers:{'Content-Type':'application/json'}, body:'{}' })
