@@ -1866,9 +1866,11 @@ html.age-ok .age-bar{display:none}
   #main .hero-slides{border-radius:0 !important;aspect-ratio:4/5;height:auto !important}
   #main .hero-slides .main-img{width:100% !important;height:100% !important;aspect-ratio:auto !important;object-fit:cover;border-radius:0 !important}
   #main .hero-slide{height:100%}
-  #main .hero-dots{position:static !important;display:flex !important;gap:0 !important;margin:12px 16px 0 !important;height:3px;background:var(--rh-line);border-radius:2px;overflow:hidden}
-  #main .hero-dot{flex:1;width:auto !important;height:3px !important;border-radius:0 !important;border:none !important;background:transparent !important;padding:0;margin:0}
-  #main .hero-dot[aria-selected="true"]{background:var(--rh-pink) !important}
+  /* dots under the photo: each is a 32px-wide tap target around an 9px dot */
+  #main .hero-dots{position:static !important;display:flex !important;justify-content:center;gap:2px !important;margin:6px 0 0 !important;height:auto;background:none;border-radius:0;overflow:visible}
+  #main .hero-dot{flex:0 0 auto;position:relative;width:32px !important;height:32px !important;padding:0 !important;margin:0 !important;border:none !important;border-radius:0 !important;background:none !important;cursor:pointer;-webkit-tap-highlight-color:transparent}
+  #main .hero-dot::after{content:'';position:absolute;left:50%;top:50%;width:9px;height:9px;transform:translate(-50%,-50%);border-radius:50%;background:var(--rh-line);transition:background .2s, transform .2s}
+  #main .hero-dot[aria-selected="true"]::after{background:var(--rh-pink);transform:translate(-50%,-50%) scale(1.15)}
 
   #main .product-details{
     display:flex !important;flex-direction:column;margin:0 !important;padding:24px 20px 26px !important;
