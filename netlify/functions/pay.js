@@ -21,10 +21,11 @@ const { json, handler } = require('./_lib');
 const { vs } = require('./_vs');
 const { square, declineMessage } = require('./_square');
 const { priceBasket, money } = require('./_basket');
+const { sendPurchase, purchaseData } = require('./_meta');
 
-exports.handler = handler(async (body, origin) => {
+exports.handler = handler(async (body, origin, event) => {
   const { customer, shipToAddress, items, creatorCode, sourceId, verificationToken,
-          idempotencyKey, expectedTotalCents } = body || {};
+          idempotencyKey, expectedTotalCents, browser } = body || {};
 
   if (!sourceId)                       return json(400, { error: 'card details are missing' }, origin);
   if (!idempotencyKey || String(idempotencyKey).length > 45) {
@@ -143,5 +144,10 @@ exports.handler = handler(async (body, origin) => {
   console.log('[pay] order', orderNumber, 'paid', payment.id, money(b.cents.total),
               '| charged shipping', money(b.cents.shipping), '| carrier cost', b.carrierCost);
 
-  return json(200, { ok: true, orderNumber }, origin);
+  // the server's copy of the Purchase event (meta conversions api), same
+  // event id as the browser's, so meta counts the sale once
+  await sendPurchase({ orderNumber, basket: b, customer, shipToAddress, event, browser });
+
+  // the page fires the browser copy with exactly these numbers
+  return json(200, { ok: true, orderNumber, purchase: purchaseData(b) }, origin);
 });

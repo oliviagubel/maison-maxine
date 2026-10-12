@@ -43,12 +43,17 @@ try { localStorage.removeItem('maisonMaxineCart'); } catch(e){}
 var id = new URLSearchParams(location.search).get('order');
 if (id) document.getElementById('ref').textContent = 'order ' + id;
 
-/* the last step of the funnel. checkout left the amount behind; it is read
-   once and cleared, so a refresh of this page never counts a second sale */
+/* the last step of the funnel. the server priced the paid order and checkout
+   left those numbers behind; they are read once and cleared, so a refresh of
+   this page never counts a second sale. the order number is the event id, the
+   same one the server sends meta, so the two copies count as one purchase. */
 try {
   var p = JSON.parse(sessionStorage.getItem('mmPurchase'));
   if (p && id && p.order === id) {
-    (window.mmQ = window.mmQ || []).push(['Purchase', true, { value: p.value, currency: 'USD', num_items: p.boxes, content_name: 'Red Wine Spritz' }]);
+    (window.mmQ = window.mmQ || []).push(['Purchase', true, {
+      value: p.value, currency: 'USD', content_ids: p.content_ids, content_type: 'product',
+      num_items: p.num_items, content_name: 'Red Wine Spritz'
+    }, { eventID: p.order }]);
     sessionStorage.removeItem('mmPurchase');
   }
 } catch(e){}

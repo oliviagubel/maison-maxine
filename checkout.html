@@ -767,6 +767,15 @@ function syncGo(){
 /* ═══ PAY ═══
    square turns the card (or apple pay) into a one-time token; only the token
    goes to our server, which re-prices everything, charges, and places the order. */
+/* what meta's server-side copy of the purchase needs from the browser: the
+   pixel's own cookies (ties the sale to the ad click), the page, and whether
+   this shopper opted out of tracking (then nothing is sent from the server) */
+function browserInfo(){
+  const ck = n => (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1] || '';
+  let optOut = false;
+  try { optOut = localStorage.getItem('mmDoNotSell') === '1'; } catch(e){}
+  return { fbp: ck('_fbp'), fbc: ck('_fbc'), sourceUrl: location.href.split('#')[0], optOut };
+}
 async function submitPayment(token){
   if (!attemptKey) attemptKey = newKey();
   try{
@@ -777,13 +786,16 @@ async function submitPayment(token){
         creatorCode: v('code'),
         sourceId: token,
         idempotencyKey: attemptKey,
-        expectedTotalCents: quote.cents.total
+        expectedTotalCents: quote.cents.total,
+        browser: browserInfo()
       })
     });
     const d = await res.json();
     if (res.ok && d.ok){
       // the confirmation page reports the purchase; this is what it reports
-      try { sessionStorage.setItem('mmPurchase', JSON.stringify({ order: String(d.orderNumber), value: quote.cents.total / 100, boxes: boxesInCart() })); } catch(e){}
+      const fallback = { value: (quote.cents.subtotal - (quote.cents.discount || 0)) / 100, num_items: boxesInCart(),
+                         content_ids: items().map(i => String(i.productId)) };
+      try { sessionStorage.setItem('mmPurchase', JSON.stringify(Object.assign({ order: String(d.orderNumber) }, fallback, d.purchase))); } catch(e){}
       window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(d.orderNumber);
       return;
     }

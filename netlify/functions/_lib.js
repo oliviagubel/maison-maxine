@@ -56,7 +56,7 @@ function handler(fn) {
     }
 
     try {
-      return await fn(body, origin);
+      return await fn(body, origin, event);
     } catch (e) {
       // log server-side only; the browser gets nothing useful to an attacker
       console.error('[checkout] unhandled:', e && e.message);

@@ -92,7 +92,7 @@
      ScrollDepth passes its own key per threshold, since that one is meant to
      fire four times. */
   var sent = {};
-  function track(name, standard, params, key, clarityName) {
+  function track(name, standard, params, key, clarityName, opts) {
     key = key || name;
     if (sent[key]) { log('skipped (already sent this page):', key); return; }
     sent[key] = true;
@@ -106,7 +106,9 @@
     Object.keys(utm).forEach(function (k) { payload[k] = utm[k]; });
 
     try {
-      if (window.fbq) fbq(standard ? 'track' : 'trackCustom', name, payload);
+      // an eventID lets meta pair this with the server's copy and count it once
+      var eid = opts && opts.eventID ? { eventID: String(opts.eventID) } : undefined;
+      if (window.fbq) fbq(standard ? 'track' : 'trackCustom', name, payload, eid);
     } catch (e) { log('fbq failed', e); }
     try {
       // clarity custom events take a name only, so anything that varies is
@@ -119,7 +121,7 @@
   /* pages report their own steps through mmTrack (checkout, order confirmed).
      this file loads deferred, so a page's own script can run first: anything
      it reported before now waits in window.mmQ and is sent here. */
-  window.mmTrack = function (name, standard, params) { track(name, !!standard, params); };
+  window.mmTrack = function (name, standard, params, opts) { track(name, !!standard, params, null, null, opts); };
   (window.mmQ || []).forEach(function (a) { window.mmTrack.apply(null, a); });
   window.mmQ = { push: function (a) { window.mmTrack.apply(null, a); } };
 
@@ -298,7 +300,7 @@
       var btn = document.getElementById('addBtn');
       var m = btn && /\$(\d+)/.exec(btn.textContent);
       var isCase = el && el.id === 'variant-case';
-      return { option: isCase ? 'case' : 'gift boxes', value: m ? +m[1] : (isCase ? 144 : 56) };
+      return { option: isCase ? 'case' : 'gift boxes', sku: isCase ? '200144' : '185926', value: m ? +m[1] : (isCase ? 144 : 56) };
     }
 
     /* ── 7. add to cart (both the main button and the sticky bar) ──────
@@ -312,6 +314,7 @@
       track('AddToCart', true, {
         content_name: 'Red Wine Spritz',
         content_type: 'product',
+        content_ids: [c.sku],
         option: c.option,
         value: c.value,
         currency: 'USD'
@@ -339,8 +342,9 @@
       if (!hit) return;
       track('InitiateCheckout', true, {
         content_name: 'Red Wine Spritz',
+        content_type: 'product',
         // express pay skips the bag, so its value is the picked option
-        value: hit.classList.contains('xpay-btn') ? chosen().value : cartValue(),
+        value: (hit.classList.contains('xpay-btn') ? null : cartValue()) || chosen().value,
         currency: 'USD'
       });
     }, true);

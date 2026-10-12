@@ -3257,6 +3257,15 @@ function updateStampCounter(){
   byId('xpApple').addEventListener('click', () => apple && start(apple));
   byId('xpGoogle').addEventListener('click', () => google && start(google));
 
+  /* what meta's server-side copy of the purchase needs from the browser: the
+     pixel's own cookies (ties the sale to the ad click), the page, and whether
+     this shopper opted out of tracking (then nothing is sent from the server) */
+  function browserInfo(){
+    const ck = n => (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1] || '';
+    let optOut = false;
+    try { optOut = localStorage.getItem('mmDoNotSell') === '1'; } catch(e){}
+    return { fbp: ck('_fbp'), fbc: ck('_fbc'), sourceUrl: location.href.split('#')[0], optOut };
+  }
   async function finish(r, dob) {
     if (!r || r.status !== 'OK') { busy = false; return; }          // they closed the wallet
     const c = (r.details && r.details.shipping && r.details.shipping.contact) || {};
@@ -3292,10 +3301,11 @@ function updateStampCounter(){
       // 2. charge and place the order
       const key = (crypto.randomUUID ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2));
       const p = await post('/pay', { customer, shipToAddress: ship, items, creatorCode, sourceId: r.token,
-                                     idempotencyKey: key, expectedTotalCents: q.d.cents.total });
+                                     idempotencyKey: key, expectedTotalCents: q.d.cents.total, browser: browserInfo() });
       if (p.res.ok && p.d.ok) {
-        const boxes = selectedVariant === 'case' ? 6 * qty : qty;
-        try { sessionStorage.setItem('mmPurchase', JSON.stringify({ order: String(p.d.orderNumber), value: q.d.cents.total / 100, boxes })); } catch (e) {}
+        const fallback = { value: (q.d.cents.subtotal - (q.d.cents.discount || 0)) / 100,
+                           num_items: selectedVariant === 'case' ? 6 * qty : qty, content_ids: [PRODUCT_IDS[selectedVariant]] };
+        try { sessionStorage.setItem('mmPurchase', JSON.stringify(Object.assign({ order: String(p.d.orderNumber) }, fallback, p.d.purchase))); } catch (e) {}
         window.location.href = 'order-confirmed.html?order=' + encodeURIComponent(p.d.orderNumber);
         return;
       }
