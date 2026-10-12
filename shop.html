@@ -1822,7 +1822,8 @@ html.age-ok .age-bar{display:none}
 .buy-row{display:flex;gap:10px;align-items:stretch}
 .buy-row .add-btn{flex:1}
 .xpay-btn{flex:1;min-height:52px;border:none;border-radius:12px;cursor:pointer;background:#000;color:#fff;font-size:17px;font-weight:600;letter-spacing:.02em}
-.xpay-btn.is-apple{-webkit-appearance:-apple-pay-button;-apple-pay-button-type:plain;-apple-pay-button-style:black;font-size:0}
+/* pink by choice: apple's own button only comes in black or white */
+.xpay-btn.is-apple,.xp-apple{-webkit-appearance:none;appearance:none;background:#f7c9df;color:#34212b;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif !important;font-size:18px;font-weight:600;letter-spacing:0}
 .trust-rows{list-style:none;margin:16px 0 0;padding:0}
 .trust-rows li{display:flex;align-items:center;gap:12px;padding:6px 0;font-size:15px;color:#34212b}
 .trust-rows svg{flex:0 0 22px;width:22px;height:22px;fill:none;stroke:#34212b;stroke-width:1.5;stroke-linejoin:round;stroke-linecap:round}
@@ -1851,7 +1852,6 @@ html.age-ok .age-bar{display:none}
 .xp-msg.is-error{color:#a3324f}
 .xp-msg.is-busy{color:#34212b}
 .xp-apple,.xp-google{display:block;width:100%;height:52px;border:none;border-radius:12px;cursor:pointer}
-.xp-apple{-webkit-appearance:-apple-pay-button;-apple-pay-button-type:buy;-apple-pay-button-style:black}
 .xp-apple[hidden],.xp-google[hidden]{display:none}
 .xp-total{margin:12px 0 0;font-size:14px;color:#6a4a5a;text-align:center}
 
@@ -3335,9 +3335,10 @@ function updateStampCounter(){
       pageButtons.forEach(b => {
         b.classList.add('is-' + kind);
         b.setAttribute('aria-label', apple ? 'buy with apple pay' : 'buy with google pay');
-        if (!apple) b.textContent = 'G Pay';
+        b.textContent = apple ? '\uF8FF Pay' : 'G Pay';
         b.hidden = false;
       });
+      if (apple) byId('xpApple').textContent = 'Buy with \uF8FF Pay';
       byId(apple ? 'xpApple' : 'xpGoogle').hidden = false;
       document.body.classList.add('has-xpay');
     } catch (e) { /* no wallet: buy still works */ }
