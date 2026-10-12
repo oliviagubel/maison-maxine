@@ -1644,6 +1644,8 @@ div[style*="position: fixed"][style*="vinoshipper"],
   text-transform:uppercase;color:#5a3a4a;line-height:1.7;margin:8px 0 0;
 }
 .pd-pack span{color:#d371a1}
+.price-was{color:#a88a99;font-weight:400;text-decoration:line-through;text-decoration-thickness:1.5px;margin-right:6px}
+.price-was[hidden]{display:none}
 .pd-sub.below-btn{margin-top:10px;text-align:center}
 .guarantee{
   margin-top:12px;text-align:center;
@@ -2244,6 +2246,7 @@ html.age-ok .age-bar{display:none}
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read the reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span></a>
       <a class="pd-proof" href="store-locator.html">sold in 17 shops, including monsieur marcel, farmshop &amp; happier grocery</a>
       <div class="price-row">
+        <s class="price-was" id="priceWas" aria-label="was $64">$64</s>
         <span class="price" id="priceMain">$56</span>
         <span class="price-note" id="priceNote">2 luxury gift boxes · 8 cans · 250ml each</span>
       </div>
@@ -2277,7 +2280,7 @@ html.age-ok .age-bar{display:none}
           <button class="variant-opt selected" id="variant-fourpack" onclick="selectVariant('fourpack')">
             <span class="variant-name">gift boxes</span>
             <span class="variant-meta">starts at 2 boxes · 8 cans<br>+$28 each extra box</span>
-            <span class="variant-price">$56 <span class="variant-per">$7 a can</span></span>
+            <span class="variant-price"><s class="price-was" aria-label="was $64">$64</s> $56 <span class="variant-per">$7 a can</span></span>
           </button>
           <button class="variant-opt" id="variant-case" onclick="selectVariant('case')">
             <span class="variant-flag">best value</span>
@@ -2672,6 +2675,7 @@ function selectVariant(id) {
     el.setAttribute('aria-pressed', v === id);
   });
   document.getElementById('priceMain').textContent = '$' + (VARIANTS[id].price * VARIANTS[id].min);
+  document.getElementById('priceWas').hidden = id !== 'fourpack';   // the crossed-out $64 is for the gift boxes only
   document.getElementById('priceNote').textContent = VARIANTS[id].note;
   const pitch = document.getElementById('variantPitch');
   pitch.textContent = VARIANTS[id].pitch || '';
