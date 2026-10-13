@@ -2,310 +2,251 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Maison Maxine™</title>
-<script>(function(){var q=location.search,ad=/[?&](fbclid|utm_source|utm_medium|utm_campaign)=/.test(q);if(ad){location.replace('shop.html'+q)}else if(window.innerWidth<=768){location.replace('home.html'+q)}})();</script>
+<meta name="description" content="Maison Maxine: organic red wine spritz from Napa, sweetened only with fruit and honey. 21+ only.">
+<script>
+/* before anything paints: ad clicks go straight to the shop (their own 21+
+   notice and the birthday check at checkout cover them); a visitor who said
+   yes in the last 30 days skips the gate too */
+(function(){
+  var q=location.search;
+  if(/[?&](fbclid|utm_source|utm_medium|utm_campaign)=/.test(q)){location.replace('shop.html'+q);return;}
+  try{var v=localStorage.getItem('mm_age_ok');if(v&&(Date.now()-parseInt(v,10))<2592000000){location.replace('shop.html'+q);return;}}catch(e){}
+  try{if(sessionStorage.getItem('mm_not_yet'))document.documentElement.className+=' not-yet';}catch(e){}
+  try{if(!localStorage.getItem('mm_seen_loader'))document.documentElement.className+=' first-visit';}catch(e){}
+})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://fonts.cdnfonts.com">
-<link rel="preload" as="image" href="curtain.png" fetchpriority="high">
 <link rel="preload" as="image" href="idx-11cfe590.jpg" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
-<link href="https://fonts.cdnfonts.com/css/burgues-script" rel="stylesheet">
+<link rel="preload" as="image" href="enter/beach-poster-620.jpg" media="(max-width:768px)" fetchpriority="high">
+<link rel="preload" as="image" href="beach-spritz-poster.jpg" media="(min-width:769px)" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
 <style>
-@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-display:swap}
 
-body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
-a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{width:100%;height:100%;overflow:hidden}
-
-body::after{
-  content:'';position:fixed;top:0;left:0;right:0;bottom:0;
-  background:rgba(255,255,255,.5);pointer-events:none;z-index:0;
+body{background:#fdf0f6;font-family:Georgia,'Times New Roman',serif;color:#34212b}
+@media (hover:hover) and (pointer:fine){
+  body,a,button,input{cursor:url("wine-cursor.png") 44 37, auto}
+  a:hover,button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
 }
 
-body{
-  background:#fdf0f6;
-  font-family:'Cormorant Garamond',Georgia,serif;
-}
-/* the striped wallpaper, as a layer that can travel with everything else */
-.backdrop{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:url('idx-11cfe590.jpg') repeat;
-  background-size:380px auto;
-}
+/* ═══ KEPT: the striped wallpaper, the white wash, the curtains ═══ */
+.backdrop{position:fixed;inset:0;z-index:0;pointer-events:none;background:url('idx-11cfe590.jpg') repeat;background-size:380px auto}
+body::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,.5);pointer-events:none;z-index:0}
+.curtain{position:fixed;inset:0;z-index:9998;pointer-events:none;perspective:1000px}
+.curtain-left,.curtain-right{position:absolute;top:0;bottom:0;width:65%;background-image:url('curtain.png');background-size:154% 130%;background-repeat:no-repeat;transition:transform 1.4s cubic-bezier(.77,0,.18,1);will-change:transform}
+.curtain-left{left:0;background-position:0% 30%;transform-origin:left center}
+.curtain-right{right:0;background-position:100% 30%;transform-origin:right center}
+.curtain.open .curtain-left{transform:translateX(-105%) rotateY(-12deg)}
+.curtain.open .curtain-right{transform:translateX(105%) rotateY(12deg)}
 
-/* pin */
-.pin{
-  position:absolute;width:13px;height:13px;border-radius:50%;
-  top:-8px;left:50%;transform:translateX(-50%);
-  box-shadow:1px 1px 3px rgba(0,0,0,.45);z-index:30;
-}
-.pin::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);
-  width:3px;height:6px;background:rgba(0,0,0,.25);border-radius:0 0 2px 2px}
-.pr{background:radial-gradient(circle at 38% 35%,#e07060,#a02820)}
+/* ═══ KEPT: the collage ═══ */
+.pin{position:absolute;width:13px;height:13px;border-radius:50%;top:-8px;left:50%;transform:translateX(-50%);box-shadow:1px 1px 3px rgba(0,0,0,.45);z-index:30}
+.pin::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:3px;height:6px;background:rgba(0,0,0,.25);border-radius:0 0 2px 2px}
 .pp{background:radial-gradient(circle at 38% 35%,#f0a0c0,#c05080)}
-.pt{background:radial-gradient(circle at 38% 35%,#d4b88a,#a08050)}
-.pg{background:radial-gradient(circle at 38% 35%,#a0d080,#508030)}
-.pw{background:radial-gradient(circle at 38% 35%,#f8f0e0,#c8b898)}
-
-/* photo — stitched border style */
-.pol{
-  position:absolute;
-  background:#fef8fb;
-  padding:8px;
-  border:2.5px dashed #d4a0b8;
-  border-radius:16px;
-  box-shadow:2px 3px 10px rgba(0,0,0,.12);
-  overflow:hidden;
-}
-.pol:hover{box-shadow:4px 6px 18px rgba(0,0,0,.22);z-index:500!important}
+.pol{position:absolute;background:#fef8fb;padding:8px;border:2.5px dashed #d4a0b8;border-radius:16px;box-shadow:2px 3px 10px rgba(0,0,0,.12);overflow:hidden}
 .pol img{display:block;width:100%;object-fit:cover;border-radius:10px}
-.pol-cap{display:none}
-.pol-lbl{display:none}
-
-/* sticky */
-.sticky{
-  position:absolute;background:#fef8e4;
-  border:1px solid rgba(200,180,100,.2);
-  padding:16px 18px 18px;
-  box-shadow:3px 5px 12px rgba(0,0,0,.18);
-  font-family:'IM Fell English',serif;
-}
-.sticky::before{
-  content:'';position:absolute;top:-8px;left:50%;transform:translateX(-50%);
-  width:46px;height:14px;background:rgba(210,190,150,.4);
-  border:1px solid rgba(180,160,120,.2)
-}
-.s-title{
-  display:block;text-align:center;font-size:12.5px;font-weight:bold;
-  color:#4a3010;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px
-}
-.s-body{font-size:12.5px;font-style:italic;color:#5a4020;line-height:1.85}
-.s-body a{color:#8a3a5f;text-decoration:underline}
-.s-body a:hover{color:#b75d83}
-
-/* notecard */
-.note{
-  position:absolute;background:#faf6f0;border:1px solid #d8ccc0;
-  padding:12px 14px;box-shadow:2px 3px 9px rgba(0,0,0,.15);
-  font-family:'Cormorant Garamond',serif;
-}
-
-/* sticker */
 .sk{position:absolute;background:transparent}
 .sk img{display:block}
+.xoxo-note{position:absolute;z-index:22;font-family:"Klickclack Swash",cursive;color:#c76090;opacity:.7;transform:rotate(-5deg);text-shadow:0 0 15px rgba(247,205,235,.5)}
+.collage-item{transition:transform .4s ease, filter .4s ease}
+@media (hover:hover){.collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important}}
+#pile{position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.035);z-index:1}
+.poster{position:absolute;width:440px;top:-6px;left:40px;transform:rotate(-2deg);z-index:18;background:#fff;padding:6px;box-shadow:3px 5px 14px rgba(0,0,0,.18)}
+.poster img{display:block;width:100%;height:auto}
 
-/* tape */
-.tape{
-  position:absolute;background:rgba(215,195,165,.38);
-  border:1px solid rgba(190,170,140,.2);pointer-events:none;z-index:25
+/* ═══ THE MARQUEE (css, not the <marquee> tag) ═══ */
+.marquee{position:fixed;top:0;left:0;right:0;z-index:9999;height:26px;overflow:hidden;background:#fce5f7;border-bottom:2px solid #d371a1;
+  font-family:'Pixelify Sans',monospace;font-size:13px;line-height:24px;color:#8a1a4a;white-space:nowrap}
+.marquee-track{display:inline-block;padding-left:100%;animation:marquee 26s linear infinite}
+@keyframes marquee{to{transform:translateX(-100%)}}
+
+/* ═══ THE WINDOW: mac os 9 "platinum" ═══ */
+.win{
+  position:absolute;z-index:200;width:372px;left:244px;top:262px;
+  background:#dedede;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.55), 0 14px 40px rgba(90,30,60,.25);
+  font-family:Georgia,'Times New Roman',serif;
 }
-
-/* logo pill */
-.lpill{
-  background:#fff;border:2.5px solid #b75d83;border-radius:50%;
+.win-bar{
+  position:relative;height:22px;margin:2px 2px 0;border:1px solid #888;
+  background:repeating-linear-gradient(#f4f4f4 0 1px,#bcbcbc 1px 2px);
   display:flex;align-items:center;justify-content:center;
-  box-shadow:inset 0 1px 4px rgba(183,93,131,.1);position:relative;
 }
-.lpill::before{
-  content:'◆';position:absolute;top:-13px;left:50%;transform:translateX(-50%);
-  font-size:10px;color:#b75d83;background:#fff;padding:0 4px
+.win-title{background:#dedede;padding:0 8px;font-family:'Pixelify Sans',monospace;font-size:13px;font-weight:600;color:#000;letter-spacing:.02em}
+.win-box{position:absolute;top:4px;width:12px;height:12px;border:1px solid #444;background:linear-gradient(135deg,#fff,#aaa);box-shadow:inset 1px 1px 0 #fff}
+.win-close{left:7px}
+.win-zoom{right:24px}
+.win-shade{right:7px}
+.win-body{margin:0 2px 2px;padding:18px 20px 16px;background:#fff;border:1px solid #888;border-top:none;text-align:center}
+.win-hi{display:flex;align-items:center;gap:14px;text-align:left;margin:0 0 16px}
+.can-gif{flex:0 0 auto;width:56px;height:85px;display:grid;place-items:center}
+.can-gif img{width:56px;height:auto;animation:spin 1.6s steps(8) infinite;transform-origin:50% 50%}
+@keyframes spin{0%{transform:scaleX(1)}25%{transform:scaleX(.08)}50%{transform:scaleX(-1)}75%{transform:scaleX(.08)}100%{transform:scaleX(1)}}
+.win-q{font-size:24px;line-height:1.2;color:#34212b}
+.win-q small{display:block;margin-top:6px;font-size:14px;color:#6a4a5a}
+.win-btns{display:flex;justify-content:center;gap:12px;margin:0 0 4px}
+.mac-btn{
+  font-family:'Pixelify Sans',monospace;font-size:15px;color:#000;min-height:34px;padding:0 16px;
+  background:linear-gradient(#ffffff,#d6d6d6);border:1px solid #000;border-radius:7px;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #9a9a9a;
 }
-.ltext{
-  font-family:'Petit Formal Script',cursive;color:#8a1a4a;
-  line-height:1.1;text-align:center
-}
-.ltm{font-family:'IM Fell English',serif;font-size:9px;vertical-align:super;color:#b75d83}
+.mac-btn:active{background:linear-gradient(#8e8e8e,#b6b6b6);color:#fff}
+.mac-btn:focus-visible{outline:2px dotted #8a1a4a;outline-offset:2px}
+/* the default button: the thick ring mac os drew around the one return presses */
+.mac-btn.default{background:linear-gradient(#fbe1ef,#efb3d1);border-radius:8px;box-shadow:0 0 0 3px #fff, 0 0 0 5px #000, inset 1px 1px 0 #fff;margin:5px 4px}
+.win-mail{margin:16px 0 0;padding:14px 0 0;border-top:1px dashed #b9b9b9;text-align:left}
+.win-mail label{display:block;margin:0 0 8px;font-size:14px;line-height:1.4;color:#34212b}
+.mail-row{display:flex;gap:8px}
+.old-input{flex:1;min-width:0;height:30px;padding:0 6px;font:16px Georgia,serif;color:#000;background:#fff;
+  border:1px solid #000;box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #f0f0f0}
+.old-input:focus{outline:2px solid #8a1a4a;outline-offset:1px}
+.mail-msg{min-height:18px;margin:6px 0 0;font-size:13px;color:#6a4a5a}
+.win-nope{display:none;padding:10px 4px 6px}
+.win-nope p{font-size:22px;line-height:1.3;margin:0 0 8px}
+.win-nope span{font-size:14px;color:#6a4a5a}
+html.not-yet .win-yes{display:none}
+html.not-yet .win-nope{display:block}
+.win.closing{animation:winclose .28s steps(5) forwards}
+@keyframes winclose{to{transform:scale(.15);opacity:0;outline:1px dotted #000}}
 
-/* enter */
-#enter{
-  position:absolute;text-decoration:none;
-  display:flex;flex-direction:column;align-items:center;gap:12px;
-  animation:bob 2.7s ease-in-out infinite;
-  transition:transform .3s ease;
+/* ═══ FOOTER: hit counter, links, the joke ═══ */
+.foot{
+  position:fixed;left:0;right:0;bottom:0;z-index:9999;text-align:center;
+  padding:6px 12px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.82);border-top:1px solid #f1c7dd;
+  font:12px/1.5 'Times New Roman',Times,serif;color:#34212b;
 }
-@keyframes bob{
-  0%,100%{transform:rotate(-4deg) translateY(0)}
-  50%{transform:rotate(-4deg) translateY(-9px)}
+.counter{display:inline-flex;align-items:center;gap:6px;margin:0 0 2px;font-family:'Pixelify Sans',monospace;font-size:12px}
+.odo{display:inline-flex;gap:1px;background:#000;padding:2px;border:1px solid #888}
+.odo b{display:block;width:11px;height:16px;overflow:hidden;font-weight:400;color:#7dff8a;background:#111;text-align:center;line-height:16px;font-size:13px}
+.odo b span{display:block}
+.odo b span.roll{animation:roll .6s steps(4) .3s both}
+@keyframes roll{from{transform:translateY(16px)}to{transform:none}}
+.odo i{color:#7dff8a;font-style:normal;line-height:16px;padding:0 1px}
+.foot a{color:#0000ee;text-decoration:underline}
+.foot a:visited{color:#551a8b}
+.badge{display:inline-flex;vertical-align:middle;flex-direction:column;align-items:center;justify-content:center;height:31px;width:88px;margin-left:8px;
+  background:linear-gradient(#2b0f22,#5a1e3a);border:2px outset #e8a;color:#fff;font:600 8px/1.1 'Pixelify Sans',monospace;letter-spacing:.04em;text-decoration:none !important}
+.badge em{font-style:normal;color:#ffd6ec;font-size:11px}
+
+/* ═══ FIRST VISIT ONLY: the loading flash, under a second ═══ */
+.loader{display:none}
+html.first-visit .loader{display:flex;position:fixed;inset:0;z-index:10001;align-items:center;justify-content:center;background:#fdf0f6;animation:loaderOut .2s ease .75s forwards}
+.loader-box{width:240px;padding:14px;background:#dedede;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.5);font:13px 'Pixelify Sans',monospace}
+.loader-bar{height:14px;margin-top:8px;border:1px solid #000;background:#fff}
+.loader-bar i{display:block;height:100%;width:0;background:repeating-linear-gradient(90deg,#d371a1 0 8px,#f2a8cb 8px 10px);animation:loadbar .7s steps(12) forwards}
+@keyframes loadbar{to{width:97%}}
+@keyframes loaderOut{to{opacity:0;visibility:hidden}}
+
+/* ═══ SPARKLE TRAIL: pink and white stars, mouse only ═══ */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 12px currentColor;animation:sparkle 1.6s ease-out forwards}
+@keyframes sparkle{0%{opacity:.9;transform:scale(1) rotate(0)}100%{opacity:0;transform:scale(.4) rotate(70deg) translateY(26px)}}
+
+/* ═══ ON ENTER: the frame lifts away ═══ */
+body.lift #pile{transform:translate(-50%, calc(-50% - 118vh)) scale(1.035) !important;transition:transform .72s cubic-bezier(.55,.06,.9,.28)}
+body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-118vh);transition:transform .72s cubic-bezier(.55,.06,.9,.28)}
+
+/* ═══ PHONES: background, curtains, the poster, the window, four stickers ═══ */
+@media (max-width:768px){
+  #pile{position:fixed;inset:0;width:auto;height:auto;transform:none;top:0;left:0;z-index:2}
+  /* the curtains frame the edges from behind, never over the question */
+  .curtain{z-index:1}
+  body.lift #pile{transform:translateY(-118vh) !important}
+  #pile > *:not(.poster):not(.win):not(.m-keep){display:none !important}
+  .curtain-left,.curtain-right{width:30%;background-size:300% 130%}
+  .poster{width:min(78vw,320px);left:50%;top:calc(34px + env(safe-area-inset-top));transform:translateX(-52%) rotate(-2deg)}
+  .win{width:min(92vw,360px);left:50%;top:auto;bottom:calc(70px + env(safe-area-inset-bottom));transform:translateX(-50%)}
+  .win.closing{animation:none;opacity:0;transition:opacity .25s}
+  .win-body{padding:12px 14px 12px}
+  .win-hi{margin-bottom:12px}
+  .can-gif{width:44px;height:66px}.can-gif img{width:44px}
+  .win-q{font-size:21px}
+  .win-mail{margin-top:12px;padding-top:10px}
+  .win-mail label{font-size:13px;margin-bottom:6px}
+  .m-keep{position:fixed !important;z-index:5 !important;transform:none}
+  .m-tennis{width:64px !important;left:6px !important;top:calc(36px + 40vw) !important;bottom:auto !important}
+  .m-rose{width:58px !important;right:6px !important;left:auto !important;top:calc(30px + env(safe-area-inset-top)) !important}
+  .m-lily{display:none !important}
+  .m-bird{width:40px !important;right:14px !important;left:auto !important;top:calc(34px + 44vw) !important}
+  .foot{font-size:11px;line-height:1.4}
+  .badge{display:none}
 }
-#enter:hover{animation-play-state:paused;transform:rotate(-4deg) scale(1.12)}
-#etxt{
-  font-family:'IM Fell English',serif;font-style:italic;
-  font-size:32px;color:#5a1e3a;letter-spacing:.18em;
-  text-shadow:1px 1px 0 rgba(255,255,255,.9)
+@media (max-width:768px) and (max-height:700px){
+  .poster{width:min(64vw,260px)}
+  .win-q{font-size:19px}
+  .win-q small{font-size:13px}
 }
 
-/* MOUSE SPARKLE TRAIL */
-.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 12px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
-@media (prefers-reduced-motion: reduce){.mouse-sparkle{display:none!important}}
-@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
-
-/* ═══ PR FIRM UPGRADES ═══ */
-.brand-header{
-  position:absolute;top:-35px;left:50%;transform:translateX(-50%);
-  z-index:30;text-align:center;white-space:nowrap;
-}
-.brand-name{
-  font-family:"Klickclack Swash",cursive;font-size:42px;color:#8a1a4a;
-  text-shadow:0 0 20px rgba(247,205,235,.6),0 0 40px rgba(247,205,235,.4);
-  letter-spacing:.04em;line-height:1;
-}
-.brand-tagline{
-  font-family:"IM Fell English",serif;font-style:italic;
-  font-size:11px;color:#b75d83;letter-spacing:.14em;
-  margin-top:2px;opacity:.85;
-}
-.charity-ribbon{
-  position:absolute;top:-8px;right:-60px;z-index:30;
-  background:linear-gradient(135deg,#fef0f8,#f7cdeb);
-  border:1.5px solid #d4a0b8;border-radius:20px;
-  padding:6px 14px;text-align:center;
-  box-shadow:2px 3px 8px rgba(0,0,0,.1);
-  transform:rotate(4deg);
-}
-.charity-ribbon span{
-  font-family:"IM Fell English",serif;font-size:8px;
-  color:#8a3a5f;letter-spacing:.05em;display:block;line-height:1.4;
-}
-.charity-ribbon .paw{font-size:11px;}
-.xoxo-note{
-  position:absolute;z-index:22;
-  font-family:"Klickclack Swash",cursive;color:#c76090;
-  opacity:.7;transform:rotate(-5deg);
-  text-shadow:0 0 15px rgba(247,205,235,.5);
-}
-/* ═══ CURTAIN OVERLAY ═══ */
-.curtain{
-  position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  z-index:9998;
-  pointer-events:none;
-  perspective:1000px;
-}
-.curtain-left,.curtain-right{
-  position:absolute;
-  top:0;bottom:0;
-  width:65%;
-  background-image:url('curtain.png');
-  background-size:154% 130%;
-  background-repeat:no-repeat;
-  transition:transform 1.4s cubic-bezier(.77,0,.18,1);
-  will-change:transform;
-}
-.curtain-left{
-  left:0;
-  background-position:0% 30%;
-  transform-origin:left center;
-}
-.curtain-right{
-  right:0;
-  background-position:100% 30%;
-  transform-origin:right center;
-}
-.curtain.open .curtain-left{
-  transform:translateX(-105%) rotateY(-12deg);
-}
-.curtain.open .curtain-right{
-  transform:translateX(105%) rotateY(12deg);
-}
-.curtain.gone{display:none}
-
-/* ═══ PROJECTOR LIFT ═══
-   on enter the whole frame pulls upward out of shot, like a slide being
-   advanced. #pile carries the collage and .curtain the drapes, so both have to
-   travel or half the screen would stay behind. ease-in, so it accelerates away
-   rather than drifting. */
-#pile, .curtain, .backdrop{ will-change:transform }
-body.lift #pile{
-  transform:translate(-50%, calc(-50% - 118vh)) scale(1.035) !important;
-  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
-}
-body.lift .curtain,
-body.lift .backdrop{
-  transform:translateY(-118vh);
-  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
-}
-/* the white wash is a fixed pseudo on body, so it has to be told to travel too */
-body.lift::after{
-  transform:translateY(-118vh);
-  transition:transform .72s cubic-bezier(.55,.06,.9,.28);
-}
-body.lift{ overflow:hidden }
+/* ═══ STILL: no marquee, no spinning, no sparkles, no loading flash ═══ */
 @media (prefers-reduced-motion: reduce){
-  body.lift #pile, body.lift .curtain, body.lift .backdrop, body.lift::after{
-    transition:none; transform:none !important
-  }
+  .marquee-track{animation:none;padding-left:12px}
+  .can-gif img{animation:none}
+  .mouse-sparkle{display:none !important}
+  html.first-visit .loader{display:none}
+  .win.closing{animation:none}
+  body.lift #pile,body.lift .curtain,body.lift .backdrop,body.lift::after{transition:none;transform:none !important}
 }
-
-
-.collage-item{transition:transform .4s ease, filter .4s ease;}
-.collage-item:hover{transform:scale(1.05) rotate(0deg) !important;filter:brightness(1.05);z-index:30 !important;}
 </style>
 <script src="/js/tracking.js" defer></script>
 </head>
 <body>
-<div class="backdrop"></div>
-<script>
-function enterSite(){
-  document.getElementById('curtain').classList.add('open');
-  var still = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (still) { window.location.href = 'home.html'; return; }
-  setTimeout(function(){ document.body.classList.add('lift'); }, 820);
-  setTimeout(function(){ window.location.href = 'home.html'; }, 1520);
-}
-</script>
-<!-- CURTAIN OVERLAY (split open animation) -->
-<div id="pile" style="position:absolute;width:660px;height:640px;top:50%;left:50%;transform:translate(-50%,-50%) scale(1.035);z-index:1">
+<div class="backdrop" aria-hidden="true"></div>
 
+<div class="loader" aria-hidden="true"><div class="loader-box">Loading... 97%<div class="loader-bar"><i></i></div></div></div>
+
+<div class="marquee" aria-hidden="true"><div class="marquee-track">★ now pouring in napa ★ fruit + honey sweetened ★ 5% profits to animals in need ★ now pouring in napa ★ fruit + honey sweetened ★ 5% profits to animals in need ★</div></div>
+
+<div id="pile">
 
   <!-- TENNIS GIRL -->
-  <div class="sk collage-item" style="width:145px;position:absolute;top:55px;left:-35px;z-index:10;transform:rotate(3deg)">
-    <img loading="lazy" src="idx-66c86cf6.png" style="width:100%">
+  <div class="m-keep m-tennis sk collage-item" style="width:145px;position:absolute;top:55px;left:-35px;z-index:10;transform:rotate(3deg)">
+    <img alt="" loading="lazy" decoding="async" src="idx-66c86cf6.png" style="width:100%">
   </div>
 
   <!-- iBOOK -->
   <div class="sk collage-item" style="width:150px;position:absolute;top:-10px;left:475px;transform:rotate(5deg);z-index:19">
     <div class="pin pp" style="position:absolute;top:-8px;left:55%"></div>
-    <img loading="lazy" src="idx-e6c776e5.png" style="width:100%">
+    <img alt="" loading="lazy" decoding="async" src="idx-e6c776e5.png" style="width:100%">
   </div>
 
   <!-- PHOTOS with stitched borders -->
   <!-- grapes — upper right -->
   <div class="pol collage-item" style="width:155px;top:310px;left:-20px;transform:rotate(-5deg);z-index:14">
-    <img loading="lazy" src="idx-5341e40e.jpg" style="height:135px">
+    <img alt="" loading="lazy" decoding="async" src="idx-5341e40e.jpg" style="height:135px">
   </div>
   <!-- STICKERS — small, no borders, tucked between photos -->
   <div class="sk" style="width:30px;position:absolute;top:200px;left:10px;transform:rotate(15deg);z-index:25">
-    <img loading="lazy" src="idx-83c62c83.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-83c62c83.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:65px;position:absolute;top:430px;left:440px;transform:rotate(-6deg);z-index:25">
-    <img loading="lazy" src="idx-706085a1.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-706085a1.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:32px;position:absolute;top:55px;left:560px;transform:rotate(8deg);z-index:25">
-    <img loading="lazy" src="idx-7260bef5.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-7260bef5.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:28px;position:absolute;top:240px;left:580px;transform:rotate(-15deg);z-index:25">
-    <img loading="lazy" src="idx-b5f7cfd5.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-b5f7cfd5.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:22px;position:absolute;top:355px;left:560px;transform:rotate(18deg);z-index:25">
-    <img loading="lazy" src="idx-d26ed37f.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-d26ed37f.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:55px;position:absolute;top:440px;left:295px;transform:rotate(-8deg);z-index:25">
-    <img loading="lazy" src="idx-51b260b8.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-51b260b8.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:26px;position:absolute;top:440px;left:130px;transform:rotate(12deg);z-index:25">
-    <img loading="lazy" src="idx-316ce0c5.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-316ce0c5.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:35px;position:absolute;top:430px;left:35px;transform:rotate(-6deg);z-index:25">
-    <img loading="lazy" src="idx-d8b8f3f3.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-d8b8f3f3.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:72px;position:absolute;top:430px;left:520px;transform:rotate(5deg);z-index:25">
-    <img loading="lazy" src="idx-e687f137.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-e687f137.png" style="width:100%;mix-blend-mode:multiply">
   </div>
   <div class="sk" style="width:30px;position:absolute;top:490px;left:15px;transform:rotate(-7deg);z-index:25">
-    <img loading="lazy" src="idx-c1a393c3.png" style="width:100%;mix-blend-mode:multiply">
+    <img alt="" loading="lazy" decoding="async" src="idx-c1a393c3.png" style="width:100%;mix-blend-mode:multiply">
   </div>
 
 
@@ -313,73 +254,169 @@ function enterSite(){
 
   <!-- OLIVIA PHOTO -->
   <div class="collage-item" style="position:absolute;width:150px;top:460px;left:80px;transform:rotate(5deg);z-index:21;background:#fff;padding:7px 7px 24px;box-shadow:3px 4px 12px rgba(0,0,0,.12);overflow:hidden">
-    <img loading="lazy" src="olivia.jpg" alt="" style="width:100%;height:170px;object-fit:cover;object-position:top;display:block">
+    <img alt="" loading="lazy" decoding="async" src="olivia.jpg" style="width:100%;height:170px;object-fit:cover;object-position:top;display:block">
 
   </div>
   <!-- SARINA (pink camera — first batch photo on the LCD) -->
   <div class="sk collage-item" style="width:170px;position:absolute;top:440px;left:590px;transform:rotate(3deg);z-index:20">
-    <img loading="lazy" src="oliviacamera.png" style="width:100%;display:block;filter:drop-shadow(3px 4px 10px rgba(0,0,0,.15));border-radius:3px">
+    <img alt="" loading="lazy" decoding="async" src="oliviacamera.png" style="width:100%;display:block;filter:drop-shadow(3px 4px 10px rgba(0,0,0,.15));border-radius:3px">
   </div>
   <!-- ROSE -->
-  <div class="sk collage-item" style="width:100px;position:absolute;top:130px;left:550px;transform:rotate(7deg);z-index:15">
-    <img loading="lazy" src="rose.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
+  <div class="m-keep m-rose sk collage-item" style="width:100px;position:absolute;top:130px;left:550px;transform:rotate(7deg);z-index:15">
+    <img alt="" loading="lazy" decoding="async" src="rose.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
   </div>
   <!-- FLOWER -->
-  <div class="sk collage-item" style="width:220px;position:absolute;top:370px;left:140px;transform:rotate(-8deg);z-index:22">
-    <img loading="lazy" src="flower.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
-  </div>
-  <!-- BEACH POSTER: pinned in the middle, where the founder's note was -->
-  <div class="collage-item" style="position:absolute;width:480px;top:75px;left:85px;transform:rotate(-1.5deg);z-index:18;background:#fff;padding:6px;box-shadow:3px 5px 14px rgba(0,0,0,.18)">
-    <div class="pin pp" style="left:50%"></div>
-    <img loading="lazy" src="beach-spritz-poster.jpg" alt="hit the beach with your board, your girls, and the season's hottest spritz" style="width:100%;height:auto;display:block">
+  <div class="m-keep m-lily sk collage-item" style="width:220px;position:absolute;top:370px;left:140px;transform:rotate(-8deg);z-index:22">
+    <img alt="" loading="lazy" decoding="async" src="flower.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
   </div>
 
 
   <!-- XOXO NOTE -->
   <div class="xoxo-note" style="top:5px;left:5px;font-size:20px">xo xo</div>
   <div class="xoxo-note" style="bottom:62px;right:24px;font-size:18px;transform:rotate(3deg)">with love from napa ♡</div>
-  <!-- ENTER -->
-  <a href="#" id="enter" style="bottom:-15px;left:calc(50% - 78px);transform:translateX(-50%)" onclick="event.preventDefault();enterSite()">
-    <span style="font-family:'IM Fell English',serif;font-style:italic;font-size:14px;color:#b75d83;letter-spacing:.12em;text-shadow:1px 1px 0 rgba(255,255,255,.9);opacity:.85">by entering you confirm you're 21+ ✦</span>
-    <svg width="80" height="80" viewBox="0 0 66 66" fill="none"
-      style="filter:drop-shadow(2px 4px 8px rgba(0,0,0,.22))">
-      <circle cx="33" cy="33" r="31" fill="#fbdcec" stroke="#b75d83" stroke-width="2.2"/>
-      <circle cx="33" cy="33" r="25" fill="none" stroke="#fff" stroke-width=".9" stroke-dasharray="3 3"/>
-      <path d="M20 33L46 33M37 23L46 33L37 43"
-        stroke="#8a1a4a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-    <span id="etxt">come inside ♡</span>
-  </a>
 
   <!-- eyeshadow -->
   <div class="sk collage-item" style="width:120px;position:absolute;top:360px;left:460px;transform:rotate(6deg);z-index:21">
-    <img loading="lazy" src="eyeshadow.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
+    <img alt="" loading="lazy" decoding="async" src="eyeshadow.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 6px rgba(0,0,0,.12))">
   </div>
 
   <!-- KENDAL PHOTO (by the eyeshadow) -->
   <div class="collage-item" style="position:absolute;width:140px;top:230px;left:545px;transform:rotate(4deg);z-index:20;background:#fff;padding:6px 6px 20px;box-shadow:3px 4px 12px rgba(0,0,0,.14);overflow:hidden">
-    <img loading="lazy" src="kendalblue-pitch.jpg" alt="" style="width:100%;height:175px;object-fit:cover;object-position:top;display:block">
+    <img alt="" loading="lazy" decoding="async" src="kendalblue-pitch.jpg" style="width:100%;height:175px;object-fit:cover;object-position:top;display:block">
   </div>
 
   <!-- little bird -->
-  <div class="sk" style="width:50px;position:absolute;top:305px;left:370px;transform:rotate(-8deg);z-index:24">
-    <img loading="lazy" src="littlebird.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 5px rgba(0,0,0,.1))">
+  <div class="m-keep m-bird sk" style="width:50px;position:absolute;top:305px;left:370px;transform:rotate(-8deg);z-index:24">
+    <img alt="" loading="lazy" decoding="async" src="littlebird.png" style="width:100%;display:block;filter:drop-shadow(2px 3px 5px rgba(0,0,0,.1))">
   </div>
 
-  <!-- sparkles -->
-  <div style="position:absolute;top:270px;left:555px;font-size:12px;color:#c97aa8;opacity:.4;font-family:serif;z-index:3">✦</div>
-  <div style="position:absolute;top:450px;left:280px;font-size:10px;color:#8a9a20;opacity:.35;font-family:serif;z-index:3">✿</div>
 
+  <!-- KEPT: the keaton beach poster -->
+  <div class="poster collage-item">
+    <div class="pin pp"></div>
+    <picture>
+      <source media="(max-width:768px)" srcset="enter/beach-poster-620.jpg">
+      <img src="beach-spritz-poster.jpg" width="900" height="675" fetchpriority="high"
+           alt="Keaton drinking a Maison Maxine can at the beach. Hit the beach with your board, your girls, and the season's hottest spritz.">
+    </picture>
+  </div>
+
+  <!-- THE AGE GATE: a mac os 9 window -->
+  <div class="win" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateQ">
+    <div class="win-bar" aria-hidden="true">
+      <span class="win-box win-close"></span>
+      <span class="win-title">Welcome!</span>
+      <span class="win-box win-zoom"></span>
+      <span class="win-box win-shade"></span>
+    </div>
+    <div class="win-body">
+      <div class="win-yes">
+        <div class="win-hi">
+          <div class="can-gif" aria-hidden="true"><img src="enter/can-spin.png" alt="" width="56" height="70"></div>
+          <p class="win-q" id="gateQ">hi! are you 21 or older?<small>Maison Maxine is a red wine spritz. You must be 21+ to enter.</small></p>
+        </div>
+        <div class="win-btns">
+          <button class="mac-btn" id="gateNo" type="button">Not yet</button>
+          <button class="mac-btn default" id="gateYes" type="button" autofocus aria-describedby="gateQ">Yes, let me in ♡</button>
+        </div>
+        <form class="win-mail" id="mailForm" novalidate>
+          <label for="mail">leave your e-mail and we'll tell you about the next Spritz Club drop <i>(optional)</i></label>
+          <div class="mail-row">
+            <input class="old-input" id="mail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com">
+            <button class="mac-btn" type="submit">Submit</button>
+          </div>
+          <p class="mail-msg" id="mailMsg" role="status"></p>
+        </form>
+      </div>
+      <div class="win-nope" role="status">
+        <p>come back on your 21st birthday! ♡</p>
+        <span>we'll be right here, spritz on ice.</span>
+      </div>
+    </div>
+  </div>
 </div>
 
-<script>
-(function(){var ch=['✦'],co=['#fce8f1','#f7d5e5','#ffe0ed','#ffd6e8'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
-</script>
+<footer class="foot">
+  <div class="counter" aria-label="visitor counter">you are visitor <span class="odo" id="odo" aria-hidden="true"></span></div>
+  <div>© Maison Maxine 2026 · made with love in napa · best viewed on a pink iBook · <a href="privacy.html">privacy</a> · <a href="mailto:olivia@maisonmaxine.world">contact</a><span class="badge" aria-hidden="true">Maison Maxine <em>NOW!</em></span></div>
+</footer>
 
-<!-- CURTAIN OVERLAY -->
-<div class="curtain" id="curtain">
+<div class="curtain" id="curtain" aria-hidden="true">
   <div class="curtain-left"></div>
   <div class="curtain-right"></div>
 </div>
+
+<script>
+(function(){
+  var T=function(n,s,p){(window.mmQ=window.mmQ||[]).push([n,s,p]);};
+  var root=document.documentElement, still=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var gate=document.getElementById('gate'), yes=document.getElementById('gateYes'), no=document.getElementById('gateNo');
+  var NEXT='shop.html';
+
+  /* the loading flash is a first-visit thing only */
+  try{localStorage.setItem('mm_seen_loader','1');}catch(e){}
+  setTimeout(function(){root.classList.remove('first-visit');},1000);
+
+  if(root.classList.contains('not-yet')){T('AgeGateNotYetShown');}
+  else{T('AgeGateShown');}
+  yes.focus({preventScroll:true});
+
+  function enter(){
+    try{localStorage.setItem('mm_age_ok',String(Date.now()));}catch(e){}
+    T('AgeGateYes');
+    if(still){location.href=NEXT;return;}
+    gate.classList.add('closing');
+    setTimeout(function(){document.getElementById('curtain').classList.add('open');},180);
+    setTimeout(function(){document.body.classList.add('lift');},900);
+    setTimeout(function(){location.href=NEXT;},1550);
+  }
+  yes.addEventListener('click',enter);
+  no.addEventListener('click',function(){
+    try{sessionStorage.setItem('mm_not_yet','1');}catch(e){}
+    T('AgeGateNotYet');
+    root.classList.add('not-yet');
+  });
+  /* enter means yes, except while typing an email; escape never gets anyone in */
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Enter'||root.classList.contains('not-yet'))return;
+    if(e.target&&e.target.closest&&e.target.closest('button,a,form,input'))return;   // those handle enter themselves
+    e.preventDefault();enter();
+  });
+
+  /* the optional e-mail: substack only takes sign-ups on its own page, so this
+     opens it in a new tab with the address filled in. it never blocks entry. */
+  var form=document.getElementById('mailForm'), mail=document.getElementById('mail'), msg=document.getElementById('mailMsg');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var v=mail.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){msg.textContent='hmm, that e-mail looks off. try again?';return;}
+    T('EmailSubmitted');
+    window.open('https://maisonmaxine.substack.com/subscribe?email='+encodeURIComponent(v),'_blank','noopener');
+    msg.textContent='almost done! confirm in the new tab ♡';
+    mail.value='';
+  });
+
+  /* the hit counter: a fake number that only goes up */
+  var n=42817+Math.floor((Date.now()-Date.UTC(2026,9,1))/86400000)*37;
+  try{var k=parseInt(localStorage.getItem('mm_visitor')||'0',10);n=Math.max(n,k+1);localStorage.setItem('mm_visitor',String(n));}catch(e){}
+  var odo=document.getElementById('odo'), s=String(n).padStart(7,'0');
+  odo.innerHTML=s.split('').map(function(d,i){return (i===s.length-3?'<i>,</i>':'')+'<b><span>'+d+'</span></b>';}).join('');
+  odo.parentNode.setAttribute('aria-label','you are visitor number '+n.toLocaleString());
+  if(!still)odo.querySelector('b:last-child span').classList.add('roll');   // the last digit ticks over
+
+  /* sparkle trail: mouse only, never on touch or with reduced motion */
+  if(!still&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+    var co=['#ffffff','#fce5f7','#f7b8d6','#d371a1'],lx=0,ly=0,th=0;
+    document.addEventListener('mousemove',function(e){
+      var now=Date.now();if(now-th<50)return;th=now;
+      if(Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly)<6)return;lx=e.clientX;ly=e.clientY;
+      var sp=document.createElement('div');sp.className='mouse-sparkle';sp.textContent=Math.random()<.5?'★':'✦';
+      sp.style.left=(e.clientX+Math.random()*20-10)+'px';sp.style.top=(e.clientY+Math.random()*20-10)+'px';
+      sp.style.fontSize=(12+Math.random()*12)+'px';sp.style.color=co[Math.floor(Math.random()*co.length)];
+      document.body.appendChild(sp);setTimeout(function(){sp.remove();},1600);
+    });
+  }
+})();
+</script>
 </body>
 </html>
