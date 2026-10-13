@@ -7,11 +7,13 @@
 <meta name="description" content="Maison Maxine: organic red wine spritz from Napa, sweetened only with fruit and honey. 21+ only.">
 <script>
 /* before anything paints: ad clicks go straight to the shop (their own 21+
-   notice and the birthday check at checkout cover them); a visitor who said
-   yes in the last 30 days skips the gate too */
+   notice and the birthday check at checkout cover them), phones go to the
+   home page, and a visitor who said yes in the last 30 days skips the gate */
 (function(){
   var q=location.search;
   if(/[?&](fbclid|utm_source|utm_medium|utm_campaign)=/.test(q)){location.replace('shop.html'+q);return;}
+  /* phones never see this page: they go to the home page, as before the redesign */
+  if(window.innerWidth<=768){location.replace('home.html'+q);return;}
   try{var v=localStorage.getItem('mm_age_ok');if(v&&(Date.now()-parseInt(v,10))<2592000000){location.replace('shop.html'+q);return;}}catch(e){}
   try{if(sessionStorage.getItem('mm_not_yet'))document.documentElement.className+=' not-yet';}catch(e){}
   try{if(!localStorage.getItem('mm_seen_loader'))document.documentElement.className+=' first-visit';}catch(e){}
