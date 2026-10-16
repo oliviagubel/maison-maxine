@@ -2584,10 +2584,11 @@ function selectVariant(id) {
 }
 
 // ═══ THE BUY BUTTONS ═══
-// every buy button says the price of the option that is picked
+// every buy button says the price of the option that is picked; phones say "Add to cart"
+const BUY_WORD = matchMedia('(max-width:768px)').matches ? 'Add to cart' : 'Buy';
 function syncAddBtn() {
   const total = '$' + (qty * VARIANTS[selectedVariant].price);
-  document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = 'Buy · ' + total; });
+  document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + ' · ' + total; });
   if (window.xpSync) window.xpSync();
 }
 
@@ -3278,7 +3279,7 @@ function updateStampCounter(){
     };
     if (!email || !ship.street1 || !ship.stateCode) {
       busy = false;
-      return say('your wallet did not share an email and full address, so nothing was charged. tap Buy to check out instead.', 'error');
+      return say('your wallet did not share an email and full address, so nothing was charged. tap ' + BUY_WORD + ' to check out instead.', 'error');
     }
     const customer = { firstName: ship.firstName, lastName: ship.lastName, fullName: (ship.firstName + ' ' + ship.lastName).trim(),
                        email, wholesale: false, dateOfBirth: dob, address: ship };
