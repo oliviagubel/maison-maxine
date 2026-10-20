@@ -1,0 +1,418 @@
+/* ═══ SHOP, COMPUTERS ONLY ═══
+   linked with media="(min-width:769px)", so phones never apply a rule here.
+
+   the brief: keep the polish, the photos and the whimsy, and give the page
+   the structure of an early-2000s luxury shop. elegant first, nostalgic in
+   small nods. no grey bevels, no default fonts, no gimmicks.
+
+   rose     #c25d8f   outlines, the button, links
+   pale     #fdf0f6   fills (the oval, the picked size)
+   hairline #ead5df   every border and divider
+   lime     #abd05d   the glossy bullets
+*/
+
+:root{
+  --dt-rose:#c25d8f;
+  --dt-rose-ink:#a8336f;          /* rose for small text: 5.6:1 on white */
+  --dt-pale:#fdf0f6;
+  --dt-hair:#ead5df;
+  --dt-cream:#fffaf2;
+  --dt-ink:#4a3a3a;
+  --dt-mute:#6a4a5a;
+  --dt-lime:#abd05d;
+  --dt-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+  --dt-display:'Klickclack Swash',Georgia,serif;
+  --dt-label:'Jersey 10',"Gill Sans",sans-serif;
+}
+
+/* ── type: gill sans for reading, klickclack for display, jersey 10 for
+   small labels and dates. cormorant and pixelify are gone from this page ── */
+#main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
+#main .banner h1, #main .banner h1 *, #main .product-details h2, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
+#main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-display)}
+#main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
+#main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
+#main .util-date, #main .panel-tab, #sidebar .nav-label, #sidebar .moment-title, #sidebar .moment dt,
+#sidebar .copyright, #main .dt-sizes legend{
+  font-family:var(--dt-label);
+  font-weight:normal;
+  letter-spacing:.04em;
+}
+#main p, #main li, #main dd{font-style:normal}
+
+/* ── the column: our illustration stays behind, the content sits on white ── */
+#main{
+  background:#fff;
+  min-height:100vh;
+  padding:0 40px 28px !important;
+  border-right:1px solid var(--dt-hair);
+}
+
+/* ── no soft shadows, glows or gradients on cards; hairlines instead ── */
+#main *, #sidebar{box-shadow:none !important; text-shadow:none !important}
+#sidebar{background:#fff !important}
+.mouse-sparkle{display:none !important}
+.dt-spk{display:none !important}
+.age-bar{display:none !important}          /* the 21+ notice lives in the utility row */
+.cart-float{display:none !important}       /* the bag is in the utility row */
+.dt-only{display:block}
+
+/* ══ UTILITY ROW ══ */
+.util-row{
+  display:flex !important;
+  align-items:baseline;
+  gap:18px;
+  margin:0 -40px 18px;
+  padding:6px 40px;
+  border-bottom:1px solid var(--dt-hair);
+  background:var(--dt-pale);
+  font-size:13px;
+  color:var(--dt-mute);
+}
+.util-row .util-date{font-size:16px; color:var(--dt-ink)}
+.util-row .util-age{flex:1; text-align:center}
+.util-row .util-links{white-space:nowrap}
+.util-row a, .util-row .util-bag{
+  color:var(--dt-rose-ink); text-decoration:underline; text-underline-offset:2px;
+  background:none; border:0; padding:0; font:inherit; cursor:pointer;
+}
+
+/* ══ HEADER: the wordmark in an oval, like an enamel pin or a perfume label ══ */
+#main .banner{filter:none !important; padding:6px 0 4px !important; margin-bottom:6px !important}
+#main .banner .divider{display:none}
+#main .banner h1{margin:0; line-height:1}
+.mm-oval{
+  position:relative;
+  display:inline-block;
+  padding:22px 64px 20px;
+  border-radius:50% !important;           /* the one oval on the page (square.css squares everything else) */
+  background:var(--dt-pale);
+  border:1.5px solid var(--dt-rose);
+  color:inherit;
+  text-decoration:none;
+  isolation:isolate;
+  transition:background-color .2s;
+}
+/* the hairline ring, 4px inside */
+.mm-oval::before{
+  content:"";
+  position:absolute;
+  inset:4px;
+  border-radius:50% !important;
+  border:1px solid var(--dt-rose);
+  opacity:.7;
+  pointer-events:none;
+  z-index:2;
+}
+/* the gloss across the top third */
+.mm-oval::after{
+  content:"";
+  position:absolute;
+  left:10%; right:10%; top:6px;
+  height:34%;
+  border-radius:50% !important;
+  background:linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 100%);
+  pointer-events:none;
+  z-index:1;
+  transition:opacity .2s;
+  opacity:1;
+}
+.mm-oval:hover::after{background:linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,0) 100%)}
+.mm-oval:focus-visible{outline:2px solid var(--dt-rose); outline-offset:4px}
+.mm-oval-word{position:relative; z-index:0; display:block; font-size:46px; line-height:1.02}
+
+#main .banner .tagline{
+  font-size:15px !important; font-style:normal !important; letter-spacing:.02em !important;
+  color:var(--dt-mute) !important; margin-top:10px;
+}
+.season-stamp{
+  display:inline-block !important;
+  margin-top:6px;
+  padding:1px 10px 0;
+  border:1px solid var(--dt-rose);
+  color:var(--dt-rose-ink);
+  font-size:17px;
+  line-height:1.2;
+  text-transform:uppercase;
+  transform:rotate(-2deg);
+}
+
+/* the little stickers strip */
+.lil-strip{
+  display:flex !important;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  height:30px;
+  margin:10px 0 18px;
+  border-top:1px dotted var(--dt-hair);
+  border-bottom:1px dotted var(--dt-hair);
+  overflow:hidden;
+}
+.lil-strip img{height:18px; width:auto; display:block}
+
+/* the shipping pill up top goes; it's a plain line under the button now */
+#main .ship-strip{display:none !important}
+
+/* ══ PRODUCT ══ */
+#main .product-hero{gap:32px !important; align-items:start}
+#main .product-details{
+  background:#fff !important;
+  border:0 !important;
+  padding:4px 0 0 !important;
+}
+#main .product-details::before, #main .product-details::after{display:none !important}
+#main .product-details h2{margin-bottom:4px}
+#main .pd-label{display:none !important}
+#main .pd-rating{display:none !important}
+.dt-quote{display:block !important; font-size:15px; line-height:1.45; color:var(--dt-ink); margin:2px 0 12px}
+.dt-quote em{font-style:italic; font-family:var(--dt-sans)}
+.dt-quote .dt-quote-by{color:var(--dt-mute)}
+.dt-quote a{color:var(--dt-rose-ink)}
+#main .price-row .price{font-size:22px}
+#main .price-row .price-note{font-size:14px; font-style:normal}
+#main .pd-proof{font-size:14px; font-style:normal; color:var(--dt-mute)}
+#main .product-divider{
+  height:0 !important; border:0 !important; border-top:1px dotted var(--dt-hair) !important;
+  background:none !important; margin:14px 0 !important;
+}
+#main .product-divider::before, #main .product-divider::after{display:none !important}
+#main .desc-eyebrow{font-size:17px; color:var(--dt-rose-ink); text-transform:none}
+#main .product-desc{font-size:16px; line-height:1.5; font-style:normal}
+#main .pd-why{font-size:14px; color:var(--dt-mute); font-style:normal}
+
+/* ingredients: a plain two-column list with glossy lime bullets */
+#main .ing-chips{
+  display:grid !important;
+  grid-template-columns:1fr 1fr;
+  gap:4px 18px;
+  list-style:none;
+  margin:10px 0 0 !important;
+  padding:0 !important;
+}
+#main .ing-chips li{
+  display:flex !important; align-items:center; gap:8px;
+  background:none !important; border:0 !important; padding:0 !important; margin:0 !important;
+  font-size:15px !important; font-style:normal !important; color:var(--dt-ink) !important;
+}
+#main .ing-chips li::before{
+  content:"";
+  flex:0 0 9px; width:9px; height:9px;
+  border-radius:50% !important;
+  background:radial-gradient(circle at 35% 30%, #fff 0%, #e5f2c8 28%, var(--dt-lime) 70%, #8fb43f 100%);
+}
+
+/* sizes: a bordered list of real radio buttons, the picked row pale pink */
+#main .cart-section{background:#fff !important; border:0 !important; padding:0 !important}
+#main .variant-row{display:none !important}
+.dt-sizes{
+  display:block !important;
+  border:1px solid var(--dt-hair);
+  margin:0 0 12px;
+  padding:0;
+  min-width:0;
+}
+.dt-sizes legend{
+  float:left; width:100%;
+  padding:6px 12px 3px;
+  font-size:16px; color:var(--dt-mute);
+  border-bottom:1px solid var(--dt-hair);
+}
+.dt-size{
+  display:flex; align-items:center; gap:10px;
+  clear:both;
+  padding:10px 12px;
+  min-height:44px;
+  cursor:pointer;
+  font-size:16px; color:var(--dt-ink);
+}
+.dt-size + .dt-size{border-top:1px solid var(--dt-hair)}
+.dt-size:has(input:checked){background:var(--dt-pale)}
+.dt-size input{accent-color:var(--dt-rose); width:16px; height:16px; margin:0; flex:none}
+.dt-size input:focus-visible{outline:2px solid var(--dt-rose); outline-offset:2px}
+.dt-size-name{flex:1}
+.dt-size-name small{display:block; font-size:13px; color:var(--dt-mute)}
+.dt-size-price{font-size:17px}
+
+/* add to bag: square, solid pink */
+#main .buy-row .add-btn, #main .add-btn{
+  border-radius:0 !important;
+  background:var(--dt-rose) !important;
+  color:#fff !important;
+  border:0 !important;
+  font-family:var(--dt-sans) !important;
+  font-style:normal !important;
+  font-size:19px !important;
+  letter-spacing:.06em !important;
+  text-transform:lowercase;
+  min-height:52px;
+  padding:12px 16px !important;
+  transform:none !important;
+}
+#main .add-btn::before, #main .add-btn::after{display:none !important; content:none !important}
+#main .add-btn:hover{background:#ad4b7c !important}
+#main .add-btn:focus-visible{outline:2px solid var(--dt-ink); outline-offset:2px}
+.dt-ship{font-size:14px; color:var(--dt-mute); margin:8px 0 0; text-align:center}
+.dt-ask{font-size:14px; color:var(--dt-mute); margin:2px 0 0; text-align:center}
+.dt-ask a{color:var(--dt-rose-ink)}
+#main .trust-rows{margin-top:12px}
+#main .trust-rows li:first-child{display:none}   /* said once already, right under the button */
+#main .trust-rows li{font-size:14px; font-style:normal}
+#main .ship-line{font-style:normal; font-size:13px}
+
+/* the quote now sits under the product name, so the copy further down goes */
+#main .pd-quote{display:none !important}
+
+/* ══ INTRODUCING THE CASE ══ */
+.case-callout{
+  display:flex !important;
+  gap:14px;
+  align-items:center;
+  margin:22px 0;
+  padding:12px 14px;
+  background:var(--dt-cream);
+  border:1px solid var(--dt-hair);
+}
+.case-callout img{width:56px; height:auto; display:block; border:1px solid var(--dt-hair)}
+.case-callout p{margin:0; font-size:15px; color:var(--dt-ink)}
+.case-callout .case-head{font-size:20px; color:var(--dt-rose-ink); margin-bottom:2px}
+.case-callout a{color:var(--dt-rose-ink)}
+
+/* ══ CARDS AND BOXES: square, flat, hairlines ══ */
+#main .info-grid{gap:0 !important; border:1px solid var(--dt-hair); margin-bottom:20px}
+#main .info-card{
+  background:#fff !important; border:0 !important; border-right:1px solid var(--dt-hair) !important;
+  padding:14px !important;
+}
+#main .info-card:last-child{border-right:0 !important}
+#main .info-card::before, #main .info-card::after{display:none !important}
+#main .info-card .ic-icon{display:none}
+#main .info-card .ic-title{font-size:17px; color:var(--dt-rose-ink); text-transform:none}
+#main .info-card .ic-text{font-size:14px; font-style:normal; color:var(--dt-ink)}
+#main .box{
+  background:#fff !important;
+  border:1px solid var(--dt-hair) !important;
+  padding:16px 18px !important;
+  margin-bottom:20px !important;
+}
+#main .box::before, #main .box::after{display:none !important}
+#main .box-title{font-size:24px; color:var(--dt-rose-ink); text-transform:none; letter-spacing:0; border:0 !important; margin-bottom:10px}
+#main .taste-item{background:#fff !important; border:0 !important; border-top:1px dotted var(--dt-hair) !important; padding:10px 0 !important}
+#main .taste-item .tl{font-size:16px; color:var(--dt-rose-ink); text-transform:none}
+#main .taste-item .tv{font-size:15px; font-style:normal; color:var(--dt-ink)}
+#main .occasions{display:block !important}
+#main .occasion{
+  display:inline !important; background:none !important; border:0 !important; padding:0 !important;
+  font-size:15px !important; color:var(--dt-ink) !important; font-family:var(--dt-sans) !important; text-transform:none !important; letter-spacing:0 !important;
+}
+#main .occasion:not(:last-child)::after{content:", "}
+#main .review{border:0 !important; border-top:1px dotted var(--dt-hair) !important; background:#fff !important; padding:12px 0 !important; margin:0 !important}
+#main .review:first-of-type{border-top:0 !important}
+#main .review .r-stars{display:none}
+#main .review .r-text{font-size:15px; font-style:normal; color:var(--dt-ink)}
+#main .review .r-author{font-size:15px; color:var(--dt-mute); text-transform:none}
+#main #badges{display:none !important}
+
+/* ══ SIP / READ / VISIT ══ */
+.panels{
+  display:grid !important;
+  grid-template-columns:repeat(3, 1fr);
+  gap:18px;
+  margin:30px 0 22px;
+}
+.panel{position:relative; border:1px solid var(--dt-hair); padding:14px 12px 12px; background:#fff}
+.panel .panel-tab{
+  position:absolute;
+  top:-13px; left:10px;
+  margin:0;
+  padding:1px 12px 0;
+  background:var(--dt-rose);
+  color:#fff;
+  font-size:17px;
+  line-height:1.3;
+  text-transform:uppercase;
+  transform:skewX(-12deg);
+}
+.panel img{display:block; width:100%; height:150px; object-fit:cover; border:1px solid var(--dt-hair); margin-bottom:8px}
+.panel p{margin:0 0 4px; font-size:14px; color:var(--dt-ink)}
+.panel .panel-links{font-size:13px; color:var(--dt-mute)}
+.panel .panel-links a{color:var(--dt-rose-ink)}
+
+/* ══ THE LATEST ══ */
+.latest{border-top:1px dotted var(--dt-hair); padding-top:14px; margin-bottom:22px}
+.latest h3{font-size:24px; color:var(--dt-rose-ink); font-weight:normal; margin:0 0 8px}
+.latest ul{list-style:none; margin:0; padding:0}
+.latest li{display:flex; gap:14px; align-items:baseline; padding:5px 0; font-size:15px; color:var(--dt-ink); border-bottom:1px dotted var(--dt-hair)}
+.latest-date{flex:none; width:64px; font-size:17px; color:var(--dt-rose-ink)}
+.latest p{margin:8px 0 0; font-size:14px}
+.latest a{color:var(--dt-rose-ink)}
+
+/* ══ SIGNUP ══ */
+.signup{
+  border:1px solid var(--dt-hair);
+  background:var(--dt-cream);
+  padding:14px 16px;
+  margin-bottom:22px;
+}
+.signup p{margin:0 0 10px; font-size:15px; color:var(--dt-ink)}
+.signup-row{display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap}
+.signup label{display:flex; flex-direction:column; gap:3px; font-size:13px; color:var(--dt-mute); flex:1; min-width:160px}
+.signup input{
+  height:36px; padding:0 8px;
+  border:1px solid #cdb3c0; background:#fff;
+  font:15px var(--dt-sans); color:var(--dt-ink);
+}
+.signup input:focus-visible{outline:2px solid var(--dt-rose); outline-offset:1px}
+.signup button{
+  height:36px; padding:0 22px;
+  background:var(--dt-rose); color:#fff; border:0;
+  font:15px var(--dt-sans); letter-spacing:.04em; cursor:pointer;
+}
+.signup button:hover{background:#ad4b7c}
+.signup button:focus-visible{outline:2px solid var(--dt-ink); outline-offset:2px}
+.signup button:disabled{opacity:.6}
+.signup .signup-note{margin:8px 0 0; font-size:14px; color:var(--dt-rose-ink); min-height:1em}
+
+/* ══ FOOTER ══ */
+.dt-footer{text-align:center; padding:4px 0 6px; font-size:13px; color:var(--dt-mute)}
+.dt-footer ul{list-style:none; margin:0 0 8px; padding:0; display:flex; justify-content:center; flex-wrap:wrap; gap:6px 20px}
+.dt-footer li{display:flex; align-items:center; gap:7px}
+.dt-footer li::before{content:""; width:5px; height:5px; background:var(--dt-rose); flex:none}
+.dt-footer a{color:var(--dt-rose-ink)}
+.dt-footer p{margin:0 0 4px}
+#mmPrivacyBar{opacity:1 !important; color:var(--dt-mute) !important}
+
+/* ══ SIDEBAR ══ */
+#sidebar{border-right:1px solid var(--dt-hair) !important}
+#sidebar .sidebar-sub{font-style:normal; letter-spacing:0; font-size:13px; color:var(--dt-mute)}
+#sidebar .nav-label{font-size:16px; color:var(--dt-rose-ink); text-transform:uppercase}
+#sidebar nav a{font-style:normal !important; font-size:16px !important; border-bottom:1px dotted var(--dt-hair) !important}
+#sidebar nav a.active{text-shadow:none}
+/* only the first letter of each item, like an old menu's keyboard shortcut */
+#sidebar nav a .fl ~ .fl{text-decoration:none}
+.moment{border:1px solid var(--dt-hair); padding:10px 12px; margin-bottom:12px; background:#fff; text-align:left}
+.moment-title{font-size:18px; color:var(--dt-rose-ink); margin-bottom:6px}
+.moment dl{margin:0}
+.moment dt{font-size:15px; color:var(--dt-mute); margin-top:6px; line-height:1}
+.moment dd{margin:1px 0 0; font-size:13px; color:var(--dt-ink); line-height:1.35}
+#sidebar .copyright{font-size:14px; color:var(--dt-mute); letter-spacing:.04em}
+
+/* ══ 769–820px: everything stacks to one column ══ */
+@media (max-width:820px){
+  #main{padding:0 22px 24px !important}
+  .util-row{margin:0 -22px 16px; padding:6px 22px; flex-wrap:wrap; gap:4px 14px}
+  .util-row .util-age{order:3; flex-basis:100%; text-align:left}
+  .mm-oval{padding:18px 40px 16px}
+  .mm-oval-word{font-size:38px}
+  #main .product-hero{grid-template-columns:1fr !important; display:block !important}
+  #main .product-gallery{margin-bottom:20px}
+  #main .info-grid{grid-template-columns:1fr !important}
+  #main .info-card{border-right:0 !important; border-bottom:1px solid var(--dt-hair) !important}
+  .panels{grid-template-columns:1fr}
+  #main .ing-chips{grid-template-columns:1fr}
+  #main .tasting-notes{grid-template-columns:1fr !important}
+}
+
+/* where a sparkle used to separate "no refined sugar ✦ 5% abv", a plain dot */
+#main .pd-why .dt-spk{display:inline !important; font-size:0}
+#main .pd-why .dt-spk::before{content:"·"; font-size:14px; color:var(--dt-mute); padding:0 2px}

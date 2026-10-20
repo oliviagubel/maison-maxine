@@ -2068,6 +2068,10 @@ html.age-ok .age-bar{display:none}
 }
 </style>
 <link rel="stylesheet" href="css/square.css">
+<!-- computers only (min-width:769px): phones never download or apply these -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/shop-desktop.css" media="(min-width:769px)">
+<style>@media (max-width:768px){.dt-only{display:none !important}}</style>
 </head>
 <body>
 
@@ -2145,42 +2149,18 @@ html.age-ok .age-bar{display:none}
 
   </div>
 
-  <div style="text-align:center;margin-top:20px;font-size:10px;color:#fce5f7;letter-spacing:8px">✦ ♡ ✦</div>
   <div class="sidebar-bottom">
-    <div class="side-quiet">
-    <!-- NOW PLAYING -->
-    <div class="now-playing">
-      <div class="np-header">now playing ✦</div>
-      <div class="np-track">
-        <div class="eq-bars">
-          <span></span><span></span><span></span><span></span><span></span>
-        </div>
-        <div class="np-info">
-          <div class="np-song" id="np-song">california gurls</div>
-          <div class="np-artist" id="np-artist">katy perry</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="sidebar-widget weather-widget">
-      <div class="wt">malibu weather ✦</div>
-      <div class="weather-display">
-        <div class="weather-icon" id="w-icon">☀</div>
-        <div class="weather-temp" id="w-temp">72°f</div>
-      </div>
-      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
-      <div class="weather-details">
-        <span id="w-wind">wind 5mph</span>
-        <span>·</span>
-        <span id="w-humidity">humidity 62%</span>
-      </div>
-    </div>
-    </div>
-    <div class="blinkies">
-      <span class="blinkie">muse life</span>
-      <span class="blinkie">sip sip</span>
-      <span class="blinkie">malibu</span>
-      <span class="blinkie">rescue pups</span>
+    <!-- OF THE MOMENT (the song and the weather are filled in by the scripts below) -->
+    <div class="moment">
+      <div class="moment-title">Of the moment</div>
+      <dl>
+        <dt>Playing</dt>
+        <dd><span id="np-song">california gurls</span>, <span id="np-artist">katy perry</span></dd>
+        <dt>Pouring at</dt>
+        <dd>Monsieur Marcel, the Grove</dd>
+        <dt>Malibu</dt>
+        <dd><span id="w-temp">72°f</span>, <span id="w-desc">sunny &amp; perfect for a spritzer</span><span hidden><span id="w-icon"></span><span id="w-wind"></span><span id="w-humidity"></span></span></dd>
+      </dl>
     </div>
     <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
   </div>
@@ -2189,12 +2169,21 @@ html.age-ok .age-bar{display:none}
 <!-- MAIN -->
 <div id="main">
 
+  <!-- UTILITY ROW (computers) -->
+  <div class="dt-only util-row">
+    <span class="util-date" id="utilDate"></span>
+    <span class="util-age">21+ only · we check your birthday at checkout and an adult signs at delivery</span>
+    <span class="util-links"><a href="mailto:olivia@maisonmaxine.world?subject=Help%20with%20my%20order">Help</a> · <button type="button" class="util-bag" onclick="openDrawer()">Bag (<span id="utilBagN">0</span>)</button></span>
+  </div>
+
   <!-- BANNER -->
   <div class="banner">
-    <h1 style="color:#d371a1"><span class="nw" style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br><span class="nw">Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></h1>
+    <h1 style="color:#d371a1"><a class="mm-oval" href="home.html" aria-label="Maison Maxine, home"><span class="mm-oval-word"><span class="nw" style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br><span class="nw">Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></span></a></h1>
     <div class="tagline">sip up, save pups ✦</div>
+    <div class="season-stamp dt-only">Fall 2026</div>
     <div class="divider"></div>
   </div>
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
 
   <!-- FREE SHIPPING (computers) -->
   <div class="ship-strip">free shipping on orders over $100 <span aria-hidden="true">✦</span> the case ships free</div>
@@ -2233,6 +2222,7 @@ html.age-ok .age-bar{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
+      <p class="dt-only dt-quote"><em>“trust that my drink of choice is mm. in fact i don't even like drinking except for mm.”</em> <span class="dt-quote-by">Kayla C., New York</span> · <a href="#reviews">read all 7</a></p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read the reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span></a>
       <div class="price-row">
         <span class="price" id="priceMain">8 cans · $56</span>
@@ -2269,12 +2259,21 @@ html.age-ok .age-bar{display:none}
           </button>
         </div>
 
+        <!-- SIZES AS RADIO ROWS (computers; they drive the same selectVariant) -->
+        <fieldset class="dt-only dt-sizes">
+          <legend>Choose how many</legend>
+          <label class="dt-size"><input type="radio" name="dtSize" value="fourpack" checked><span class="dt-size-name">8 cans <small>2 gift boxes · $7 a can</small></span><span class="dt-size-price">$56</span></label>
+          <label class="dt-size"><input type="radio" name="dtSize" value="case"><span class="dt-size-name">24 cans <small>6 gift boxes · $6 a can · ships free</small></span><span class="dt-size-price">$144</span></label>
+        </fieldset>
+
         <!-- BUY: express wallet on the left (when the device has one), buy on the right -->
         <div class="buy-row">
           <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
           <button class="add-btn" id="addBtn" type="button">Buy · $56</button>
         </div>
 
+        <p class="dt-only dt-ship">Free shipping on orders over $100 · the case ships free</p>
+        <p class="dt-only dt-ask">Questions? <a href="mailto:olivia@maisonmaxine.world">E-mail us</a></p>
         <ul class="trust-rows">
           <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>Free shipping over $100, the case ships free</li>
           <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10.5A4 4 0 0 1 12 8a4 4 0 0 1 7 2.5C19 16.5 12 21 12 21z"/></svg>Don't love it? We'll replace it or credit you</li>
@@ -2284,6 +2283,15 @@ html.age-ok .age-bar{display:none}
       </div>
     </div>
 
+  </div>
+
+  <!-- INTRODUCING THE CASE (computers) -->
+  <div class="dt-only case-callout">
+    <img src="opt/maisonmaxinegiftbox.jpg" alt="a pink maison maxine gift box tied with a ribbon" width="90" height="160" loading="lazy" decoding="async">
+    <div>
+      <p class="case-head">Introducing the case.</p>
+      <p>24 cans in six gift boxes, $6 a can, and it always ships free. <a href="#" id="pickCase">Choose the case &raquo;</a></p>
+    </div>
   </div>
 
   <!-- THE STORY -->
@@ -2454,6 +2462,65 @@ html.age-ok .age-bar{display:none}
 </div>
   </div>
 
+  <!-- SIP / READ / VISIT (computers) -->
+  <div class="dt-only panels">
+    <section class="panel">
+      <h3 class="panel-tab">Sip</h3>
+      <img src="opt/handholdingcan.jpg" alt="a hand holding a maison maxine can" width="800" height="450" loading="lazy" decoding="async">
+      <p>Best cold, over ice, at golden hour.</p>
+      <p class="panel-links"><a href="store-locator.html">store locator</a> · <a href="https://maisonmaxine.substack.com" target="_blank">magazine</a> · <a href="https://gubelfamilyvineyards.com" target="_blank">vineyard</a></p>
+    </section>
+    <section class="panel">
+      <h3 class="panel-tab">Read</h3>
+      <img src="opt/kendalsmiling.jpg" alt="a muse smiling with a can of maison maxine" width="511" height="800" loading="lazy" decoding="async">
+      <p>Interviews, pours and recipes in the magazine.</p>
+      <p class="panel-links"><a href="store-locator.html">store locator</a> · <a href="https://maisonmaxine.substack.com" target="_blank">magazine</a> · <a href="https://gubelfamilyvineyards.com" target="_blank">vineyard</a></p>
+    </section>
+    <section class="panel">
+      <h3 class="panel-tab">Visit</h3>
+      <img src="opt/ameliawalking.jpg" alt="a muse walking through the garden" width="800" height="596" loading="lazy" decoding="async">
+      <p>Made at our family's vineyard.</p>
+      <p class="panel-links"><a href="store-locator.html">store locator</a> · <a href="https://maisonmaxine.substack.com" target="_blank">magazine</a> · <a href="https://gubelfamilyvineyards.com" target="_blank">vineyard</a></p>
+    </section>
+  </div>
+
+  <!-- THE LATEST (computers) -->
+  <div class="dt-only latest">
+    <h3>The latest</h3>
+    <ul>
+      <li><span class="latest-date">07.01.26</span> Now out east at the Surf Lodge mini bar.</li>
+      <li><span class="latest-date">06.03.26</span> Now at the Beverly Hills Cheese Store, just in time for Hollywood Bowl season.</li>
+      <li><span class="latest-date">04.26.26</span> Officially on shelves at Happier Grocery in NYC.</li>
+    </ul>
+    <p><a href="store-locator.html">All stockists &raquo;</a></p>
+  </div>
+
+  <!-- FALL BATCH SIGNUP (computers) -->
+  <form class="dt-only signup" id="fallSignup" novalidate>
+    <p>If you would like to be notified when the fall batch ships, leave us your e-mail address and we'll let you know!</p>
+    <div class="signup-row">
+      <label>Name <input type="text" name="name" autocomplete="name"></label>
+      <label>Email <input type="email" name="email" autocomplete="email" required></label>
+      <button type="submit">Submit</button>
+    </div>
+    <p class="signup-note" id="fallSignupNote" role="status"></p>
+  </form>
+
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
+
+  <!-- FOOTER (computers) -->
+  <footer class="dt-only dt-footer">
+    <ul>
+      <li><a href="home.html">Index</a></li>
+      <li><a href="store-locator.html">Stockists</a></li>
+      <li><a href="forbuyers/">Wholesale</a></li>
+      <li><a href="mailto:olivia@maisonmaxine.world?subject=Press">Press</a></li>
+      <li><a href="privacy.html">Terms &amp; Privacy</a></li>
+    </ul>
+    <p><a href="mailto:?subject=Maison%20Maxine%20Red%20Wine%20Spritz&amp;body=https%3A%2F%2Fmaisonmaxine.world%2Fshop.html">Email this page to a friend</a></p>
+    <p class="dt-copy">Copyright Maison Maxine 2026 · All rights reserved</p>
+  </footer>
+
   <!-- FOOTER (phones) -->
   <footer class="m-footer">
     <div class="mf-block">
@@ -2578,6 +2645,8 @@ function selectVariant(id) {
     el.classList.toggle('selected', v === id);
     el.setAttribute('aria-pressed', v === id);
   });
+  // the radio rows on computers follow the same choice
+  document.querySelectorAll('input[name="dtSize"]').forEach(r => { r.checked = r.value === id; });
   document.getElementById('priceMain').textContent = PRICE_LINE[id].main;
   document.getElementById('priceNote').textContent = PRICE_LINE[id].note;
   qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
@@ -2587,9 +2656,12 @@ function selectVariant(id) {
 // ═══ THE BUY BUTTONS ═══
 // every buy button says the price of the option that is picked; phones say "Add to cart"
 const BUY_WORD = matchMedia('(max-width:768px)').matches ? 'Add to cart' : 'Buy';
+// computers: "▶▶ add to bag · $56" (\uFE0E keeps the arrows as text, never emoji)
+const DESKTOP_BUY = matchMedia('(min-width:769px)').matches;
 function syncAddBtn() {
   const total = '$' + (qty * VARIANTS[selectedVariant].price);
   document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + ' · ' + total; });
+  if (DESKTOP_BUY) document.getElementById('addBtn').textContent = '\u25B6\uFE0E\u25B6\uFE0E add to bag · ' + total;
   if (window.xpSync) window.xpSync();
 }
 
@@ -2703,6 +2775,8 @@ function updateCartUI() {
   count.classList.toggle('is-empty', n <= 0);
   btn.classList.toggle('visible', n > 0);
   btn.setAttribute('aria-label', n > 0 ? 'open cart, ' + n + ' in it' : 'open cart');
+  const bag = document.getElementById('utilBagN');
+  if (bag) bag.textContent = n;
   const m = document.getElementById('mCartCount');
   if (m) {
     m.textContent = n > 0 ? n : '';
@@ -3366,6 +3440,7 @@ function updateStampCounter(){
     window.Vinoshipper.init(5982, {});
   });
 </script>
+<script src="js/shop-desktop.js" defer></script>
 <script src="https://vinoshipper.com/injector/index.js" type="text/javascript"></script>
 
 </body>
