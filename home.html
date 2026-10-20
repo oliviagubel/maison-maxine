@@ -508,125 +508,103 @@ body::before{
   box-shadow:0 4px 12px rgba(247,205,235,.4);
 }
 
-/* ═══ AIM AWAY MESSAGE ═══ */
-.aim-window{
+/* ═══ AIM AWAY MESSAGE ═══
+   computers only. an aim 5.x away message on windows xp (luna blue), the
+   way it looked around 2005: blue title bar with minimise / maximise / close,
+   the file edit people help menu, a buddy icon, and the auto response in a
+   white box. html body + !important on the corners beats css/square.css,
+   which squares everything else on the page. */
+html body .aim-window{
   position:fixed;
-  top:5px;right:30px;
-  width:260px;
-  background:#fef8fb;
-  border:1px solid #f0d0e2;
-  border-radius:10px 10px 8px 8px;
-  box-shadow:2px 3px 16px rgba(247,205,235,.4), inset 0 1px 0 rgba(255,255,255,.8);
+  top:8px;right:30px;
+  width:290px;
+  background:#ebeae4;
+  border:3px solid #0a4fd6;
+  border-top:0;
+  border-radius:8px 8px 0 0 !important;
+  box-shadow:2px 2px 6px rgba(0,0,0,.35);
   z-index:800;
-  font-family:'Lucida Grande','Trebuchet MS',sans-serif;
+  font:11px Tahoma,Verdana,"Segoe UI",sans-serif;
+  color:#000;
   cursor:default;
   user-select:none;
 }
-.aim-titlebar{
-  background:linear-gradient(180deg, #fce8f1 0%, #f7d5e5 40%, #f0c4d8 100%);
-  padding:5px 8px;
+html body .aim-titlebar{
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  border-radius:9px 9px 0 0;
+  gap:5px;
+  height:26px;
+  margin:0 -3px;
+  padding:0 5px 0 7px;
+  background:linear-gradient(180deg,#0997ff 0%,#0053ee 8%,#0050ee 40%,#0066ff 88%,#0066ff 93%,#005bff 95%,#003dd7 96%,#003dd7 100%);
+  border-radius:8px 8px 0 0 !important;
   cursor:grab;
-  border-bottom:1px solid #f0d0e2;
 }
 .aim-titlebar:active{cursor:grabbing}
-.aim-dots{display:flex;gap:5px}
-.aim-dots span{
-  width:8px;height:8px;
-  border-radius:50%;
-  display:inline-block;
-}
-.aim-dots span:nth-child(1){background:#f7a0b8;border:1px solid #e88da5}
-.aim-dots span:nth-child(2){background:#f7cdeb;border:1px solid #e8b8d8}
-.aim-dots span:nth-child(3){background:#c8e6c0;border:1px solid #a8d0a0}
+.aim-title-icon{width:16px;height:auto;display:block}
 .aim-title-text{
-  color:#c76090;
-  font-size:10px;
-  font-weight:bold;
-  text-shadow:none;
   flex:1;
-  text-align:center;
-  letter-spacing:.02em;
+  color:#fff;
+  font:bold 12px "Trebuchet MS",Tahoma,sans-serif;
+  text-shadow:1px 1px 0 #0f1089;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
 }
-.aim-close{
-  background:none;border:none;
-  color:#c76090;
-  font-size:13px;
-  cursor:pointer;
-  padding:0 2px;
-  line-height:1;
+.aim-controls{display:flex;gap:2px}
+html body .aim-ctl, html body .aim-close{
+  position:relative;
+  width:21px;height:21px;
+  border:1px solid #fff;
+  border-radius:3px !important;
+  background:linear-gradient(180deg,#3c8cf3 0%,#1c5fdc 100%);
+  display:block;
+  padding:0;
 }
-.aim-close:hover{color:#a84d78}
-.aim-body{
-  background:#fff;
-  margin:6px;
-  padding:12px;
-  border:1px solid #aaa;
-  border-radius:2px;
-  min-height:80px;
-}
-.aim-buddy{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  margin-bottom:10px;
-  padding-bottom:8px;
-  border-bottom:1px solid #ddd;
-}
+.aim-min::after{content:"";position:absolute;left:5px;bottom:5px;width:7px;height:2px;background:#fff}
+.aim-max::after{content:"";position:absolute;left:4px;top:4px;width:9px;height:8px;border:1px solid #fff;border-top-width:3px}
+html body .aim-close{background:linear-gradient(180deg,#e9805f 0%,#c63e1c 100%);cursor:pointer}
+.aim-close::before,.aim-close::after{content:"";position:absolute;left:9px;top:3px;width:2px;height:13px;background:#fff}
+.aim-close::before{transform:rotate(45deg)}
+.aim-close::after{transform:rotate(-45deg)}
+.aim-close:hover{filter:brightness(1.12)}
+.aim-close:focus-visible{outline:1px dotted #fff;outline-offset:1px}
+.aim-menubar{display:flex;gap:12px;padding:3px 7px;border-bottom:1px solid #c5c2b2}
+.aim-menubar u{text-decoration:underline}
+.aim-body{padding:8px 8px 4px}
+.aim-buddy{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .aim-buddy-icon{
-  width:32px;height:32px;
-  border-radius:4px;
-  background:linear-gradient(135deg,#f7cdeb,#c76090);
+  width:48px;height:48px;flex:none;
+  background:#fff;border:1px solid #7f9db9;
   display:flex;align-items:center;justify-content:center;
-  font-size:14px;
 }
-.aim-buddy-name{
-  font-size:11px;
-  font-weight:bold;
-  color:#333;
+.aim-buddy-icon img{width:40px;height:auto;display:block}
+.aim-buddy-name{font-weight:bold;font-size:12px;color:#000}
+.aim-buddy-status{color:#444}
+.aim-timestamp{color:#444;margin-top:2px}
+.aim-msgbox{
+  min-height:58px;
+  padding:6px 7px;
+  background:#fff;
+  border:1px solid #7f9db9;
+  font:13px Arial,Helvetica,sans-serif;
+  line-height:1.35;
+  user-select:text;
 }
-.aim-buddy-status{
-  font-size:9px;
-  color:#999;
-}
-.aim-message{
-  font-family:'Cormorant Garamond',serif;
-  font-style:italic;
-  font-size:14px;
-  color:#4a3a3a;
-  line-height:1.7;
-  letter-spacing:.02em;
-}
-.aim-footer{
-  padding:6px 8px;
-  display:flex;
-  justify-content:flex-end;
-  gap:6px;
-}
-.aim-btn{
-  font-family:'Pixelify Sans',sans-serif;
-  font-size:9px;
-  letter-spacing:.06em;
-  padding:4px 14px;
-  border:1px solid #f0d0e2;
-  border-radius:12px;
-  background:linear-gradient(180deg,#fef8fb,#fce8f1);
-  color:#c76090;
+.aim-auto{color:#1530c9;font-weight:bold}
+.aim-message{color:#c2185b}
+.aim-footer{display:flex;justify-content:flex-end;gap:6px;padding:6px 8px 8px}
+html body .aim-btn{
+  min-width:72px;
+  padding:3px 10px;
+  font:11px Tahoma,Verdana,sans-serif;
+  color:#000;
+  background:linear-gradient(180deg,#fff 0%,#ecebe6 86%,#d6d0c5 100%);
+  border:1px solid #003c74;
+  border-radius:3px !important;
   cursor:pointer;
-  box-shadow:0 1px 2px rgba(247,205,235,.2);
 }
-.aim-btn:hover{background:#c76090;color:#fff;border-color:#c76090}
-.aim-btn:active{background:#a84d78;color:#fff}
-.aim-timestamp{
-  font-size:8px;
-  color:#bbb;
-  text-align:right;
-  margin-top:8px;
-  font-family:'Lucida Grande',sans-serif;
-}
+.aim-btn:hover{box-shadow:inset 0 0 0 2px #f8b636}
+.aim-btn:active{background:linear-gradient(180deg,#e5e4de 0%,#e3e2da 100%)}
+.aim-btn:focus-visible{outline:1px dotted #000;outline-offset:-4px}
 @media(max-width:768px){
   .aim-window{
     display:none!important;
@@ -1215,26 +1193,28 @@ body::before{
   </div>
 
   <!-- AIM AWAY MESSAGE -->
-  <div class="aim-window" id="aim-window">
+  <div class="aim-window" id="aim-window" role="dialog" aria-label="MaisonMaxineMuse away message">
     <div class="aim-titlebar" id="aim-drag">
-      <div class="aim-dots"><span></span><span></span><span></span></div>
+      <img class="aim-title-icon" src="littlebird.png" alt="">
       <div class="aim-title-text">MaisonMaxineMuse - Away Message</div>
-      <button class="aim-close" id="aim-close" title="close">✕</button>
+      <div class="aim-controls" aria-hidden="true"><span class="aim-ctl aim-min"></span><span class="aim-ctl aim-max"></span></div>
+      <button class="aim-close" id="aim-close" type="button" title="Close" aria-label="close the away message"></button>
     </div>
+    <div class="aim-menubar" aria-hidden="true"><span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>P</u>eople</span><span><u>H</u>elp</span></div>
     <div class="aim-body">
       <div class="aim-buddy">
-        <div class="aim-buddy-icon">✦</div>
+        <div class="aim-buddy-icon"><img src="littlebird.png" alt=""></div>
         <div>
           <div class="aim-buddy-name">MaisonMaxineMuse</div>
-          <div class="aim-buddy-status">● away</div>
+          <div class="aim-buddy-status">is away</div>
+          <div class="aim-timestamp" id="aim-time"></div>
         </div>
       </div>
-      <div class="aim-message" id="aim-message">currently at the beach. leave a message after the spritz. ✦</div>
-      <div class="aim-timestamp" id="aim-time"></div>
+      <div class="aim-msgbox"><span class="aim-auto">Auto response from MaisonMaxineMuse:</span> <span class="aim-message" id="aim-message">currently at the beach. leave a message after the spritz. ~*~</span></div>
     </div>
     <div class="aim-footer">
-      <button class="aim-btn" onclick="document.getElementById('aim-window').style.display='none';sessionStorage.setItem('mm_aim_closed','1')">I'm Back</button>
-      <button class="aim-btn" onclick="document.getElementById('aim-window').style.display='none';sessionStorage.setItem('mm_aim_closed','1')">Close</button>
+      <button class="aim-btn" type="button" data-aim-close>I'm Back</button>
+      <button class="aim-btn" type="button" data-aim-close>Close</button>
     </div>
   </div>
 
@@ -1426,9 +1406,13 @@ body::before{
     'laying in the sun pretending i\'m in a french film.',
     'reorganizing my bookshelf by vibes. this could take a while.'
   ];
-  document.getElementById('aim-message').textContent=msgs[Math.floor(Math.random()*msgs.length)];
+  // typed the way away messages were: ~*~ for sparkles and <3 for hearts
+  var msg=msgs[Math.floor(Math.random()*msgs.length)].replace(/\s*✦/g,' ~*~').replace(/♡/g,'<3');
+  document.getElementById('aim-message').textContent=msg;
   var now=new Date();
-  document.getElementById('aim-time').textContent='away since '+now.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).toLowerCase();
+  document.getElementById('aim-time').textContent='Away since '+now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+  function closeAim(){aim.style.display='none';sessionStorage.setItem('mm_aim_closed','1')}
+  aim.querySelectorAll('[data-aim-close], #aim-close').forEach(function(b){b.addEventListener('click',closeAim)});
 
   // draggable
   var drag=document.getElementById('aim-drag');

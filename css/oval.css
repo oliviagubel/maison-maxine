@@ -1,9 +1,9 @@
 /* ═══ THE OVAL WORDMARK, COMPUTERS ONLY ═══
    linked with media="(min-width:769px)". the big "Maison Maxine" in a
    horizontal oval, like an enamel pin or a perfume label: a pale fill, a
-   1.5px rose outline, a hairline ring 4px inside and a gloss across the
-   top third. links home. used on the shop page (bright pink) and the home
-   page (bright apple green, set with --oval-fill). */
+   1.5px rose outline and a hairline ring 4px inside (no gloss: it read as
+   fog). links home. used on the shop page (bright pink) and the home page
+   (bright apple green, set with --oval-fill). */
 
 .mm-oval{
   position:relative;
@@ -28,20 +28,7 @@
   pointer-events:none;
   z-index:2;
 }
-/* the gloss across the top third */
-.mm-oval::after{
-  content:"";
-  position:absolute;
-  left:10%; right:10%; top:6px;
-  height:34%;
-  border-radius:50% !important;
-  background:linear-gradient(180deg, rgba(255,255,255,.5) 0%, rgba(255,255,255,0) 100%);
-  pointer-events:none;
-  z-index:1;
-  transition:opacity .2s;
-  opacity:1;
-}
-.mm-oval:hover::after{background:linear-gradient(180deg, rgba(255,255,255,.72) 0%, rgba(255,255,255,0) 100%)}
+.mm-oval:hover{filter:brightness(1.03)}
 .mm-oval:focus-visible{outline:2px solid var(--oval-rose, #e0338a); outline-offset:4px}
 .mm-oval-word{position:relative; z-index:0; display:block; font-size:46px; line-height:1.02}
 
