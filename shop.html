@@ -2067,6 +2067,8 @@ html.age-ok .age-bar{display:none}
   .drawer-empty-text{color:var(--ink) !important;font-size:16px !important}
 }
 </style>
+<link rel="stylesheet" href="css/retro96.css">
+<script src="js/retro96.js" defer></script>
 </head>
 <body>
 
@@ -2232,6 +2234,7 @@ html.age-ok .age-bar{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
+      <p class="r96-only r96-small">our one and only spritz</p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read the reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span></a>
       <div class="price-row">
         <span class="price" id="priceMain">8 cans · $56</span>
@@ -2245,6 +2248,7 @@ html.age-ok .age-bar{display:none}
       <p class="product-desc">Napa Valley Cabernet, lightly sparkling, with ginger, lemon and honey.</p>
       <p class="product-desc pd-story">Bright, clean, and made for the moments that matter.</p>
       <p class="pd-why">no refined sugar <span aria-hidden="true">✦</span> 5% abv <span aria-hidden="true">✦</span> four ingredients <span aria-hidden="true">✦</span> made at our family's vineyard</p>
+      <p class="r96-only r96-ing">Ingredients: Napa Valley Cabernet, real ginger, lemon juice, honey. Nothing else.</p>
       <ul class="ing-chips" aria-label="ingredients">
         <li>napa valley cabernet</li><li>real ginger</li><li>lemon juice</li><li>honey</li><li>nothing else</li>
       </ul>
@@ -2280,6 +2284,7 @@ html.age-ok .age-bar{display:none}
           <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M6 11h12v9H6zM8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Secure checkout</li>
         </ul>
         <p class="ship-line" id="shipLine"></p>
+        <p class="r96-only r96-ask">questions? <a href="mailto:olivia@maisonmaxine.world">email us</a></p>
       </div>
     </div>
 
@@ -2566,8 +2571,8 @@ let qty = VARIANTS[selectedVariant].min;
 
 // what the price line says for each option
 const PRICE_LINE = {
-  fourpack: { main: '8 cans · $56',   note: '$7 a can, about 2 bottles of wine' },
-  case:     { main: '24 cans · $144', note: '$6 a can, ships free' }
+  fourpack: { main: '8 cans · $56',   old: '$56.00 for 8 cans',   note: '$7 a can, about 2 bottles of wine' },
+  case:     { main: '24 cans · $144', old: '$144.00 for 24 cans', note: '$6 a can, ships free' }
 };
 function selectVariant(id) {
   if (!VARIANTS[id]) return;
@@ -2577,18 +2582,21 @@ function selectVariant(id) {
     el.classList.toggle('selected', v === id);
     el.setAttribute('aria-pressed', v === id);
   });
-  document.getElementById('priceMain').textContent = PRICE_LINE[id].main;
+  document.getElementById('priceMain').textContent = IS_PHONE ? PRICE_LINE[id].main : PRICE_LINE[id].old;
   document.getElementById('priceNote').textContent = PRICE_LINE[id].note;
   qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
   syncAddBtn();
 }
 
 // ═══ THE BUY BUTTONS ═══
-// every buy button says the price of the option that is picked; phones say "Add to cart"
-const BUY_WORD = matchMedia('(max-width:768px)').matches ? 'Add to cart' : 'Buy';
+// every buy button says the price of the option that is picked. phones say
+// "Add to cart · $56"; computers (the 1996 layout) say "Add to Cart — $56.00"
+const IS_PHONE = matchMedia('(max-width:768px)').matches;
+const BUY_WORD = IS_PHONE ? 'Add to cart' : 'Add to Cart';
+const money = n => '$' + (IS_PHONE ? n : n.toFixed(2));
 function syncAddBtn() {
-  const total = '$' + (qty * VARIANTS[selectedVariant].price);
-  document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + ' · ' + total; });
+  const total = money(qty * VARIANTS[selectedVariant].price);
+  document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + (IS_PHONE ? ' · ' : ' — ') + total; });
   if (window.xpSync) window.xpSync();
 }
 
@@ -3037,6 +3045,15 @@ let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipp
     b.setAttribute('aria-label', 'photo ' + (n + 1) + ' of ' + slides.length);
     b.setAttribute('aria-selected', n === 0);
     b.addEventListener('click', () => { show(n); start(); });   // a click restarts the clock
+    // the 1996 layout: each dot is a small thumbnail of its photo
+    const src = slides[n].querySelector('source');
+    const t = document.createElement('img');
+    t.className = 'hero-thumb';
+    t.src = src ? src.srcset : slides[n].querySelector('img').src;
+    t.alt = '';
+    t.loading = 'lazy';
+    t.decoding = 'async';
+    b.appendChild(t);
     dots.appendChild(b);
   });
   const dotEls = [...dots.children];
@@ -3064,8 +3081,9 @@ let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipp
   }
   function start() {
     stop();
-    // honour reduced motion, and don't animate to an empty room
-    if (still.matches || document.hidden) return;
+    // honour reduced motion, and don't animate to an empty room. computers
+    // show one photo at a time and let the thumbnails do the swapping
+    if (still.matches || document.hidden || !IS_PHONE) return;
     timer = setInterval(() => show(i + 1), DELAY);
   }
   function stop() { if (timer) { clearInterval(timer); timer = null; } }
@@ -3089,6 +3107,8 @@ let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipp
 // button come from the picked option on first paint
 selectVariant(selectedVariant);
 updateCartUI();
+// computers: the option prices in the old style too ($56 → $56.00)
+if (!IS_PHONE) document.querySelectorAll('.variant-price').forEach(e => { e.textContent = e.textContent.replace(/^\$(\d+)$/, '$$$1.00'); });
 </script>
 
 
