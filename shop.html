@@ -2070,6 +2070,7 @@ html.age-ok .age-bar{display:none}
 <link rel="stylesheet" href="css/square.css">
 <!-- computers only (min-width:769px): phones never download or apply these -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/oval.css" media="(min-width:769px)">
 <link rel="stylesheet" href="css/shop-desktop.css" media="(min-width:769px)">
 <style>@media (max-width:768px){.dt-only{display:none !important}}</style>
 </head>
@@ -2150,17 +2151,36 @@ html.age-ok .age-bar{display:none}
   </div>
 
   <div class="sidebar-bottom">
-    <!-- OF THE MOMENT (the song and the weather are filled in by the scripts below) -->
-    <div class="moment">
-      <div class="moment-title">Of the moment</div>
-      <dl>
-        <dt>Playing</dt>
-        <dd><span id="np-song">california gurls</span>, <span id="np-artist">katy perry</span></dd>
-        <dt>Pouring at</dt>
-        <dd>Monsieur Marcel, the Grove</dd>
-        <dt>Malibu</dt>
-        <dd><span id="w-temp">72°f</span>, <span id="w-desc">sunny &amp; perfect for a spritzer</span><span hidden><span id="w-icon"></span><span id="w-wind"></span><span id="w-humidity"></span></span></dd>
-      </dl>
+    <div class="side-quiet">
+    <!-- NOW PLAYING -->
+    <div class="now-playing">
+      <div class="np-header">now playing</div>
+      <div class="np-track">
+        <div class="eq-bars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="np-info">
+          <div class="np-song" id="np-song">california gurls</div>
+          <div class="np-artist" id="np-artist">katy perry</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MALIBU WEATHER (the little bird stays) -->
+    <div class="sidebar-widget weather-widget">
+      <div class="wt">malibu weather</div>
+      <div class="weather-display">
+        <img class="weather-bird" src="littlebird.png" alt="bird with letter">
+        <div class="weather-icon" id="w-icon" hidden></div>
+        <div class="weather-temp" id="w-temp">72°f</div>
+      </div>
+      <div class="weather-desc" id="w-desc">sunny &amp; perfect for a spritzer</div>
+      <div class="weather-details">
+        <span id="w-wind">wind 5mph</span>
+        <span>·</span>
+        <span id="w-humidity">humidity 62%</span>
+      </div>
+    </div>
     </div>
     <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
   </div>
