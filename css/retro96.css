@@ -14,17 +14,17 @@
 @media (min-width:769px){
 
 html{
-  --r96-cream:#fffdf2;
+  --r96-panel:#ffffff;
   --r96-line:#b8a1ad;            /* 1px panel rules */
-  --r96-ink:#3d2b33;             /* body copy, 12:1 on cream */
-  --r96-mute:#6a4a5a;            /* small print, 7:1 on cream */
-  --r96-link:#a3245f;            /* one link colour, 6.9:1 on cream */
+  --r96-ink:#3d2b33;             /* body copy, 12:1 on white */
+  --r96-mute:#6a4a5a;            /* small print, 7:1 on white */
+  --r96-link:#a3245f;            /* one link colour, 6.9:1 on white */
   --r96-visited:#551a8b;         /* purple, the way it was */
   --r96-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
   --r96-head:'Klickclack Swash',Georgia,serif;
   --r96-bevel-hi:#ffffff;
   --r96-bevel-lo:#7b7b7b;
-  --r96-btn:#d4d0c8;
+  --r96-btn:#d8d8d8;
 }
 
 /* ── flat: square corners, no soft shadows, glows, blurs or gradients ── */
@@ -75,7 +75,7 @@ html body #sidebar{
   height:auto !important;
   inset:auto !important;
   overflow:visible !important;
-  background:var(--r96-cream) !important;
+  background:var(--r96-panel) !important;
   border:1px solid var(--r96-line) !important;
   border-right:0 !important;
   padding:16px 14px !important;
@@ -87,7 +87,7 @@ html body #main, html body > .r96-content{
   max-width:none !important;
   width:auto !important;
   min-width:0;
-  background:var(--r96-cream) !important;
+  background:var(--r96-panel) !important;
   border:1px solid var(--r96-line) !important;
   padding:18px 26px 28px !important;
 }
@@ -240,7 +240,7 @@ hr{border:0; border-top:1px solid #a08d97; border-bottom:1px solid #fff; margin:
 /* ── boxes become plain table cells ── */
 html body #main .box, html body #main .info-card, html body #main .card,
 html body #main .panel{
-  background:var(--r96-cream) !important;
+  background:var(--r96-panel) !important;
   border:1px solid var(--r96-line) !important;
   padding:12px 14px !important;
   margin:0 0 14px !important;
@@ -282,14 +282,14 @@ html body #main .add-btn::before, html body #main .add-btn::after{display:none !
 
 /* ── the age notice: one plain line at the foot of the window ── */
 html body .age-bar{
-  background:var(--r96-cream) !important;
+  background:var(--r96-panel) !important;
   border-top:1px solid var(--r96-line) !important;
   color:var(--r96-ink) !important;
   font-size:13px !important;
 }
 
 /* ── the cart drawer keeps working exactly as it does; it just goes flat ── */
-html body .drawer{background:var(--r96-cream) !important; border-left:1px solid var(--r96-line) !important}
+html body .drawer{background:var(--r96-panel) !important; border-left:1px solid var(--r96-line) !important}
 html body .drawer-overlay{background:rgba(40,25,32,.35) !important}
 
 /* ── the floating bubble and its badge are gone; the cart is in the nav ── */
@@ -304,7 +304,7 @@ html body div:has(> div > .collectible-stamp){display:none !important}
 html body #main .updates{max-height:none !important; overflow:visible !important}
 
 /* badges ("new", "one of one", "best value") become plain small text */
-html body #main [class*="badge"]:not(img), html body #main .stage-badge{
+html body #main [class*="badge"]:not(img):not(.gallery-badge), html body #main .stage-badge{
   position:static !important; display:inline !important;
   background:none !important; border:0 !important; padding:0 !important; margin:0 4px 0 0 !important;
   color:#7a1f4c !important; font-weight:bold !important; font-size:13px !important; transform:none !important;
@@ -341,7 +341,7 @@ html body #main button:not(.hero-dot):not(.variant-opt):not(.add-btn):not(.xpay-
 }
 html body #main button.active:not(.hero-dot), html body #main button[aria-pressed="true"]:not(.variant-opt){
   border-color:var(--r96-bevel-lo) var(--r96-bevel-hi) var(--r96-bevel-hi) var(--r96-bevel-lo) !important;
-  background:#e8e5df !important;
+  background:#ececec !important;
   font-weight:bold;
 }
 
@@ -354,7 +354,7 @@ html body .r96-foot{
 }
 html body .r96-foot span{
   display:inline-block;
-  background:var(--r96-cream);
+  background:var(--r96-panel);
   border:1px solid var(--r96-line);
   padding:4px 10px;
 }
@@ -439,7 +439,7 @@ html body .variant-opt{
 }
 html body .variant-opt.selected{
   border-color:var(--r96-bevel-lo) var(--r96-bevel-hi) var(--r96-bevel-hi) var(--r96-bevel-lo) !important;
-  background:#e8e5df !important;
+  background:#ececec !important;
   outline:2px solid #000 !important;
 }
 html body .variant-opt *{color:#000 !important; position:static !important; background:none !important; border:0 !important; padding:0 !important}

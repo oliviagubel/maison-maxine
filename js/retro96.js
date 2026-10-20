@@ -43,13 +43,13 @@
   /* each page has its own css, much of it inline or !important, so the
      last of the 2026 look is cleared here, element by element, from what
      the browser actually computed. computers only. */
-  var LINE = '#b8a1ad', CREAM = '#fffdf2';
+  var LINE = '#b8a1ad', CREAM = '#ffffff';
   var SANS = '"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif';
   var KEEP = '.r96-spk, .r96-foot, .r96-hr, .divider, .product-divider, .ship-strip, #mmPrivacyBar, .variant-opt, .variant-opt *, .add-btn, .hero-dot, .hero-dot *, svg, svg *, .leaflet-container, .leaflet-container *';
   var ITALIC_OK = 'blockquote, blockquote *, em, i, cite, .pd-quote, .pd-quote *, .store-vibe';
   var ORNAMENT = /^[\s✦✧♡♥·⋆*~•°+]+$/;
   function set(el, prop, val){ el.style.setProperty(prop, val, 'important'); }
-  var CREAM_RGB = [255, 253, 242];
+  var CREAM_RGB = [255, 255, 255];
   function rgb(str){
     var m = /rgba?\(([^)]+)\)/.exec(str || '');
     if (!m) return null;
