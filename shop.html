@@ -2074,12 +2074,15 @@ html.age-ok .age-bar{display:none}
 <link rel="stylesheet" href="css/shop-desktop.css" media="(min-width:769px)">
 <style>@media (max-width:768px){.dt-only{display:none !important}}</style>
 <link rel="stylesheet" href="css/logo-board.css">
+<!-- phones only (max-width:768px): the luxury product page; computers never apply it -->
+<link rel="stylesheet" href="css/shop-mobile.css" media="(max-width:768px)">
+<style>@media (min-width:769px){.m-only{display:none !important}}</style>
 </head>
 <body>
 
 <!-- 21+ NOTICE -->
 <div class="age-bar" id="ageBar" role="region" aria-label="21+ notice">
-  <span>21+ only <span class="age-bar-star" aria-hidden="true">✦</span> we check your birthday at checkout and an adult signs at delivery</span>
+  <span>21+ only <span class="age-bar-star" aria-hidden="true">·</span> we check your birthday at checkout and an adult signs at delivery</span>
   <button class="age-bar-x" id="ageBarX" type="button" aria-label="dismiss the 21+ notice">✕</button>
 </div>
 <script>
@@ -2105,14 +2108,13 @@ html.age-ok .age-bar{display:none}
 <div class="mobile-header">
   <div class="logo">Maison Maxine</div>
   <div class="links">
-    <button class="m-cart" type="button" onclick="openDrawer()" aria-label="open cart">cart<span class="m-cart-n" id="mCartCount"></span></button>
-    <button class="mobile-menu-btn" type="button" aria-controls="mobile-nav" aria-expanded="false" onclick="this.setAttribute('aria-expanded', document.getElementById('mobile-nav').classList.toggle('open'))">✦ menu</button>
+    <button class="m-cart" type="button" onclick="openDrawer()" aria-label="open bag">Bag (<span id="mCartCount">0</span>)</button>
+    <button class="mobile-menu-btn" type="button" aria-controls="mobile-nav" aria-expanded="false" onclick="this.setAttribute('aria-expanded', document.getElementById('mobile-nav').classList.toggle('open'))">Menu</button>
   </div>
 </div>
 <div class="mobile-nav" id="mobile-nav">
   <a href="shop.html">shop</a>
   <a href="merch.html">merch</a>
-  <a href="#reviews" onclick="document.getElementById('mobile-nav').classList.remove('open')">reviews</a>
   <a href="home.html">home</a>
   <a href="store-locator.html">store locator</a>
   <a href="sustainability.html">sustainability</a>
@@ -2243,6 +2245,7 @@ html.age-ok .age-bar{display:none}
     <div class="product-details">
       <div class="pd-label">maison maxine ✦</div>
       <h2>Red Wine Spritz</h2>
+      <p class="m-only m-lede">Napa Valley Cabernet from our family's vineyard, lightly sparkling with ginger, lemon and honey.</p>
       <p class="dt-only dt-quote"><em>“trust that my drink of choice is mm. in fact i don't even like drinking except for mm.”</em> <span class="dt-quote-by">Kayla C., New York</span> · <a href="#reviews">read all 7</a></p>
       <a class="pd-rating" href="#reviews" aria-label="rated five stars, read the reviews"><span class="pd-stars" aria-hidden="true">★★★★★</span></a>
       <div class="price-row">
@@ -2292,6 +2295,7 @@ html.age-ok .age-bar{display:none}
           <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
           <button class="add-btn" id="addBtn" type="button">Buy · $56</button>
         </div>
+        <div class="m-only m-express" id="mExpress"><span class="m-express-label">Express checkout</span></div>
 
         <p class="dt-only dt-ship">Free shipping on orders over $100 · the case ships free</p>
         <p class="dt-only dt-ask">Questions? <a href="mailto:olivia@maisonmaxine.world">E-mail us</a></p>
@@ -2584,6 +2588,7 @@ html.age-ok .age-bar{display:none}
 
 <!-- STICKY BUY BAR (phones) -->
 <div class="buybar" id="buybar" aria-hidden="true" inert>
+  <div class="bb-info"><span class="bb-name">Red Wine Spritz</span><span class="bb-price" id="bbPrice">$56</span></div>
   <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
   <button class="buybar-btn" type="button" onclick="addToCart()">Buy · $56</button>
 </div>
@@ -2672,7 +2677,9 @@ function selectVariant(id) {
   });
   // the radio rows on computers follow the same choice
   document.querySelectorAll('input[name="dtSize"]').forEach(r => { r.checked = r.value === id; });
-  document.getElementById('priceMain').textContent = PRICE_LINE[id].main;
+  // phones show the plain price ("$56"); computers keep "8 cans · $56"
+  document.getElementById('priceMain').textContent = matchMedia('(max-width:768px)').matches
+    ? '$' + (VARIANTS[id].min * VARIANTS[id].price) : PRICE_LINE[id].main;
   document.getElementById('priceNote').textContent = PRICE_LINE[id].note;
   qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
   syncAddBtn();
@@ -2680,13 +2687,21 @@ function selectVariant(id) {
 
 // ═══ THE BUY BUTTONS ═══
 // every buy button says the price of the option that is picked; phones say "Add to cart"
-const BUY_WORD = matchMedia('(max-width:768px)').matches ? 'Add to cart' : 'Buy';
+const BUY_WORD = matchMedia('(max-width:768px)').matches ? 'Add to bag' : 'Buy';
+// phones: the luxury layout. "ADD TO BAG · $56" on the page, "ADD TO BAG" in the
+// sticky bar with the price beside it (the capitals come from css)
+const PHONE_LUXE = matchMedia('(max-width:768px)').matches;
 // computers: "▶▶ add to bag · $56" (\uFE0E keeps the arrows as text, never emoji)
 const DESKTOP_BUY = matchMedia('(min-width:769px)').matches;
 function syncAddBtn() {
   const total = '$' + (qty * VARIANTS[selectedVariant].price);
   document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + ' · ' + total; });
   if (DESKTOP_BUY) document.getElementById('addBtn').textContent = '\u25B6\uFE0E\u25B6\uFE0E add to bag · ' + total;
+  if (PHONE_LUXE) {
+    document.querySelectorAll('.buybar-btn').forEach(b => { b.textContent = 'Add to bag'; });
+    const bb = document.getElementById('bbPrice');
+    if (bb) bb.textContent = total;
+  }
   if (window.xpSync) window.xpSync();
 }
 
@@ -2804,8 +2819,8 @@ function updateCartUI() {
   if (bag) bag.textContent = n;
   const m = document.getElementById('mCartCount');
   if (m) {
-    m.textContent = n > 0 ? n : '';
-    m.parentElement.setAttribute('aria-label', n > 0 ? 'open cart, ' + n + ' in it' : 'open cart');
+    m.textContent = n;
+    m.parentElement.setAttribute('aria-label', n > 0 ? 'open bag, ' + n + ' in it' : 'open bag');
   }
 }
 
@@ -3118,6 +3133,12 @@ let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipp
       dots.appendChild(b);
     });
     const dotEls = [...dots.children];
+    // the count under the photos, "1 / 4" (the dots stay for screen readers' tabs but are hidden)
+    const count = document.createElement('div');
+    count.className = 'hero-count';
+    count.setAttribute('aria-hidden', 'true');
+    count.textContent = '1 / ' + slides.length;
+    dots.after(count);
     // the last photo can't scroll fully to the left edge, so reaching the
     // end of the row counts as the last photo
     wrap.addEventListener('scroll', () => {
@@ -3125,6 +3146,7 @@ let SHIP_STATES = null;              // abbreviations we ship to, once vinoshipp
       const atEnd = wrap.scrollLeft >= wrap.scrollWidth - wrap.clientWidth - 2;
       const n = atEnd ? slides.length - 1 : Math.max(0, Math.min(slides.length - 1, Math.round(wrap.scrollLeft / step)));
       dotEls.forEach((d, k) => d.setAttribute('aria-selected', k === n));
+      count.textContent = (n + 1) + ' / ' + slides.length;
     }, { passive: true });
     return;
   }
@@ -3277,6 +3299,12 @@ function updateStampCounter(){
   const byId = id => document.getElementById(id);
   const sheet = byId('xpSheet'), dobEl = byId('xpDob'), msgEl = byId('xpMsg');
   const pageButtons = [...document.querySelectorAll('.xpay-btn')];
+  // phones: the page's wallet button lives in the express checkout row (same
+  // button, same logic; the row shows only once a wallet is found)
+  if (matchMedia('(max-width:768px)').matches) {
+    const row = byId('mExpress'), pageXpay = document.querySelector('.buy-row .xpay-btn');
+    if (row && pageXpay) row.appendChild(pageXpay);
+  }
   let payments = null, req = null, apple = null, google = null, googleAttached = false, busy = false;
 
   const STATES = {alabama:'AL',alaska:'AK',arizona:'AZ',arkansas:'AR',california:'CA',colorado:'CO',connecticut:'CT',delaware:'DE','district of columbia':'DC',florida:'FL',georgia:'GA',hawaii:'HI',idaho:'ID',illinois:'IL',indiana:'IN',iowa:'IA',kansas:'KS',kentucky:'KY',louisiana:'LA',maine:'ME',maryland:'MD',massachusetts:'MA',michigan:'MI',minnesota:'MN',mississippi:'MS',missouri:'MO',montana:'MT',nebraska:'NE',nevada:'NV','new hampshire':'NH','new jersey':'NJ','new mexico':'NM','new york':'NY','north carolina':'NC','north dakota':'ND',ohio:'OH',oklahoma:'OK',oregon:'OR',pennsylvania:'PA','rhode island':'RI','south carolina':'SC','south dakota':'SD',tennessee:'TN',texas:'TX',utah:'UT',vermont:'VT',virginia:'VA',washington:'WA','west virginia':'WV',wisconsin:'WI',wyoming:'WY'};

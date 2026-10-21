@@ -1,0 +1,213 @@
+/* ═══ SHOP, PHONES ONLY ═══
+   linked with media="(max-width:768px)", so computers never apply a rule
+   here. it sits on top of the phone layout in shop.html's own <style>.
+
+   a luxury product page in the way of tiffany and pucci, with our assets:
+     ink      #3d1a2b  cabernet: every word, link, 1px rule and the main button
+     neutral  #f6f2ee  the express checkout row and the 21+ note
+     pink and lime only in the wordmark, the heart dots, illustrations, photos
+     klickclack swash only for the wordmark; gill sans for everything else
+     square corners, no shadows, no pills, no sparkles
+
+   the bag drawer and the express pay sheet keep their own styling (they're
+   the cart and checkout, which this doesn't touch). */
+
+html body{
+  --ink:#3d1a2b;
+  --mute:#3d1a2b;
+  --line:#3d1a2b;
+  --neutral:#f6f2ee;
+  background:#fff !important;
+}
+
+/* square and flat, everywhere but the bag and the pay sheet */
+html body #main *, html body #main [class], html body .mobile-header, html body .mobile-header *, html body .mobile-header [class],
+html body .mobile-nav, html body .buybar, html body .buybar *, html body .buybar [class], html body .age-bar, html body .age-bar *{
+  border-radius:0 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+}
+
+/* small labels: gill sans, capitals, wide tracking */
+html body #main .hero-count, html body #main .m-express-label, html body #main .rh-acc summary,
+html body #main .pd-quote cite, html body #main .rh-spec dt, html body #main .mf-label,
+html body .bb-name{
+  font-size:12px !important;
+  letter-spacing:.16em !important;
+  text-transform:uppercase !important;
+  font-weight:400 !important;
+  color:var(--ink) !important;
+}
+
+/* ══ HEADER: menu · wordmark · bag, text only, a hairline under it ══ */
+html body .mobile-header{border-bottom:1px solid var(--ink) !important}
+html body .mobile-header .logo{font-size:20px !important; color:#ee86b7 !important}
+html body .mobile-header .m-cart{display:inline-block !important; gap:0 !important; line-height:24px}
+html body .mobile-menu-btn, html body .mobile-header .m-cart{
+  color:var(--ink) !important;
+  font-size:15px !important;
+  letter-spacing:.04em !important;
+  padding:10px 8px !important;
+  min-height:44px;
+}
+html body .mobile-nav{border-bottom:1px solid var(--ink) !important}
+html body .mobile-nav a{color:var(--ink) !important; border-bottom:1px solid rgba(61,26,43,.18) !important}
+html body .mobile-nav a:last-child{border-bottom:0 !important}
+
+/* the 21+ note: neutral, not pink */
+html body .age-bar{background:var(--neutral) !important; color:var(--ink) !important; border-top:1px solid var(--ink) !important}
+html body .age-bar *{color:var(--ink) !important}
+
+/* ══ PHOTOS: "1 / 4" instead of dots ══ */
+html body #main .hero-dots{display:none !important}
+html body #main .hero-count{padding:10px 20px 0}
+
+/* ══ THE PRODUCT ══ */
+html body #main .product-details{padding:18px 20px 26px !important}
+html body #main .product-details h2{
+  order:1;
+  font-family:var(--sans) !important;
+  font-size:26px !important;
+  font-weight:400 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase;
+  white-space:normal !important;
+  line-height:1.2 !important;
+  color:var(--ink) !important;
+  margin:0 0 8px !important;
+}
+html body #main .m-lede{
+  display:block;
+  order:2;
+  margin:0 0 14px !important;
+  font-size:15px !important;
+  line-height:1.5 !important;
+  color:var(--ink) !important;
+}
+html body #main .pd-rating{display:none !important}
+html body #main .price-row{order:3; margin:0 0 18px !important}
+html body #main .price{font-size:18px !important; font-weight:400 !important; letter-spacing:.04em !important}
+html body #main .price-note{display:none !important}
+html body #main .cart-section{order:5}
+html body #main .pd-proof{
+  order:6;
+  margin:16px 0 0 !important;
+  font-size:13px !important;
+  color:var(--ink) !important;
+  text-decoration:underline !important;
+  text-underline-offset:3px;
+}
+
+/* sizes: two plain text choices, a thin cabernet line under the picked one */
+html body #main .variant-row{display:flex !important; flex-direction:column; align-items:flex-start; gap:4px; margin:0 0 18px !important}
+html body #main .variant-opt{
+  display:inline-flex !important;
+  flex-direction:row !important;
+  align-items:baseline;
+  gap:14px;
+  width:auto !important;
+  min-height:44px !important;
+  padding:12px 0 6px !important;
+  background:none !important;
+  border:0 !important;
+  border-bottom:1px solid transparent !important;
+  color:var(--ink) !important;
+  transition:none !important;
+}
+html body #main .variant-opt.selected{border:0 !important; border-bottom:1px solid var(--ink) !important; padding:12px 0 6px !important}
+html body #main .variant-name, html body #main .variant-price{font-size:15px !important; font-weight:400 !important; color:var(--ink) !important; margin:0 !important}
+html body #main .variant-per, html body #main .variant-flag{display:none !important}
+
+/* add to bag: full width, square, cabernet */
+html body #main .buy-row{display:block !important}
+html body #main .buy-row .xpay-btn{display:none !important}
+html body #main .add-btn{
+  width:100% !important;
+  height:54px !important;
+  background:var(--ink) !important;
+  color:#fff !important;
+  font-size:14px !important;
+  font-weight:400 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase !important;
+}
+
+/* express checkout: a light neutral row with the wallet button, only when a wallet is there */
+html body #main .m-express{display:none}
+html body.has-xpay #main .m-express{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:10px 0 0;
+  padding:0 16px;
+  min-height:54px;
+  background:var(--neutral);
+}
+html body #main .m-express .xpay-btn{
+  flex:none !important;
+  min-height:44px !important;
+  height:44px !important;
+  padding:0 8px !important;
+  background:none !important;
+  border:0 !important;
+  color:#000 !important;
+  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif !important;
+  font-size:19px !important;
+  font-weight:600 !important;
+}
+
+/* the delivery promise moves into shipping & returns; the trust rows go */
+html body #main .trust-rows{display:none !important}
+html body #main .ship-line{font-size:13px !important; color:var(--ink) !important; margin:12px 0 0 !important}
+
+/* ══ BELOW THE PRODUCT, in order ══ */
+html body #main .product-hero{order:1 !important}
+html body #main .rh-acc{order:2 !important}
+html body #main .pd-quote{order:3 !important}
+html body #main .rh-spec{order:4 !important}
+html body #main #reviews{display:none !important}
+html body #main .m-footer{order:6 !important}
+
+/* expandable sections between thin rules */
+html body #main .rh-acc{margin:0 20px !important; border-top:1px solid var(--ink) !important}
+html body #main .rh-acc details{border-bottom:1px solid var(--ink) !important}
+html body #main .rh-acc summary{padding:20px 0 !important; min-height:44px}
+html body #main .rh-acc summary::after{font-size:18px !important; font-weight:300; color:var(--ink) !important; letter-spacing:0}
+html body #main .rh-acc-body p{font-size:15px !important; color:var(--ink) !important}
+
+/* one review, in italics */
+html body #main .pd-quote{padding:36px 20px 30px !important}
+html body #main .pd-quote p{font-style:italic !important; font-size:18px !important; line-height:1.45 !important; color:var(--ink) !important}
+html body #main .pd-quote cite{display:block; margin-top:12px !important; font-style:normal !important}
+
+/* the story: white, not pink */
+html body #main .rh-spec{background:#fff !important; margin:0 20px !important; padding:26px 0 8px !important; border-top:1px solid var(--ink)}
+html body #main .rh-spec-lead{font-size:18px !important; color:var(--ink) !important}
+html body #main .rh-spec dd{border-bottom:1px solid rgba(61,26,43,.18) !important; font-size:15px !important; color:var(--ink) !important}
+html body #main .rh-spec dd:last-child{border-bottom:0 !important}
+
+/* footer */
+html body #main .m-footer{border-top:1px solid var(--ink) !important}
+html body #main .m-footer p, html body #main .mf-link, html body #main .mf-states, html body #main .mf-legal{color:var(--ink) !important}
+html body #main .mf-link{text-decoration:underline !important; text-underline-offset:3px}
+
+/* ══ STICKY BAR: name and price left, add to bag right ══ */
+html body .buybar{border-top:1px solid var(--ink) !important; gap:14px !important}
+html body .buybar .xpay-btn{display:none !important}
+html body .bb-info{display:flex; flex-direction:column; gap:3px; flex:1; min-width:0}
+html body .bb-name{white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+html body .bb-price{font-family:var(--sans) !important; font-size:15px; color:var(--ink); letter-spacing:.04em}
+html body .buybar-btn{
+  flex:none !important;
+  width:auto !important;
+  height:48px !important;
+  min-height:48px !important;
+  padding:0 22px !important;
+  background:var(--ink) !important;
+  color:#fff !important;
+  font-size:13px !important;
+  font-weight:400 !important;
+  letter-spacing:.14em !important;
+  text-transform:uppercase !important;
+}
