@@ -20,7 +20,8 @@
   --dt-rose-ink:#b64e84;          /* rose for small text: 4.8:1 on white */
   --dt-pale:#ffe0f0;
   --dt-hair:#f2bcd6;
-  --dt-cream:#fff5fa;
+  --dt-cream:#fff7fb;
+  --dt-tint:#fff7fb;               /* the lightest blush: #b64e84 text on it is 4.5:1 */
   --dt-ink:#4a3a3a;
   --dt-mute:#6a4a5a;
   --dt-lime:#8fd63a;
@@ -69,7 +70,7 @@
   margin:0 -40px 18px;
   padding:6px 40px;
   border-bottom:1px solid var(--dt-hair);
-  background:var(--dt-pale);
+  background:var(--dt-tint);
   font-size:13px;
   color:var(--dt-mute);
 }
@@ -181,7 +182,7 @@
 }
 #sidebar .side-quiet .np-header, #sidebar .side-quiet .wt{
   margin:0 0 6px; padding:2px 8px 1px;
-  background:linear-gradient(180deg, #fff 0%, var(--dt-pale) 55%, #ffc6e2 100%);
+  background:linear-gradient(180deg, #fff 0%, var(--dt-tint) 100%);
   border-bottom:1px solid var(--dt-hair);
   font-size:15px; letter-spacing:.04em; color:var(--dt-rose-ink); text-transform:lowercase;
 }
@@ -218,7 +219,7 @@
 
 /* upright text, the label face for the little pixel labels */
 #main div[style*="italic"], #main p[style*="italic"], #main span[style*="italic"]{font-style:normal !important}
-#main [style*="Pixelify"]{
+#main [style*="Pixelify"]:not(button){
   font-family:var(--dt-label) !important;
   font-size:15px !important;
   letter-spacing:.04em !important;
@@ -266,7 +267,7 @@
   background:#fff !important; border:1px solid var(--dt-hair) !important; color:var(--dt-rose-ink) !important;
   font-family:var(--dt-sans) !important; font-size:14px !important; letter-spacing:.02em !important; text-transform:none !important;
 }
-#main .region-pill.active{background:var(--dt-pale) !important; border-color:var(--dt-rose) !important; font-weight:600}
+#main .region-pill.active{background:var(--dt-tint) !important; border-color:var(--dt-rose) !important; font-weight:600}
 #main .map-wrapper, #main .coming-soon, #main .muse-note{border:1px solid var(--dt-hair) !important; background:#fff !important}
 #main .mh-title, #main .mh-status, #main .cs-sub{font-family:var(--dt-label); font-size:15px; letter-spacing:.04em; text-transform:none}
 #main .cs-chip{background:none !important; border:0 !important; padding:0 !important; font-size:15px !important; color:var(--dt-ink) !important}
@@ -335,3 +336,11 @@ main#main.jeans-wrap{max-width:900px}
 #sidebar .side-quiet .weather-display{display:flex; align-items:center; gap:6px}
 #sidebar .side-quiet .weather-widget .wt, #sidebar .side-quiet .weather-desc{text-align:center}
 #sidebar .side-quiet .weather-details{text-align:center; justify-content:center}
+
+/* compassion's guestbook "post" button: the site's square pink button, white text */
+#main #gb-submit{
+  background:var(--dt-rose) !important; color:#fff !important; border:0 !important;
+  font-family:var(--dt-sans) !important; font-size:14px !important; letter-spacing:.04em !important;
+  text-transform:lowercase !important; padding:9px 20px !important;
+}
+#main #gb-submit:hover{background:#c42777 !important}
