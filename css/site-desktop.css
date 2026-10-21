@@ -32,7 +32,7 @@
 /* ── type: gill sans for reading, klickclack for display, jersey 10 for
    small labels and dates. cormorant and pixelify are gone from this page ── */
 #main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
-#main .banner h1, #main .banner h1 *, #main .product-details h2, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
+#main .banner h1, #main .banner h1 *, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
 #main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-display)}
 #main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
 #main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
@@ -286,3 +286,52 @@
 /* with the pattern showing through the column, the footer sits on a white card */
 .dt-footer{background:#fff; border:1px solid var(--dt-hair); padding:12px 16px 10px !important; margin-bottom:6px}
 #mmPrivacyBar{background:#fff}
+
+/* ══ MERCH ══ */
+main#main.jeans-wrap{max-width:900px}
+/* the same 1996 white square as the shop: below the fall 2026 stamp, through
+   the wave strip, around the merch drop */
+#main .banner + .lil-strip:has(~ .merch-drop){
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7 V14 H0Z' fill='%23a8dcff'/%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7' fill='none' stroke='%233d9be0' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left bottom / 40px 14px,
+    #fff;
+  border:1px solid var(--dt-hair);
+  border-bottom:0;
+  height:52px;
+  margin:12px 0 0;
+  padding:12px 18px 7px;
+}
+#main .banner + .lil-strip ~ .merch-drop{
+  background:#fff;
+  border:1px solid var(--dt-hair);
+  border-top:0;
+  margin-top:0 !important;
+  padding:22px 22px 24px !important;
+}
+#main .merch-eyebrow, #main .merch-note{font-family:var(--dt-label) !important; font-size:15px !important; letter-spacing:.04em !important; text-transform:none !important; color:var(--dt-rose-ink) !important; opacity:1 !important}
+#main .merch-title, #main .merch-name, #main .merch-look-label{font-family:var(--dt-display) !important; color:var(--dt-rose-ink) !important; letter-spacing:0 !important; text-transform:none !important}
+#main .merch-look-label{font-size:24px !important}
+#main .merch-sub, #main .merch-desc{font-style:normal !important; color:var(--dt-mute) !important}
+#main .merch-desc{font-size:14px !important}
+#main .merch-card{background:#fff !important; border:1px solid var(--dt-hair) !important; transform:none !important}
+#main .merch-card::before, #main .merch-card::after{display:none !important}
+#main .merch-price{font-size:20px !important; color:var(--dt-ink) !important}
+#main .merch-cta{
+  background:var(--dt-rose) !important; color:#fff !important; border:0 !important;
+  font-family:var(--dt-sans) !important; font-style:normal !important; font-size:15px !important;
+  letter-spacing:.04em !important; text-transform:lowercase; padding:9px 14px !important;
+}
+#main .merch-cta:hover{background:#c42777 !important}
+#main .merch-cta::after{border-radius:0 !important}
+#main .merch-back{color:var(--dt-rose-ink) !important; text-decoration:underline !important; font-style:normal !important}
+
+/* the sidebar widgets' own layout, the shop's way, for every page
+   (merch had none of it, and the others animated the bars) */
+#sidebar .side-quiet .np-track{display:flex; align-items:center; gap:8px}
+#sidebar .side-quiet .eq-bars{display:flex; align-items:flex-end; gap:2px; height:10px; flex-shrink:0}
+#sidebar .side-quiet .eq-bars span{width:3px; height:6px; background:#d371a1; animation:none}
+#sidebar .side-quiet .np-info{overflow:hidden}
+#sidebar .side-quiet .np-song{white-space:nowrap}
+#sidebar .side-quiet .weather-display{display:flex; align-items:center; gap:6px}
+#sidebar .side-quiet .weather-widget .wt, #sidebar .side-quiet .weather-desc{text-align:center}
+#sidebar .side-quiet .weather-details{text-align:center; justify-content:center}

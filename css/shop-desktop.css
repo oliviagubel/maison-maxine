@@ -13,7 +13,7 @@
   padding:4px 0 0 !important;
 }
 #main .product-details::before, #main .product-details::after{display:none !important}
-#main .product-details h2{margin-bottom:4px}
+#main .product-details h2{margin-bottom:4px; font-family:var(--dt-sans) !important; font-weight:600; font-size:36px; letter-spacing:.01em; line-height:1.1; color:var(--dt-rose-ink)}   /* the product name in gill sans */
 #main .pd-label{display:none !important}
 #main .pd-rating{display:none !important}
 .dt-quote{display:block !important; font-size:15px; line-height:1.45; color:var(--dt-ink); margin:2px 0 12px}
