@@ -44,12 +44,12 @@
 }
 #main p, #main li, #main dd{font-style:normal}
 
-/* ── the column: our illustration stays behind, the content sits on white ── */
+/* ── the column: our classic illustration pattern shows right through it;
+   the cards and boxes are what sit on white ── */
 #main{
-  background:#fff;
+  background:transparent;
   min-height:100vh;
   padding:0 40px 28px !important;
-  border-right:1px solid var(--dt-hair);
 }
 
 /* ── no soft shadows, glows or gradients on cards; hairlines instead ── */
@@ -282,3 +282,7 @@
 #main .aim-window .aim-msgbox, #main .aim-window .aim-msgbox *{font-family:Arial,Helvetica,sans-serif}
 #main .aim-window{box-shadow:2px 3px 10px rgba(214,79,127,.25) !important}
 #main .aim-window .aim-title-text{text-shadow:1px 1px 0 rgba(255,255,255,.6) !important}
+
+/* with the pattern showing through the column, the footer sits on a white card */
+.dt-footer{background:#fff; border:1px solid var(--dt-hair); padding:12px 16px 10px !important; margin-bottom:6px}
+#mmPrivacyBar{background:#fff}

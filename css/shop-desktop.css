@@ -210,3 +210,6 @@
 #main .signup .calm{font-family:var(--dt-label); font-size:17px; letter-spacing:.06em; text-transform:uppercase; color:#1a6fb3; margin:0 0 12px}
 .signup-row{justify-content:center; text-align:left}
 .signup label{flex:0 1 220px}
+
+/* with the pattern showing through the column, the latest sits on a white card like the rest */
+.latest{background:#fff; border:1px solid var(--dt-hair) !important; padding:14px 18px !important}
