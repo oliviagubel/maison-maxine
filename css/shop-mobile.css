@@ -87,7 +87,8 @@ html body #main .m-lede{
 html body #main .pd-rating{display:none !important}
 html body #main .price-row{order:3; margin:0 0 18px !important}
 html body #main .price{font-size:18px !important; font-weight:400 !important; letter-spacing:.04em !important}
-html body #main .price-note{display:none !important}
+/* what the price buys, right under it: "the pair box set · more than 2 bottles of wine" */
+html body #main .price-note{display:block !important; font-size:14px !important; color:var(--ink) !important; letter-spacing:.02em; margin-top:4px}
 html body #main .cart-section{order:5}
 html body #main .pd-proof{
   order:6;

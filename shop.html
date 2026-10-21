@@ -2271,13 +2271,13 @@ html.age-ok .age-bar{display:none}
         <!-- ONE CHOICE: the two ways to buy -->
         <div class="variant-row" role="group" aria-label="choose how many">
           <button class="variant-opt selected" id="variant-fourpack" type="button" aria-pressed="true" onclick="selectVariant('fourpack')">
-            <span class="variant-name">8 cans · 2 gift boxes</span>
+            <span class="variant-name">The pair box set · 8 cans</span>
             <span class="variant-price">$56</span>
             <span class="variant-per">$7 a can</span>
           </button>
           <button class="variant-opt" id="variant-case" type="button" aria-pressed="false" onclick="selectVariant('case')">
             <span class="variant-flag">best value</span>
-            <span class="variant-name">24 cans · 6 gift boxes</span>
+            <span class="variant-name">The case · 24 cans</span>
             <span class="variant-price">$144</span>
             <span class="variant-per">$6 a can · ships free</span>
           </button>
@@ -2667,6 +2667,10 @@ const PRICE_LINE = {
   fourpack: { main: '8 cans · $56',   note: '$7 a can, about 2 bottles of wine' },
   case:     { main: '24 cans · $144', note: '$6 a can, ships free' }
 };
+const PHONE_NOTE = {
+  fourpack: 'The pair box set · more than 2 bottles of wine',
+  case:     'The case · 8 bottles of wine, ships free'
+};
 function selectVariant(id) {
   if (!VARIANTS[id]) return;
   selectedVariant = id;
@@ -2680,7 +2684,9 @@ function selectVariant(id) {
   // phones show the plain price ("$56"); computers keep "8 cans · $56"
   document.getElementById('priceMain').textContent = matchMedia('(max-width:768px)').matches
     ? '$' + (VARIANTS[id].min * VARIANTS[id].price) : PRICE_LINE[id].main;
-  document.getElementById('priceNote').textContent = PRICE_LINE[id].note;
+  // phones say what the price buys, in bottles (8 × 250ml = 2 litres, 24 = 6)
+  document.getElementById('priceNote').textContent = matchMedia('(max-width:768px)').matches
+    ? PHONE_NOTE[id] : PRICE_LINE[id].note;
   qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
   syncAddBtn();
 }
@@ -2700,7 +2706,7 @@ function syncAddBtn() {
   if (PHONE_LUXE) {
     document.querySelectorAll('.buybar-btn').forEach(b => { b.textContent = 'Add to bag'; });
     const bb = document.getElementById('bbPrice');
-    if (bb) bb.textContent = total;
+    if (bb) bb.textContent = total + (selectedVariant === 'case' ? ' · the case' : ' · the pair box set');
   }
   if (window.xpSync) window.xpSync();
 }
