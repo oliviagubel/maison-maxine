@@ -11,6 +11,14 @@
     document.querySelectorAll('input[name="dtSize"]').forEach(function(r){
       r.addEventListener('change', function(){ if (r.checked && window.selectVariant) window.selectVariant(r.value); });
     });
+    /* "what's in a gift box?" glides down to the case callout and its gift box photo */
+    var giftInfo = document.getElementById('giftBoxInfo');
+    if (giftInfo) giftInfo.addEventListener('click', function(e){
+      var box = document.getElementById('case-callout');
+      if (!box) return;
+      e.preventDefault();
+      box.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center'});
+    });
     var pick = document.getElementById('pickCase');
     if (pick) pick.addEventListener('click', function(e){
       e.preventDefault();

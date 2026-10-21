@@ -2286,10 +2286,11 @@ html.age-ok .age-bar{display:none}
 
         <!-- SIZES AS RADIO ROWS (computers; they drive the same selectVariant) -->
         <fieldset class="dt-only dt-sizes">
-          <legend>Choose how many</legend>
-          <label class="dt-size"><input type="radio" name="dtSize" value="fourpack" checked><span class="dt-size-name">8 cans <small>2 gift boxes · $7 a can</small></span><span class="dt-size-price">$56</span></label>
-          <label class="dt-size"><input type="radio" name="dtSize" value="case"><span class="dt-size-name">24 cans <small>6 gift boxes · $6 a can · ships free</small></span><span class="dt-size-price">$144</span></label>
+          <legend>choose your box</legend>
+          <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="fourpack" checked><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name">the pair box set<small>8 cans in 2 gift boxes</small></span><span class="dt-size-price">$56</span></label>
+          <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="case"><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name">the case<small>24 cans in 6 gift boxes, ships free</small></span><span class="dt-size-price">$144</span></label>
         </fieldset>
+        <p class="dt-only dt-giftbox"><a href="#case-callout" id="giftBoxInfo">what's in a gift box?</a></p>
 
         <!-- BUY: express wallet on the left (when the device has one), buy on the right -->
         <div class="buy-row">
@@ -2298,7 +2299,7 @@ html.age-ok .age-bar{display:none}
         </div>
         <div class="m-only m-express" id="mExpress"><span class="m-express-label">Express checkout</span></div>
 
-        <p class="dt-only dt-ship">Free shipping on orders over $100 · the case ships free</p>
+        <p class="dt-only dt-ship">free shipping over $100 · the case always ships free</p>
         <p class="dt-only dt-ask">Questions? <a href="https://ig.me/m/maisonmaxine.world" target="_blank" rel="noopener">DM us on Instagram</a></p>
         <ul class="trust-rows">
           <li><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>Free shipping over $100, the case ships free</li>
@@ -2312,7 +2313,7 @@ html.age-ok .age-bar{display:none}
   </div>
 
   <!-- INTRODUCING THE CASE (computers) -->
-  <div class="dt-only case-callout">
+  <div class="dt-only case-callout" id="case-callout">
     <img src="opt/maisonmaxinegiftbox.jpg" alt="a pink maison maxine gift box tied with a ribbon" width="90" height="160" loading="lazy" decoding="async">
     <div>
       <p class="case-head">Introducing the case.</p>
@@ -2702,7 +2703,7 @@ const DESKTOP_BUY = matchMedia('(min-width:769px)').matches;
 function syncAddBtn() {
   const total = '$' + (qty * VARIANTS[selectedVariant].price);
   document.querySelectorAll('#addBtn, .buybar-btn').forEach(b => { b.textContent = BUY_WORD + ' · ' + total; });
-  if (DESKTOP_BUY) document.getElementById('addBtn').textContent = '\u25B6\uFE0E\u25B6\uFE0E add to bag · ' + total;
+  if (DESKTOP_BUY) document.getElementById('addBtn').textContent = 'Add to bag · ' + total;   // capitals from css
   if (PHONE_LUXE) {
     document.querySelectorAll('.buybar-btn').forEach(b => { b.textContent = 'Add to bag'; });
     const bb = document.getElementById('bbPrice');
