@@ -429,7 +429,7 @@ footer .fine{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;colo
   </section>
 
   <footer>
-    <a href="https://ig.me/m/maisonmaxine.world" target="_blank" rel="noopener">DM us @maisonmaxine.world on Instagram</a>
+    <a href="mailto:olivia@maisonmaxine.world?subject=Wholesale%20order%20—%20Maison%20Maxine">olivia@maisonmaxine.world</a>
     <div class="fine">© 2026 Maison Maxine · Trade Only</div>
   </footer>
 
@@ -515,7 +515,8 @@ footer .fine{font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;colo
       note.className='form-note ok';
     }).catch(function(){
       var body=Object.keys(rec).map(function(k){return k+': '+rec[k];}).join('%0A');
-      note.innerHTML='Couldn’t send automatically — <a href="https://ig.me/m/maisonmaxine.world" target="_blank" rel="noopener">DM us @maisonmaxine.world on Instagram</a> with your order instead.';
+      note.innerHTML='Couldn’t send automatically — <a href="mailto:olivia@maisonmaxine.world?subject='+
+        encodeURIComponent('Wholesale order — '+biz)+'&body='+body+'">click here to email your order</a> instead.';
       note.className='form-note err';
     }).finally(function(){
       btn.disabled=false;btn.style.opacity='1';
