@@ -213,3 +213,27 @@
 
 /* with the pattern showing through the column, the latest sits on a white card like the rest */
 .latest{background:#fff; border:1px solid var(--dt-hair) !important; padding:14px 18px !important}
+
+/* ══ THE 1996 WHITE SQUARE ══
+   one plain white square behind what matters most: it starts just below
+   the fall 2026 stamp, runs through the ocean wave strip, and holds the
+   photo and the product information. the pattern shows everywhere else.
+   made from the strip (top half) and the product (bottom half) meeting
+   edge to edge, so the phone layout's markup is untouched. */
+#main .banner + .lil-strip{
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7 V14 H0Z' fill='%23a8dcff'/%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7' fill='none' stroke='%233d9be0' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left bottom / 40px 14px,
+    #fff;
+  border:1px solid var(--dt-hair);
+  border-bottom:0;
+  height:52px;
+  margin:12px 0 0;
+  padding:12px 18px 7px;
+}
+#main .banner + .lil-strip ~ .product-hero{
+  background:#fff;
+  border:1px solid var(--dt-hair);
+  border-top:0;
+  margin-top:0 !important;
+  padding:22px 22px 24px !important;
+}
