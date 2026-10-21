@@ -47,7 +47,7 @@
         form.reset();
         note.textContent = "Thank you! We'll e-mail you when the fall batch ships.";
       }).catch(function(){
-        note.textContent = "That didn't go through. Please e-mail olivia@maisonmaxine.world and we'll add you.";
+        note.textContent = "That didn't go through. DM us @maisonmaxine.world on Instagram and we'll add you.";
       }).then(function(){ btn.disabled = false; });
     });
   }

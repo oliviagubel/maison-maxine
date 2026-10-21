@@ -129,13 +129,13 @@ exports.handler = handler(async (body, origin, event) => {
       });
       console.log('[pay] refunded', payment.id);
       return json(502, {
-        error: 'we could not place your order, so your payment has been refunded. please email olivia@maisonmaxine.world and we will sort it out.',
+        error: 'we could not place your order, so your payment has been refunded. please DM us @maisonmaxine.world on Instagram and we will sort it out.',
       }, origin);
     } catch (re) {
       // money taken, no order, no refund: this one needs a person today
       console.error('[pay] REFUND FAILED, needs manual refund', payment.id, re.status, JSON.stringify(re.data));
       return json(502, {
-        error: 'your payment went through but we could not place the order. please email olivia@maisonmaxine.world with reference ' +
+        error: 'your payment went through but we could not place the order. please DM us @maisonmaxine.world on Instagram with reference ' +
                payment.id.slice(-12) + ' and we will fix it right away.',
       }, origin);
     }
