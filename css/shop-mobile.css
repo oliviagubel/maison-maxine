@@ -212,3 +212,101 @@ html body .buybar-btn{
   letter-spacing:.14em !important;
   text-transform:uppercase !important;
 }
+
+/* ══ OUR BRAND, BACK IN ══
+   the structure above stays (order, spacing, one button, express row,
+   accordions, sticky bar, no stars or badges). this brings back the
+   warmth: cream, pale pink rules, lowercase labels, the pattern, the
+   little heart, the pink quote mark. */
+
+html body{--cream:#fff8f5; --line:#efcfdf}
+
+/* 1. warm cream, the whole page */
+html body, html body #main, html body .mobile-header, html body .mobile-nav, html body .buybar{background:var(--cream) !important}
+
+/* 2. labels in lowercase gill sans, normal spacing (capitals only on add to bag) */
+html body #main .hero-count, html body #main .m-express-label, html body #main .rh-acc summary,
+html body #main .pd-quote cite, html body #main .rh-spec dt, html body #main .mf-label, html body .bb-name{
+  font-size:15px !important;
+  letter-spacing:normal !important;
+  text-transform:lowercase !important;
+}
+
+/* 3. the name: cabernet, sentence case, big */
+html body #main .product-details h2{
+  font-size:38px !important;
+  letter-spacing:normal !important;
+  text-transform:none !important;
+  line-height:1.1 !important;
+  color:var(--ink) !important;
+}
+html body #main .m-goodfor{display:block; order:2; margin:-6px 0 14px !important; font-size:15px !important; color:var(--ink) !important}
+
+/* 4. pale pink 1px rules, the header's too */
+html body .mobile-header{border-bottom:1px solid var(--line) !important}
+html body .mobile-nav{border-bottom:1px solid var(--line) !important}
+html body .mobile-nav a{border-bottom:1px solid var(--line) !important}
+html body .age-bar{border-top:1px solid var(--line) !important}
+html body #main .rh-acc{border-top:1px solid var(--line) !important}
+html body #main .rh-acc details{border-bottom:1px solid var(--line) !important}
+html body #main .rh-spec{border-top:1px solid var(--line) !important}
+html body #main .rh-spec dd{border-bottom:1px solid var(--line) !important}
+html body #main .m-footer{border-top:1px solid var(--line) !important}
+html body .buybar{border-top:1px solid var(--line) !important}
+
+/* 5. the photo on a band of our pattern, a cream border around it like a print */
+html body #main .product-gallery{position:relative !important; isolation:isolate; padding:20px 0 14px 16px !important}
+html body #main .product-gallery::before{
+  content:"";
+  position:absolute; inset:0;
+  background:url('../background.jpg') repeat center top / 760px auto;
+  opacity:.3;
+  z-index:-1;
+  pointer-events:none;
+}
+html body #main .hero-slides.is-swipe .hero-slide{padding:12px !important; background:var(--cream) !important}
+html body #main .hero-count{padding:10px 0 0 4px !important}
+
+/* 6. the footer on the same faded pattern */
+html body #main .m-footer{position:relative !important; isolation:isolate}
+html body #main .m-footer::before{
+  content:"";
+  position:absolute; inset:0;
+  background:url('../background.jpg') repeat center top / 760px auto;
+  opacity:.3;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* 7. the picked size gets our little heart instead of the underline */
+html body #main .variant-opt, html body #main .variant-opt.selected{
+  position:relative !important;
+  padding:12px 0 6px 24px !important;
+  border-bottom:0 !important;
+}
+html body #main .variant-opt.selected::before{
+  display:block !important;
+  content:"" !important;
+  position:absolute; left:0; top:50%;
+  width:14px; height:14px;
+  margin-top:-4px;
+  background:url('../littleheart.png') center / contain no-repeat;
+}
+
+/* 8. add to bag: a pale pink keyline 3px inside the edge, like a wine label */
+html body #main .add-btn, html body .buybar-btn{outline:1px solid var(--line) !important; outline-offset:-4px !important}
+
+/* 9. kayla's quote opens with a big pink klickclack mark */
+html body #main .pd-quote .q-mark{
+  display:block;
+  font-family:'Klickclack Swash',Georgia,serif !important;
+  font-style:normal !important;
+  font-size:72px;
+  line-height:.6;
+  height:34px;
+  color:#ee86b7 !important;
+  margin:0 0 6px -2px;
+}
+/* the story sits on the cream like everything else */
+html body #main .rh-spec{background:transparent !important}
+html body #main .variant-opt.selected::before{margin-top:-6px}
