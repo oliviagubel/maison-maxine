@@ -31,20 +31,34 @@
        confirmation in place, only once the bag really holds it ── */
     var progress = document.getElementById('mmwProgress');
     var added = document.getElementById('mmwAdded');
+    /* computers: add to bag adds, then goes straight on to checkout (the
+       shop's own checkout(), the same one the bag's checkout button uses).
+       the barber pole stays up while the checkout page loads */
+    function goToCheckout(){
+      if (typeof window.checkout === 'function') window.checkout();
+      else window.location.href = 'checkout.html';
+    }
     window.dtAddFlow = function(addNow){
-      if (!progress || !added) { addNow(); return; }
+      if (!progress || !added) { if (addNow()) goToCheckout(); return; }
       added.innerHTML = '';
       progress.hidden = false;
       // let the bar paint, then add for real
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
         var ok = false;
         try { ok = addNow(); } catch (e) { ok = false; }
-        progress.hidden = true;
-        added.innerHTML = ok
-          ? 'added to your bag ♡ &nbsp;<a href="#" data-act="bag">view bag</a> | <a href="#" data-act="keep">keep shopping</a>'
-          : 'that didn’t add. please try again.';
+        if (ok){
+          added.textContent = 'added to your bag ♡ taking you to checkout…';
+          goToCheckout();
+        } else {
+          progress.hidden = true;
+          added.innerHTML = 'that didn’t add. please try again.';
+        }
       }); });
     };
+    // coming back from checkout (the back button restores this page from memory): clear the bar
+    window.addEventListener('pageshow', function(e){
+      if (e.persisted && progress && added){ progress.hidden = true; added.innerHTML = ''; }
+    });
     if (added) added.addEventListener('click', function(e){
       var a = e.target.closest('a[data-act]');
       if (!a) return;
