@@ -1,0 +1,38 @@
+/* ═══ THE SURFBOARD LOGO, COMPUTERS ONLY ═══
+   the big header wordmark on shop, home, sustainability and compassion:
+   logo-board (lime "maisonmaxine.world" on the pink watercolor board),
+   1600×291, transparent. it sits straight on the illustration background:
+   no box, border, shadow, glow or filter. a 2px lift on hover, a visible
+   ring on keyboard focus.
+
+   phones keep whatever they had (the gem on home, the text wordmark on
+   sustainability and compassion; the shop header is hidden there), and
+   the <picture> hands them a 1px placeholder so they never download it. */
+
+.mm-board{display:none}
+
+@media (min-width:769px){
+  .mm-board{
+    display:inline-block;
+    max-width:100%;
+    vertical-align:top;
+    line-height:0;
+    text-decoration:none;
+    transition:transform .2s ease;
+  }
+  .mm-board img{
+    display:block;
+    width:720px;
+    max-width:100%;
+    height:auto;
+  }
+  .mm-board:hover{transform:translateY(-2px)}
+  .mm-board:focus-visible{outline:2px solid #b0175a; outline-offset:6px; border-radius:4px}
+  .mm-board-text{display:none}
+  /* some pages give the whole header a soft white glow; not around the board */
+  .banner:has(.mm-board){filter:none !important}
+}
+
+@media (min-width:769px) and (prefers-reduced-motion:reduce){
+  .mm-board{transition:none}
+}

@@ -77,11 +77,11 @@
   background:none; border:0; padding:0; font:inherit; cursor:pointer;
 }
 
-/* ══ HEADER: the wordmark in an oval, like an enamel pin or a perfume label ══ */
+/* ══ HEADER ══ */
 #main .banner{filter:none !important; padding:6px 0 4px !important; margin-bottom:6px !important}
 #main .banner .divider{display:none}
 #main .banner h1{margin:0; line-height:1}
-/* the oval itself lives in css/oval.css, shared with the home page */
+/* the surfboard logo itself lives in css/logo-board.css, shared with home, sustainability and compassion */
 
 #main .banner .tagline{
   font-size:15px !important; font-style:normal !important; letter-spacing:.02em !important;
