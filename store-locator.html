@@ -695,7 +695,13 @@ body::before{
 @keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
 </style>
 <script src="/js/tracking.js" defer></script>
+<script src="js/site-desktop.js" defer></script>
 <link rel="stylesheet" href="css/square.css">
+<!-- computers only (min-width:769px): the shared desktop look; phones never download or apply these -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/site-desktop.css" media="(min-width:769px)">
+<style>@media (max-width:768px){.dt-only{display:none !important}}</style>
+<link rel="stylesheet" href="css/logo-board.css">
 </head>
 <body>
 
@@ -746,9 +752,13 @@ body::before{
       </nav>
     </div>
 
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="side-quiet">
     <!-- NOW PLAYING -->
     <div class="now-playing">
-      <div class="np-header">now playing ✦</div>
+      <div class="np-header">now playing</div>
       <div class="np-track">
         <div class="eq-bars">
           <span></span><span></span><span></span><span></span><span></span>
@@ -760,42 +770,47 @@ body::before{
       </div>
     </div>
 
+    <!-- MALIBU WEATHER (the little bird stays) -->
     <div class="sidebar-widget weather-widget">
-      <div class="wt">malibu weather ✦</div>
+      <div class="wt">malibu weather</div>
       <div class="weather-display">
-        <div class="weather-icon" id="w-icon">☀</div>
+        <img class="weather-bird" src="littlebird.png" alt="bird with letter">
+        <div class="weather-icon" id="w-icon" hidden></div>
         <div class="weather-temp" id="w-temp">72°f</div>
       </div>
-      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
+      <div class="weather-desc" id="w-desc">sunny &amp; perfect for a spritzer</div>
       <div class="weather-details">
         <span id="w-wind">wind 5mph</span>
         <span>·</span>
         <span id="w-humidity">humidity 62%</span>
       </div>
     </div>
-  </div>
-
-  <div style="text-align:center;margin-top:20px;font-size:10px;color:#f7cdeb;letter-spacing:8px">✦ ♡ ✦</div>
-  <div class="sidebar-bottom">
-    <div class="blinkies">
-      <span class="blinkie">muse life</span>
-      <span class="blinkie">sip sip</span>
-      <span class="blinkie">malibu</span>
-      <span class="blinkie">rescue pups</span>
     </div>
     <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
   </div>
 </div>
 
+
 <!-- MAIN -->
 <div id="main">
 
+  <!-- UTILITY ROW (computers) -->
+  <div class="dt-only util-row">
+    <span class="util-date" id="utilDate"></span>
+    <span class="util-age">21+ only · we check your birthday at checkout and an adult signs at delivery</span>
+    <span class="util-links"><a href="mailto:olivia@maisonmaxine.world?subject=Help%20with%20my%20order">Help</a> · <a class="util-bag" href="shop.html">Bag (<span id="utilBagN">0</span>)</a></span>
+  </div>
+
+
   <!-- BANNER -->
   <div class="banner">
+    <a class="mm-board" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-800.webp 800w, logo-board-1600.webp 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px"><img src="logo-board-1600.png" srcset="logo-board-800.png 800w, logo-board-1600.png 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px" width="1600" height="291" alt="Maison Maxine" fetchpriority="high"></picture></a>
     <h1>find us</h1>
     <div class="tagline">where muses sip in the wild ✦</div>
+    <div class="season-stamp dt-only">Fall 2026</div>
     <div class="divider"></div>
   </div>
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
 
   <!-- INTRO -->
   <div class="page-intro">
@@ -1626,6 +1641,22 @@ body::before{
     </div>
   </div>
 
+
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
+
+  <!-- FOOTER (computers) -->
+  <footer class="dt-only dt-footer">
+    <ul>
+      <li><a href="home.html">Index</a></li>
+      <li><a href="store-locator.html">Stockists</a></li>
+      <li><a href="forbuyers/">Wholesale</a></li>
+      <li><a href="mailto:olivia@maisonmaxine.world?subject=Press">Press</a></li>
+      <li><a href="privacy.html">Terms &amp; Privacy</a></li>
+    </ul>
+    <p><a href="mailto:?subject=Maison%20Maxine&amp;body=https%3A%2F%2Fmaisonmaxine.world%2Fstore-locator.html">Email this page to a friend</a></p>
+    <p class="dt-copy">Copyright <a href="home.html">Maison Maxine</a> 2026</p>
+    <p class="dt-rights">All rights reserved</p>
+  </footer>
 </div>
 
 <script>

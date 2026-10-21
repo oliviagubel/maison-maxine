@@ -1,120 +1,9 @@
 /* ═══ SHOP, COMPUTERS ONLY ═══
-   linked with media="(min-width:769px)", so phones never apply a rule here.
-
-   the brief: keep the polish, the photos and the whimsy, and give the page
-   the structure of an early-2000s luxury shop. elegant first, nostalgic in
-   small nods. no grey bevels, no default fonts, no gimmicks.
-
-   rose     #e0338a   outlines, the button, tabs (white on it: 5.2:1)
-   pale     #ffe0f0   fills (the utility row, the picked size)
-   hairline #ead5df   every border and divider
-   lime     #abd05d   the glossy bullets
+   linked with media="(min-width:769px)", after css/site-desktop.css (the
+   chrome every page shares). this file is only what's particular to the
+   shop: the product, the sizes, add to bag, the case callout, the
+   sip / read / visit panels, the latest, the fall batch signup.
 */
-
-:root{
-  --dt-rose:#e0338a;
-  --dt-rose-ink:#b3226e;          /* rose for small text: 6.3:1 on white */
-  --dt-pale:#ffe0f0;
-  --dt-hair:#f2bcd6;
-  --dt-cream:#fff5fa;
-  --dt-ink:#4a3a3a;
-  --dt-mute:#6a4a5a;
-  --dt-lime:#8fd63a;
-  --dt-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
-  --dt-display:'Klickclack Swash',Georgia,serif;
-  --dt-label:'Jersey 10',"Gill Sans",sans-serif;
-}
-
-/* ── type: gill sans for reading, klickclack for display, jersey 10 for
-   small labels and dates. cormorant and pixelify are gone from this page ── */
-#main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
-#main .banner h1, #main .banner h1 *, #main .product-details h2, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
-#main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-display)}
-#main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
-#main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
-#main .util-date, #main .panel-tab, #sidebar .nav-label, #sidebar .np-header, #sidebar .wt,
-#sidebar .copyright, #main .dt-sizes legend{
-  font-family:var(--dt-label);
-  font-weight:normal;
-  letter-spacing:.04em;
-}
-#main p, #main li, #main dd{font-style:normal}
-
-/* ── the column: our illustration stays behind, the content sits on white ── */
-#main{
-  background:#fff;
-  min-height:100vh;
-  padding:0 40px 28px !important;
-  border-right:1px solid var(--dt-hair);
-}
-
-/* ── no soft shadows, glows or gradients on cards; hairlines instead ── */
-#main *, #sidebar{box-shadow:none !important; text-shadow:none !important}
-#sidebar{background:#fff !important}
-.mouse-sparkle{display:none !important}
-.dt-spk{display:none !important}
-.age-bar{display:none !important}          /* the 21+ notice lives in the utility row */
-.cart-float{display:none !important}       /* the bag is in the utility row */
-.dt-only{display:block}
-
-/* ══ UTILITY ROW ══ */
-.util-row{
-  display:flex !important;
-  align-items:baseline;
-  gap:18px;
-  margin:0 -40px 18px;
-  padding:6px 40px;
-  border-bottom:1px solid var(--dt-hair);
-  background:var(--dt-pale);
-  font-size:13px;
-  color:var(--dt-mute);
-}
-.util-row .util-date{font-size:16px; color:var(--dt-ink)}
-.util-row .util-age{flex:1; text-align:center}
-.util-row .util-links{white-space:nowrap}
-.util-row a, .util-row .util-bag{
-  color:var(--dt-rose-ink); text-decoration:underline; text-underline-offset:2px;
-  background:none; border:0; padding:0; font:inherit; cursor:pointer;
-}
-
-/* ══ HEADER ══ */
-#main .banner{filter:none !important; padding:6px 0 4px !important; margin-bottom:6px !important}
-#main .banner .divider{display:none}
-#main .banner h1{margin:0; line-height:1}
-/* the surfboard logo itself lives in css/logo-board.css, shared with home, sustainability and compassion */
-
-#main .banner .tagline{
-  font-size:15px !important; font-style:normal !important; letter-spacing:.02em !important;
-  color:var(--dt-mute) !important; margin-top:10px;
-}
-.season-stamp{
-  display:inline-block !important;
-  margin-top:6px;
-  padding:1px 10px 0;
-  border:1px solid var(--dt-rose);
-  color:var(--dt-rose-ink);
-  font-size:17px;
-  line-height:1.2;
-  text-transform:uppercase;
-  transform:rotate(-2deg);
-}
-
-/* the little stickers strip, riding a wavy line like bikini.com's
-   wave band (1996): the stickers sit on the crest, a sky-blue sea below */
-.lil-strip{
-  display:flex !important;
-  justify-content:space-around;
-  align-items:flex-end;
-  height:40px;
-  margin:10px 0 18px;
-  padding:0 8px 7px;
-  overflow:hidden;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7 V14 H0Z' fill='%23a8dcff'/%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7' fill='none' stroke='%233d9be0' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left bottom / 40px 14px;
-}
-.lil-strip img{height:20px; width:auto; display:block}
-
-/* the shipping pill up top goes; it's a plain line under the button now */
-#main .ship-strip{display:none !important}
 
 /* ══ PRODUCT ══ */
 #main .product-hero{gap:32px !important; align-items:start}
@@ -240,41 +129,6 @@
 .case-callout .case-head{font-size:20px; color:var(--dt-rose-ink); margin-bottom:2px}
 .case-callout a{color:var(--dt-rose-ink)}
 
-/* ══ CARDS AND BOXES: square, flat, hairlines ══ */
-#main .info-grid{gap:0 !important; border:1px solid var(--dt-hair); margin-bottom:20px}
-#main .info-card{
-  background:#fff !important; border:0 !important; border-right:1px solid var(--dt-hair) !important;
-  padding:14px !important;
-}
-#main .info-card:last-child{border-right:0 !important}
-#main .info-card::before, #main .info-card::after{display:none !important}
-#main .info-card .ic-icon{display:none}
-#main .info-card .ic-title{font-size:17px; color:var(--dt-rose-ink); text-transform:none}
-#main .info-card .ic-text{font-size:14px; font-style:normal; color:var(--dt-ink)}
-#main .box{
-  background:#fff !important;
-  border:1px solid var(--dt-hair) !important;
-  padding:16px 18px !important;
-  margin-bottom:20px !important;
-}
-#main .box::before, #main .box::after{display:none !important}
-#main .box-title{font-size:24px; color:var(--dt-rose-ink); text-transform:none; letter-spacing:0; border:0 !important; margin-bottom:10px}
-#main .taste-item{background:#fff !important; border:0 !important; border-top:1px dotted var(--dt-hair) !important; padding:10px 0 !important}
-#main .taste-item .tl{font-size:16px; color:var(--dt-rose-ink); text-transform:none}
-#main .taste-item .tv{font-size:15px; font-style:normal; color:var(--dt-ink)}
-#main .occasions{display:block !important}
-#main .occasion{
-  display:inline !important; background:none !important; border:0 !important; padding:0 !important;
-  font-size:15px !important; color:var(--dt-ink) !important; font-family:var(--dt-sans) !important; text-transform:none !important; letter-spacing:0 !important;
-}
-#main .occasion:not(:last-child)::after{content:", "}
-#main .review{border:0 !important; border-top:1px dotted var(--dt-hair) !important; background:#fff !important; padding:12px 0 !important; margin:0 !important}
-#main .review:first-of-type{border-top:0 !important}
-#main .review .r-stars{display:none}
-#main .review .r-text{font-size:15px; font-style:normal; color:var(--dt-ink)}
-#main .review .r-author{font-size:15px; color:var(--dt-mute); text-transform:none}
-#main #badges{display:none !important}
-
 /* ══ SIP / READ / VISIT ══ */
 .panels{
   display:grid !important;
@@ -335,64 +189,19 @@
 .signup button:disabled{opacity:.6}
 .signup .signup-note{margin:8px 0 0; font-size:14px; color:var(--dt-rose-ink); min-height:1em}
 
-/* ══ FOOTER ══ */
-.dt-footer{text-align:center; padding:4px 0 6px; font-size:13px; color:var(--dt-mute)}
-.dt-footer ul{list-style:none; margin:0 0 8px; padding:0; display:flex; justify-content:center; flex-wrap:wrap; gap:6px 20px}
-.dt-footer li{display:flex; align-items:center; gap:7px}
-.dt-footer li::before{content:""; width:5px; height:5px; background:var(--dt-rose); flex:none}
-.dt-footer a{color:var(--dt-rose-ink)}
-.dt-footer p{margin:0 0 4px}
-#mmPrivacyBar{opacity:1 !important; color:var(--dt-mute) !important}
-
-/* ══ SIDEBAR ══ */
-#sidebar{border-right:1px solid var(--dt-hair) !important}
-#sidebar .sidebar-sub{font-style:normal; letter-spacing:0; font-size:13px; color:var(--dt-mute)}
-#sidebar .nav-label{font-size:16px; color:var(--dt-rose-ink); text-transform:uppercase}
-#sidebar nav a{font-style:normal !important; font-size:16px !important; border-bottom:1px dotted var(--dt-hair) !important}
-#sidebar nav a.active{text-shadow:none}
-/* only the first letter of each item, like an old menu's keyboard shortcut */
-#sidebar nav a .fl ~ .fl{text-decoration:none}
-/* now playing + malibu weather: the widgets we had, as little early-2000s
-   panels: a hairline frame and a glossy pale-pink title bar */
-#sidebar .side-quiet{opacity:1; margin-bottom:10px; text-align:left}
-#sidebar .side-quiet .now-playing, #sidebar .side-quiet .sidebar-widget{
-  margin-top:10px; padding:0 0 8px;
-  background:#fff; border:1px solid var(--dt-hair);
-}
-#sidebar .side-quiet .np-header, #sidebar .side-quiet .wt{
-  margin:0 0 6px; padding:2px 8px 1px;
-  background:linear-gradient(180deg, #fff 0%, var(--dt-pale) 55%, #ffc6e2 100%);
-  border-bottom:1px solid var(--dt-hair);
-  font-size:15px; letter-spacing:.04em; color:var(--dt-rose-ink); text-transform:lowercase;
-}
-#sidebar .side-quiet .np-track{padding:0 8px; gap:8px}
-#sidebar .side-quiet .np-song{font-size:13px; font-style:normal; color:var(--dt-ink)}
-#sidebar .side-quiet .np-artist{font-size:14px; color:var(--dt-mute)}
-#sidebar .side-quiet .weather-display{margin:0; padding:0 8px; gap:6px; justify-content:flex-start; align-items:center}
-#sidebar .side-quiet .weather-bird{width:26px; height:auto; display:block}
-#sidebar .side-quiet .weather-temp{font-size:16px; color:var(--dt-ink)}
-#sidebar .side-quiet .weather-desc{padding:2px 8px 0; font-size:12px; font-style:normal; color:var(--dt-mute)}
-#sidebar .side-quiet .weather-details{display:block; padding:2px 8px 0; font-size:13px; color:var(--dt-mute)}
-#sidebar .copyright{font-size:14px; color:var(--dt-mute); letter-spacing:.04em}
-
-/* ══ 769–820px: everything stacks to one column ══ */
+/* ══ 769–820px: the product stacks to one column ══ */
 @media (max-width:820px){
-  #main{padding:0 22px 24px !important}
-  .util-row{margin:0 -22px 16px; padding:6px 22px; flex-wrap:wrap; gap:4px 14px}
-  .util-row .util-age{order:3; flex-basis:100%; text-align:left}
   #main .product-hero{grid-template-columns:1fr !important; display:block !important}
   #main .product-gallery{margin-bottom:20px}
-  #main .info-grid{grid-template-columns:1fr !important}
-  #main .info-card{border-right:0 !important; border-bottom:1px solid var(--dt-hair) !important}
   .panels{grid-template-columns:1fr}
   #main .ing-chips{grid-template-columns:1fr}
   #main .tasting-notes{grid-template-columns:1fr !important}
 }
 
+
 /* where a sparkle used to separate "no refined sugar ✦ 5% abv", a plain dot */
 #main .pd-why .dt-spk{display:inline !important; font-size:0}
 #main .pd-why .dt-spk::before{content:"·"; font-size:14px; color:var(--dt-mute); padding:0 2px}
-#sidebar .side-quiet .weather-widget{background:#e9f9d4}
 
 /* the fall batch, bikini.com style: "coming soon!", a heart, "try to stay calm!" */
 .signup{text-align:center}
@@ -401,7 +210,3 @@
 #main .signup .calm{font-family:var(--dt-label); font-size:17px; letter-spacing:.06em; text-transform:uppercase; color:#1a6fb3; margin:0 0 12px}
 .signup-row{justify-content:center; text-align:left}
 .signup label{flex:0 1 220px}
-
-/* the copyright, two centered lines */
-.dt-footer .dt-copy{font-size:16px; color:var(--dt-ink); margin:10px 0 2px}
-.dt-footer .dt-rights{font-size:12px; letter-spacing:.12em; color:var(--dt-mute)}
