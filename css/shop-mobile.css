@@ -310,3 +310,6 @@ html body #main .pd-quote .q-mark{
 /* the story sits on the cream like everything else */
 html body #main .rh-spec{background:transparent !important}
 html body #main .variant-opt.selected::before{margin-top:-6px}
+
+/* the desktop buy window's wrappers lay out as if they weren't there on phones */
+html body #main .mm-window, html body #main .mmw-addrow{display:contents !important}

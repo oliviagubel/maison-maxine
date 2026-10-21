@@ -11,6 +11,110 @@
     document.querySelectorAll('input[name="dtSize"]').forEach(function(r){
       r.addEventListener('change', function(){ if (r.checked && window.selectVariant) window.selectVariant(r.value); });
     });
+    /* ── qty: how many of the picked set. it feeds the real cart quantity
+       (selectVariant multiplies by it) and the price on the button ── */
+    var qtyBox = document.getElementById('dtQty');
+    function readQty(){
+      var n = parseInt(String(qtyBox.value).replace(/\D/g, ''), 10);
+      return Math.max(1, Math.min(12, n || 1));
+    }
+    if (qtyBox){
+      qtyBox.addEventListener('input', function(){
+        window.dtQtyMult = readQty();
+        if (window.selectVariant && window.selectedVariant !== undefined) window.selectVariant(window.selectedVariant);
+        else if (typeof selectVariant === 'function') selectVariant(document.querySelector('input[name="dtSize"]:checked').value);
+      });
+      qtyBox.addEventListener('blur', function(){ qtyBox.value = readQty(); });
+    }
+
+    /* ── add to bag on computers: a barber pole while it's added, then a
+       confirmation in place, only once the bag really holds it ── */
+    var progress = document.getElementById('mmwProgress');
+    var added = document.getElementById('mmwAdded');
+    window.dtAddFlow = function(addNow){
+      if (!progress || !added) { addNow(); return; }
+      added.innerHTML = '';
+      progress.hidden = false;
+      // let the bar paint, then add for real
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        var ok = false;
+        try { ok = addNow(); } catch (e) { ok = false; }
+        progress.hidden = true;
+        added.innerHTML = ok
+          ? 'added to your bag ♡ &nbsp;<a href="#" data-act="bag">view bag</a> | <a href="#" data-act="keep">keep shopping</a>'
+          : 'that didn’t add. please try again.';
+      }); });
+    };
+    if (added) added.addEventListener('click', function(e){
+      var a = e.target.closest('a[data-act]');
+      if (!a) return;
+      e.preventDefault();
+      if (a.dataset.act === 'bag' && window.openDrawer) window.openDrawer();
+      else added.innerHTML = '';
+    });
+
+    /* ── "or express checkout with apple pay": the same wallet button, same flow ── */
+    var xp = document.querySelector('.buy-row .xpay-btn');
+    var xpLink = document.getElementById('mmwExpressLink');
+    if (xp && xpLink){
+      xpLink.addEventListener('click', function(e){ e.preventDefault(); xp.click(); });
+      // say google pay when that's the wallet the device has
+      new MutationObserver(function(){
+        var name = xpLink.querySelector('.mmw-wallet');
+        if (name) name.textContent = xp.classList.contains('is-google') ? 'Google Pay' : 'Apple Pay';
+      }).observe(xp, {attributes:true, attributeFilter:['class']});
+    }
+
+    /* ── shipping / returns in the window's bottom strip: the words from the
+       shipping & returns section, shown in place ── */
+    var info = document.getElementById('mmwInfo');
+    var shipBody = [].slice.call(document.querySelectorAll('.rh-acc details')).filter(function(d){
+      return /shipping/i.test(d.querySelector('summary').textContent);
+    })[0];
+    var infoLinks = document.querySelectorAll('.mmw-strip a[data-info]');
+    infoLinks.forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        if (!info || !shipBody) return;
+        var open = a.getAttribute('aria-expanded') === 'true';
+        infoLinks.forEach(function(b){ b.setAttribute('aria-expanded', 'false'); });
+        if (open){ info.hidden = true; return; }
+        var ps = [].slice.call(shipBody.querySelectorAll('.rh-acc-body p'));
+        var pick = a.dataset.info === 'returns'
+          ? ps.filter(function(p){ return /replace|credit|return/i.test(p.textContent); })
+          : ps.filter(function(p){ return !/replace|credit|return/i.test(p.textContent); });
+        info.innerHTML = '';
+        pick.forEach(function(p){ info.appendChild(p.cloneNode(true)); });
+        info.hidden = false;
+        a.setAttribute('aria-expanded', 'true');
+      });
+    });
+
+    /* ── the folder tabs: tablist / tab / tabpanel, arrow keys, home / end ── */
+    var tabs = [].slice.call(document.querySelectorAll('.mm-tab'));
+    function show(tab, focus){
+      tabs.forEach(function(t){
+        var on = t === tab;
+        t.setAttribute('aria-selected', on);
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+      if (focus) tab.focus();
+    }
+    tabs.forEach(function(t, i){
+      t.addEventListener('click', function(){ show(t, false); });
+      t.addEventListener('keydown', function(e){
+        var k = e.key, j = null;
+        if (k === 'ArrowRight') j = (i + 1) % tabs.length;
+        else if (k === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+        else if (k === 'Home') j = 0;
+        else if (k === 'End') j = tabs.length - 1;
+        if (j === null) return;
+        e.preventDefault();
+        show(tabs[j], true);
+      });
+    });
+
     /* "what's in a gift box?" glides down to the case callout and its gift box photo */
     var giftInfo = document.getElementById('giftBoxInfo');
     if (giftInfo) giftInfo.addEventListener('click', function(e){

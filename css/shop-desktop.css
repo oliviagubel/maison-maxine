@@ -53,56 +53,66 @@
   background:radial-gradient(circle at 35% 30%, #fff 0%, #d9f5b0 28%, var(--dt-lime) 70%, #6fae22 100%);
 }
 
-/* ══ CHOOSE YOUR BOX ══
-   half 1996-2006 web, half luxury: a real <fieldset> with its <legend> in
-   the top border line, cream rows, hand-drawn-feeling radios with our
-   little heart, then one cabernet button labelled like a wine bottle. */
-#main .cart-section{background:#fff !important; border:0 !important; padding:0 !important}
+/* ══ THE WINDOW ══
+   half 1996-2003 web, half luxury, all early-2000s coastal: a little white
+   window with a pinstriped title bar, an order table with drawn radios and
+   our heart, a qty box, a lip gloss gel button, an aqua barber pole while
+   it adds, express checkout as a link, and a strip of links at the bottom. */
+#main .cart-section{background:transparent !important; border:0 !important; padding:0 !important}
 #main .variant-row{display:none !important}
-.dt-sizes{
-  display:block !important;
-  position:relative;
+.mm-window{
+  display:block;
   margin:6px 0 0;
-  padding:0;
-  min-width:0;
+  background:#fff;
   border:1px solid #e6c6d6;
   border-radius:0 !important;
-  background:#fff8f5;
+  box-shadow:none;
+  color:#3d1a2b;
+  font-family:var(--dt-sans);
 }
-.dt-sizes legend{
-  float:none;
-  width:auto;
-  margin:0 0 0 14px;
-  padding:0 8px;
-  background:#fff8f5;
-  border:0;
-  font-family:'Klickclack Swash',Georgia,serif !important;
-  font-size:20px;
-  line-height:1;
-  letter-spacing:0 !important;
-  text-transform:none;
-  color:#ee86b7;
+/* no wine-glass cursor in here */
+.mm-window, .mm-window *, .mm-tabs, .mm-tabs *{cursor:auto}
+.mm-window a, .mm-window button, .mm-window label, .mm-tabs button{cursor:pointer}
+.mm-window input[type=text]{cursor:text}
+
+.mmw-titlebar{
+  display:flex !important;
+  align-items:center;
+  gap:10px;
+  padding:7px 12px;
+  border-bottom:1px solid #e6c6d6;
+  background:repeating-linear-gradient(#fbeef3 0 1px, #fff8fa 1px 3px) !important;
 }
+.mmw-dots{display:flex; gap:5px}
+.mmw-dots i{width:9px; height:9px; border-radius:50% !important; border:1px solid rgba(61,26,43,.28); display:block}
+.mmw-dots i:nth-child(1){background:#ee86b7}
+.mmw-dots i:nth-child(2){background:#fff0a6}
+.mmw-dots i:nth-child(3){background:#abd05d}
+.mmw-title{flex:1; font-family:'Klickclack Swash',Georgia,serif !important; font-size:19px; line-height:1; color:#c8467f}
+.mmw-step{font-size:12px; color:#7a5a68}
+.mmw-sr{position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
+
+/* the order table */
+.dt-sizes{display:block !important; margin:0; padding:0 0 4px; min-width:0; border:0; background:#fff}
+.mmw-head{display:grid; grid-template-columns:18px 1fr auto; column-gap:14px; padding:10px 14px 6px; font-size:12px; color:#7a5a68}
+.mmw-head span:first-child{grid-column:2}
+.mmw-head span:last-child{text-align:right}
 .dt-size{
   position:relative;
   display:grid;
   grid-template-columns:18px 1fr auto;
   align-items:center;
   column-gap:14px;
-  padding:18px 20px;
+  padding:14px;
   min-height:44px;
-  cursor:pointer;
+  border-top:1px dotted #e6c6d6;
   color:#3d1a2b;
-  font-family:var(--dt-sans);
 }
-.dt-size + .dt-size{border-top:1px solid #efdbe4}
+.dt-size:last-child{border-bottom:1px dotted #e6c6d6}
 .dt-size:has(input:checked){background:#fdf1f5}
-.dt-size-name{font-size:18px; line-height:1.25; color:#3d1a2b; text-transform:lowercase}
-.dt-size-name small{display:block; margin-top:3px; font-size:14px; color:#7a5a68}
-.dt-size-price{font-size:18px; color:#3d1a2b; font-variant-numeric:tabular-nums; text-align:right; min-width:4.2ch}
-
-/* the radio: a real input, visually hidden; an 18px drawn circle in its place,
-   our little heart inside the picked one, a ring when it has keyboard focus */
+.dt-size-name{font-size:17px; line-height:1.25; text-transform:lowercase}
+.dt-size-name small{display:block; margin-top:3px; font-size:13px; color:#7a5a68}
+.dt-size-price{font-size:17px; font-variant-numeric:tabular-nums; text-align:right; min-width:4.2ch}
 .dt-radio-input{
   position:absolute !important; width:1px; height:1px; margin:-1px; padding:0;
   overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); border:0; white-space:nowrap;
@@ -111,74 +121,143 @@
   width:18px; height:18px;
   border:1px solid #3d1a2b;
   border-radius:50% !important;
-  background:transparent center / 10px auto no-repeat;
+  background:#fff center / 11px auto no-repeat;
 }
 .dt-radio-input:checked + .dt-radio{background-image:url('../littleheart.png')}
 .dt-radio-input:focus-visible + .dt-radio{outline:2px solid #3d1a2b; outline-offset:3px}
 
-/* under the box, right-aligned */
-.dt-giftbox{display:block !important; text-align:right; margin:8px 0 14px; font-size:14px}
-.dt-giftbox a{color:#3d1a2b !important; text-decoration:underline; text-underline-offset:3px}
-
-/* add to bag: square cabernet, cream letters on one line, a pale pink keyline 3px in, like a wine label */
-#main .buy-row{display:flex !important; flex-direction:column; gap:10px}
-#main .buy-row .add-btn, #main .add-btn{
-  order:1;
-  width:100%;
-  height:56px; min-height:56px;
-  border-radius:0 !important;
-  background:#3d1a2b !important;
-  color:#fff8f5 !important;
-  border:0 !important;
-  outline:1px solid #efcfdf !important;
-  outline-offset:-4px !important;
-  font-family:var(--dt-sans) !important;
-  font-style:normal !important;
-  font-size:16px !important;
-  letter-spacing:.1em !important;
-  text-transform:uppercase !important;
+/* the butter tooltip on "the case" */
+.mmw-tipwrap{position:relative; display:inline-block}
+.mmw-tip{text-decoration:underline dotted #3d1a2b; text-underline-offset:3px; cursor:help}
+.mmw-tip:focus-visible{outline:2px solid #3d1a2b; outline-offset:2px}
+.mmw-tipbox{
+  position:absolute; left:0; top:calc(100% + 8px); z-index:5;
   white-space:nowrap;
-  padding:0 16px !important;
-  transform:none !important;
+  padding:5px 9px;
+  background:#fff0a6;
+  border:1px solid #d9c46a;
+  font-size:12px; line-height:1.3; color:#3d1a2b; text-transform:none;
+  visibility:hidden; opacity:0;
 }
-#main .add-btn::before, #main .add-btn::after{display:none !important; content:none !important}
-#main .add-btn:hover{background:#2e1320 !important}
-#main .add-btn:focus-visible{outline:2px solid #3d1a2b !important; outline-offset:3px !important}
+.mmw-tip:hover + .mmw-tipbox, .mmw-tip:focus + .mmw-tipbox{visibility:visible; opacity:1}
 
-/* express checkout: the same wallet button, a quiet full-width row under add to bag */
-#main .buy-row .xpay-btn{
-  order:2;
-  width:100%;
-  height:48px; min-height:48px;
-  display:flex; align-items:center; justify-content:space-between;
-  padding:0 18px !important;
+/* qty + the lip gloss button */
+.mmw-addrow{display:flex !important; align-items:center; gap:12px; padding:16px 14px 8px}
+.mmw-qty{display:flex !important; align-items:center; gap:7px; font-size:14px; color:#3d1a2b; flex:none}
+.mmw-qty input{
+  width:44px; height:34px;
+  text-align:center;
+  font:16px var(--dt-sans); color:#3d1a2b;
+  background:#fff;
+  border:1px solid;
+  border-color:#b9a1ad #f1e3ea #f1e3ea #b9a1ad;
   border-radius:0 !important;
-  border:0 !important;
-  background:#f6eee9 !important;
-  color:#000 !important;
-  font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif !important;
-  font-size:18px !important;
-  font-weight:600;
-  letter-spacing:0;
+  font-variant-numeric:tabular-nums;
 }
-#main .buy-row .xpay-btn[hidden]{display:none !important}
-#main .buy-row .xpay-btn::before{
-  content:"express checkout";
-  font-family:var(--dt-sans);
-  font-size:14px;
-  font-weight:400;
-  color:#3d1a2b;
-  letter-spacing:.02em;
+.mmw-qty input:focus-visible{outline:2px solid #3d1a2b; outline-offset:2px}
+#main .mmw-addrow .buy-row{display:block !important; flex:1; margin:0 !important}
+#main .mmw-addrow .buy-row .xpay-btn{display:none !important}   /* express checkout is the link below */
+#main .mmw-addrow .add-btn{
+  position:relative;
+  display:block;
+  width:100%;
+  height:46px; min-height:46px;
+  padding:0 18px !important;
+  border:1px solid #a8386a !important;
+  border-radius:999px !important;
+  background:linear-gradient(#f7a9cd, #c8467f 62%, #d4588f) !important;
+  color:#fff !important;
+  outline:0 !important;
+  font-family:var(--dt-sans) !important;
+  font-size:16px !important;
+  font-style:normal !important;
+  letter-spacing:.06em !important;
+  text-transform:lowercase !important;
+  text-shadow:0 1px 1px rgba(122,30,72,.45) !important;
+  box-shadow:0 2px 4px rgba(122,30,72,.25) !important;
+  overflow:hidden;
+  isolation:isolate;
+  white-space:nowrap;
 }
-#main .buy-row .xpay-btn:focus-visible{outline:2px solid #3d1a2b; outline-offset:2px}
+#main .mmw-addrow .add-btn::before{
+  content:"" !important;
+  display:block !important;
+  position:absolute;
+  left:12px; right:12px; top:2px;
+  height:45%;
+  border-radius:999px !important;
+  background:linear-gradient(rgba(255,255,255,.75), rgba(255,255,255,.08)) !important;
+  pointer-events:none;
+  z-index:-1;
+}
+#main .mmw-addrow .add-btn::after{display:none !important; content:none !important}
+#main .mmw-addrow .add-btn:hover{filter:brightness(1.04)}
+#main .mmw-addrow .add-btn:active{background:linear-gradient(#d4588f, #c8467f 38%, #f7a9cd) !important}
+#main .mmw-addrow .add-btn:focus-visible{outline:2px solid #3d1a2b !important; outline-offset:3px !important}
 
-.dt-ship{font-size:14px; color:#3d1a2b; margin:10px 0 0; text-align:center}
-.dt-ask{font-size:14px; color:var(--dt-mute); margin:2px 0 0; text-align:center}
-.dt-ask a{color:var(--dt-rose-ink)}
+/* the aqua barber pole while it's added, then the confirmation */
+.mmw-progress{display:block; margin:4px 14px 6px; height:10px; border-radius:999px !important; border:1px solid #e6c6d6; overflow:hidden; background:#fde3ef}
+.mmw-progress[hidden]{display:none !important}
+.mmw-progress span{
+  display:block; height:100%;
+  background:repeating-linear-gradient(-45deg, #f7a9cd 0 8px, #fde3ef 8px 16px);
+  background-size:22.6px 100%;
+  animation:mmw-pole .6s linear infinite;
+}
+@keyframes mmw-pole{to{background-position:22.6px 0}}
+@media (prefers-reduced-motion:reduce){.mmw-progress span{animation:none}}
+.mmw-added{display:block; margin:0 14px; font-size:14px; color:#3d1a2b; min-height:0}
+.mmw-added:not(:empty){padding:4px 0 6px}
+.mmw-added a{color:#3d1a2b !important; text-decoration:underline; text-underline-offset:3px}
+
+/* express checkout, as a link (only when a wallet is there) */
+.mmw-express{display:none !important; margin:4px 14px 12px; text-align:right; font-size:14px; color:#3d1a2b}
+body.has-xpay .mmw-express{display:block !important}
+.mmw-express a{color:#3d1a2b !important; text-decoration:underline; text-underline-offset:3px}
+
+/* the strip of links at the bottom of the window */
+.mmw-strip{display:block !important; margin-top:6px; padding:8px 14px; border-top:1px solid #e6c6d6; background:#fffafb; font-size:13px; color:#7a5a68}
+.mmw-strip a{color:#3d1a2b !important; text-decoration:underline; text-underline-offset:3px}
+.mmw-info{display:block; padding:4px 14px 10px; background:#fffafb; font-size:14px; color:#3d1a2b}
+.mmw-info[hidden]{display:none !important}
+.mmw-info p{margin:6px 0 0}
+
+/* under the window */
+.dt-ship{font-size:14px; color:#7a5a68; margin:14px 0 0; text-align:center}
+.dt-ask{display:none !important}
 #main .trust-rows{margin-top:12px}
-#main .trust-rows li:first-child{display:none}   /* said once already, right under the buttons */
+#main .trust-rows li:first-child{display:none}   /* said once already, under the window */
 #main .trust-rows li{font-size:14px; font-style:normal}
 #main .ship-line{font-style:normal; font-size:13px}
+
+/* the window's shadows (a shared rule strips shadows in the column; these win it) */
+#main .mm-window{box-shadow:3px 3px 0 #f3dde7 !important}
+#main .dt-radio{box-shadow:inset 1px 1px 2px rgba(61,26,43,.18) !important}
+#main .mmw-tipbox{box-shadow:2px 2px 0 rgba(61,26,43,.12) !important}
+
+/* ══ PRODUCT INFO AS FOLDER TABS ══ */
+#main #tasting{display:none !important}          /* the tasting notes live in the first tab now */
+.mm-tabs{display:block !important; margin:26px 0 22px; color:#3d1a2b; font-family:var(--dt-sans)}
+.mm-tablist{display:flex; gap:4px; padding-left:8px; position:relative; z-index:1}
+.mm-tab{
+  font:14px var(--dt-sans);
+  color:#3d1a2b;
+  padding:7px 16px 6px;
+  background:linear-gradient(#fff, #f7e8ef);
+  border:1px solid #e6c6d6;
+  border-bottom:0;
+  border-radius:6px 6px 0 0 !important;
+  margin-bottom:-1px;
+}
+.mm-tab u{text-decoration:underline; text-underline-offset:2px}
+.mm-tab[aria-selected="true"]{background:#fff; padding-bottom:7px}
+.mm-tab:focus-visible{outline:2px solid #3d1a2b; outline-offset:2px}
+.mm-panel{background:#fff; border:1px solid #e6c6d6; padding:16px 18px; font-size:15px; line-height:1.5}
+.mm-panel:focus-visible{outline:2px solid #3d1a2b; outline-offset:2px}
+.mm-panel p{margin:0}
+.mm-panel dl{margin:0; display:grid; grid-template-columns:max-content 1fr; gap:6px 18px}
+.mm-panel dt{color:#7a5a68}
+.mm-panel dd{margin:0}
 
 /* the quote now sits under the product name, so the copy further down goes */
 #main .pd-quote{display:none !important}

@@ -2284,18 +2284,37 @@ html.age-ok .age-bar{display:none}
           </button>
         </div>
 
-        <!-- SIZES AS RADIO ROWS (computers; they drive the same selectVariant) -->
-        <fieldset class="dt-only dt-sizes">
-          <legend>choose your box</legend>
-          <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="fourpack" checked><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name">the pair box set<small>8 cans in 2 gift boxes</small></span><span class="dt-size-price">$56</span></label>
-          <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="case"><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name">the case<small>24 cans in 6 gift boxes, ships free</small></span><span class="dt-size-price">$144</span></label>
-        </fieldset>
-        <p class="dt-only dt-giftbox"><a href="#case-callout" id="giftBoxInfo">what's in a gift box?</a></p>
+        <!-- THE WINDOW (computers): title bar, order table, qty + add, express, links.
+             the window and add-row wrappers are display:contents on phones, so the
+             phone layout (buy-row, add button, wallet) is exactly as before -->
+        <div class="mm-window">
+          <div class="dt-only mmw-titlebar">
+            <span class="mmw-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="mmw-title" id="mmwTitle">choose your box</span>
+            <span class="mmw-step">step 1 of 2</span>
+          </div>
+          <fieldset class="dt-only dt-sizes" aria-labelledby="mmwTitle">
+            <legend class="mmw-sr">choose your box</legend>
+            <div class="mmw-head" aria-hidden="true"><span>item</span><span>price</span></div>
+            <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="fourpack" checked><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name">the pair box set<small>8 cans in 2 gift boxes</small></span><span class="dt-size-price">$56</span></label>
+            <label class="dt-size"><input class="dt-radio-input" type="radio" name="dtSize" value="case"><span class="dt-radio" aria-hidden="true"></span><span class="dt-size-name"><span class="mmw-tipwrap"><span class="mmw-tip" tabindex="0" aria-describedby="caseTip">the case</span><span class="mmw-tipbox" role="tooltip" id="caseTip">our favorite · six boxes to share or keep</span></span><small>24 cans in 6 gift boxes, ships free</small></span><span class="dt-size-price">$144</span></label>
+          </fieldset>
 
-        <!-- BUY: express wallet on the left (when the device has one), buy on the right -->
-        <div class="buy-row">
-          <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
-          <button class="add-btn" id="addBtn" type="button">Buy · $56</button>
+          <div class="mmw-addrow">
+            <label class="dt-only mmw-qty" for="dtQty">qty <input id="dtQty" type="text" inputmode="numeric" pattern="[0-9]*" maxlength="2" value="1" autocomplete="off"></label>
+            <!-- BUY: express wallet on the left (when the device has one), buy on the right -->
+            <div class="buy-row">
+              <button class="xpay-btn" type="button" hidden aria-label="pay with apple pay"></button>
+              <button class="add-btn" id="addBtn" type="button">Buy · $56</button>
+            </div>
+          </div>
+          <div class="dt-only mmw-progress" id="mmwProgress" hidden><span></span></div>
+          <div class="dt-only mmw-added" id="mmwAdded" role="status" aria-live="polite"></div>
+          <p class="dt-only mmw-express">or <a href="#" id="mmwExpressLink">express checkout with <span class="mmw-wallet">Apple Pay</span></a></p>
+          <nav class="dt-only mmw-strip" aria-label="about your box">
+            <a href="#case-callout" id="giftBoxInfo">what's in a gift box?</a> | <a href="#" data-info="shipping" aria-expanded="false" aria-controls="mmwInfo">shipping</a> | <a href="#" data-info="returns" aria-expanded="false" aria-controls="mmwInfo">returns</a> | <a href="store-locator.html">find a shop</a>
+          </nav>
+          <div class="dt-only mmw-info" id="mmwInfo" hidden></div>
         </div>
         <div class="m-only m-express" id="mExpress"><span class="m-express-label">Express checkout</span></div>
 
@@ -2311,6 +2330,29 @@ html.age-ok .age-bar{display:none}
     </div>
 
   </div>
+
+  <!-- PRODUCT INFO AS FOLDER TABS (computers; phones keep the accordions) -->
+  <section class="dt-only mm-tabs" aria-label="about the spritz">
+    <div class="mm-tablist" role="tablist" aria-label="about the spritz">
+      <button class="mm-tab" type="button" role="tab" id="tab-notes" aria-controls="panel-notes" aria-selected="true" tabindex="0" accesskey="t"><u>t</u>asting notes</button>
+      <button class="mm-tab" type="button" role="tab" id="tab-ingredients" aria-controls="panel-ingredients" aria-selected="false" tabindex="-1" accesskey="i"><u>i</u>ngredients</button>
+      <button class="mm-tab" type="button" role="tab" id="tab-vineyard" aria-controls="panel-vineyard" aria-selected="false" tabindex="-1" accesskey="v">the <u>v</u>ineyard</button>
+    </div>
+    <div class="mm-panel" role="tabpanel" id="panel-notes" aria-labelledby="tab-notes" tabindex="0">
+      <dl>
+        <dt>on the nose</dt><dd>bright lemon zest, warm ginger, honey sweetness, dark fruit underneath</dd>
+        <dt>on the palate</dt><dd>light &amp; fizzy, citrus-forward with a warm ginger kick, smooth cabernet finish</dd>
+        <dt>the finish</dt><dd>honey-kissed, clean, leaves you wanting another sip</dd>
+        <dt>best served</dt><dd>chilled, on ice, in good company</dd>
+      </dl>
+    </div>
+    <div class="mm-panel" role="tabpanel" id="panel-ingredients" aria-labelledby="tab-ingredients" tabindex="0" hidden>
+      <p>Napa Valley Cabernet, real ginger, lemon juice, honey. Nothing else, ever.</p>
+    </div>
+    <div class="mm-panel" role="tabpanel" id="panel-vineyard" aria-labelledby="tab-vineyard" tabindex="0" hidden>
+      <p>Made at our family's vineyard in Napa Valley. 5% of every order goes to animal rescue.</p>
+    </div>
+  </section>
 
   <!-- INTRODUCING THE CASE (computers) -->
   <div class="dt-only case-callout" id="case-callout">
@@ -2688,7 +2730,9 @@ function selectVariant(id) {
   // phones say what the price buys, in bottles (8 × 250ml = 2 litres, 24 = 6)
   document.getElementById('priceNote').textContent = matchMedia('(max-width:768px)').matches
     ? PHONE_NOTE[id] : PRICE_LINE[id].note;
-  qty = VARIANTS[id].min;           // one choice on the page; the cart can change quantity
+  // one choice on the page; the cart can change quantity. computers can also
+  // order several sets at once with the qty box (dtQtyMult, 1 on phones)
+  qty = VARIANTS[id].min * (window.dtQtyMult || 1);
   syncAddBtn();
 }
 
@@ -2794,11 +2838,20 @@ function saveCart(cart) {
 }
 
 // ═══ ADD TO CART ═══
-function addToCart() {
+function addToCartNow() {
+  // adds to the saved cart and reports whether the bag really holds it now
   const cart = getCart();
-  cart[selectedVariant] += qty;
+  const want = cart[selectedVariant] + qty;
+  cart[selectedVariant] = want;
   saveCart(cart);
   syncAddBtn();
+  return getCart()[selectedVariant] === want;
+}
+function addToCart() {
+  // computers: the window shows its progress bar and confirms in place
+  // (js/shop-desktop.js); phones open the bag, as always
+  if (window.dtAddFlow) return window.dtAddFlow(addToCartNow);
+  addToCartNow();
   openDrawer();
 }
 document.getElementById('addBtn').addEventListener('click', addToCart);
