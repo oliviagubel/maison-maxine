@@ -3,7 +3,11 @@
    Private: open https://himaisonmaxine.com/api/giveaway-export?key=YOUR_KEY
    where YOUR_KEY is the value of the GIVEAWAY_EXPORT_KEY environment
    variable in Netlify (Site configuration > Environment variables). Without
-   that variable set, nothing is exported. */
+   that variable set, nothing is exported.
+
+   after adding or changing the variable, netlify needs a real build to pick
+   it up. netlify.toml skips builds when nothing under netlify/ changed, so a
+   plain "trigger deploy" can be skipped: use "clear cache and deploy site". */
 
 'use strict';
 const crypto = require('crypto');
