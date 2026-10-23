@@ -105,4 +105,60 @@ async function sendPurchase({ orderNumber, basket, customer, shipToAddress, even
   }
 }
 
-module.exports = { sendPurchase, purchaseData };
+/* the server's copy of a giveaway sign-up (Lead). same rules as purchases:
+   hashed details, nothing for anyone who opted out, never blocks the entry.
+   event_id matches the browser pixel's Lead so meta counts it once. */
+async function sendLead({ eventId, email, firstName, event, browser, contentName }) {
+  const token = (process.env.META_CAPI_TOKEN || '').trim();
+  if (!token || !eventId) return;
+  const b = browser || {};
+  if (b.optOut) return;
+
+  const headers = (event && event.headers) || {};
+  const ip = headers['x-nf-client-connection-ip'] ||
+             String(headers['x-forwarded-for'] || '').split(',')[0].trim() || undefined;
+
+  const body = {
+    data: [{
+      event_name: 'Lead',
+      event_time: Math.floor(Date.now() / 1000),
+      event_id: String(eventId).slice(0, 100),
+      event_source_url: String(b.sourceUrl || 'https://maisonmaxine.world/giveaway').slice(0, 500),
+      action_source: 'website',
+      user_data: {
+        em: hashed(email),
+        fn: hashed(firstName),
+        country: hashed('us'),
+        external_id: hashed(email),
+        client_ip_address: ip,
+        client_user_agent: headers['user-agent'] || undefined,
+        fbp: b.fbp || undefined,
+        fbc: b.fbc || undefined,
+      },
+      custom_data: { content_name: contentName || 'Girls Night Giveaway' },
+    }],
+  };
+  const test = (process.env.META_TEST_EVENT_CODE || '').trim();
+  if (test) body.test_event_code = test;
+
+  const pixel = (process.env.META_PIXEL_ID || DEFAULT_PIXEL).trim();
+  const ctl = new AbortController();
+  const timer = setTimeout(() => ctl.abort(), 2500);
+  try {
+    const res = await fetch(GRAPH + '/' + encodeURIComponent(pixel) + '/events?access_token=' + encodeURIComponent(token), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: ctl.signal,
+    });
+    const d = await res.json().catch(() => ({}));
+    if (!res.ok) console.error('[meta] lead not accepted', res.status, JSON.stringify(d.error || d));
+    else console.log('[meta] lead sent, received', d.events_received);
+  } catch (e) {
+    console.error('[meta] lead failed', e && e.name);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+module.exports = { sendPurchase, purchaseData, sendLead };

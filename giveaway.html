@@ -169,6 +169,12 @@ button[disabled]{opacity:.65;cursor:default}
     btn.disabled = true;
     btn.textContent = 'Sending...';
     var u = utm();
+    // one id for this sign-up, shared by the page's pixel Lead and the
+    // server's conversions api Lead, so meta counts it once
+    var eventId = 'lead-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
+    var ck = function(n){ return (document.cookie.match('(?:^|; )' + n + '=([^;]*)') || [])[1] || ''; };
+    var optOut = false;
+    try { optOut = localStorage.getItem('mmDoNotSell') === '1'; } catch (e) {}
     fetch(API, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
@@ -179,7 +185,9 @@ button[disabled]{opacity:.65;cursor:default}
         optIn: f.optIn.checked,
         website: form.elements.mm_hp_9.value,
         utmSource: u.utm_source || '',
-        utmCampaign: u.utm_campaign || ''
+        utmCampaign: u.utm_campaign || '',
+        eventId: eventId,
+        browser: { fbp: ck('_fbp'), fbc: ck('_fbc'), sourceUrl: location.href.split('#')[0], optOut: optOut }
       })
     }).then(function(r){
       return r.json().catch(function(){ return {}; }).then(function(d){ return {ok: r.ok, d: d}; });
@@ -190,7 +198,8 @@ button[disabled]{opacity:.65;cursor:default}
         return;
       }
       // the entry is saved: tell meta (only now), and show the thank-you
-      (window.mmQ = window.mmQ || []).push(['Lead', true, {content_name: 'Girls Night Giveaway'}]);
+      // a repeat entry (same email) isn't a new lead
+      if (!(res.d && res.d.duplicate)) (window.mmQ = window.mmQ || []).push(['Lead', true, {content_name: 'Girls Night Giveaway'}, {eventID: eventId}]);
       form.hidden = true;
       var done = document.getElementById('done');
       done.hidden = false;

@@ -11,6 +11,7 @@
 const crypto = require('crypto');
 const { connectLambda, getStore } = require('@netlify/blobs');
 const { json, handler } = require('./_lib');
+const { sendLead } = require('./_meta');
 
 const STORE = 'girls-night-giveaway';
 const EMAIL = /^[^\s@,;]+@[^\s@,;]+\.[a-z]{2,}$/i;
@@ -54,6 +55,16 @@ exports.handler = handler(async (body, origin, event) => {
     enteredAt: new Date().toISOString(),
     utmSource: clean(body.utmSource, 100),
     utmCampaign: clean(body.utmCampaign, 100),
+  });
+
+  // tell meta from the server too (conversions api): it catches sign-ups the
+  // browser pixel misses. same event id as the page's pixel Lead, so it's
+  // counted once. only for new entries; a repeat isn't a new lead.
+  const b = body.browser && typeof body.browser === 'object' ? body.browser : {};
+  await sendLead({
+    eventId: clean(body.eventId, 100),
+    email, firstName, event,
+    browser: { fbp: clean(b.fbp, 200), fbc: clean(b.fbc, 300), sourceUrl: clean(b.sourceUrl, 500), optOut: b.optOut === true },
   });
   return json(200, { ok: true }, origin);
 });
