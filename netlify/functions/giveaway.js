@@ -37,6 +37,7 @@ exports.handler = handler(async (body, origin, event) => {
   if (!firstName) return json(400, { error: 'first name is required', field: 'firstName' }, origin);
   if (!EMAIL.test(email)) return json(400, { error: 'enter a valid email', field: 'email' }, origin);
   if (!age21) return json(400, { error: 'you must be 21 or older to enter', field: 'age21' }, origin);
+  if (!optIn) return json(400, { error: 'please agree to receive maison maxine emails to enter', field: 'optIn' }, origin);
 
   connectLambda(event);
   const store = getStore(STORE);

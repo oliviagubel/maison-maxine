@@ -99,7 +99,8 @@ button[disabled]{opacity:.65;cursor:default}
     </div>
     <label class="check"><input id="age21" name="age21" type="checkbox" required aria-describedby="age21Err"> I'm 21 or older</label>
     <span class="err" id="age21Err" role="alert"></span>
-    <label class="check"><input id="optIn" name="optIn" type="checkbox"> Send me Maison Maxine emails</label>
+    <label class="check"><input id="optIn" name="optIn" type="checkbox" required aria-describedby="optInErr"> I agree to receive Maison Maxine emails (unsubscribe anytime)</label>
+    <span class="err" id="optInErr" role="alert"></span>
     <div class="hp" aria-hidden="true"><label>Leave this empty <input name="mm_hp_9" type="text" tabindex="-1" autocomplete="off" data-lpignore="true" data-1p-ignore></label></div>
     <button type="submit" id="submit">Enter the giveaway</button>
     <p class="formerr" id="formErr" role="alert"></p>
@@ -124,12 +125,14 @@ button[disabled]{opacity:.65;cursor:default}
   var f = {
     firstName: document.getElementById('firstName'),
     email: document.getElementById('email'),
-    age21: document.getElementById('age21')
+    age21: document.getElementById('age21'),
+    optIn: document.getElementById('optIn')
   };
   var msgs = {
     firstName: document.getElementById('firstNameErr'),
     email: document.getElementById('emailErr'),
-    age21: document.getElementById('age21Err')
+    age21: document.getElementById('age21Err'),
+    optIn: document.getElementById('optInErr')
   };
   var sending = false;
 
@@ -144,12 +147,14 @@ button[disabled]{opacity:.65;cursor:default}
     if (!name){ setErr('firstName', 'Please enter your first name.'); ok = false; first = first || f.firstName; } else setErr('firstName', '');
     if (!email || !EMAIL.test(email) || (f.email.validity && f.email.validity.typeMismatch)){ setErr('email', 'Please enter a valid email address.'); ok = false; first = first || f.email; } else setErr('email', '');
     if (!f.age21.checked){ setErr('age21', 'You must be 21 or older to enter.'); ok = false; first = first || f.age21; } else setErr('age21', '');
+    if (!f.optIn.checked){ setErr('optIn', 'Please agree to receive Maison Maxine emails to enter.'); ok = false; first = first || f.optIn; } else setErr('optIn', '');
     if (first) first.focus();
     return ok;
   }
   // clear a field's message as soon as it's fixed
   ['firstName','email'].forEach(function(k){ f[k].addEventListener('input', function(){ if (msgs[k].textContent) check(); }); });
   f.age21.addEventListener('change', function(){ if (f.age21.checked) setErr('age21', ''); });
+  f.optIn.addEventListener('change', function(){ if (f.optIn.checked) setErr('optIn', ''); });
 
   function utm(){
     try { return JSON.parse(sessionStorage.getItem('mmUtm')) || {}; } catch (e) { return {}; }
@@ -171,7 +176,7 @@ button[disabled]{opacity:.65;cursor:default}
         firstName: f.firstName.value.trim(),
         email: f.email.value.trim(),
         age21: f.age21.checked,
-        optIn: document.getElementById('optIn').checked,
+        optIn: f.optIn.checked,
         website: form.elements.mm_hp_9.value,
         utmSource: u.utm_source || '',
         utmCampaign: u.utm_campaign || ''
