@@ -1,0 +1,52 @@
+/* Girls Night Giveaway: record one entry.
+
+   Called by maisonmaxine.world/giveaway (cross-origin, POST, JSON). Entries
+   are kept in Netlify Blobs, in the "girls-night-giveaway" store, keyed by
+   email so each person counts once (the official rules allow one entry per
+   person; a repeat keeps the first entry and is not an error).
+
+   Export them as CSV with giveaway-export.js. */
+
+'use strict';
+const crypto = require('crypto');
+const { connectLambda, getStore } = require('@netlify/blobs');
+const { json, handler } = require('./_lib');
+
+const STORE = 'girls-night-giveaway';
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+function clean(v, max) {
+  return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, max);
+}
+
+exports.handler = handler(async (body, origin, event) => {
+  // a hidden field people never see; bots fill it in
+  if (clean(body.website, 100)) return json(200, { ok: true }, origin);
+
+  const firstName = clean(body.firstName, 60);
+  const email = clean(body.email, 254).toLowerCase();
+  const age21 = body.age21 === true;
+  const optIn = body.optIn === true;
+
+  if (!firstName) return json(400, { error: 'first name is required', field: 'firstName' }, origin);
+  if (!EMAIL.test(email)) return json(400, { error: 'enter a valid email', field: 'email' }, origin);
+  if (!age21) return json(400, { error: 'you must be 21 or older to enter', field: 'age21' }, origin);
+
+  connectLambda(event);
+  const store = getStore(STORE);
+  const key = crypto.createHash('sha256').update(email).digest('hex');
+
+  const existing = await store.get(key, { type: 'json' });
+  if (existing) return json(200, { ok: true, duplicate: true }, origin);
+
+  await store.setJSON(key, {
+    firstName,
+    email,
+    age21: true,
+    optIn,
+    enteredAt: new Date().toISOString(),
+    utmSource: clean(body.utmSource, 100),
+    utmCampaign: clean(body.utmCampaign, 100),
+  });
+  return json(200, { ok: true }, origin);
+});

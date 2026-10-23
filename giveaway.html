@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Girls Night Giveaway | Maison Maxine</title>
+<meta name="description" content="Maison Maxine x @cameronnmacdonald Girls Night Giveaway.">
+<link rel="icon" href="favicon-32.png">
+<link rel="preload" href="KlickclackSwash-MM.otf" as="font" type="font/otf" crossorigin>
+<style>
+/* unlisted entry page for the girls night giveaway. mobile first (375px),
+   then it just centres on bigger screens. brand colours only:
+   rose #d371a1 for the headline, the darker #ad587c wherever small text or a
+   button needs contrast, brand black #34212b for words. */
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-display:swap}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:#fff;
+  color:#34212b;
+  font:16px/1.5 "Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+  min-height:100vh;
+}
+main{max-width:440px;margin:0 auto;padding:18px 20px calc(28px + env(safe-area-inset-bottom))}
+.logo{display:block;width:min(100%,300px);height:auto;margin:0 auto 10px}
+h1{
+  font-family:'Klickclack Swash',Georgia,serif;font-weight:normal;
+  font-size:36px;line-height:1.05;color:#d371a1;text-align:center;margin:0 0 6px;
+}
+.lede{text-align:center;font-size:16px;margin:0 0 14px}
+.steps-title{font-size:15px;margin:0 0 4px}
+.steps{margin:0 0 16px 20px;font-size:15px}
+.steps li{margin:2px 0}
+a{color:#ad587c;text-decoration:underline;text-underline-offset:2px}
+
+form{background:#fce5f7;padding:16px 16px 14px;border-radius:14px}
+.field{margin:0 0 12px}
+label.text{display:block;font-size:14px;margin:0 0 4px}
+input[type=text],input[type=email]{
+  width:100%;min-height:48px;padding:10px 12px;
+  font:16px "Gill Sans","Gill Sans MT",Calibri,"Helvetica Neue",Arial,sans-serif;color:#34212b;
+  background:#fff;border:1px solid #e3b9d3;border-radius:10px;
+  -webkit-appearance:none;appearance:none;
+}
+input:focus-visible{outline:2px solid #ad587c;outline-offset:1px}
+input[aria-invalid=true]{border-color:#ad587c}
+.check{display:flex;align-items:flex-start;gap:10px;min-height:44px;padding:10px 0;font-size:15px;cursor:pointer}
+.check input{flex:none;width:22px;height:22px;margin:0;accent-color:#ad587c}
+.err{display:block;font-size:14px;color:#9c3f69;margin-top:4px}
+.err:empty{display:none}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+button,.btn{
+  display:block;width:100%;min-height:52px;margin:6px 0 0;padding:12px 16px;
+  background:#ad587c;color:#fff;border:0;border-radius:12px;
+  font:17px "Gill Sans","Gill Sans MT",Calibri,"Helvetica Neue",Arial,sans-serif;letter-spacing:.02em;
+  text-align:center;text-decoration:none;cursor:pointer;
+}
+button:focus-visible,.btn:focus-visible{outline:2px solid #34212b;outline-offset:2px}
+button[disabled]{opacity:.65;cursor:default}
+.formerr{font-size:14px;color:#9c3f69;margin:10px 0 0;text-align:center}
+.formerr:empty{display:none}
+.fine{font-size:13px;text-align:center;margin:12px 0 0;color:#5a3a4a}
+
+.done{text-align:center;padding:20px 16px;background:#fce5f7;border-radius:14px}
+.done h2{font-family:'Klickclack Swash',Georgia,serif;font-weight:normal;font-size:30px;color:#ad587c;margin:0 0 8px}
+.done p{margin:0 0 14px}
+.done[hidden],form[hidden]{display:none}
+</style>
+<script src="/js/tracking.js" defer></script>
+</head>
+<body>
+<main>
+  <picture>
+    <source type="image/webp" srcset="logo-board-800.webp">
+    <img class="logo" src="logo-board-800.png" width="800" height="145" alt="Maison Maxine">
+  </picture>
+
+  <h1>Girls Night Giveaway</h1>
+  <p class="lede">Win a girls night dinner + flowers (~$1,000 value). Closes Dec 31.</p>
+
+  <p class="steps-title">To enter:</p>
+  <ol class="steps">
+    <li>Follow <a href="https://www.instagram.com/maisonmaxine.world/">@maisonmaxine.world</a> and <a href="https://www.instagram.com/cameronnmacdonald/">@cameronnmacdonald</a></li>
+    <li>Tag 7 friends on the giveaway post</li>
+    <li>Enter your email below</li>
+  </ol>
+
+  <form id="entry" novalidate>
+    <div class="field">
+      <label class="text" for="firstName">First name</label>
+      <input id="firstName" name="firstName" type="text" autocomplete="given-name" autocapitalize="words" required aria-describedby="firstNameErr">
+      <span class="err" id="firstNameErr" role="alert"></span>
+    </div>
+    <div class="field">
+      <label class="text" for="email">Email</label>
+      <input id="email" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="off" spellcheck="false" required aria-describedby="emailErr">
+      <span class="err" id="emailErr" role="alert"></span>
+    </div>
+    <label class="check"><input id="age21" name="age21" type="checkbox" required aria-describedby="age21Err"> I'm 21 or older</label>
+    <span class="err" id="age21Err" role="alert"></span>
+    <label class="check"><input id="optIn" name="optIn" type="checkbox"> Send me Maison Maxine emails</label>
+    <div class="hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+    <button type="submit" id="submit">Enter the giveaway</button>
+    <p class="formerr" id="formErr" role="alert"></p>
+  </form>
+
+  <div class="done" id="done" hidden tabindex="-1">
+    <h2>You're in!</h2>
+    <p>Make sure you've followed both accounts and tagged 7 friends on the post.</p>
+    <a class="btn" href="https://maisonmaxine.world/shop.html">Shop Maison Maxine</a>
+  </div>
+
+  <p class="fine">No purchase necessary. US residents 21+. <a href="/giveaway-rules.html">Official rules</a> · <a href="/privacy.html">Privacy</a></p>
+</main>
+
+<script>
+(function(){
+  var API = 'https://himaisonmaxine.com/api/giveaway';
+  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var form = document.getElementById('entry');
+  var btn = document.getElementById('submit');
+  var formErr = document.getElementById('formErr');
+  var f = {
+    firstName: document.getElementById('firstName'),
+    email: document.getElementById('email'),
+    age21: document.getElementById('age21')
+  };
+  var msgs = {
+    firstName: document.getElementById('firstNameErr'),
+    email: document.getElementById('emailErr'),
+    age21: document.getElementById('age21Err')
+  };
+  var sending = false;
+
+  function setErr(name, text){
+    msgs[name].textContent = text || '';
+    f[name].setAttribute('aria-invalid', text ? 'true' : 'false');
+  }
+  function check(){
+    var ok = true, first = null;
+    var name = f.firstName.value.trim();
+    var email = f.email.value.trim();
+    if (!name){ setErr('firstName', 'Please enter your first name.'); ok = false; first = first || f.firstName; } else setErr('firstName', '');
+    if (!EMAIL.test(email)){ setErr('email', 'Please enter a valid email address.'); ok = false; first = first || f.email; } else setErr('email', '');
+    if (!f.age21.checked){ setErr('age21', 'You must be 21 or older to enter.'); ok = false; first = first || f.age21; } else setErr('age21', '');
+    if (first) first.focus();
+    return ok;
+  }
+  // clear a field's message as soon as it's fixed
+  ['firstName','email'].forEach(function(k){ f[k].addEventListener('input', function(){ if (msgs[k].textContent) check(); }); });
+  f.age21.addEventListener('change', function(){ if (f.age21.checked) setErr('age21', ''); });
+
+  function utm(){
+    try { return JSON.parse(sessionStorage.getItem('mmUtm')) || {}; } catch (e) { return {}; }
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (sending) return;
+    formErr.textContent = '';
+    if (!check()) return;
+    sending = true;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    var u = utm();
+    fetch(API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        firstName: f.firstName.value.trim(),
+        email: f.email.value.trim(),
+        age21: f.age21.checked,
+        optIn: document.getElementById('optIn').checked,
+        website: form.elements.website.value,
+        utmSource: u.utm_source || '',
+        utmCampaign: u.utm_campaign || ''
+      })
+    }).then(function(r){
+      return r.json().catch(function(){ return {}; }).then(function(d){ return {ok: r.ok, d: d}; });
+    }).then(function(res){
+      if (!res.ok){
+        if (res.d && res.d.field && msgs[res.d.field]) { setErr(res.d.field, res.d.error); f[res.d.field].focus(); }
+        else formErr.textContent = "That didn't go through. Please try again.";
+        return;
+      }
+      // the entry is saved: tell meta (only now), and show the thank-you
+      (window.mmQ = window.mmQ || []).push(['Lead', true, {content_name: 'Girls Night Giveaway'}]);
+      form.hidden = true;
+      var done = document.getElementById('done');
+      done.hidden = false;
+      done.focus();
+    }).catch(function(){
+      formErr.textContent = "That didn't go through. Please check your connection and try again.";
+    }).then(function(){
+      sending = false;
+      btn.disabled = false;
+      btn.textContent = 'Enter the giveaway';
+    });
+  });
+})();
+</script>
+</body>
+</html>

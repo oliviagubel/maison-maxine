@@ -1,8 +1,9 @@
 {
   "name": "maison-maxine-checkout",
   "private": true,
-  "description": "Serverless checkout API for maisonmaxine.world (netlify functions).",
+  "description": "Serverless checkout API and giveaway entries for maisonmaxine.world (netlify functions).",
   "dependencies": {
-    "stripe": "^16.12.0"
+    "stripe": "^16.12.0",
+    "@netlify/blobs": "^8.1.0"
   }
 }
