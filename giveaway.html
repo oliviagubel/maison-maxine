@@ -86,7 +86,7 @@ button[disabled]{opacity:.65;cursor:default}
     <li>Enter your email below</li>
   </ol>
 
-  <form id="entry" novalidate>
+  <form id="entry" novalidate onsubmit="return false">
     <div class="field">
       <label class="text" for="firstName">First name</label>
       <input id="firstName" name="firstName" type="text" autocomplete="given-name" autocapitalize="words" required aria-describedby="firstNameErr">
@@ -100,7 +100,7 @@ button[disabled]{opacity:.65;cursor:default}
     <label class="check"><input id="age21" name="age21" type="checkbox" required aria-describedby="age21Err"> I'm 21 or older</label>
     <span class="err" id="age21Err" role="alert"></span>
     <label class="check"><input id="optIn" name="optIn" type="checkbox"> Send me Maison Maxine emails</label>
-    <div class="hp" aria-hidden="true"><label>Website <input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+    <div class="hp" aria-hidden="true"><label>Leave this empty <input name="mm_hp_9" type="text" tabindex="-1" autocomplete="off" data-lpignore="true" data-1p-ignore></label></div>
     <button type="submit" id="submit">Enter the giveaway</button>
     <p class="formerr" id="formErr" role="alert"></p>
   </form>
@@ -117,7 +117,7 @@ button[disabled]{opacity:.65;cursor:default}
 <script>
 (function(){
   var API = 'https://himaisonmaxine.com/api/giveaway';
-  var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  var EMAIL = /^[^\s@,;]+@[^\s@,;]+\.[a-z]{2,}$/i;
   var form = document.getElementById('entry');
   var btn = document.getElementById('submit');
   var formErr = document.getElementById('formErr');
@@ -142,7 +142,7 @@ button[disabled]{opacity:.65;cursor:default}
     var name = f.firstName.value.trim();
     var email = f.email.value.trim();
     if (!name){ setErr('firstName', 'Please enter your first name.'); ok = false; first = first || f.firstName; } else setErr('firstName', '');
-    if (!EMAIL.test(email)){ setErr('email', 'Please enter a valid email address.'); ok = false; first = first || f.email; } else setErr('email', '');
+    if (!email || !EMAIL.test(email) || (f.email.validity && f.email.validity.typeMismatch)){ setErr('email', 'Please enter a valid email address.'); ok = false; first = first || f.email; } else setErr('email', '');
     if (!f.age21.checked){ setErr('age21', 'You must be 21 or older to enter.'); ok = false; first = first || f.age21; } else setErr('age21', '');
     if (first) first.focus();
     return ok;
@@ -172,7 +172,7 @@ button[disabled]{opacity:.65;cursor:default}
         email: f.email.value.trim(),
         age21: f.age21.checked,
         optIn: document.getElementById('optIn').checked,
-        website: form.elements.website.value,
+        website: form.elements.mm_hp_9.value,
         utmSource: u.utm_source || '',
         utmCampaign: u.utm_campaign || ''
       })

@@ -13,7 +13,7 @@ const { connectLambda, getStore } = require('@netlify/blobs');
 const { json, handler } = require('./_lib');
 
 const STORE = 'girls-night-giveaway';
-const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const EMAIL = /^[^\s@,;]+@[^\s@,;]+\.[a-z]{2,}$/i;
 
 function clean(v, max) {
   return String(v == null ? '' : v).replace(/[\u0000-\u001f\u007f]/g, '').trim().slice(0, max);
@@ -23,6 +23,12 @@ exports.handler = handler(async (body, origin, event) => {
   // a hidden field people never see; bots fill it in
   if (clean(body.website, 100)) return json(200, { ok: true }, origin);
 
+  // only plain text counts: a list, number or object is not an email
+  if (typeof body.email !== 'string' || typeof body.firstName !== 'string') {
+    return typeof body.email !== 'string'
+      ? json(400, { error: 'enter a valid email', field: 'email' }, origin)
+      : json(400, { error: 'first name is required', field: 'firstName' }, origin);
+  }
   const firstName = clean(body.firstName, 60);
   const email = clean(body.email, 254).toLowerCase();
   const age21 = body.age21 === true;
