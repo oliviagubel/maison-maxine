@@ -6,7 +6,7 @@
      ink      #3d1a2b  cabernet: every word, link, 1px rule and the main button
      neutral  #f6f2ee  the express checkout row and the 21+ note
      pink and lime only in the wordmark, the heart dots, illustrations, photos
-     klickclack swash only for the wordmark; georgia for everything else
+     klickclack swash only for the wordmark; georgia for reading, the label face for headings
      square corners, no shadows, no pills, no sparkles
 
    the bag drawer and the express pay sheet keep their own styling (they're
@@ -296,10 +296,10 @@ html body #main .variant-opt.selected::before{
 /* 8. add to bag: a pale pink keyline 3px inside the edge, like a wine label */
 html body #main .add-btn, html body .buybar-btn{outline:1px solid var(--line) !important; outline-offset:-4px !important}
 
-/* 9. kayla's quote opens with a big pink klickclack mark */
+/* 9. kayla's quote opens with a big pink quote mark (georgia: klickclack is only for the wordmark) */
 html body #main .pd-quote .q-mark{
   display:block;
-  font-family:'Klickclack Swash',Georgia,serif !important;
+  font-family:Georgia,"Times New Roman",serif !important;
   font-style:normal !important;
   font-size:72px;
   line-height:.6;

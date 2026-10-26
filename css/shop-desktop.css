@@ -88,7 +88,7 @@
 .mmw-dots i:nth-child(1){background:#ee86b7}
 .mmw-dots i:nth-child(2){background:#fff0a6}
 .mmw-dots i:nth-child(3){background:#abd05d}
-.mmw-title{flex:1; font-family:'Klickclack Swash',Georgia,serif !important; font-size:19px; line-height:1; color:#c8467f}
+.mmw-title{flex:1; font-family:'Jersey 10','Pixelify Sans',sans-serif !important; font-size:19px; line-height:1; color:#c8467f}
 .mmw-step{font-size:12px; color:#7a5a68}
 .mmw-sr{position:absolute !important; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
 
@@ -353,7 +353,7 @@ body.has-xpay .mmw-express{display:block !important}
 
 /* the fall batch, bikini.com style: "coming soon!", a heart, "try to stay calm!" */
 .signup{text-align:center}
-#main .signup .soon{font-family:var(--dt-display); font-size:30px; line-height:1.1; color:var(--dt-rose); margin:2px 0 6px}
+#main .signup .soon{font-family:var(--dt-label); font-size:30px; line-height:1.1; color:var(--dt-rose); margin:2px 0 6px}
 .signup .soon-heart{display:block; width:34px; height:auto; margin:0 auto 2px}
 #main .signup .calm{font-family:var(--dt-label); font-size:17px; letter-spacing:.06em; text-transform:uppercase; color:#1a6fb3; margin:0 0 12px}
 .signup-row{justify-content:center; text-align:left}

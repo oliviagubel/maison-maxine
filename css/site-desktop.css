@@ -26,15 +26,18 @@
   --dt-mute:#6a4a5a;
   --dt-lime:#8fd63a;
   --dt-sans:Georgia,"Times New Roman",serif;
-  --dt-display:'Klickclack Swash',Georgia,serif;
+  --dt-display:'Klickclack Swash',Georgia,serif;   /* only for the words maison maxine / maisonmaxine.world */
   --dt-label:'Jersey 10',Georgia,serif;
 }
 
 /* ── type: georgia for reading, klickclack for display, jersey 10 for
    small labels and dates. cormorant and pixelify are gone from this page ── */
 #main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
-#main .banner h1, #main .banner h1 *, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
-#main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-display)}
+/* klickclack only where the words are maison maxine / maisonmaxine.world */
+#main .banner h1:has(.mm-board), #main .banner h1:has(.mm-board) *, #sidebar .sidebar-logo, #sidebar .sidebar-logo *{font-family:var(--dt-display)}
+/* every other heading in the label face ("sitely", "now playing") */
+#main .banner h1:not(:has(.mm-board)), #main .banner h1:not(:has(.mm-board)) *,
+#main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-label)}
 #main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
 #main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
 #main .util-date, #main .panel-tab, #sidebar .nav-label, #sidebar .np-header, #sidebar .wt,
@@ -260,7 +263,7 @@
 #main .store-card{background:#fff !important; border:1px solid var(--dt-hair) !important; transform:none !important}
 #main .store-card::before, #main .store-card::after{display:none !important}
 #main .store-city{font-family:var(--dt-label); font-size:15px; letter-spacing:.04em; text-transform:none}
-#main .store-name{font-family:var(--dt-display); font-size:20px; font-style:normal; color:var(--dt-rose-ink)}
+#main .store-name{font-family:var(--dt-label); font-size:20px; font-style:normal; color:var(--dt-rose-ink)}
 #main .store-addr{font-size:14px; font-style:normal}
 #main .store-vibe{background:none !important; border:0 !important; padding:0 !important; font-size:14px !important; font-style:normal; color:var(--dt-mute) !important}
 #main .region-pill{
@@ -310,7 +313,7 @@ main#main.jeans-wrap{max-width:900px}
   padding:22px 22px 24px !important;
 }
 #main .merch-eyebrow, #main .merch-note{font-family:var(--dt-label) !important; font-size:15px !important; letter-spacing:.04em !important; text-transform:none !important; color:var(--dt-rose-ink) !important; opacity:1 !important}
-#main .merch-title, #main .merch-name, #main .merch-look-label{font-family:var(--dt-display) !important; color:var(--dt-rose-ink) !important; letter-spacing:0 !important; text-transform:none !important}
+#main .merch-title, #main .merch-name, #main .merch-look-label{font-family:var(--dt-label) !important; color:var(--dt-rose-ink) !important; letter-spacing:0 !important; text-transform:none !important}
 #main .merch-look-label{font-size:24px !important}
 #main .merch-sub, #main .merch-desc{font-style:normal !important; color:var(--dt-mute) !important}
 #main .merch-desc{font-size:14px !important}
