@@ -6,7 +6,7 @@
      ink      #3d1a2b  cabernet: every word, link, 1px rule and the main button
      neutral  #f6f2ee  the express checkout row and the 21+ note
      pink and lime only in the wordmark, the heart dots, illustrations, photos
-     klickclack swash only for the wordmark; gill sans for everything else
+     klickclack swash only for the wordmark; georgia for everything else
      square corners, no shadows, no pills, no sparkles
 
    the bag drawer and the express pay sheet keep their own styling (they're
@@ -28,7 +28,7 @@ html body .mobile-nav, html body .buybar, html body .buybar *, html body .buybar
   text-shadow:none !important;
 }
 
-/* small labels: gill sans, capitals, wide tracking */
+/* small labels: georgia, capitals, wide tracking */
 html body #main .hero-count, html body #main .m-express-label, html body #main .rh-acc summary,
 html body #main .pd-quote cite, html body #main .rh-spec dt, html body #main .mf-label,
 html body .bb-name{
@@ -224,7 +224,7 @@ html body{--cream:#fff8f5; --line:#efcfdf}
 /* 1. warm cream, the whole page */
 html body, html body #main, html body .mobile-header, html body .mobile-nav, html body .buybar{background:var(--cream) !important}
 
-/* 2. labels in lowercase gill sans, normal spacing (capitals only on add to bag) */
+/* 2. labels in lowercase georgia, normal spacing (capitals only on add to bag) */
 html body #main .hero-count, html body #main .m-express-label, html body #main .rh-acc summary,
 html body #main .pd-quote cite, html body #main .rh-spec dt, html body #main .mf-label, html body .bb-name{
   font-size:15px !important;

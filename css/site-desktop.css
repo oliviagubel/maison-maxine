@@ -4,7 +4,7 @@
 
    the chrome every page shares, so moving between pages feels like one
    site: the white column on our illustration, the utility row, the logo
-   header with the season stamp and the wave strips, the type (gill sans,
+   header with the season stamp and the wave strips, the type (georgia,
    klickclack, jersey 10), flat hairline cards, the sidebar widgets and
    the footer. what belongs to one page lives in that page's own file
    (css/shop-desktop.css for the shop).
@@ -25,12 +25,12 @@
   --dt-ink:#4a3a3a;
   --dt-mute:#6a4a5a;
   --dt-lime:#8fd63a;
-  --dt-sans:"Gill Sans","Gill Sans MT","Gill Sans Nova",Calibri,"Helvetica Neue",Arial,sans-serif;
+  --dt-sans:Georgia,"Times New Roman",serif;
   --dt-display:'Klickclack Swash',Georgia,serif;
-  --dt-label:'Jersey 10',"Gill Sans",sans-serif;
+  --dt-label:'Jersey 10',Georgia,serif;
 }
 
-/* ── type: gill sans for reading, klickclack for display, jersey 10 for
+/* ── type: georgia for reading, klickclack for display, jersey 10 for
    small labels and dates. cormorant and pixelify are gone from this page ── */
 #main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
 #main .banner h1, #main .banner h1 *, #sidebar .sidebar-logo, #sidebar .sidebar-logo *,
