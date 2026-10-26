@@ -14,10 +14,12 @@
 body{
   background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
   min-height:100vh;color:#4a3a3a;font-family:'Cormorant Garamond',Georgia,serif;
-  display:flex;align-items:center;justify-content:center;
+  /* a column: the thank-you, then anything added after it (the privacy
+     line from tracking.js) underneath, never beside it */
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
   padding:40px 16px calc(40px + env(safe-area-inset-bottom));text-align:center;
 }
-.wrap{max-width:460px}
+.wrap{width:100%;max-width:460px}
 .mark{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:34px;color:#d371a1;line-height:1.05;margin-bottom:18px}
 h1{font-family:'Jersey 10','Pixelify Sans',sans-serif;font-size:30px;color:#d371a1;font-weight:400;margin-bottom:14px}
 p{font-size:17px;font-style:italic;color:#6a4a5a;line-height:1.75;margin-bottom:14px}
