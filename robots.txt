@@ -1,0 +1,19 @@
+# maisonmaxine.world
+# Every public page is open to search engines and to AI search and answer
+# engines (Googlebot, Bingbot, OAI-SearchBot, ChatGPT-User, PerplexityBot,
+# Claude-SearchBot, Claude-User, Applebot and others), so the brand can be
+# found and cited accurately. Pages that must not appear in results carry a
+# noindex tag instead (checkout, order confirmation, private trade pages).
+#
+# Model-training crawlers (GPTBot, ClaudeBot, Google-Extended, CCBot,
+# Applebot-Extended, ...) are currently allowed too. To opt out of training
+# while staying visible in search, add for each:
+#   User-agent: GPTBot
+#   Disallow: /
+
+User-agent: *
+Allow: /
+Disallow: /giveaway
+Disallow: /giveaway-rules.html
+
+Sitemap: https://maisonmaxine.world/sitemap.xml

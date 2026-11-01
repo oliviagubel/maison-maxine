@@ -64,7 +64,7 @@ html body #main .hero-count{padding:10px 20px 0}
 
 /* ══ THE PRODUCT ══ */
 html body #main .product-details{padding:18px 20px 26px !important}
-html body #main .product-details h2{
+html body #main .product-details :is(h2,.pd-title){
   order:1;
   font-family:var(--sans) !important;
   font-size:26px !important;
@@ -233,7 +233,7 @@ html body #main .pd-quote cite, html body #main .rh-spec dt, html body #main .mf
 }
 
 /* 3. the name: cabernet, sentence case, big */
-html body #main .product-details h2{
+html body #main .product-details :is(h2,.pd-title){
   font-size:38px !important;
   letter-spacing:normal !important;
   text-transform:none !important;
