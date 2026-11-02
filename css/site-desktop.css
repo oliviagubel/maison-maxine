@@ -170,9 +170,9 @@
 
 /* ══ SIDEBAR ══ */
 #sidebar{border-right:1px solid var(--dt-hair) !important}
-#sidebar .sidebar-sub{font-style:normal; letter-spacing:0; font-size:13px; color:var(--dt-mute)}
-#sidebar .nav-label{font-size:16px; color:var(--dt-rose-ink); text-transform:uppercase}
-#sidebar nav a{font-style:normal !important; font-size:16px !important; border-bottom:1px dotted var(--dt-hair) !important}
+#sidebar .sidebar-sub{font-style:normal; letter-spacing:0; font-size:12px; color:var(--dt-mute)}
+#sidebar .nav-label{font-size:15px; color:var(--dt-rose-ink); text-transform:uppercase}
+#sidebar nav a{font-style:normal !important; font-size:15px !important; border-bottom:1px dotted var(--dt-hair) !important}
 #sidebar nav a.active{text-shadow:none}
 /* only the first letter of each item, like an old menu's keyboard shortcut */
 #sidebar nav a .fl ~ .fl{text-decoration:none}
@@ -190,14 +190,14 @@
   font-size:15px; letter-spacing:.04em; color:var(--dt-rose-ink); text-transform:lowercase;
 }
 #sidebar .side-quiet .np-track{padding:0 8px; gap:8px}
-#sidebar .side-quiet .np-song{font-size:13px; font-style:normal; color:var(--dt-ink)}
-#sidebar .side-quiet .np-artist{font-size:14px; color:var(--dt-mute)}
+#sidebar .side-quiet .np-song{font-size:12px; font-style:normal; color:var(--dt-ink)}
+#sidebar .side-quiet .np-artist{font-size:13px; color:var(--dt-mute)}
 #sidebar .side-quiet .weather-display{margin:0; padding:0 8px; gap:6px; justify-content:flex-start; align-items:center}
 #sidebar .side-quiet .weather-bird{width:26px; height:auto; display:block}
-#sidebar .side-quiet .weather-temp{font-size:16px; color:var(--dt-ink)}
-#sidebar .side-quiet .weather-desc{padding:2px 8px 0; font-size:12px; font-style:normal; color:var(--dt-mute)}
-#sidebar .side-quiet .weather-details{display:block; padding:2px 8px 0; font-size:13px; color:var(--dt-mute)}
-#sidebar .copyright{font-size:14px; color:var(--dt-mute); letter-spacing:.04em}
+#sidebar .side-quiet .weather-temp{font-size:15px; color:var(--dt-ink)}
+#sidebar .side-quiet .weather-desc{padding:2px 8px 0; font-size:11px; font-style:normal; color:var(--dt-mute)}
+#sidebar .side-quiet .weather-details{display:block; padding:2px 8px 0; font-size:12px; color:var(--dt-mute)}
+#sidebar .copyright{font-size:13px; color:var(--dt-mute); letter-spacing:.04em}
 
 /* the weather widget keeps its pale green */
 #sidebar .side-quiet .weather-widget{background:#e9f9d4}
