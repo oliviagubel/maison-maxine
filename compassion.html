@@ -391,8 +391,8 @@ body::before{
 .cam-video-wrap video{
   width:100%;
   display:block;
-  /* brighter, softer and a little warm, like the rest of our photos */
-  filter:brightness(1.22) contrast(.88) saturate(.92) sepia(.08);
+  /* brighter and softer, like the rest of our photos */
+  filter:brightness(1.2) contrast(.88) saturate(1.02);
 }
 .cam-overlay{
   position:absolute;
@@ -400,7 +400,7 @@ body::before{
   pointer-events:none;
   background:
     repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px),
-    linear-gradient(180deg,rgba(255,236,244,.22),rgba(255,214,232,.16));   /* a soft pink wash */
+    linear-gradient(180deg,rgba(214,234,255,.24),rgba(232,226,255,.14) 70%,rgba(255,226,240,.12));   /* a soft sky-blue wash, a hint of pink at the bottom */
 }
 .cam-hud{
   position:absolute;
