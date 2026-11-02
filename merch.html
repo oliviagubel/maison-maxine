@@ -105,7 +105,7 @@ body::before{
   filter:drop-shadow(0 0 2px #fff) drop-shadow(0 0 5px #fff)
     drop-shadow(0 0 14px rgba(247,205,235,.9)) drop-shadow(0 0 28px rgba(247,205,235,.55));
 }
-.banner h1{font-family:'Klickclack Swash','Great Vibes',cursive;font-size:38px;color:#d371a1;line-height:1;font-weight:normal}
+.banner :is(h1,.banner-h1){font-family:'Klickclack Swash','Great Vibes',cursive;font-size:38px;color:#d371a1;line-height:1;font-weight:normal}
 .banner .tagline{font-style:italic;font-size:13px;color:var(--rasp-soft);margin-top:4px;letter-spacing:.08em}
 .banner .divider{width:60px;height:1px;background:#f7cdeb;margin:12px auto 0}
 
@@ -565,7 +565,7 @@ body::before{
 
   <!-- BANNER -->
   <div class="banner">
-    <h1 style="color:#d371a1"><a class="mm-board" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-800.webp 800w, logo-board-1600.webp 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px"><img src="logo-board-1600.png" srcset="logo-board-800.png 800w, logo-board-1600.png 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px" width="1600" height="291" alt="Maison Maxine" fetchpriority="high"></picture></a><span class="mm-board-text"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></h1>
+    <div class="banner-h1" style="color:#d371a1"><a class="mm-board" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-800.webp 800w, logo-board-1600.webp 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px"><img src="logo-board-1600.png" srcset="logo-board-800.png 800w, logo-board-1600.png 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px" width="1600" height="291" alt="Maison Maxine" fetchpriority="high"></picture></a><span class="mm-board-text"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></div>
     <div class="tagline">the summer merch drop ✦</div>
     <div class="season-stamp dt-only">Fall 2026</div>
     <div class="divider"></div>
@@ -576,7 +576,7 @@ body::before{
   <div class="merch-drop merch-page" id="merch">
     <div class="merch-head">
       <div class="merch-eyebrow">one of one ✦ hand-sewn</div>
-      <h2 class="merch-title">The Summer Merch Drop</h2>
+      <h1 class="merch-title">The Summer Merch Drop</h1>
       <div class="merch-sub">hand-sewn, one of one, made in malibu. wear your wine ✦</div>
     </div>
 
