@@ -350,7 +350,7 @@ body::before{
 }
 .box p + p{margin-top:10px}
 
-/* ═══ TURTLE CAM MONITOR ═══ */
+/* ═══ COMPASSION CAM MONITOR ═══ */
 .cam-monitor{
   background:#fef6fa;
   border:3px solid #f7cdeb;
@@ -391,14 +391,16 @@ body::before{
 .cam-video-wrap video{
   width:100%;
   display:block;
-  filter:saturate(1.1) contrast(1.05);
+  /* brighter, softer and a little warm, like the rest of our photos */
+  filter:brightness(1.22) contrast(.88) saturate(.92) sepia(.08);
 }
 .cam-overlay{
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px);
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px),
+    linear-gradient(180deg,rgba(255,236,244,.22),rgba(255,214,232,.16));   /* a soft pink wash */
 }
 .cam-hud{
   position:absolute;
@@ -894,31 +896,31 @@ body::before{
   <!-- MISSION LETTER -->
   <div class="box" style="position:relative;padding:32px 30px 28px;background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%)">
     <div style="position:absolute;top:-12px;left:24px;font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#c76090;background:#fef8fb;padding:0 12px">our compassion promise</div>
-    <p style="margin-top:14px">reimagining red wine, restoring compassion. we believe in purpose in every sip — that's why 5% of every order goes to animal rescue. from rescue kittens to farm animals to endangered sea turtles, a great drink should leave the world a little better with every sip.</p>
+    <p style="margin-top:14px">reimagining red wine, restoring compassion. we believe in purpose in every sip — that's why 5% of every order goes to animal rescue. from rescue kittens to farm animals to rescue dogs, a great drink should leave the world a little better with every sip.</p>
     <p style="margin-top:16px;text-align:right;font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">every sip gives back ♡</p>
   </div>
 
-  <!-- TURTLE CAM MONITOR -->
+  <!-- COMPASSION CAM MONITOR -->
   <div class="cam-monitor">
     <div class="cam-toolbar">
       <div class="cam-toolbar-left">
         <span class="cam-dot red"></span>
         <span class="cam-dot yellow"></span>
         <span class="cam-dot green"></span>
-        <span class="cam-title" style="margin-left:8px">turtlecam_feed_01.mov</span>
+        <span class="cam-title" style="margin-left:8px">compassioncam_feed_01.mov</span>
       </div>
       <div class="cam-title" style="opacity:.6" id="cam-time">00:00:00</div>
     </div>
     <div class="cam-video-wrap">
       <video autoplay loop muted playsinline>
-        <source src="2179072.mp4" type="video/mp4">
+        <source src="compassion-cam.mp4" type="video/mp4">
       </video>
       <div class="cam-overlay"></div>
       <div class="cam-hud">
-        <div class="cam-hud-tl">✧ TURTLE CAM — LIVE</div>
+        <div class="cam-hud-tl">✧ COMPASSION CAM — LIVE</div>
         <div class="cam-hud-tr">● REC</div>
         <div class="cam-hud-bl" id="cam-date">03.13.2026</div>
-        <div class="cam-hud-br">CAM 01 — OCEAN FLOOR</div>
+        <div class="cam-hud-br">CAM 01 — THE RESCUE</div>
       </div>
     </div>
     <div class="cam-footer">
@@ -938,7 +940,7 @@ body::before{
     </div>
     <div class="gb-entry">
       <div class="gb-name">♡ anonymous muse</div>
-      <div class="gb-msg">just ordered a 4-pack knowing some of it goes to rescue kittens?? obsessed. the turtle cam is so y2k i can't</div>
+      <div class="gb-msg">just ordered a 4-pack knowing some of it goes to rescue kittens?? obsessed. the compassion cam is so y2k i can't</div>
       <div class="gb-date">march 2026</div>
     </div>
     <div id="gb-user-entries"></div>
@@ -976,7 +978,7 @@ body::before{
         <span class="badge">5% gives back</span>
         <span class="badge">rescue kittens</span>
         <span class="badge">farm animals</span>
-        <span class="badge">sea turtles</span>
+        <span class="badge">rescue dogs</span>
         <span class="badge">sip up save pups ✦</span>
       </div>
 <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(247,205,235,.3)">
@@ -1008,7 +1010,7 @@ body::before{
 </div>
 
 <script>
-// ═══ TURTLE CAM CLOCK ═══
+// ═══ COMPASSION CAM CLOCK ═══
 (function(){
   const timeEl=document.getElementById('cam-time');
   const dateEl=document.getElementById('cam-date');
