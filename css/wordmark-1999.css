@@ -1,0 +1,55 @@
+/* ═══ THE WORDMARK, 1999 SOFTWARE-BOX STYLE ═══
+   the klickclack "maison maxine" lettering gets the layer styles a late-90s
+   cd-rom box put on its type (barbie photo designer, 1999): a glossy
+   gradient fill, a bevel, a stepped hard extrusion and a soft shadow.
+   only the effect is new; the font, the size and the heart-dotted i's
+   stay exactly as they were. our colours only: blush, berry, apple green.
+
+   how it's built (each drop-shadow copies everything drawn before it, so
+   the 1px steps stack into one solid raised block, and it works on
+   gradient-filled text where text-shadow would show through the letters):
+     1  apple-green hairline, up-left    a hint of print misregistration
+     2  white, 1px up                    the bevel's lit top edge
+     3  rose, half a pixel down          the bevel's lower edge
+     4–5 berry, two small steps down-right the extrusion, darkening as it goes
+     7  soft berry haze                  the photoshop drop shadow under it all */
+
+.sidebar-logo,
+.mobile-header .logo{
+  --wm-line:1.1em;                       /* the gradient repeats once per line */
+  line-height:1.1;
+  -webkit-text-fill-color:transparent;   /* beats the inline color on the div */
+  background-image:linear-gradient(180deg,#FCF0FA 0%,#FCF0FA 14%,#f6c6dc 38%,#e690b9 62%,#c96b97 82%,#AD587C 100%);
+  background-size:100% var(--wm-line);
+  background-repeat:repeat;
+  -webkit-background-clip:text;background-clip:text;
+  text-shadow:none !important;
+  padding:0 3px 3px 1px;                 /* room for the extrusion, so nothing clips */
+  filter:
+    drop-shadow(-.5px -.5px 0 rgba(179,207,106,.5))
+    drop-shadow(0 -1px 0 rgba(255,255,255,.95))
+    drop-shadow(0 .5px 0 #d27ea5)
+    drop-shadow(1px 1px 0 #AD587C)
+    drop-shadow(.75px .75px 0 #85405f)
+    drop-shadow(1px 2px 2px rgba(95,30,62,.28));
+}
+/* the inner spans carry the same fill, so the smaller first line keeps it */
+.sidebar-logo span,
+.mobile-header .logo span{-webkit-text-fill-color:transparent}
+
+/* the phone header is small (22px): one step and a tighter haze */
+.mobile-header .logo{
+  padding:0 3px 3px 1px;
+  filter:
+    drop-shadow(-.5px -.5px 0 rgba(179,207,106,.45))
+    drop-shadow(0 -1px 0 rgba(255,255,255,.95))
+    drop-shadow(1px 1px 0 #96496c)
+    drop-shadow(.5px 1.5px 1.2px rgba(95,30,62,.26));
+}
+
+/* high contrast mode: plain text again */
+@media (forced-colors:active){
+  .sidebar-logo,.mobile-header .logo,.sidebar-logo span,.mobile-header .logo span{
+    -webkit-text-fill-color:CanvasText;background:none;filter:none;
+  }
+}
