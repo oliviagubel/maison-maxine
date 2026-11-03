@@ -25,7 +25,7 @@
 <link rel="preload" as="image" href="idx-11cfe590.jpg" fetchpriority="high">
 <link rel="preload" as="image" href="enter/beach-poster-620.jpg" media="(max-width:768px)" fetchpriority="high">
 <link rel="preload" as="image" href="beach-spritz-poster.jpg" media="(min-width:769px)" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=IM+Fell+English:ital@1&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 <style>
 @font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-display:swap}
 
@@ -69,49 +69,137 @@ body::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,.5);po
 .marquee-track{display:inline-block;padding-left:100%;animation:marquee 26s linear infinite}
 @keyframes marquee{to{transform:translateX(-100%)}}
 
-/* ═══ THE WINDOW: mac os 9 "platinum" ═══ */
+/* ═══ THE WINDOW: mac os 9 "platinum", as it really was ═══
+   the chrome is the 1999 system window: a grey frame with a white
+   top-left edge and a dark bottom-right one, the pinstriped title bar
+   with its gaps for the title and the three square boxes, a sunken
+   content area and the grow box in the corner. no rounding, no glass,
+   no soft shadow. inside it, the page: ivory, cormorant, dusty rose. */
+:root{
+  --ivory:#F7F0E9; --powder:#F7E8EB; --rose:#DDA8BA; --wine:#754D60; --silver:#B8B5AA; --ink:#292529;
+  --plat:#DDDDDD; --plat-hi:#FFFFFF; --plat-lo:#999999; --plat-dk:#666666;
+  /* 7×6 pixel heart and 5×5 pixel star, drawn square so they stay crisp */
+  --px-heart:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges' fill='%23DDA8BA'%3E%3Cpath d='M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z'/%3E%3C/svg%3E");
+  --px-star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 5' shape-rendering='crispEdges' fill='%23DDA8BA'%3E%3Cpath d='M2 0h1v5H2zM0 2h5v1H0z'/%3E%3C/svg%3E");
+}
 .win{
-  position:absolute;z-index:200;width:372px;left:244px;top:262px;
-  background:#dedede;border:1px solid #000;box-shadow:2px 2px 0 rgba(0,0,0,.55), 0 14px 40px rgba(90,30,60,.25);
-  font-family:Georgia,'Times New Roman',serif;
+  position:absolute;z-index:200;width:478px;left:191px;top:178px;
+  background:var(--plat);
+  border:1px solid #000;
+  /* the platinum bevel: white on the top and left, grey on the bottom and right */
+  box-shadow:inset 1px 1px 0 var(--plat-hi), inset -1px -1px 0 var(--plat-lo), 1px 1px 0 rgba(0,0,0,.28);
+  padding:0 5px 5px;
+  font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;color:var(--ink);
 }
-.win-bar{
-  position:relative;height:22px;margin:2px 2px 0;border:1px solid #888;
-  background:repeating-linear-gradient(#f4f4f4 0 1px,#bcbcbc 1px 2px);
-  display:flex;align-items:center;justify-content:center;
+/* the title bar: six ridges, broken for the title and each box */
+.win-bar{position:relative;height:21px;display:flex;align-items:center;justify-content:center}
+.win-bar::before{
+  content:'';position:absolute;left:1px;right:1px;top:5px;height:11px;
+  background:repeating-linear-gradient(var(--plat-hi) 0 1px,var(--plat-lo) 1px 2px);
 }
-.win-title{background:#dedede;padding:0 8px;font-family:'Pixelify Sans',monospace;font-size:13px;font-weight:600;color:#000;letter-spacing:.02em}
-.win-box{position:absolute;top:4px;width:12px;height:12px;border:1px solid #444;background:linear-gradient(135deg,#fff,#aaa);box-shadow:inset 1px 1px 0 #fff}
+.win-title{
+  position:relative;background:var(--plat);padding:0 7px;
+  font-family:'Pixelify Sans',monospace;font-size:12px;font-weight:600;line-height:21px;color:#000;letter-spacing:.01em;
+}
+.win-box{
+  position:absolute;top:4px;width:13px;height:13px;
+  border:1px solid #333;
+  background:linear-gradient(135deg,#f4f4f4,#bdbdbd);
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8a8a8a, 0 0 0 3px var(--plat);
+}
 .win-close{left:7px}
-.win-zoom{right:24px}
+.win-zoom{right:25px}
 .win-shade{right:7px}
-.win-body{margin:0 2px 2px;padding:18px 20px 16px;background:#fff;border:1px solid #888;border-top:none;text-align:center}
-.win-hi{display:flex;align-items:center;gap:14px;text-align:left;margin:0 0 16px}
-.can-gif{flex:0 0 auto;width:56px;height:85px;display:grid;place-items:center}
-.can-gif img{width:56px;height:auto;animation:spin 1.6s steps(8) infinite;transform-origin:50% 50%}
-@keyframes spin{0%{transform:scaleX(1)}25%{transform:scaleX(.08)}50%{transform:scaleX(-1)}75%{transform:scaleX(.08)}100%{transform:scaleX(1)}}
-.win-q{font-size:24px;line-height:1.2;color:#34212b}
-.win-q small{display:block;margin-top:6px;font-size:14px;color:#6a4a5a}
-.win-btns{display:flex;justify-content:center;gap:12px;margin:0 0 4px}
-.mac-btn{
-  font-family:'Pixelify Sans',monospace;font-size:15px;color:#000;min-height:34px;padding:0 16px;
-  background:linear-gradient(#ffffff,#d6d6d6);border:1px solid #000;border-radius:7px;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #9a9a9a;
+/* the zoom box has its little window inside; the shade box its bar */
+.win-zoom::after{content:'';position:absolute;left:2px;top:2px;width:5px;height:5px;border:1px solid #333;border-width:0 1px 1px 0}
+.win-shade::after{content:'';position:absolute;left:1px;right:1px;top:4px;height:2px;border-top:1px solid #333;border-bottom:1px solid #333}
+/* the finder-style header under the title bar */
+.win-info{
+  display:flex;justify-content:space-between;align-items:center;
+  height:17px;padding:0 6px 1px;margin:0 0 4px;
+  border-bottom:1px solid var(--plat-lo);box-shadow:0 1px 0 var(--plat-hi);
+  font-family:'Pixelify Sans',monospace;font-size:10px;line-height:1;color:#333;
 }
-.mac-btn:active{background:linear-gradient(#8e8e8e,#b6b6b6);color:#fff}
-.mac-btn:focus-visible{outline:2px dotted #8a1a4a;outline-offset:2px}
-/* the default button: the thick ring mac os drew around the one return presses */
-.mac-btn.default{background:linear-gradient(#fbe1ef,#efb3d1);border-radius:8px;box-shadow:0 0 0 3px #fff, 0 0 0 5px #000, inset 1px 1px 0 #fff;margin:5px 4px}
-.win-mail{margin:16px 0 0;padding:14px 0 0;border-top:1px dashed #b9b9b9;text-align:left}
-.win-mail label{display:block;margin:0 0 8px;font-size:14px;line-height:1.4;color:#34212b}
-.mail-row{display:flex;gap:8px}
-.old-input{flex:1;min-width:0;height:30px;padding:0 6px;font:16px Georgia,serif;color:#000;background:#fff;
-  border:1px solid #000;box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #f0f0f0}
-.old-input:focus{outline:2px solid #8a1a4a;outline-offset:1px}
-.mail-msg{min-height:18px;margin:6px 0 0;font-size:13px;color:#6a4a5a}
-.win-nope{display:none;padding:10px 4px 6px}
-.win-nope p{font-size:22px;line-height:1.3;margin:0 0 8px}
-.win-nope span{font-size:14px;color:#6a4a5a}
+/* the content area, sunk into the frame */
+.win-body{
+  position:relative;
+  padding:18px 22px 14px;
+  background:var(--ivory);
+  border:1px solid;border-color:var(--plat-dk) var(--plat-hi) var(--plat-hi) var(--plat-dk);
+  box-shadow:inset 1px 1px 0 #000;
+  text-align:center;
+}
+/* the grow box, bottom right of the frame */
+.win::after{
+  content:'';position:absolute;right:1px;bottom:1px;width:11px;height:11px;
+  background:repeating-linear-gradient(135deg,transparent 0 2px,var(--plat-hi) 2px 3px,var(--plat-lo) 3px 4px);
+  clip-path:polygon(100% 0,100% 100%,0 100%);
+}
+
+/* can and copy, side by side and lined up */
+.win-hi{display:grid;grid-template-columns:108px 1fr;gap:20px;align-items:center;text-align:left;margin:0 0 16px}
+.can-well{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:12px 8px 8px;
+  background:var(--powder);
+  border:1px solid;border-color:#9b8d93 #fff #fff #9b8d93;
+  box-shadow:inset 1px 1px 0 #cdb9c1;
+}
+.can-gif{width:84px;height:106px;display:grid;place-items:center}
+.can-gif img{width:84px;height:auto;animation:spin 1.6s steps(8) infinite;transform-origin:50% 50%}
+@keyframes spin{0%{transform:scaleX(1)}25%{transform:scaleX(.08)}50%{transform:scaleX(-1)}75%{transform:scaleX(.08)}100%{transform:scaleX(1)}}
+.can-cap{font-style:italic;font-size:13px;line-height:1.2;color:var(--wine);text-align:center}
+.win-kicker{
+  display:flex;align-items:center;gap:7px;margin:0 0 6px;
+  font-family:'Pixelify Sans',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);
+}
+.px-heart,.px-star{display:inline-block;flex:0 0 auto;width:7px;height:6px;background:var(--px-heart) no-repeat center/contain}
+.px-star{width:5px;height:5px;background-image:var(--px-star)}
+.win-q{font-size:32px;font-weight:600;line-height:1.02;letter-spacing:-.005em;color:var(--wine)}
+.win-q em{font-style:italic;font-weight:500}
+/* the ornament: hairline, heart, hairline */
+.orn{display:flex;align-items:center;gap:8px;width:150px;margin:10px 0 9px}
+.orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--rose)}
+.win-q small{display:block;font-size:16px;font-weight:500;line-height:1.45;letter-spacing:0;color:var(--ink)}
+
+/* buttons: the platinum push button, 4px corners, black edge, bevel inside */
+.win-btns{display:flex;justify-content:center;align-items:center;gap:18px;margin:0 0 2px}
+.mac-btn{
+  font-family:'Pixelify Sans',monospace;font-size:14px;color:#000;min-height:30px;padding:0 18px;
+  background:linear-gradient(#f6f6f6,#d2d2d2);
+  border:1px solid #000;border-radius:4px;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f;
+}
+.mac-btn:active{background:linear-gradient(#7d7d7d,#a2a2a2);color:#fff;box-shadow:inset 1px 1px 0 #555, inset -1px -1px 0 #bbb}
+.mac-btn:focus-visible{outline:2px dotted var(--wine);outline-offset:3px}
+/* the default button: dusty pink, with the thick ring os 9 drew around the one return presses */
+.mac-btn.default{
+  min-height:30px;padding:0 20px;
+  background:linear-gradient(#fbeef2,#DDA8BA);
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #a9798b, 0 0 0 1px var(--ivory), 0 0 0 4px #a5a5a5, 0 0 0 5px #000;
+  border-radius:4px;margin:5px;
+}
+.mac-btn.default:active{background:linear-gradient(#9c6b7f,#b98a9c);color:#fff}
+
+/* the e-mail: a pixel-heart divider, then the field */
+.win-mail{position:relative;margin:16px 0 0;padding:14px 0 0;text-align:left}
+.win-mail::before{content:'';position:absolute;top:0;left:0;right:0;border-top:1px dotted var(--silver)}
+.win-mail::after{content:'';position:absolute;top:-4px;left:50%;width:7px;height:6px;margin-left:-8px;padding:0 4px;background:var(--px-heart) no-repeat center/7px 6px var(--ivory);box-sizing:content-box}
+.win-mail label{display:block;margin:0 0 9px;font-size:15.5px;font-weight:500;line-height:1.4;color:var(--ink)}
+.win-mail label i{color:var(--wine)}
+.mail-row{display:flex;gap:10px;align-items:center}
+.old-input{flex:1;min-width:0;height:28px;padding:0 6px;font:16px Georgia,serif;color:#000;background:#fff;
+  border:1px solid #000;box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #f0f0f0;border-radius:0}
+.old-input::placeholder{color:#9a8f93}
+.old-input:focus{outline:2px solid var(--rose);outline-offset:1px}
+.mail-msg{min-height:18px;margin:7px 0 0;font-size:14px;font-style:italic;color:var(--wine)}
+.mail-msg:empty{display:none}
+.mail-fine{margin:8px 0 0;font-size:13px;color:#6b5a62}
+.mail-fine a{color:var(--wine);text-decoration:underline;text-underline-offset:2px}
+.mail-fine a:visited{color:#5a3a4a}
+.win-nope{display:none;padding:12px 4px 8px}
+.win-nope p{font-size:28px;font-weight:600;line-height:1.15;margin:0 0 6px;color:var(--wine)}
+.win-nope span{font-size:17px;font-style:italic;color:var(--ink)}
 html.not-yet .win-yes{display:none}
 html.not-yet .win-nope{display:block}
 .win.closing{animation:winclose .28s steps(5) forwards}
@@ -152,6 +240,17 @@ html.first-visit .loader{display:flex;position:fixed;inset:0;z-index:10001;align
 /* ═══ ON ENTER: the frame lifts away ═══ */
 body.lift #pile{transform:translate(-50%, calc(-50% - 118vh)) scale(1.035) !important;transition:transform .72s cubic-bezier(.55,.06,.9,.28)}
 body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-118vh);transition:transform .72s cubic-bezier(.55,.06,.9,.28)}
+
+/* shorter laptop screens: the whole scene steps down so the window clears the footer */
+@media (min-width:769px) and (max-height:780px){
+  #pile{transform:translate(-50%,-50%) scale(.92)}
+  .win{top:166px}
+  body.lift #pile{transform:translate(-50%, calc(-50% - 118vh)) scale(.92) !important}
+}
+@media (min-width:769px) and (max-height:700px){
+  #pile{transform:translate(-50%,-50%) scale(.84)}
+  body.lift #pile{transform:translate(-50%, calc(-50% - 118vh)) scale(.84) !important}
+}
 
 /* ═══ PHONES: background, curtains, the poster, the window, four stickers ═══ */
 @media (max-width:768px){
@@ -315,11 +414,18 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
       <span class="win-box win-zoom"></span>
       <span class="win-box win-shade"></span>
     </div>
+    <div class="win-info" aria-hidden="true"><span>1 spritz, 21+ only</span><span>napa valley, ca</span></div>
     <div class="win-body">
       <div class="win-yes">
         <div class="win-hi">
-          <div class="can-gif" aria-hidden="true"><img src="enter/can-spin.png" alt="" width="56" height="70"></div>
-          <p class="win-q" id="gateQ">hi! are you 21 or older?<small>Maison Maxine is a Napa Valley red wine spritz: Cabernet Sauvignon with ginger, lemon and honey, lightly sparkling, 5% ABV, in 250 mL cans. You must be 21+ to enter.</small></p>
+          <div class="can-well" aria-hidden="true">
+            <div class="can-gif"><img src="enter/can-spin.png" alt="" width="84" height="106"></div>
+            <span class="can-cap">red wine spritz</span>
+          </div>
+          <div class="win-copy">
+            <p class="win-kicker" aria-hidden="true"><span class="px-heart"></span>welcome to maison maxine<span class="px-heart"></span></p>
+            <p class="win-q" id="gateQ">hi! are you <em>21 or older?</em><span class="orn" aria-hidden="true"><span class="px-heart"></span></span><small>Maison Maxine is a Napa Valley red wine spritz: Cabernet Sauvignon with ginger, lemon and honey, lightly sparkling, 5% ABV, in 250 mL cans. You must be 21+ to enter.</small></p>
+          </div>
         </div>
         <div class="win-btns">
           <button class="mac-btn" id="gateNo" type="button">Not yet</button>
@@ -332,10 +438,11 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
             <button class="mac-btn" type="submit">Submit</button>
           </div>
           <p class="mail-msg" id="mailMsg" role="status"></p>
+          <p class="mail-fine">no spam, just spritz. <a href="privacy.html">our privacy note</a></p>
         </form>
       </div>
       <div class="win-nope" role="status">
-        <p>come back on your 21st birthday! ♡</p>
+        <p>come back on your 21st birthday!&nbsp;♡</p>
         <span>we'll be right here, spritz on ice.</span>
       </div>
     </div>
