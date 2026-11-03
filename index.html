@@ -69,137 +69,102 @@ body::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,.5);po
 .marquee-track{display:inline-block;padding-left:100%;animation:marquee 26s linear infinite}
 @keyframes marquee{to{transform:translateX(-100%)}}
 
-/* ═══ THE WINDOW: mac os 9 "platinum", as it really was ═══
-   the chrome is the 1999 system window: a grey frame with a white
-   top-left edge and a dark bottom-right one, the pinstriped title bar
-   with its gaps for the title and the three square boxes, a sunken
-   content area and the grow box in the corner. no rounding, no glass,
-   no soft shadow. inside it, the page: ivory, cormorant, dusty rose. */
+/* ═══ THE WINDOW: a windows 3.1 dialog ═══
+   the real thing: a black-edged grey sizing frame with its corner
+   notches, a solid title bar (in a wine colour scheme, the way 3.1 let
+   you pick "bordeaux"), the control-menu box on the left and the
+   minimize / maximize arrows on the right, grey 3d panels and square
+   push buttons. system text is ms sans serif; the brand's serif is the
+   one surprise inside. */
 :root{
-  --ivory:#F7F0E9; --powder:#F7E8EB; --rose:#DDA8BA; --wine:#754D60; --silver:#B8B5AA; --ink:#292529;
-  --plat:#DDDDDD; --plat-hi:#FFFFFF; --plat-lo:#999999; --plat-dk:#666666;
-  /* 7×6 pixel heart and 5×5 pixel star, drawn square so they stay crisp */
-  --px-heart:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 7 6' shape-rendering='crispEdges' fill='%23DDA8BA'%3E%3Cpath d='M1 0h2v1H1zM4 0h2v1H4zM0 1h7v2H0zM1 3h5v1H1zM2 4h3v1H2zM3 5h1v1H3z'/%3E%3C/svg%3E");
-  --px-star:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 5 5' shape-rendering='crispEdges' fill='%23DDA8BA'%3E%3Cpath d='M2 0h1v5H2zM0 2h5v1H0z'/%3E%3C/svg%3E");
+  --ivory:#F7F0E9; --powder:#F7E8EB; --rose:#DDA8BA; --wine:#754D60; --ink:#292529;
+  --g:#C0C0C0; --g-dk:#808080; --hi:#FFFFFF;
+  --sys:"MS Sans Serif","Microsoft Sans Serif",Tahoma,Geneva,Arial,sans-serif;
+  --heart16:url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' shape-rendering='crispEdges'><path fill='%23754D60' d='M4 2h1v1h-1zM5 2h1v1h-1zM6 2h1v1h-1zM10 2h1v1h-1zM11 2h1v1h-1zM12 2h1v1h-1zM3 3h1v1h-1zM7 3h1v1h-1zM9 3h1v1h-1zM13 3h1v1h-1zM2 4h1v1h-1zM8 4h1v1h-1zM14 4h1v1h-1zM2 5h1v1h-1zM14 5h1v1h-1zM2 6h1v1h-1zM14 6h1v1h-1zM2 7h1v1h-1zM14 7h1v1h-1zM3 8h1v1h-1zM13 8h1v1h-1zM4 9h1v1h-1zM12 9h1v1h-1zM5 10h1v1h-1zM11 10h1v1h-1zM6 11h1v1h-1zM10 11h1v1h-1zM7 12h1v1h-1zM9 12h1v1h-1zM8 13h1v1h-1z'/><path fill='%23DDA8BA' d='M4 3h1v1h-1zM5 3h1v1h-1zM6 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM12 3h1v1h-1zM3 4h1v1h-1zM5 4h1v1h-1zM6 4h1v1h-1zM7 4h1v1h-1zM9 4h1v1h-1zM10 4h1v1h-1zM11 4h1v1h-1zM12 4h1v1h-1zM13 4h1v1h-1zM3 5h1v1h-1zM5 5h1v1h-1zM6 5h1v1h-1zM7 5h1v1h-1zM8 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM11 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM7 6h1v1h-1zM8 6h1v1h-1zM9 6h1v1h-1zM10 6h1v1h-1zM11 6h1v1h-1zM12 6h1v1h-1zM13 6h1v1h-1zM3 7h1v1h-1zM4 7h1v1h-1zM5 7h1v1h-1zM6 7h1v1h-1zM7 7h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM12 7h1v1h-1zM13 7h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM8 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM11 8h1v1h-1zM12 8h1v1h-1zM5 9h1v1h-1zM6 9h1v1h-1zM7 9h1v1h-1zM8 9h1v1h-1zM9 9h1v1h-1zM10 9h1v1h-1zM11 9h1v1h-1zM6 10h1v1h-1zM7 10h1v1h-1zM8 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM7 11h1v1h-1zM8 11h1v1h-1zM9 11h1v1h-1zM8 12h1v1h-1z'/><path fill='%23fff' d='M4 4h1v1h-1zM4 5h1v1h-1z'/></svg>");
 }
 .win{
-  position:absolute;z-index:200;width:478px;left:191px;top:178px;
-  background:var(--plat);
-  border:1px solid #000;
-  /* the platinum bevel: white on the top and left, grey on the bottom and right */
-  box-shadow:inset 1px 1px 0 var(--plat-hi), inset -1px -1px 0 var(--plat-lo), 1px 1px 0 rgba(0,0,0,.28);
-  padding:0 5px 5px;
+  position:absolute;z-index:200;width:440px;left:212px;top:196px;
+  padding:3px;background:var(--g);border:1px solid #000;
   font-family:'Cormorant Garamond',Georgia,'Times New Roman',serif;color:var(--ink);
 }
-/* the title bar: six ridges, broken for the title and each box */
-.win-bar{position:relative;height:21px;display:flex;align-items:center;justify-content:center}
-.win-bar::before{
-  content:'';position:absolute;left:1px;right:1px;top:5px;height:11px;
-  background:repeating-linear-gradient(var(--plat-hi) 0 1px,var(--plat-lo) 1px 2px);
+/* the notches where the sizing frame splits into corner and side pieces */
+.win::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    linear-gradient(#000,#000) left 0 top 22px/4px 1px no-repeat,
+    linear-gradient(#000,#000) right 0 top 22px/4px 1px no-repeat,
+    linear-gradient(#000,#000) left 0 bottom 22px/4px 1px no-repeat,
+    linear-gradient(#000,#000) right 0 bottom 22px/4px 1px no-repeat,
+    linear-gradient(#000,#000) left 22px top 0/1px 4px no-repeat,
+    linear-gradient(#000,#000) right 22px top 0/1px 4px no-repeat,
+    linear-gradient(#000,#000) left 22px bottom 0/1px 4px no-repeat,
+    linear-gradient(#000,#000) right 22px bottom 0/1px 4px no-repeat;
 }
-.win-title{
-  position:relative;background:var(--plat);padding:0 7px;
-  font-family:'Pixelify Sans',monospace;font-size:12px;font-weight:600;line-height:21px;color:#000;letter-spacing:.01em;
+.win-in{border:1px solid #000;background:var(--g)}
+.sys,.win-bar,.win-label,.mac-btn,.grp legend,.grp-help,.old-input,.mail-msg,.mail-fine,.pv-bar{
+  font-family:var(--sys);
 }
-.win-box{
-  position:absolute;top:4px;width:13px;height:13px;
-  border:1px solid #333;
-  background:linear-gradient(135deg,#f4f4f4,#bdbdbd);
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8a8a8a, 0 0 0 3px var(--plat);
-}
-.win-close{left:7px}
-.win-zoom{right:25px}
-.win-shade{right:7px}
-/* the zoom box has its little window inside; the shade box its bar */
-.win-zoom::after{content:'';position:absolute;left:2px;top:2px;width:5px;height:5px;border:1px solid #333;border-width:0 1px 1px 0}
-.win-shade::after{content:'';position:absolute;left:1px;right:1px;top:4px;height:2px;border-top:1px solid #333;border-bottom:1px solid #333}
-/* the finder-style header under the title bar */
-.win-info{
-  display:flex;justify-content:space-between;align-items:center;
-  height:17px;padding:0 6px 1px;margin:0 0 4px;
-  border-bottom:1px solid var(--plat-lo);box-shadow:0 1px 0 var(--plat-hi);
-  font-family:'Pixelify Sans',monospace;font-size:10px;line-height:1;color:#333;
-}
-/* the content area, sunk into the frame */
-.win-body{
-  position:relative;
-  padding:18px 22px 14px;
-  background:var(--ivory);
-  border:1px solid;border-color:var(--plat-dk) var(--plat-hi) var(--plat-hi) var(--plat-dk);
-  box-shadow:inset 1px 1px 0 #000;
-  text-align:center;
-}
-/* the grow box, bottom right of the frame */
-.win::after{
-  content:'';position:absolute;right:1px;bottom:1px;width:11px;height:11px;
-  background:repeating-linear-gradient(135deg,transparent 0 2px,var(--plat-hi) 2px 3px,var(--plat-lo) 3px 4px);
-  clip-path:polygon(100% 0,100% 100%,0 100%);
-}
+/* title bar: control-menu box | title | minimize, maximize */
+.win-bar{display:flex;height:19px;background:var(--wine);border-bottom:1px solid #000}
+.win-title{flex:1;text-align:center;font-size:12px;font-weight:bold;line-height:18px;color:#fff;letter-spacing:0}
+.win-sysbox,.win-arrow{position:relative;flex:0 0 18px;height:18px;background:var(--g)}
+.win-sysbox{border-right:1px solid #000}
+.win-sysbox::after{content:'';position:absolute;left:3px;top:7px;width:11px;height:2px;background:#fff;border:1px solid var(--g-dk);box-shadow:1px 1px 0 #000}
+.win-arrow{border-left:1px solid #000;box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 var(--g-dk), inset -2px -2px 0 var(--g-dk)}
+.win-arrow::after{content:'';position:absolute;left:5px;width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent}
+.win-min::after{top:7px;border-top:4px solid #000}
+.win-max::after{top:6px;border-bottom:4px solid #000}
 
-/* can and copy, side by side and lined up */
-.win-hi{display:grid;grid-template-columns:108px 1fr;gap:20px;align-items:center;text-align:left;margin:0 0 16px}
-.can-well{
-  display:flex;flex-direction:column;align-items:center;gap:6px;
-  padding:12px 8px 8px;
-  background:var(--powder);
-  border:1px solid;border-color:#9b8d93 #fff #fff #9b8d93;
-  box-shadow:inset 1px 1px 0 #cdb9c1;
-}
-.can-gif{width:84px;height:106px;display:grid;place-items:center}
-.can-gif img{width:84px;height:auto;animation:spin 1.6s steps(8) infinite;transform-origin:50% 50%}
+.win-body{padding:9px 10px 10px;background:var(--g);text-align:left}
+/* sunken = grey top-left, white bottom-right, black just inside */
+.sunk{border:1px solid;border-color:var(--g-dk) var(--hi) var(--hi) var(--g-dk);box-shadow:inset 1px 1px 0 #000}
+.win-hi{display:grid;grid-template-columns:104px 1fr;gap:9px;align-items:stretch;margin:0 0 9px}
+/* the product, in a little picture viewer */
+.pv{display:flex;flex-direction:column;background:var(--g)}
+.pv-bar{height:15px;padding:1px 4px 0 5px;background:var(--g-dk);color:#fff;font-size:11px;line-height:13px;margin:1px 0 0 1px}
+.pv-img{flex:1;display:grid;place-items:center;background:var(--powder);margin:0 0 0 1px;padding:8px 0}
+.can-gif{width:66px;height:84px;display:grid;place-items:center}
+.can-gif img{width:66px;height:auto;animation:spin 1.6s steps(8) infinite;transform-origin:50% 50%}
 @keyframes spin{0%{transform:scaleX(1)}25%{transform:scaleX(.08)}50%{transform:scaleX(-1)}75%{transform:scaleX(.08)}100%{transform:scaleX(1)}}
-.can-cap{font-style:italic;font-size:13px;line-height:1.2;color:var(--wine);text-align:center}
-.win-kicker{
-  display:flex;align-items:center;gap:7px;margin:0 0 6px;
-  font-family:'Pixelify Sans',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--wine);
-}
-.px-heart,.px-star{display:inline-block;flex:0 0 auto;width:7px;height:6px;background:var(--px-heart) no-repeat center/contain}
-.px-star{width:5px;height:5px;background-image:var(--px-star)}
-.win-q{font-size:32px;font-weight:600;line-height:1.02;letter-spacing:-.005em;color:var(--wine)}
+.win-copy{background:var(--ivory);padding:8px 11px 9px 12px}
+.win-label{display:flex;align-items:center;gap:6px;margin:0 0 4px;font-size:11px;font-weight:bold;letter-spacing:.02em;color:#000}
+.heart16{flex:0 0 16px;width:16px;height:16px;background:var(--heart16) no-repeat 0 0/16px 16px;image-rendering:pixelated}
+.win-q{font-size:24px;font-weight:600;line-height:1.08;color:var(--wine)}
 .win-q em{font-style:italic;font-weight:500}
-/* the ornament: hairline, heart, hairline */
-.orn{display:flex;align-items:center;gap:8px;width:150px;margin:10px 0 9px}
-.orn::before,.orn::after{content:'';flex:1;height:1px;background:var(--rose)}
-.win-q small{display:block;font-size:16px;font-weight:500;line-height:1.45;letter-spacing:0;color:var(--ink)}
+.win-q small{display:block;margin:6px 0 0;font-size:15.5px;font-weight:500;line-height:1.38;color:var(--ink)}
 
-/* buttons: the platinum push button, 4px corners, black edge, bevel inside */
-.win-btns{display:flex;justify-content:center;align-items:center;gap:18px;margin:0 0 2px}
+/* push buttons: square, black edge, two-pixel bevel. the default one gets
+   the heavier black border, the way enter knew which button it pressed */
+.win-btns{display:flex;justify-content:center;gap:10px;margin:0 0 10px}
 .mac-btn{
-  font-family:'Pixelify Sans',monospace;font-size:14px;color:#000;min-height:30px;padding:0 18px;
-  background:linear-gradient(#f6f6f6,#d2d2d2);
-  border:1px solid #000;border-radius:4px;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #8f8f8f;
+  min-width:84px;height:25px;padding:0 12px;
+  font-size:12px;color:#000;background:var(--g);
+  border:1px solid #000;border-radius:0;
+  box-shadow:inset 1px 1px 0 #fff, inset 2px 2px 0 #fff, inset -1px -1px 0 var(--g-dk), inset -2px -2px 0 var(--g-dk);
 }
-.mac-btn:active{background:linear-gradient(#7d7d7d,#a2a2a2);color:#fff;box-shadow:inset 1px 1px 0 #555, inset -1px -1px 0 #bbb}
-.mac-btn:focus-visible{outline:2px dotted var(--wine);outline-offset:3px}
-/* the default button: dusty pink, with the thick ring os 9 drew around the one return presses */
-.mac-btn.default{
-  min-height:30px;padding:0 20px;
-  background:linear-gradient(#fbeef2,#DDA8BA);
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #a9798b, 0 0 0 1px var(--ivory), 0 0 0 4px #a5a5a5, 0 0 0 5px #000;
-  border-radius:4px;margin:5px;
-}
-.mac-btn.default:active{background:linear-gradient(#9c6b7f,#b98a9c);color:#fff}
+.mac-btn:active{box-shadow:inset 1px 1px 0 var(--g-dk);padding-top:2px;padding-left:14px}
+.mac-btn:focus-visible{outline:1px dotted #000;outline-offset:-6px}
+.mac-btn.default{border:2px solid #000;color:var(--wine);background:var(--powder);font-weight:bold;min-width:110px;
+  box-shadow:inset 1px 1px 0 #fff, inset 2px 2px 0 #fff, inset -1px -1px 0 #b58a9b, inset -2px -2px 0 #b58a9b}
 
-/* the e-mail: a pixel-heart divider, then the field */
-.win-mail{position:relative;margin:16px 0 0;padding:14px 0 0;text-align:left}
-.win-mail::before{content:'';position:absolute;top:0;left:0;right:0;border-top:1px dotted var(--silver)}
-.win-mail::after{content:'';position:absolute;top:-4px;left:50%;width:7px;height:6px;margin-left:-8px;padding:0 4px;background:var(--px-heart) no-repeat center/7px 6px var(--ivory);box-sizing:content-box}
-.win-mail label{display:block;margin:0 0 9px;font-size:15.5px;font-weight:500;line-height:1.4;color:var(--ink)}
-.win-mail label i{color:var(--wine)}
-.mail-row{display:flex;gap:10px;align-items:center}
-.old-input{flex:1;min-width:0;height:28px;padding:0 6px;font:16px Georgia,serif;color:#000;background:#fff;
-  border:1px solid #000;box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #f0f0f0;border-radius:0}
-.old-input::placeholder{color:#9a8f93}
-.old-input:focus{outline:2px solid var(--rose);outline-offset:1px}
-.mail-msg{min-height:18px;margin:7px 0 0;font-size:14px;font-style:italic;color:var(--wine)}
+/* the mailing list: a group box, quieter than the question */
+.grp{border:1px solid var(--g-dk);box-shadow:1px 1px 0 #fff, inset 1px 1px 0 #fff;padding:7px 8px 7px;margin:0}
+.grp legend{padding:0 3px;margin-left:4px;font-size:11px;color:#000}
+.grp-help{display:block;margin:0 0 5px;font-size:11px;line-height:1.35;color:#000}
+.mail-row{display:flex;gap:6px;align-items:center}
+.old-input{flex:1;min-width:0;height:22px;padding:0 4px;font-size:12px;color:#000;background:#fff;border-radius:0;
+  border:1px solid;border-color:var(--g-dk) var(--hi) var(--hi) var(--g-dk);box-shadow:inset 1px 1px 0 #000}
+.old-input::placeholder{color:var(--g-dk)}
+.old-input:focus{outline:none;box-shadow:inset 1px 1px 0 #000, 0 0 0 1px var(--wine)}
+.mail-row .mac-btn{height:22px;min-width:0;padding:0 8px;font-size:11px}
+.mail-msg{margin:5px 0 0;font-size:11px;color:var(--wine)}
 .mail-msg:empty{display:none}
-.mail-fine{margin:8px 0 0;font-size:13px;color:#6b5a62}
-.mail-fine a{color:var(--wine);text-decoration:underline;text-underline-offset:2px}
-.mail-fine a:visited{color:#5a3a4a}
-.win-nope{display:none;padding:12px 4px 8px}
-.win-nope p{font-size:28px;font-weight:600;line-height:1.15;margin:0 0 6px;color:var(--wine)}
-.win-nope span{font-size:17px;font-style:italic;color:var(--ink)}
+.mail-fine{margin:5px 0 0;font-size:11px;color:#333}
+.mail-fine a{color:var(--wine);text-decoration:underline}
+
+.win-nope{display:none;padding:14px 12px 12px;background:var(--ivory);text-align:center}
+.win-nope p{font-size:24px;font-weight:600;line-height:1.15;margin:0 0 4px;color:var(--wine)}
+.win-nope span{font-size:16px;font-style:italic;color:var(--ink)}
 html.not-yet .win-yes{display:none}
 html.not-yet .win-nope{display:block}
 .win.closing{animation:winclose .28s steps(5) forwards}
@@ -406,46 +371,50 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
     </picture>
   </div>
 
-  <!-- THE AGE GATE: a mac os 9 window -->
+  <!-- THE AGE GATE: a windows 3.1 dialog -->
   <div class="win" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateQ">
+   <div class="win-in">
     <div class="win-bar" aria-hidden="true">
-      <span class="win-box win-close"></span>
-      <span class="win-title">Welcome!</span>
-      <span class="win-box win-zoom"></span>
-      <span class="win-box win-shade"></span>
+      <span class="win-sysbox"></span>
+      <span class="win-title">Maison Maxine</span>
+      <span class="win-arrow win-min"></span>
+      <span class="win-arrow win-max"></span>
     </div>
-    <div class="win-info" aria-hidden="true"><span>1 spritz, 21+ only</span><span>napa valley, ca</span></div>
     <div class="win-body">
       <div class="win-yes">
         <div class="win-hi">
-          <div class="can-well" aria-hidden="true">
-            <div class="can-gif"><img src="enter/can-spin.png" alt="" width="84" height="106"></div>
-            <span class="can-cap">red wine spritz</span>
+          <div class="pv sunk" aria-hidden="true">
+            <div class="pv-bar sys">SPRITZ.BMP</div>
+            <div class="pv-img"><div class="can-gif"><img src="enter/can-spin.png" alt="" width="66" height="84"></div></div>
           </div>
-          <div class="win-copy">
-            <p class="win-kicker" aria-hidden="true"><span class="px-heart"></span>welcome to maison maxine<span class="px-heart"></span></p>
-            <p class="win-q" id="gateQ">hi! are you <em>21 or older?</em><span class="orn" aria-hidden="true"><span class="px-heart"></span></span><small>Maison Maxine is a Napa Valley red wine spritz: Cabernet Sauvignon with ginger, lemon and honey, lightly sparkling, 5% ABV, in 250 mL cans. You must be 21+ to enter.</small></p>
+          <div class="win-copy sunk">
+            <p class="win-label" aria-hidden="true"><span class="heart16"></span>AGE VERIFICATION REQUIRED</p>
+            <p class="win-q" id="gateQ">hi! are you <em>21 or older?</em><small>Maison Maxine is a Napa Valley red wine spritz: Cabernet Sauvignon with ginger, lemon and honey, lightly sparkling, 5% ABV, in 250 mL cans. You must be 21+ to enter.</small></p>
           </div>
         </div>
         <div class="win-btns">
+          <button class="mac-btn default" id="gateYes" type="button" autofocus aria-describedby="gateQ">Yes, let me in</button>
           <button class="mac-btn" id="gateNo" type="button">Not yet</button>
-          <button class="mac-btn default" id="gateYes" type="button" autofocus aria-describedby="gateQ">Yes, let me in ♡</button>
         </div>
         <form class="win-mail" id="mailForm" novalidate>
-          <label for="mail">leave your e-mail and we'll tell you about the next Spritz Club drop <i>(optional)</i></label>
-          <div class="mail-row">
-            <input class="old-input" id="mail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com">
-            <button class="mac-btn" type="submit">Submit</button>
-          </div>
-          <p class="mail-msg" id="mailMsg" role="status"></p>
-          <p class="mail-fine">no spam, just spritz. <a href="privacy.html">our privacy note</a></p>
+          <fieldset class="grp">
+            <legend>The Spritz Club mailing list</legend>
+            <label class="grp-help" for="mail">E-mail address (optional). We'll write when the next drop is ready.</label>
+            <div class="mail-row">
+              <input class="old-input" id="mail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com">
+              <button class="mac-btn" type="submit">Subscribe &gt;&gt;</button>
+            </div>
+            <p class="mail-msg" id="mailMsg" role="status"></p>
+            <p class="mail-fine">No spam, just spritz. <a href="privacy.html">Privacy note</a></p>
+          </fieldset>
         </form>
       </div>
-      <div class="win-nope" role="status">
-        <p>come back on your 21st birthday!&nbsp;♡</p>
+      <div class="win-nope sunk" role="status">
+        <p>come back on your 21st birthday!</p>
         <span>we'll be right here, spritz on ice.</span>
       </div>
     </div>
+   </div>
   </div>
 </div>
 
@@ -502,10 +471,10 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var v=mail.value.trim();
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){msg.textContent='hmm, that e-mail looks off. try again?';return;}
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){msg.textContent='That e-mail address does not look right. Please try again.';return;}
     T('EmailSubmitted');
     window.open('https://maisonmaxine.substack.com/subscribe?email='+encodeURIComponent(v),'_blank','noopener');
-    msg.textContent='almost done! confirm in the new tab ♡';
+    msg.textContent='Almost done. Confirm in the new window.';
     mail.value='';
   });
 
