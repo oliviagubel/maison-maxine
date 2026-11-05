@@ -107,17 +107,17 @@
   transform:rotate(-2deg);
 }
 
-/* the little stickers strip, riding a wavy line like bikini.com's
-   wave band (1996): the stickers sit on the crest, a sky-blue sea below */
+/* the little stickers strip, riding a row of retro pixel waves
+   (wave-retro.png, 17 waves that tile seamlessly): the stickers sit on the crests */
 .lil-strip{
   display:flex !important;
   justify-content:space-around;
   align-items:flex-end;
-  height:40px;
+  height:46px;
   margin:10px 0 18px;
-  padding:0 8px 7px;
+  padding:0 8px 13px;
   overflow:hidden;
-  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7 V14 H0Z' fill='%23a8dcff'/%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7' fill='none' stroke='%233d9be0' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left bottom / 40px 14px;
+  background:url("../wave-retro.png") repeat-x left bottom / auto 18px;
 }
 .lil-strip img{height:20px; width:auto; display:block}
 
@@ -275,13 +275,13 @@ main#main.jeans-wrap{max-width:900px}
    the wave strip, around the merch drop */
 #main .banner + .lil-strip:has(~ .merch-drop){
   background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='14'%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7 V14 H0Z' fill='%23a8dcff'/%3E%3Cpath d='M0 7 Q10 1 20 7 T40 7' fill='none' stroke='%233d9be0' stroke-width='1.5'/%3E%3C/svg%3E") repeat-x left bottom / 40px 14px,
+    url("../wave-retro.png") repeat-x left bottom / auto 18px,
     #fff;
   border:1px solid var(--dt-hair);
   border-bottom:0;
-  height:52px;
+  height:58px;
   margin:12px 0 0;
-  padding:12px 18px 7px;
+  padding:12px 18px 13px;
 }
 #main .banner + .lil-strip ~ .merch-drop{
   background:#fff;
