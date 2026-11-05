@@ -36,6 +36,20 @@
 /* the inner spans carry the same fill, so the smaller first line keeps it */
 .sidebar-logo span,
 .mobile-header .logo span{-webkit-text-fill-color:transparent}
+/* the heart-dotted i's: each ı sits in a position:relative span so its
+   heart can float above it. safari paints a positioned span on its own
+   layer, outside the parent's text clip, so the parent's gradient never
+   reaches it and the letter vanished. the span carries its own copy of
+   the fill instead. */
+.sidebar-logo span[style*="relative"],
+.sidebar-logo span:has(> span > img),
+.mobile-header .logo span[style*="relative"],
+.mobile-header .logo span:has(> span > img){
+  background-image:linear-gradient(180deg,#FCF0FA 0%,#FCF0FA 14%,#f6c6dc 38%,#e690b9 62%,#c96b97 82%,#AD587C 100%);
+  background-size:100% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
 
 /* the phone header is small (22px): one step and a tighter haze */
 .mobile-header .logo{
