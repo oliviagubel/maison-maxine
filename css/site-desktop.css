@@ -108,7 +108,7 @@
 }
 
 /* the little stickers strip, riding a row of retro pixel waves
-   (wave-retro.png, 17 waves that tile seamlessly): the stickers sit on the crests */
+   (wave-retro.png, 17 waves that tile seamlessly, baked in at 80% opacity): the stickers sit on the crests */
 .lil-strip{
   display:flex !important;
   justify-content:space-around;
