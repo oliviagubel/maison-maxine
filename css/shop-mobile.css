@@ -259,7 +259,7 @@ html body #main .product-gallery{position:relative !important; isolation:isolate
 html body #main .product-gallery::before{
   content:"";
   position:absolute; inset:0;
-  background:url('../background.jpg') repeat center top / 760px auto;
+  background:var(--mm-bg,url('../background.jpg')) repeat center top / 760px auto;
   opacity:.3;
   z-index:-1;
   pointer-events:none;
@@ -272,7 +272,7 @@ html body #main .m-footer{position:relative !important; isolation:isolate}
 html body #main .m-footer::before{
   content:"";
   position:absolute; inset:0;
-  background:url('../background.jpg') repeat center top / 760px auto;
+  background:var(--mm-bg,url('../background.jpg')) repeat center top / 760px auto;
   opacity:.3;
   z-index:-1;
   pointer-events:none;

@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>/* the background: each visit gets one of our two watercolour patterns, at random,
+   and keeps it page to page until the tab closes */
+try{var mmBg=sessionStorage.getItem('mm_bg');if(!mmBg){mmBg=Math.random()<.5?'1':'2';sessionStorage.setItem('mm_bg',mmBg)}if(mmBg==='2')document.documentElement.style.setProperty('--mm-bg',"url('/background-2.jpg')")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Maison Maxine ✦ Napa Valley Red Wine Spritz</title>
 <meta name="description" content="Maison Maxine is a Napa Valley red wine spritz: Cabernet Sauvignon with ginger, lemon and honey, lightly sparkling, 5% ABV, in 250 mL cans. Certified organic by CCOF.">
@@ -84,7 +87,7 @@ body::before{
   content:'';
   position:fixed;
   inset:0;
-  background:url('background.jpg') repeat center top;
+  background:var(--mm-bg,url('background.jpg')) repeat center top;
   background-size:600px;
   opacity:.45;
   z-index:-1;

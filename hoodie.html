@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>/* the background: each visit gets one of our two watercolour patterns, at random,
+   and keeps it page to page until the tab closes */
+try{var mmBg=sessionStorage.getItem('mm_bg');if(!mmBg){mmBg=Math.random()<.5?'1':'2';sessionStorage.setItem('mm_bg',mmBg)}if(mmBg==='2')document.documentElement.style.setProperty('--mm-bg',"url('/background-2.jpg')")}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Hoodie Set ✦ Maison Maxine™</title>
 <meta name="description" content="The Hoodie Set by Maison Maxine: a black velour hoodie with an appliqué girl in curlers, and matching velour flare leggings. One of one, $118.">
@@ -73,7 +76,7 @@ body{
 }
 body::before{
   content:'';position:fixed;inset:0;
-  background:url('background.jpg') repeat center top;
+  background:var(--mm-bg,url('background.jpg')) repeat center top;
   background-size:600px;opacity:.45;z-index:-1;pointer-events:none;
 }
 
