@@ -40,7 +40,7 @@
 #main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-label)}
 #main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
 #main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
-#main .util-date, #main .panel-tab, #sidebar .nav-label, #sidebar .np-header, #sidebar .wt,
+#main .util-date, #main .panel-tab, #sidebar .nav-label,
 #sidebar .copyright, #main .dt-sizes legend{
   font-family:var(--dt-label);
   font-weight:normal;
@@ -176,31 +176,9 @@
 #sidebar nav a.active{text-shadow:none}
 /* only the first letter of each item, like an old menu's keyboard shortcut */
 #sidebar nav a .fl ~ .fl{text-decoration:none}
-/* now playing + malibu weather: the widgets we had, as little early-2000s
-   panels: a hairline frame and a glossy pale-pink title bar */
+/* now playing + malibu weather: css/sidebar-widgets.css */
 #sidebar .side-quiet{opacity:1; margin-bottom:10px; text-align:left}
-#sidebar .side-quiet .now-playing, #sidebar .side-quiet .sidebar-widget{
-  margin-top:10px; padding:0 0 8px;
-  background:#fff; border:1px solid var(--dt-hair);
-}
-#sidebar .side-quiet .np-header, #sidebar .side-quiet .wt{
-  margin:0 0 6px; padding:2px 8px 1px;
-  background:linear-gradient(180deg, #fff 0%, var(--dt-tint) 100%);
-  border-bottom:1px solid var(--dt-hair);
-  font-size:15px; letter-spacing:.04em; color:var(--dt-rose-ink); text-transform:lowercase;
-}
-#sidebar .side-quiet .np-track{padding:0 8px; gap:8px}
-#sidebar .side-quiet .np-song{font-size:12px; font-style:normal; color:var(--dt-ink)}
-#sidebar .side-quiet .np-artist{font-size:13px; color:var(--dt-mute)}
-#sidebar .side-quiet .weather-display{margin:0; padding:0 8px; gap:6px; justify-content:flex-start; align-items:center}
-#sidebar .side-quiet .weather-bird{width:26px; height:auto; display:block}
-#sidebar .side-quiet .weather-temp{font-size:15px; color:var(--dt-ink)}
-#sidebar .side-quiet .weather-desc{padding:2px 8px 0; font-size:11px; font-style:normal; color:var(--dt-mute)}
-#sidebar .side-quiet .weather-details{display:block; padding:2px 8px 0; font-size:12px; color:var(--dt-mute)}
 #sidebar .copyright{font-size:13px; color:var(--dt-mute); letter-spacing:.04em}
-
-/* the weather widget keeps its pale green */
-#sidebar .side-quiet .weather-widget{background:#e9f9d4}
 
 /* the copyright, two centered lines */
 .dt-footer .dt-copy{font-size:16px; color:var(--dt-ink); margin:10px 0 2px}
@@ -328,17 +306,6 @@ main#main.jeans-wrap{max-width:900px}
 #main .merch-cta:hover{background:#c42777 !important}
 #main .merch-cta::after{border-radius:0 !important}
 #main .merch-back{color:var(--dt-rose-ink) !important; text-decoration:underline !important; font-style:normal !important}
-
-/* the sidebar widgets' own layout, the shop's way, for every page
-   (merch had none of it, and the others animated the bars) */
-#sidebar .side-quiet .np-track{display:flex; align-items:center; gap:8px}
-#sidebar .side-quiet .eq-bars{display:flex; align-items:flex-end; gap:2px; height:10px; flex-shrink:0}
-#sidebar .side-quiet .eq-bars span{width:3px; height:6px; background:#d371a1; animation:none}
-#sidebar .side-quiet .np-info{overflow:hidden}
-#sidebar .side-quiet .np-song{white-space:nowrap}
-#sidebar .side-quiet .weather-display{display:flex; align-items:center; gap:6px}
-#sidebar .side-quiet .weather-widget .wt, #sidebar .side-quiet .weather-desc{text-align:center}
-#sidebar .side-quiet .weather-details{text-align:center; justify-content:center}
 
 /* compassion's guestbook "post" button: the site's square pink button, white text */
 #main #gb-submit{

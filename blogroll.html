@@ -504,6 +504,9 @@ body::before{
 <script src="/js/tracking.js" defer></script>
 <link rel="stylesheet" href="css/square.css">
 <link rel="stylesheet" href="css/wordmark-1999.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/sidebar-widgets.css" media="(min-width:769px)">
+<script src="js/sidebar-widgets.js" defer></script>
 </head>
 <body>
 
@@ -555,33 +558,43 @@ body::before{
       </nav>
     </div>
 
-    <!-- NOW PLAYING -->
-    <div class="now-playing">
-      <div class="np-header">now playing ✦</div>
-      <div class="np-track">
-        <div class="eq-bars">
-          <span></span><span></span><span></span><span></span><span></span>
+    <!-- NOW PLAYING: a little winamp-style deck for 30-second itunes previews (js/sidebar-widgets.js, css/sidebar-widgets.css) -->
+    <section class="mmp" aria-label="now playing">
+      <div class="mmp-bar" aria-hidden="true"><span class="mmp-groove"></span><span class="mmp-title">now playing</span><span class="mmp-groove"></span></div>
+      <div class="mmp-lcd">
+        <div class="mmp-row">
+          <span class="mmp-state" aria-hidden="true"></span>
+          <button class="mmp-time" type="button" aria-label="showing time elapsed" title="elapsed / remaining"><span class="mmp-digits">0:00</span></button>
+          <canvas class="mmp-vis" aria-hidden="true"></canvas>
         </div>
-        <div class="np-info">
-          <div class="np-song" id="np-song">california gurls</div>
-          <div class="np-artist" id="np-artist">katy perry</div>
-        </div>
+        <div class="mmp-marquee"><a class="mmp-link" href="playlist.html" target="_blank" rel="noopener"><span class="mmp-scroll"><span class="mmp-t">1. phantom planet - california (3:11)</span><span class="mmp-echo" aria-hidden="true"></span></span></a></div>
+        <div class="mmp-info"><span class="mmp-trk">01/10</span><span class="mmp-st">stereo</span><a class="mmp-src" href="https://music.apple.com/" target="_blank" rel="noopener" title="previews courtesy of itunes">itunes</a></div>
       </div>
-    </div>
+      <input class="mmp-seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="seek" disabled>
+      <div class="mmp-deck">
+        <button class="mmp-btn mmp-prev" type="button" aria-label="previous track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0h2v8H0zM6 0v8L2 4zM10 0v8L6 4z"/></svg></button>
+        <button class="mmp-btn mmp-play" type="button" aria-label="play 30-second preview" aria-pressed="false"><svg class="i-play" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0l6 4-6 4z"/></svg><svg class="i-pause" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0h2v8H2zM6 0h2v8H6z"/></svg></button>
+        <button class="mmp-btn mmp-next" type="button" aria-label="next track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0l4 4-4 4zM4 0l4 4-4 4zM8 0h2v8H8z"/></svg></button>
+        <a class="mmp-btn mmp-eject" href="playlist.html" aria-label="open the aux, all our playlists" title="open the aux"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M5 0l5 5H0zM0 6h10v2H0z"/></svg></a>
+      </div>
+      <span class="mmp-status" role="status"></span>
+    </section>
 
-    <div class="sidebar-widget weather-widget">
-      <div class="wt">malibu weather ✦</div>
-      <div class="weather-display">
-        <div class="weather-icon" id="w-icon">☀</div>
-        <div class="weather-temp" id="w-temp">72°f</div>
+    <!-- MALIBU WEATHER: live from open-meteo (js/sidebar-widgets.js); the little bird stays -->
+    <section class="mmw" aria-label="malibu weather">
+      <div class="mmw-bar">malibu weather</div>
+      <div class="mmw-now">
+        <img class="mmw-bird" src="littlebird.png" alt="">
+        <span class="mmw-temp"><span class="mmw-num">72</span><span class="mmw-deg">&deg;f</span></span>
+        <span class="mmw-cond"><span class="mmw-sky-row"><span class="mmw-ico"></span><span class="mmw-sky">sunny</span></span><span class="mmw-hilo"></span></span>
       </div>
-      <div class="weather-desc" id="w-desc">sunny & perfect for a spritzer</div>
-      <div class="weather-details">
-        <span id="w-wind">wind 5mph</span>
-        <span>·</span>
-        <span id="w-humidity">humidity 62%</span>
+      <p class="mmw-line">sunny &amp; perfect for a spritzer.</p>
+      <button class="mmw-more" type="button" aria-expanded="false" aria-controls="mmw-det">3-day forecast</button>
+      <div class="mmw-det" id="mmw-det" hidden>
+        <ul class="mmw-days"></ul>
+        <div class="mmw-meta"><span class="mmw-wind"></span><span class="mmw-hum"></span><span class="mmw-sun"></span><span class="mmw-upd"></span></div>
       </div>
-    </div>
+    </section>
   </div>
 
   <div style="text-align:center;margin-top:20px;font-size:10px;color:#f7cdeb;letter-spacing:8px">✦ ♡ ✦</div>
@@ -720,20 +733,7 @@ body::before{
 </div>
 
 <script>
-// ═══ NOW PLAYING RANDOMIZER ═══
-(function(){
-  const songs=[
-    {song:'sexy to someone',artist:'clairo'},
-    {song:'henry come on',artist:'lana del rey'},
-    {song:'california',artist:'phantom planet'},
-    {song:'melrose meltdown',artist:'suki waterhouse'},
-    {song:'my regards',artist:'maisie peters'},
-    {song:'you sexy thing',artist:'zella day'}
-  ];
-  const s=songs[Math.floor(Math.random()*songs.length)];
-  document.getElementById('np-song').textContent=s.song;
-  document.getElementById('np-artist').textContent=s.artist;
-})();
+
 
 // ═══ FALLING SPARKLES ═══
 (function(){
@@ -754,23 +754,7 @@ body::before{
   setInterval(spawn,600);
 })();
 
-// ═══ MALIBU WEATHER ═══
-(async()=>{
-  try{
-    const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude=34.0259&longitude=-118.7798&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph');
-    const d=await r.json();
-    const c=d.current;
-    const temp=Math.round(c.temperature_2m);
-    const code=c.weather_code;
-    const icons={0:'✦',1:'<img src="littlebird.png" alt="bird with letter" style="width:26px;height:auto;vertical-align:middle">',2:'✧',3:'◌',45:'◦',48:'◦',51:'⋆',53:'·',55:'·',61:'·',63:'·',65:'·',71:'✧',73:'✧',75:'✧',80:'⋆',81:'·',82:'·',95:'✦'};
-    const descs={0:'clear skies — spritzer weather',1:'clear skies — perfect for bird watching',2:'partly cloudy, still cute',3:'overcast but cozy',45:'foggy malibu morning',48:'misty & moody',51:'light drizzle vibes',53:'drizzly but charming',55:'rainy day pour',61:'light rain — stay in & sip',63:'rainy — couch + spritzer',65:'heavy rain, cozy up',71:'a rare malibu snow?!',80:'showers passing through',95:'stormy & dramatic'};
-    document.getElementById('w-icon').innerHTML=icons[code]||'☀';
-    document.getElementById('w-temp').textContent=temp+'°f';
-    document.getElementById('w-desc').textContent=descs[code]||'perfect for a spritzer';
-    document.getElementById('w-wind').textContent='wind '+Math.round(c.wind_speed_10m)+'mph';
-    document.getElementById('w-humidity').textContent='humidity '+c.relative_humidity_2m+'%';
-  }catch(e){}
-})();
+
 </script>
 
 <script>

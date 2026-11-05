@@ -1,0 +1,176 @@
+/* ═══ THE SIDEBAR WIDGETS, COMPUTERS ONLY ═══
+   linked with media="(min-width:769px)" on every page with a sidebar;
+   the behaviour is js/sidebar-widgets.js.
+
+   now playing  a winamp 2.x-style deck in pink plastic: grooved title bar,
+                a sunken wine lcd with ghosted digits, a seek groove and
+                bevelled transport buttons that press in.
+   weather      a quiet desktop weather utility on our pale green: the
+                temperature first, then the sky, one line in georgia,
+                and the forecast behind a click.
+
+   #sidebar on every selector so the site's "#sidebar *" type rules don't
+   win; the bevels are inset box-shadows (site-desktop.css only flattens
+   shadows on #main and on #sidebar itself, never its children). */
+
+#sidebar .mmp, #sidebar .mmw{
+  --ink:#4a3a3a; --mute:#6a4a5a; --rose:#b64e84; --hair:#f2bcd6;
+  --label:'Jersey 10',Georgia,serif;
+  display:block; width:auto; margin:10px 0 0; text-align:left;
+  font:13px/1.1 var(--label); letter-spacing:.03em; color:var(--ink);
+}
+#sidebar .mmp *, #sidebar .mmw *{font-family:var(--label); box-sizing:border-box}
+#sidebar .mmp button, #sidebar .mmw button{font:inherit; letter-spacing:inherit; margin:0; cursor:pointer}
+#sidebar .mmp :focus-visible, #sidebar .mmw :focus-visible{outline:1px dotted #7a2d55; outline-offset:1px}
+
+/* ═════════ NOW PLAYING ═════════ */
+#sidebar .mmp{
+  padding:0 4px 4px;
+  background:linear-gradient(180deg,#fdf2f7 0%,#f8e1ec 100%);
+  border:1px solid #c17798;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #e7b3cb;
+  user-select:none;
+}
+/* title bar: the word between two grooves, like the classic skin */
+#sidebar .mmp-bar{display:flex; align-items:center; gap:5px; height:14px; margin:0 -1px 2px}
+#sidebar .mmp-groove{flex:1; height:5px; background:repeating-linear-gradient(180deg,#d68fb1 0 1px,#fff 1px 2px)}
+#sidebar .mmp-title{font-size:13px; line-height:14px; color:var(--rose); letter-spacing:.12em; text-transform:uppercase}
+
+/* the lcd: wine glass, pink phosphor */
+#sidebar .mmp-lcd{
+  padding:3px 4px 2px;
+  background:#2a0b1b;
+  border:1px solid; border-color:#8f4c6d #fff #fff #8f4c6d;
+  box-shadow:inset 1px 1px 0 #14040c;
+  color:#ffb6d6;
+}
+#sidebar .mmp-row{display:flex; align-items:flex-end; gap:4px; height:18px}
+#sidebar .mmp-state{flex:none; width:5px; height:7px; margin-bottom:4px; background:#5c2142;
+  clip-path:polygon(0 0,100% 50%,0 100%)}
+#sidebar .mmp.is-playing .mmp-state{background:#9cf27a}
+#sidebar .mmp.is-buffering .mmp-state{background:#ffd27a; animation:mmp-blink .5s steps(1) infinite}
+@keyframes mmp-blink{50%{opacity:0}}
+#sidebar .mmp-time{
+  position:relative; flex:none; padding:0; border:0; background:none;
+  font-size:24px; line-height:18px; color:#ffb6d6; text-align:left;
+}
+#sidebar .mmp-vis{flex:none; width:72px; height:16px; margin:0 0 1px auto; display:block;
+  background:repeating-linear-gradient(90deg,transparent 0 3px,rgba(255,182,214,.06) 3px 4px)}
+#sidebar .mmp-marquee{
+  height:15px; margin-top:2px; overflow:hidden; white-space:nowrap;
+  font-size:14px; line-height:15px;
+}
+#sidebar .mmp-link{color:#ffd3e6 !important; text-decoration:none !important; border:0 !important; display:block}
+#sidebar .mmp-link:hover .mmp-t{text-decoration:underline}
+#sidebar .mmp-scroll{display:inline-block}
+#sidebar .mmp-echo{display:none; padding-left:18px}
+#sidebar .mmp-marquee.is-long:not(.is-scrolling) .mmp-scroll{display:block; overflow:hidden; text-overflow:ellipsis}
+#sidebar .mmp-marquee.is-scrolling .mmp-echo{display:inline}
+#sidebar .mmp-marquee.is-scrolling .mmp-t{padding-right:18px}
+#sidebar .mmp-marquee.is-scrolling .mmp-scroll{animation:mmp-marq var(--mq-dur,12s) steps(var(--mq-steps,60)) infinite}
+@keyframes mmp-marq{to{transform:translateX(calc(-1 * var(--mq-w,200px)))}}
+#sidebar .mmp-info{display:flex; gap:7px; margin-top:1px; font-size:11px; line-height:11px; color:#a35c80}
+#sidebar .mmp-st.on{color:#9cf27a}
+#sidebar .mmp-src{margin-left:auto; color:#a35c80 !important; text-decoration:none !important; border:0 !important}
+#sidebar .mmp-src:hover{color:#ffd3e6 !important}
+
+/* seek: a sunken groove with a little bevelled slider */
+#sidebar .mmp-seek{
+  -webkit-appearance:none; appearance:none; display:block; width:100%; height:8px; margin:4px 0 3px; padding:0;
+  background:linear-gradient(90deg,#e889b5 0 var(--p,0%),#f3d0e0 var(--p,0%) 100%);
+  border:1px solid; border-color:#c58aa6 #fff #fff #c58aa6;
+  cursor:pointer;
+}
+#sidebar .mmp-seek:disabled{cursor:default; background:#f3d0e0}
+#sidebar .mmp-seek::-webkit-slider-thumb{
+  -webkit-appearance:none; width:14px; height:8px;
+  background:linear-gradient(180deg,#fff,#f2c4d9); border:1px solid #a9567e;
+  box-shadow:inset 1px 1px 0 #fff;
+}
+#sidebar .mmp-seek::-moz-range-thumb{width:12px; height:6px; background:linear-gradient(180deg,#fff,#f2c4d9); border:1px solid #a9567e; border-radius:0}
+#sidebar .mmp-seek::-moz-range-track{background:transparent; border:0}
+#sidebar .mmp-seek:disabled::-webkit-slider-thumb{visibility:hidden}
+#sidebar .mmp-seek:disabled::-moz-range-thumb{visibility:hidden}
+
+/* transport: little plastic keys that press in */
+#sidebar .mmp-deck{display:flex; gap:2px}
+#sidebar .mmp-btn{
+  display:flex; align-items:center; justify-content:center;
+  width:24px; height:16px; padding:0;
+  background:linear-gradient(180deg,#fff 0%,#f6d7e5 100%);
+  border:1px solid #a9567e;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #e3a6c2;
+  color:#7a2d55 !important; text-decoration:none !important;
+}
+#sidebar .mmp-btn svg{width:10px; height:8px; fill:currentColor; display:block; shape-rendering:crispEdges}
+#sidebar .mmp-btn:hover{background:linear-gradient(180deg,#fff 0%,#fbe4ee 100%)}
+#sidebar .mmp-btn:active{
+  background:#f1cadc; box-shadow:inset 1px 1px 0 #d295b2, inset -1px -1px 0 #fbe6ef;
+}
+#sidebar .mmp-btn:active svg{transform:translate(1px,1px)}
+#sidebar .mmp-play{width:30px}
+#sidebar .mmp-play .i-pause, #sidebar .mmp.is-playing .mmp-play .i-play{display:none}
+#sidebar .mmp.is-playing .mmp-play .i-pause{display:block}
+#sidebar .mmp.is-playing .mmp-play{background:#f1cadc; box-shadow:inset 1px 1px 0 #d295b2, inset -1px -1px 0 #fbe6ef}
+#sidebar .mmp-eject{margin-left:auto}
+#sidebar .mmp-status{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+/* ═════════ MALIBU WEATHER ═════════ */
+#sidebar .mmw{
+  padding:0 0 0;
+  background:#eefadf;
+  border:1px solid #b7d79a;
+}
+#sidebar .mmw-bar{
+  padding:1px 6px 0; height:15px;
+  background:linear-gradient(180deg,#fbfff5 0%,#dcf2c4 100%);
+  border-bottom:1px solid #b7d79a;
+  font-size:13px; line-height:14px; color:#4e7a2c; letter-spacing:.08em; text-transform:uppercase;
+}
+#sidebar .mmw-now{display:flex; align-items:center; gap:6px; padding:5px 6px 0}
+#sidebar .mmw-bird{flex:none; width:26px; height:auto; display:block}
+#sidebar .mmw-temp{flex:none; display:flex; align-items:flex-start}
+#sidebar .mmw-num{font:30px/28px Georgia,"Times New Roman",serif !important; letter-spacing:-.02em; color:var(--ink)}
+#sidebar .mmw-deg{font-size:14px; line-height:14px; color:var(--mute); margin-left:1px}
+#sidebar .mmw-cond{display:flex; flex-direction:column; gap:2px; min-width:0}
+#sidebar .mmw-sky-row{display:flex; align-items:center; gap:3px}
+#sidebar .mmw-ico svg{display:block; width:11px; height:11px}
+#sidebar .mmw-sky{font-size:14px; line-height:12px; color:var(--rose); white-space:nowrap}
+#sidebar .mmw-hilo{font-size:12px; line-height:11px; color:var(--mute); white-space:pre}
+#sidebar .mmw-hilo:empty{display:none}
+#sidebar .mmw-line{
+  margin:4px 6px 5px; padding:0;
+  font:italic 11.5px/1.35 Georgia,"Times New Roman",serif !important; letter-spacing:0; color:var(--mute);
+}
+#sidebar .mmw-more{
+  display:flex; align-items:center; gap:5px; width:100%;
+  padding:2px 6px 1px; border:0; border-top:1px solid #cfe6b8; background:none;
+  font-size:12px; line-height:13px; color:#4e7a2c; text-align:left; letter-spacing:.06em;
+}
+#sidebar .mmw-more::before{
+  content:""; width:0; height:0; border:3px solid transparent; border-left:4px solid currentColor; border-right:0;
+  transition:transform .15s;
+}
+#sidebar .mmw-more[aria-expanded="true"]::before{transform:rotate(90deg)}
+#sidebar .mmw-more:hover{background:#e3f5cf}
+#sidebar .mmw-det{padding:0 6px 4px}
+#sidebar .mmw-det[hidden]{display:none}
+#sidebar .mmw-days{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin:2px 0 4px; padding:0; list-style:none;
+}
+#sidebar .mmw-days li{
+  display:flex; flex-direction:column; align-items:center; gap:2px; padding:3px 0 2px; margin:0;
+  background:#fff; border:1px solid #cfe6b8; list-style:none;
+}
+#sidebar .mmw-days li::before, #sidebar .mmw-days li::after{content:none !important}
+#sidebar .mmw-days svg{display:block; width:22px; height:22px}
+#sidebar .mmw-dn{font-size:12px; line-height:11px; color:#4e7a2c; text-transform:uppercase; letter-spacing:.08em}
+#sidebar .mmw-dt{font-size:13px; line-height:12px; color:var(--ink)}
+#sidebar .mmw-dt i{font-style:normal; color:var(--mute); margin-left:4px}
+#sidebar .mmw-sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+#sidebar .mmw-meta{display:grid; grid-template-columns:1fr 1fr; gap:1px 6px; font-size:12px; line-height:13px; color:var(--mute)}
+#sidebar .mmw-meta span:empty{display:none}
+
+@media (prefers-reduced-motion:reduce){
+  #sidebar .mmp *, #sidebar .mmw *{animation:none !important; transition:none !important}
+}
