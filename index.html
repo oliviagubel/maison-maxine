@@ -94,12 +94,11 @@ body::after{content:'';position:fixed;inset:0;background:rgba(255,255,255,.5);po
   font:12px/1.5 'Times New Roman',Times,serif;color:#34212b;
 }
 .counter{display:inline-flex;align-items:center;gap:6px;margin:0 0 2px;font-family:'Pixelify Sans',monospace;font-size:12px}
-.odo{display:inline-flex;gap:1px;background:#000;padding:2px;border:1px solid #888}
-.odo b{display:block;width:11px;height:16px;overflow:hidden;font-weight:400;color:#7dff8a;background:#111;text-align:center;line-height:16px;font-size:13px}
+.odo{display:inline-flex;gap:1px;background:#2b0f22;padding:2px;border:2px outset #e8a}   /* the same wine and pink as the 88x31 badge */
+.odo b{display:block;width:11px;height:16px;overflow:hidden;font-weight:400;color:#ffd6ec;background:linear-gradient(#5a1e3a,#3d1229 50%,#2b0f22 50%,#4a1830);text-align:center;line-height:16px;font-size:13px;text-shadow:0 0 4px rgba(255,170,210,.6)}
 .odo b span{display:block}
 .odo b span.roll{animation:roll .6s steps(4) .3s both}
 @keyframes roll{from{transform:translateY(16px)}to{transform:none}}
-.odo i{color:#7dff8a;font-style:normal;line-height:16px;padding:0 1px}
 .foot a{color:#0000ee;text-decoration:underline}
 .foot a:visited{color:#551a8b}
 .badge{display:inline-flex;vertical-align:middle;flex-direction:column;align-items:center;justify-content:center;height:31px;width:88px;margin-left:8px;
@@ -334,7 +333,7 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
   var n=42817+Math.floor((Date.now()-Date.UTC(2026,9,1))/86400000)*37;
   try{var k=parseInt(localStorage.getItem('mm_visitor')||'0',10);n=Math.max(n,k+1);localStorage.setItem('mm_visitor',String(n));}catch(e){}
   var odo=document.getElementById('odo'), s=String(n).padStart(7,'0');
-  odo.innerHTML=s.split('').map(function(d,i){return (i===s.length-3?'<i>,</i>':'')+'<b><span>'+d+'</span></b>';}).join('');
+  odo.innerHTML=s.split('').map(function(d){return '<b><span>'+d+'</span></b>';}).join('');   // leading zeros, no comma, like the real ones
   odo.parentNode.setAttribute('aria-label','you are visitor number '+n.toLocaleString());
   if(!still)odo.querySelector('b:last-child span').classList.add('roll');   // the last digit ticks over
 
