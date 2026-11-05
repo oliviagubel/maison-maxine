@@ -659,6 +659,41 @@ body::before{
 }
 
 
+/* the aux plays real previews now: brushed-metal transport, a seek groove */
+.itunes-transport{display:flex;align-items:center;gap:3px;flex-shrink:0}
+.itunes-play-btn, .itunes-skip-btn{
+  display:flex;align-items:center;justify-content:center;padding:0;margin:0;cursor:pointer;color:#444;
+  background:linear-gradient(180deg,#fdfdfd 0%,#e4e4e4 50%,#d2d2d2 51%,#e9e9e9 100%);
+  border:1px solid #8e8e8e;box-shadow:inset 0 1px 0 #fff;
+}
+.itunes-play-btn{width:30px;height:30px;border-radius:50%}
+.itunes-skip-btn{width:24px;height:24px;border-radius:50%}
+.itunes-play-btn svg{width:10px;height:10px;fill:currentColor;display:block}
+.itunes-skip-btn svg{width:11px;height:8px;fill:currentColor;display:block}
+.itunes-play-btn .i-play{margin-left:2px}
+.itunes-play-btn .i-pause, .itunes-play-btn.is-playing .i-play{display:none}
+.itunes-play-btn.is-playing .i-pause{display:block}
+.itunes-play-btn:active, .itunes-skip-btn:active{background:linear-gradient(180deg,#cfcfcf,#e8e8e8);box-shadow:inset 0 1px 2px rgba(0,0,0,.25)}
+.itunes-play-btn:focus-visible, .itunes-skip-btn:focus-visible, .itunes-seek:focus-visible, .itunes-track-table tbody tr:focus-visible, .itunes-pl-btn:focus-visible, .mobile-playlist-pill:focus-visible{outline:2px solid #6ba3e8;outline-offset:1px}
+.itunes-np-link{color:inherit;text-decoration:none;display:block;min-width:0}
+.itunes-np-link:hover .itunes-np-song{text-decoration:underline}
+.itunes-np-song{display:block}
+.itunes-credit{color:#aaa}
+.itunes-seek{
+  -webkit-appearance:none;appearance:none;flex:1;min-width:0;height:7px;margin:0;padding:0;cursor:pointer;
+  background:linear-gradient(180deg,#6ba3e8,#3875d7) 0 0/var(--p,0%) 100% no-repeat, #c8c8c8;
+  border:1px solid #9a9a9a;border-radius:4px;box-shadow:inset 0 1px 1px rgba(0,0,0,.15);
+}
+.itunes-seek:disabled{cursor:default}
+.itunes-seek::-webkit-slider-thumb{-webkit-appearance:none;width:11px;height:11px;border-radius:50%;background:linear-gradient(180deg,#fff,#d6d6d6);border:1px solid #888}
+.itunes-seek::-moz-range-thumb{width:10px;height:10px;border-radius:50%;background:linear-gradient(180deg,#fff,#d6d6d6);border:1px solid #888}
+.itunes-seek:disabled::-webkit-slider-thumb{visibility:hidden}
+.itunes-seek:disabled::-moz-range-thumb{visibility:hidden}
+.itunes-status{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.itunes-pl-btn{all:unset;display:block;width:100%;cursor:pointer}
+.itunes-track-table tbody tr.no-preview td{color:#aaa}
+@media (prefers-reduced-motion:reduce){.itunes-eq span{animation:none !important}}
+
 /* ═══ MOBILE PLAYLIST PILLS ═══ */
 .mobile-playlist-pills{
   display:none;
@@ -929,17 +964,20 @@ body::before{
       <div class="itunes-content">
         <!-- Now Playing bar -->
         <div class="itunes-now-playing">
-          <div class="itunes-play-btn" id="itunes-play-btn">▶</div>
+          <div class="itunes-transport">
+            <button type="button" class="itunes-skip-btn" id="itunes-prev-btn" aria-label="previous song"><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M0 0h2v8H0zM7 0v8L2 4zM12 0v8L7 4z"/></svg></button>
+            <button type="button" class="itunes-play-btn" id="itunes-play-btn" aria-label="play 30-second preview"><svg class="i-play" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 0l7 4-7 4z"/></svg><svg class="i-pause" viewBox="0 0 8 8" aria-hidden="true"><path d="M1 0h2v8H1zM5 0h2v8H5z"/></svg></button>
+            <button type="button" class="itunes-skip-btn" id="itunes-next-btn" aria-label="next song"><svg viewBox="0 0 12 8" aria-hidden="true"><path d="M0 0l5 4-5 4zM5 0l5 4-5 4zM10 0h2v8h-2z"/></svg></button>
+          </div>
           <div class="itunes-np-info">
-            <div class="itunes-np-song" id="itunes-np-song">—</div>
-            <div class="itunes-np-artist" id="itunes-np-artist">—</div>
+            <a class="itunes-np-link" id="itunes-np-link" href="https://music.apple.com/" target="_blank" rel="noopener" title="open on apple music"><span class="itunes-np-song" id="itunes-np-song">—</span></a>
+            <div class="itunes-np-artist"><span id="itunes-np-artist">—</span> <span class="itunes-credit">· 30-sec previews via itunes</span></div>
           </div>
           <div class="itunes-progress-wrap">
-            <div class="itunes-progress-bar">
-              <div class="itunes-progress-fill" id="itunes-progress-fill"></div>
-            </div>
-            <div class="itunes-progress-time" id="itunes-progress-time">0:00</div>
+            <input type="range" class="itunes-seek" id="itunes-seek" min="0" max="30" step="0.1" value="0" aria-label="seek" disabled>
+            <div class="itunes-progress-time" id="itunes-progress-time" aria-hidden="true">0:00</div>
           </div>
+          <span class="itunes-status" id="itunes-status" role="status"></span>
         </div>
 
         <!-- Track table -->
@@ -984,214 +1022,265 @@ body::before{
 
 <script>
 // ═══ ITUNES PLAYER ═══
+// the aux: real 30-second itunes previews (looked up by track id, so it's
+// always the right recording). starts paused; nothing plays until someone
+// presses play or picks a song. pauses the sidebar deck, and vice versa.
 (function(){
   var playlists = {
     'golden hour': [
-      {song:'California',artist:'Phantom Planet',time:'2:50'},
-      {song:'Sexy to Someone',artist:'Clairo',time:'3:14'},
-      {song:'Venice Bitch',artist:'Lana Del Rey',time:'9:37'},
-      {song:'Sunset',artist:'The Midnight',time:'4:22'},
-      {song:'Golden Hour',artist:'Kacey Musgraves',time:'3:49'}
+      {song:'California',artist:'Phantom Planet',time:'3:11',id:6794050137},
+      {song:'Sexy to Someone',artist:'Clairo',time:'3:27',id:1742301417},
+      {song:'Venice Bitch',artist:'Lana Del Rey',time:'9:37',id:1474669067},
+      {song:'Sunset',artist:'The Midnight',time:'5:26',id:1758759167},
+      {song:'Golden Hour',artist:'Kacey Musgraves',time:'3:18',id:1440918404}
     ],
     'getting ready': [
-      {song:'Me & U',artist:'Cassie',time:'3:35'},
-      {song:'Promiscuous',artist:'Nelly Furtado ft. Timbaland',time:'4:02'},
-      {song:'Fergalicious',artist:'Fergie',time:'3:38'},
-      {song:'Since U Been Gone',artist:'Kelly Clarkson',time:'3:09'},
-      {song:'Crazy in Love',artist:'Beyoncé',time:'3:56'},
-      {song:'Temperature',artist:'Sean Paul',time:'3:37'}
+      {song:'Me & U',artist:'Cassie',time:'3:12',id:171980163},
+      {song:'Promiscuous',artist:'Nelly Furtado ft. Timbaland',time:'4:02',id:1568362821},
+      {song:'Fergalicious',artist:'Fergie',time:'4:52',id:1619001616},
+      {song:'Since U Been Gone',artist:'Kelly Clarkson',time:'3:08',id:275765380},
+      {song:'Crazy in Love',artist:'Beyoncé',time:'3:56',id:201274644},
+      {song:'Temperature',artist:'Sean Paul',time:'3:36',id:261648942}
     ],
     'sunday morning': [
-      {song:'Henry Come On',artist:'Lana Del Rey',time:'3:45'},
-      {song:'Bags',artist:'Clairo',time:'4:02'},
-      {song:'The Night We Met',artist:'Lord Huron',time:'3:28'},
-      {song:'Cherry Wine',artist:'Hozier',time:'4:16'},
-      {song:'Pink + White',artist:'Frank Ocean',time:'3:04'}
+      {song:'Henry Come On',artist:'Lana Del Rey',time:'5:11',id:1807425306},
+      {song:'Bags',artist:'Clairo',time:'4:20',id:1893175134},
+      {song:'The Night We Met',artist:'Lord Huron',time:'3:28',id:1806531961},
+      {song:'Cherry Wine',artist:'Hozier',time:'4:00',id:900672720},
+      {song:'Pink + White',artist:'Frank Ocean',time:'3:04',id:1146195714}
     ],
     'road trip': [
-      {song:'California Gurls',artist:'Katy Perry',time:'3:56'},
-      {song:'Melrose Meltdown',artist:'Suki Waterhouse',time:'3:22'},
-      {song:'West Coast',artist:'Lana Del Rey',time:'4:23'},
-      {song:'Shut Up and Drive',artist:'Rihanna',time:'3:33'},
-      {song:'Edge of Seventeen',artist:'Stevie Nicks',time:'5:28'}
+      {song:'California Gurls',artist:'Katy Perry',time:'3:54',id:1013032940},
+      {song:'Melrose Meltdown',artist:'Suki Waterhouse',time:'3:22',id:0},
+      {song:'West Coast',artist:'Lana Del Rey',time:'4:16',id:1440818520},
+      {song:'Shut Up and Drive',artist:'Rihanna',time:'3:33',id:1441154562},
+      {song:'Edge of Seventeen',artist:'Stevie Nicks',time:'5:29',id:1163931703}
     ],
     'wine night': [
-      {song:'Cherry',artist:'Lana Del Rey',time:'3:00'},
-      {song:'Motion Sickness',artist:'Phoebe Bridgers',time:'3:42'},
-      {song:'Liability',artist:'Lorde',time:'2:52'},
-      {song:'The 1',artist:'Taylor Swift',time:'3:30'},
-      {song:'Love Song',artist:'Lana Del Rey',time:'3:32'},
-      {song:'Apocalypse',artist:'Cigarettes After Sex',time:'4:17'}
+      {song:'Cherry',artist:'Lana Del Rey',time:'3:00',id:1440900251},
+      {song:'Motion Sickness',artist:'Phoebe Bridgers',time:'3:49',id:1256607810},
+      {song:'Liability',artist:'Lorde',time:'2:51',id:1429663167},
+      {song:'The 1',artist:'Taylor Swift',time:'3:30',id:1528111837},
+      {song:'Love Song',artist:'Lana Del Rey',time:'3:49',id:1474669073},
+      {song:'Apocalypse',artist:'Cigarettes After Sex',time:'4:50',id:1217977755}
     ]
   };
 
   var playlistNames = Object.keys(playlists);
   var currentPlaylist = playlistNames[0];
   var currentTrackIndex = 0;
-  var isPlaying = true;
-  var progressInterval = null;
-  var progressPercent = 0;
+  var audio = new Audio(); audio.preload = 'none'; audio.volume = .7;
+  var loadedId = null, wantPlay = false, buffering = false;
+  var cache = {}; try{ cache = JSON.parse(sessionStorage.getItem('mm_aux_cache')||'{}'); }catch(e){}
 
   var playlistListEl = document.getElementById('itunes-playlist-list');
   var trackBodyEl = document.getElementById('itunes-track-body');
   var npSongEl = document.getElementById('itunes-np-song');
   var npArtistEl = document.getElementById('itunes-np-artist');
+  var npLinkEl = document.getElementById('itunes-np-link');
   var playBtnEl = document.getElementById('itunes-play-btn');
-  var progressFillEl = document.getElementById('itunes-progress-fill');
+  var prevBtnEl = document.getElementById('itunes-prev-btn');
+  var nextBtnEl = document.getElementById('itunes-next-btn');
+  var seekEl = document.getElementById('itunes-seek');
   var progressTimeEl = document.getElementById('itunes-progress-time');
+  var statusEl = document.getElementById('itunes-status');
   var mobilePillsEl = document.getElementById('mobile-pills');
 
-  // Build sidebar playlist list
+  function tracks(){ return playlists[currentPlaylist]; }
+  function track(){ return tracks()[currentTrackIndex]; }
+  function clock(s){ s=Math.max(0,Math.floor(s||0)); return Math.floor(s/60)+':'+(s%60<10?'0':'')+(s%60); }
+  function playing(){ return !audio.paused || buffering; }
+
+  function pickPlaylist(name){
+    if(name===currentPlaylist) return;
+    stop(); currentPlaylist=name; currentTrackIndex=0;
+    buildPlaylistList(); buildMobilePills(); updateNowPlaying(); sync();
+  }
+
   function buildPlaylistList(){
     playlistListEl.innerHTML='';
     playlistNames.forEach(function(name){
       var li = document.createElement('li');
-      li.textContent = name;
-      if(name===currentPlaylist) li.className='active';
-      li.addEventListener('click',function(){
-        currentPlaylist=name;
-        currentTrackIndex=0;
-        isPlaying=true;
-        playBtnEl.textContent='❚❚';
-        buildPlaylistList();
-        buildMobilePills();
-        renderTracks();
-        updateNowPlaying();
-        startProgress();
-      });
+      var b = document.createElement('button');
+      b.type='button'; b.className='itunes-pl-btn'; b.textContent=name;
+      if(name===currentPlaylist){ li.className='active'; b.setAttribute('aria-current','true'); }
+      b.addEventListener('click',function(){ pickPlaylist(name); });
+      li.appendChild(b);
       playlistListEl.appendChild(li);
     });
   }
 
-  // Build mobile pills
   function buildMobilePills(){
     mobilePillsEl.innerHTML='';
     playlistNames.forEach(function(name){
-      var pill = document.createElement('div');
+      var pill = document.createElement('button');
+      pill.type='button';
       pill.className='mobile-playlist-pill'+(name===currentPlaylist?' active':'');
       pill.textContent=name;
-      pill.addEventListener('click',function(){
-        currentPlaylist=name;
-        currentTrackIndex=0;
-        isPlaying=true;
-        playBtnEl.textContent='❚❚';
-        buildPlaylistList();
-        buildMobilePills();
-        renderTracks();
-        updateNowPlaying();
-        startProgress();
-      });
+      pill.addEventListener('click',function(){ pickPlaylist(name); });
       mobilePillsEl.appendChild(pill);
     });
   }
 
-  // Render tracks
   function renderTracks(){
     trackBodyEl.innerHTML='';
-    var tracks = playlists[currentPlaylist];
-    tracks.forEach(function(t,i){
+    tracks().forEach(function(t,i){
       var tr = document.createElement('tr');
-      if(i===currentTrackIndex){
-        tr.className='playing';
-      }
+      var cur = i===currentTrackIndex;
+      if(cur) tr.className='playing';
+      if(!t.id) tr.className+=' no-preview';
+      tr.tabIndex = 0;
+      tr.setAttribute('aria-label', t.song+' by '+t.artist+(t.id?'':', no preview available')+(cur&&playing()?', playing':''));
       var numTd = document.createElement('td');
-      if(i===currentTrackIndex && isPlaying){
-        numTd.innerHTML='<span class="itunes-eq"><span></span><span></span><span></span><span></span></span>';
-      } else if(i===currentTrackIndex && !isPlaying){
-        numTd.innerHTML='<span class="itunes-eq paused"><span></span><span></span><span></span><span></span></span>';
-      } else {
-        numTd.textContent=i+1;
+      if(cur && playing()) numTd.innerHTML='<span class="itunes-eq"><span></span><span></span><span></span><span></span></span>';
+      else if(cur) numTd.innerHTML='<span class="itunes-eq paused"><span></span><span></span><span></span><span></span></span>';
+      else numTd.textContent=i+1;
+      var songTd = document.createElement('td'); songTd.className='song-cell'; songTd.textContent=t.song;
+      var artistTd = document.createElement('td'); artistTd.textContent=t.artist;
+      var timeTd = document.createElement('td'); timeTd.textContent=t.id ? t.time : 'n/a';
+      if(!t.id) timeTd.title='no preview in the itunes store';
+      tr.appendChild(numTd); tr.appendChild(songTd); tr.appendChild(artistTd); tr.appendChild(timeTd);
+      function choose(){
+        if(i===currentTrackIndex && playing()) return;
+        if(i!==currentTrackIndex){ stop(); currentTrackIndex=i; updateNowPlaying(); }
+        play();
       }
-
-      var songTd = document.createElement('td');
-      songTd.className='song-cell';
-      songTd.textContent=t.song;
-
-      var artistTd = document.createElement('td');
-      artistTd.textContent=t.artist;
-
-      var timeTd = document.createElement('td');
-      timeTd.textContent=t.time;
-
-      tr.appendChild(numTd);
-      tr.appendChild(songTd);
-      tr.appendChild(artistTd);
-      tr.appendChild(timeTd);
-
-      tr.addEventListener('click',function(){
-        currentTrackIndex=i;
-        isPlaying=true;
-        playBtnEl.textContent='❚❚';
-        renderTracks();
-        updateNowPlaying();
-        startProgress();
+      tr.addEventListener('click',choose);
+      tr.addEventListener('keydown',function(e){
+        if(e.key==='Enter'||e.key===' '){ e.preventDefault(); choose(); }
+        if(e.key==='ArrowDown'&&tr.nextSibling){ e.preventDefault(); tr.nextSibling.focus(); }
+        if(e.key==='ArrowUp'&&tr.previousSibling){ e.preventDefault(); tr.previousSibling.focus(); }
       });
-
       trackBodyEl.appendChild(tr);
     });
   }
 
-  // Update now playing bar
+  function link(t){
+    var c = cache[t.id];
+    return c && c.page ? c.page : 'https://music.apple.com/us/search?term='+encodeURIComponent(t.artist+' '+t.song);
+  }
+
   function updateNowPlaying(){
-    var track = playlists[currentPlaylist][currentTrackIndex];
-    npSongEl.textContent=track.song;
-    npArtistEl.textContent=track.artist;
-    progressPercent=0;
-    progressFillEl.style.width='0%';
+    var t = track();
+    npSongEl.textContent=t.song;
+    npArtistEl.textContent=t.artist;
+    npLinkEl.href=link(t);
+    seekEl.value=0; seekEl.max=30; seekEl.disabled=true;
+    seekEl.style.setProperty('--p','0%');
+    seekEl.setAttribute('aria-valuetext','0:00 of 0:30');
     progressTimeEl.textContent='0:00';
-
-    // Also update sidebar now playing
-    var sidebarSong = document.getElementById('np-song');
-    var sidebarArtist = document.getElementById('np-artist');
-    if(sidebarSong) sidebarSong.textContent=track.song.toLowerCase();
-    if(sidebarArtist) sidebarArtist.textContent=track.artist.toLowerCase();
   }
 
-  // Progress simulation
-  function startProgress(){
-    if(progressInterval) clearInterval(progressInterval);
-    progressPercent=0;
-    var track = playlists[currentPlaylist][currentTrackIndex];
-    var parts = track.time.split(':');
-    var totalSec = parseInt(parts[0])*60+parseInt(parts[1]);
-    // Simulate in ~30 seconds regardless of track length
-    var step = 100/300; // 300 ticks at 100ms = 30 sec total
-    progressInterval = setInterval(function(){
-      if(!isPlaying) return;
-      progressPercent+=step;
-      if(progressPercent>=100){
-        progressPercent=100;
-        clearInterval(progressInterval);
-        // Move to next track
-        if(currentTrackIndex<playlists[currentPlaylist].length-1){
-          currentTrackIndex++;
-          renderTracks();
-          updateNowPlaying();
-          startProgress();
-        }
-      }
-      progressFillEl.style.width=progressPercent+'%';
-      var elapsed = Math.floor(progressPercent/100*totalSec);
-      var m = Math.floor(elapsed/60);
-      var s = elapsed%60;
-      progressTimeEl.textContent=m+':'+(s<10?'0':'')+s;
-    },100);
+  function paintTime(){
+    var cur=audio.currentTime||0, dur=audio.duration||30;
+    progressTimeEl.textContent=clock(cur);
+    if(!seekEl.disabled){
+      seekEl.value=cur;
+      seekEl.style.setProperty('--p',(cur/dur*100).toFixed(2)+'%');
+      seekEl.setAttribute('aria-valuetext',clock(cur)+' of '+clock(dur));
+    }
   }
 
-  // Play/pause
-  playBtnEl.addEventListener('click',function(){
-    isPlaying=!isPlaying;
-    playBtnEl.textContent=isPlaying?'❚❚':'▶';
+  function lookup(t){
+    if(cache[t.id] && cache[t.id].preview) return Promise.resolve(cache[t.id]);
+    return fetch('https://itunes.apple.com/lookup?country=us&id='+t.id)
+      .then(function(r){return r.json()})
+      .then(function(d){
+        var r = d && d.results && d.results[0];
+        if(!r || !r.previewUrl) throw new Error('no preview');
+        cache[t.id] = {preview:r.previewUrl, page:r.trackViewUrl};
+        try{ sessionStorage.setItem('mm_aux_cache', JSON.stringify(cache)); }catch(e){}
+        return cache[t.id];
+      });
+  }
+
+
+  // fetch every preview url up front in one request, so pressing play can
+  // start the audio inside the tap itself (safari, iphones especially,
+  // refuse audio that only starts after a network round trip)
+  function prefetch(ids){
+    ids = ids.filter(function(id){ return id && !(cache[id] && cache[id].preview); });
+    if(!ids.length) return;
+    fetch('https://itunes.apple.com/lookup?country=us&id='+ids.join(','))
+      .then(function(r){return r.json()})
+      .then(function(d){
+        (d.results||[]).forEach(function(r){ if(r.previewUrl) cache[r.trackId]={preview:r.previewUrl, page:r.trackViewUrl}; });
+        try{ sessionStorage.setItem('mm_aux_cache', JSON.stringify(cache)); }catch(e){}
+        npLinkEl.href=link(track());
+      }).catch(function(){});
+  }
+
+  function play(){
+    var t = track();
+    if(!t.id){ say('no preview for '+t.song+' in the itunes store'); npArtistEl.textContent=t.artist+' · no preview'; sync(); return; }
+    wantPlay = true;
+    if(loadedId===t.id){ audio.play().catch(fail); return; }
+    buffering = true; sync(); say('loading '+t.song);
+    function start(info){
+      npLinkEl.href = info.page;
+      loadedId = t.id; audio.src = info.preview;
+      return audio.play();
+    }
+    if(cache[t.id] && cache[t.id].preview){ start(cache[t.id]).catch(fail); return; }
+    lookup(t).then(function(info){
+      if(track().id!==t.id || !wantPlay) return;
+      return start(info);
+    }).catch(fail);
+  }
+  function fail(){ buffering=false; wantPlay=false; npArtistEl.textContent=track().artist+' · preview unavailable'; say('preview unavailable'); sync(); }
+  function stop(){ wantPlay=false; buffering=false; audio.pause(); loadedId=null; audio.removeAttribute('src'); audio.load(); }
+  function say(m){ statusEl.textContent=m; }
+
+  // skip past songs with no preview when moving on
+  function step(dir, keepPlaying){
+    var n=tracks().length, i=currentTrackIndex;
+    for(var k=0;k<n;k++){ i=(i+dir+n)%n; if(tracks()[i].id) break; }
+    if(keepPlaying && dir>0 && i<=currentTrackIndex){ stop(); currentTrackIndex=0; updateNowPlaying(); sync(); return; } // end of the playlist
+    stop(); currentTrackIndex=i; updateNowPlaying();
+    if(keepPlaying) play(); else sync();
+  }
+
+  function sync(){
+    var on = playing();
+    playBtnEl.classList.toggle('is-playing', on);
+    playBtnEl.setAttribute('aria-label', on ? 'pause' : 'play 30-second preview');
+    renderTracksKeepFocus();
+  }
+  function renderTracksKeepFocus(){
+    var a=document.activeElement, idx=a && a.parentNode===trackBodyEl ? [].indexOf.call(trackBodyEl.children,a) : -1;
     renderTracks();
-  });
+    if(idx>=0 && trackBodyEl.children[idx]) trackBodyEl.children[idx].focus();
+  }
 
-  // Init
+  playBtnEl.addEventListener('click',function(){
+    if(playing()){ wantPlay=false; buffering=false; audio.pause(); sync(); } else play();
+  });
+  prevBtnEl.addEventListener('click',function(){
+    if(audio.currentTime>3 && loadedId){ audio.currentTime=0; paintTime(); return; }
+    step(-1, playing());
+  });
+  nextBtnEl.addEventListener('click',function(){ step(1, playing()); });
+  seekEl.addEventListener('input',function(){ if(audio.duration) audio.currentTime=+seekEl.value; paintTime(); });
+
+  audio.addEventListener('playing',function(){
+    buffering=false; say('playing '+track().song+' by '+track().artist); sync();
+    document.dispatchEvent(new CustomEvent('mm:audio-play',{detail:audio}));
+  });
+  audio.addEventListener('pause',function(){ if(!buffering) sync(); });
+  audio.addEventListener('loadedmetadata',function(){ seekEl.max=audio.duration||30; seekEl.disabled=false; paintTime(); });
+  audio.addEventListener('timeupdate',paintTime);
+  audio.addEventListener('ended',function(){ step(1, true); });
+  audio.addEventListener('error',function(){ if(audio.getAttribute('src')) fail(); });
+  // only one song at a time on the page: the sidebar deck pauses us when it starts
+  document.addEventListener('mm:audio-play',function(e){ if(e.detail!==audio && !audio.paused){ wantPlay=false; audio.pause(); } });
+  window.addEventListener('pagehide',function(){ audio.pause(); });
+
   buildPlaylistList();
   buildMobilePills();
   renderTracks();
   updateNowPlaying();
-  startProgress();
-
+  sync();
+  prefetch(Object.keys(playlists).reduce(function(a,k){return a.concat(playlists[k].map(function(t){return t.id}))},[]));
 })();
 </script>
 

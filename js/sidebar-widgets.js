@@ -140,16 +140,33 @@
       }catch(e){ ctx = null; analyser = null; }
     }
 
+
+    // fetch every preview url up front in one request, so pressing play can
+    // start the audio inside the tap itself (safari, iphones especially,
+    // refuse audio that only starts after a network round trip)
+    function prefetch(ids){
+      ids = ids.filter(function(id){ return id && !(cache[id] && cache[id].preview); });
+      if(!ids.length) return;
+      fetch('https://itunes.apple.com/lookup?country=us&id='+ids.join(','))
+        .then(function(r){return r.json()})
+        .then(function(d){
+          (d.results||[]).forEach(function(r){ if(r.previewUrl) cache[r.trackId]={preview:r.previewUrl, page:r.trackViewUrl}; });
+          try{ sessionStorage.setItem('mm_aux_cache', JSON.stringify(cache)); }catch(e){}
+          var c = cache[TRACKS[idx].id]; if(c && c.page){ mqLink.href = src.href = c.page; }
+        }).catch(function(){});
+    }
+
     function play(){
       var t = TRACKS[idx]; wantPlay = true;
       setupAnalyser();                       // inside the click, so browsers allow it
       if(ctx && ctx.state==='suspended') ctx.resume();
       if(loadedId===t.id){ audio.play().catch(onFail); return; }
       root.classList.add('is-buffering'); say('buffering '+t.song);
+      function start(info){ loadedId = t.id; audio.src = info.preview; return audio.play(); }
+      if(cache[t.id] && cache[t.id].preview){ start(cache[t.id]).catch(onFail); return; }  // still inside the click
       lookup(t).then(function(info){
         if(TRACKS[idx].id!==t.id || !wantPlay) return;
-        loadedId = t.id; audio.src = info.preview; audio.load();
-        return audio.play();
+        return start(info);
       }).catch(onFail);
     }
     function onFail(){
@@ -217,7 +234,12 @@
     });
     seek.addEventListener('input', function(){ if(audio.duration) audio.currentTime = +seek.value; paintTime(); });
 
-    audio.addEventListener('playing', function(){ root.classList.remove('is-buffering'); say('playing '+TRACKS[idx].song+' by '+TRACKS[idx].artist); syncState(); });
+    audio.addEventListener('playing', function(){
+      root.classList.remove('is-buffering'); say('playing '+TRACKS[idx].song+' by '+TRACKS[idx].artist); syncState();
+      document.dispatchEvent(new CustomEvent('mm:audio-play',{detail:audio}));
+    });
+    // one song at a time: the aux's big player (playlist.html) pauses us when it starts
+    document.addEventListener('mm:audio-play', function(e){ if(e.detail!==audio && (wantPlay || !audio.paused)) pause(); });
     audio.addEventListener('pause', syncState);
     audio.addEventListener('loadedmetadata', function(){ seek.max = audio.duration||30; seek.disabled=false; paintTime(); });
     audio.addEventListener('timeupdate', paintTime);
@@ -227,6 +249,7 @@
     window.addEventListener('pagehide', function(){ audio.pause(); });
 
     showTrack(); syncState(); draw();
+    prefetch(TRACKS.map(function(t){return t.id}));
   })();
 
   /* ════════════════ MALIBU WEATHER ════════════════ */
