@@ -54,7 +54,10 @@
       {id:1146195714, artist:'frank ocean', song:'pink + white', len:'3:04'},
       {id:275765380,  artist:'kelly clarkson', song:'since u been gone', len:'3:08'},
       {id:171980163,  artist:'cassie', song:'me & u', len:'3:12'},
-      {id:1163931703, artist:'stevie nicks', song:'edge of seventeen', len:'5:29'}
+      {id:1163931703, artist:'stevie nicks', song:'edge of seventeen', len:'5:29'},
+      {id:1526449291, artist:'holly humberstone', song:'falling asleep at the wheel', len:'3:23'},
+      {id:1644955096, artist:'quinnie', song:'gold star', len:'3:10'},
+      {id:6800467359, artist:'remi wolf', song:'wine drunk', len:'4:23'}
     ];
     var $ = function(s){return root.querySelector(s)};
     var playBtn=$('.mmp-play'), prevBtn=$('.mmp-prev'), nextBtn=$('.mmp-next'),
