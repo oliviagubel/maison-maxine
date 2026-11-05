@@ -73,7 +73,7 @@
   else init();
 
   /* ═══ THE CURSOR TRAIL ═══
-     after appledoll.com's: little pink × stars shed by the wine glass as it
+     after appledoll.com's: little sky-blue teal × stars shed by the wine glass as it
      moves, more the faster it goes. each one falls and drifts a touch,
      shrinks halfway through its life, then fades to a dot and goes. up to
      200 at once, on one transparent canvas that never takes a click. it
@@ -81,7 +81,7 @@
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
   var MAX = 200, LIFE = 60, SPACING = 20;           // stars, frames (~1s at 60fps), px between stars
-  var COLORS = ['#f4a9c8', '#f7bdd5', '#ee93ba'];   // appledoll's soft pink, a shade deeper so it shows on white
+  var COLORS = ['#7cc6d1', '#9dd3dd', '#8bb8d6'];   // silvery sky-blue teal, deep enough to show on white
   var canvas = document.createElement('canvas');
   canvas.setAttribute('aria-hidden', 'true');
   canvas.style.cssText = 'position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:99998';

@@ -340,7 +340,7 @@ body.lift .curtain,body.lift .backdrop,body.lift::after{transform:translateY(-11
 
   /* sparkle trail: mouse only, never on touch or with reduced motion */
   if(!still&&matchMedia('(hover:hover) and (pointer:fine)').matches){
-    var co=['#ffffff','#fce5f7','#f7b8d6','#d371a1'],lx=0,ly=0,th=0;
+    var co=['#ffffff','#dcf2f5','#a8d9e1','#6db8c5'],lx=0,ly=0,th=0;
     document.addEventListener('mousemove',function(e){
       var now=Date.now();if(now-th<50)return;th=now;
       if(Math.abs(e.clientX-lx)+Math.abs(e.clientY-ly)<6)return;lx=e.clientX;ly=e.clientY;
