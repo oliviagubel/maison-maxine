@@ -3,129 +3,423 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
+<!-- private: only reachable by its link. nothing on the site points here,
+     it isn't in sitemap.xml, and search engines are told not to list it. -->
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
+<meta name="referrer" content="no-referrer">
 <title>Trade Catalog · Maison Maxine</title>
-<meta name="description" content="Maison Maxine distributor and chain overview, 2026.">
+<meta name="theme-color" content="#faf9f7">
 <link rel="icon" href="../favicon-32.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <style>
-/* the trade catalog: the distributor deck, slide by slide, with the pdf to
-   download. only reachable by its link; nothing on the site points here. */
+/* the trade catalog as a page: the 2026 grocery & distributor catalog,
+   set in gill sans on warm paper. deliberately nothing like the rest of
+   the site: no stickers, no y2k, just the catalog. */
+@font-face{font-family:"MM Gill";font-weight:300;src:local("GillSans-Light"),local("Gill Sans Light"),local("Gill Sans MT Light")}
+@font-face{font-family:"MM Gill";font-weight:400;src:local("GillSans"),local("Gill Sans"),local("Gill Sans MT")}
+@font-face{font-family:"MM Gill";font-weight:600;src:local("GillSans-SemiBold"),local("Gill Sans SemiBold"),local("GillSans-Bold"),local("Gill Sans MT Bold")}
+@font-face{font-family:"MM Gill";font-weight:300;font-style:italic;src:local("GillSans-LightItalic"),local("Gill Sans Light Italic"),local("GillSans-Italic"),local("Gill Sans MT Italic")}
+
+:root{
+  --paper:#faf9f7; --ink:#1c1a1a; --body:#3a3636; --mute:#7a7471; --hair:#dedad6; --wash:#f1eeeb;
+  --pink:#d89cc0; --star:#b9779c;
+  --sans:"MM Gill","Gill Sans","Gill Sans MT","Gill Sans Nova",Seravek,"Helvetica Neue",Arial,sans-serif;
+  --wrap:1180px; --pad:clamp(20px,5vw,64px);
+}
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#f4eef0;color:#1d1b1c;
-  font-family:'EB Garamond',Garamond,Georgia,serif;
-  padding:0 16px calc(48px + env(safe-area-inset-bottom));
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--body);font:300 18px/1.6 var(--sans);-webkit-font-smoothing:antialiased;font-kerning:normal}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
+a:focus-visible,button:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+::selection{background:#f3dbe8}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
+.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:lowercase;color:var(--mute);font-weight:300}
+h2{font-weight:400;color:var(--ink);font-size:clamp(36px,4.6vw,56px);line-height:1.04;letter-spacing:-.015em}
+h3{font-weight:300;color:var(--ink);font-size:24px;line-height:1.25}
+.lede{font-size:clamp(19px,1.7vw,22px);line-height:1.55;color:var(--ink)}
+.quote{font-style:italic;font-weight:300;color:var(--ink);font-size:clamp(22px,2.3vw,30px);line-height:1.35;letter-spacing:-.005em}
+.rule{border-top:1px solid var(--hair);padding-top:16px}
+
+/* top bar */
+.bar{position:sticky;top:0;z-index:5;background:rgba(250,249,247,.92);-webkit-backdrop-filter:saturate(1.2) blur(10px);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
+.bar.is-stuck{border-bottom-color:var(--hair)}
+.bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
+.bar-name{font-size:14px;letter-spacing:.22em;color:var(--ink);text-decoration:none;white-space:nowrap}
+.bar nav{display:flex;gap:22px;margin-left:auto}
+.bar nav a{font-size:14px;letter-spacing:.06em;color:var(--mute);text-decoration:none;white-space:nowrap}
+.bar nav a:hover{color:var(--ink)}
+.dl{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:14px;letter-spacing:.06em;white-space:nowrap;transition:background .15s,color .15s}
+.dl:hover{background:var(--ink);color:var(--paper)}
+.dl svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:1.4}
+
+/* cover */
+.cover{min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:72px var(--pad) 96px;position:relative}
+.cover h1{margin:0}
+.cover h1 img{width:min(340px,70vw)}
+.cover .eyebrow{margin-top:44px;font-size:clamp(14px,1.5vw,17px);letter-spacing:.24em}
+.cover .tag{margin-top:14px;font-style:italic;font-size:clamp(22px,2.4vw,28px);color:var(--ink)}
+.cover .corner{position:absolute;bottom:32px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;font-size:13px;letter-spacing:.14em;color:var(--mute)}
+.cover .corner a{text-decoration:none}
+
+/* sections */
+.sec{padding:clamp(80px,10vw,136px) 0;border-top:1px solid var(--hair)}
+.num{font-size:13px;letter-spacing:.2em;color:var(--mute);margin-bottom:22px;display:block}
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(40px,6vw,96px);align-items:start}
+.stack>*+*{margin-top:28px}
+
+/* who we are */
+.flavors{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
+.flavors h3{margin:6px 0 4px}
+.flavors p{color:var(--mute);font-size:17px;line-height:1.55}
+.note{margin-top:28px;font-size:17px;color:var(--body)}
+.photo{background:var(--wash)}
+
+/* sell-through */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;border-top:1px solid var(--hair);padding-top:28px}
+.stat b{display:block;font-weight:600;color:var(--ink);font-size:clamp(44px,4.4vw,62px);line-height:1;letter-spacing:-.03em}
+.stat span{display:block;margin-top:12px;color:var(--mute);font-size:16px;line-height:1.45;max-width:18ch}
+.asof{margin-top:20px;font-size:13px;letter-spacing:.04em;color:var(--mute)}
+.partners{margin-top:48px}
+.partners ul{list-style:none;columns:2;column-gap:28px;margin-top:14px}
+.partners li{font-size:20px;color:var(--ink);padding:4px 0;break-inside:avoid}
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);margin-top:clamp(56px,7vw,88px);border-top:1px solid var(--hair);padding-top:36px}
+.stars{color:var(--star);letter-spacing:.18em;font-size:15px}
+.reviews blockquote{margin-top:12px;font-size:19px;line-height:1.55;color:var(--ink)}
+.reviews cite{display:block;margin-top:10px;font-style:normal;color:var(--mute);font-size:16px}
+
+/* formats */
+.head-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(32px,6vw,80px);align-items:end;margin-bottom:clamp(40px,5vw,56px)}
+.head-row .lede{max-width:46ch}
+.formats{display:grid;grid-template-columns:1.43fr 1fr .95fr;gap:clamp(16px,2vw,28px);align-items:start}
+.fmt .img{height:clamp(300px,31vw,400px);overflow:hidden;background:var(--wash)}
+.fmt .img img{width:100%;height:100%;object-fit:cover}
+.fmt .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:none}
+.fmt .pair img{height:100%;object-fit:cover}
+.fmt h3{margin-top:18px}
+.fmt p{color:var(--mute);font-size:16px;line-height:1.5;margin-top:4px}
+.fmt .srp{color:var(--ink)}
+
+/* pricing */
+.pricing{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.6fr);gap:clamp(40px,6vw,80px);align-items:start}
+.margins{margin-top:40px;border-top:1px solid var(--hair);padding-top:32px;display:grid;gap:32px}
+.margins b{display:block;font-weight:600;color:var(--ink);font-size:clamp(44px,4.6vw,60px);line-height:1;letter-spacing:-.03em}
+.margins span{display:block;margin-top:10px;color:var(--mute);font-size:16px;line-height:1.45}
+table{width:100%;border-collapse:collapse;font-size:17px;font-variant-numeric:lining-nums tabular-nums}
+thead th{background:var(--wash);text-align:left;font-weight:300;font-size:13px;letter-spacing:.16em;color:var(--mute);padding:16px 14px;white-space:nowrap}
+tbody td,tbody th{text-align:left;font-weight:300;color:var(--ink);padding:20px 14px;border-bottom:1px solid var(--hair);vertical-align:top}
+tbody th{white-space:nowrap}
+td small{display:block;color:var(--mute);font-size:14px}
+.terms{margin-top:40px}
+.terms p{margin-top:10px;font-size:17px;color:var(--body);max-width:62ch}
+
+/* supply */
+.specs{margin-top:36px;border-top:1px solid var(--hair)}
+.specs div{display:grid;grid-template-columns:minmax(120px,.42fr) 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--hair)}
+.specs dt{color:var(--mute);font-size:16px}
+.specs dd{color:var(--ink);font-size:17px}
+.markets{display:grid;grid-template-columns:.8fr 1fr 1.1fr;gap:24px;margin-top:36px}
+.markets ul{list-style:none;margin-top:14px}
+.markets li{font-size:20px;color:var(--ink);padding:3px 0}
+
+/* pull-through */
+.pull{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.2fr);min-height:100svh;border-top:1px solid var(--hair)}
+.pull-img{position:relative;background:var(--wash)}
+.pull-img img{position:sticky;top:0;width:100%;height:100svh;object-fit:cover;object-position:50% 50%}
+.pull-txt{padding:clamp(80px,9vw,128px) var(--pad) clamp(48px,6vw,72px) clamp(40px,6vw,96px);max-width:calc(var(--wrap)*.62 + 96px);display:flex;flex-direction:column}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:36px 40px;margin-top:44px}
+.steps .rule span{font-size:13px;letter-spacing:.16em;color:var(--mute)}
+.steps h3{margin-top:10px}
+.steps p{margin-top:4px;color:var(--mute);font-size:16px;line-height:1.5}
+.contact{margin-top:56px;border-top:1px solid var(--hair);padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,4vw,52px);align-items:center}
+.contact img{width:150px}
+.contact p{font-size:19px;line-height:1.75;color:var(--ink)}
+.contact a{text-decoration:none;border-bottom:1px solid var(--hair)}
+.contact a:hover{border-color:var(--ink)}
+.legal{margin-top:auto;padding-top:56px;font-size:13px;letter-spacing:.04em;color:var(--mute)}
+
+/* tablet */
+@media (max-width:1040px){
+  .bar nav{display:none}
+  .bar .dl{margin-left:auto}
+  .two,.pricing{grid-template-columns:1fr}
+  .formats{grid-template-columns:1fr 1fr}
+  .fmt-vault{grid-column:1 / -1}
+  .fmt-vault .img{height:auto;aspect-ratio:1400/1000}
+  .fmt-vault .img img{object-position:50% 70%}
+  .head-row{grid-template-columns:1fr;gap:18px}
+  .pull{grid-template-columns:1fr;min-height:0}
+  .pull-img img{position:static;height:min(78svh,720px)}
+  .pull-txt{max-width:none;padding-left:var(--pad)}
 }
-.top{
-  max-width:1100px;margin:0 auto;padding:28px 0 22px;
-  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+/* phone */
+@media (max-width:640px){
+  body{font-size:17px}
+  .bar .wrap{height:54px;gap:12px}
+  .bar-name{font-size:12px;letter-spacing:.18em}
+  .dl{height:34px;padding:0 12px;font-size:13px}
+  .cover{min-height:calc(100svh - 54px)}
+  .cover .corner{flex-direction:column;align-items:center;gap:6px;letter-spacing:.1em}
+  .flavors,.reviews,.steps{grid-template-columns:1fr}
+  .stats{grid-template-columns:1fr;gap:26px}
+  .stat span{max-width:none}
+  .formats{grid-template-columns:1fr}
+  .fmt .img{height:auto}
+  .fmt .img img{height:auto}
+  .fmt-vault .img{aspect-ratio:auto}
+  .markets{grid-template-columns:1fr 1fr}
+  .markets .m-chain{grid-column:1 / -1}
+  .specs div{grid-template-columns:1fr;gap:2px}
+  .contact{grid-template-columns:1fr}
+  .contact img{width:130px}
+  /* the price table becomes one card per format */
+  table,tbody,tr,td,tbody th{display:block}
+  thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  tbody tr{border-top:1px solid var(--ink);padding:14px 0 6px}
+  tbody tr+tr{margin-top:22px}
+  tbody th{padding:0 0 8px;border:0;font-size:21px;font-weight:400}
+  tbody td{display:flex;justify-content:space-between;gap:16px;padding:9px 0;font-size:17px}
+  tbody td::before{content:attr(data-label);color:var(--mute);font-size:13px;letter-spacing:.14em;padding-top:3px}
+  tbody tr td:last-child{border-bottom:0}
 }
-.name{font-size:22px;letter-spacing:.01em}
-.name span{color:#7a6f73;font-size:16px;margin-left:8px}
-.dl{
-  display:inline-flex;align-items:center;min-height:44px;padding:0 18px;
-  background:#1d1b1c;color:#fff;border-radius:6px;text-decoration:none;font-size:16px;
-}
-.dl:focus-visible{outline:2px solid #1d1b1c;outline-offset:3px}
-.deck{max-width:1100px;margin:0 auto;display:grid;gap:18px}
-.slide{background:#fcf9fa;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px -18px rgba(29,27,28,.35)}
-.slide img{display:block;width:100%;height:auto}
-.foot{max-width:1100px;margin:28px auto 0;text-align:center;font-size:17px;line-height:1.8;color:#4a4346}
-.foot a{color:#1d1b1c;text-underline-offset:3px}
-@media(max-width:700px){
-  .top{padding:20px 0 16px}
-  .deck{gap:12px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none !important}}
+@media print{
+  .bar{display:none}
+  .sec,.pull{break-inside:avoid}
+  .pull-img img{position:static;height:auto}
 }
 </style>
 </head>
 <body>
-  <header class="top">
-    <div class="name">maison maxine <span>trade catalog · 2026</span></div>
-    <a class="dl" href="Maison-Maxine-Trade-Catalog.pdf" download>download the pdf</a>
-  </header>
-  <main class="deck">
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-01-sm.jpg">
-        <img src="slide-01.jpg" width="2000" height="1124" fetchpriority="high" decoding="async"
-             alt="slide 1, cover: maison maxine distributor &amp; chain overview · 2026">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-02-sm.jpg">
-        <img src="slide-02.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 2, mission: mission maison maxine makes canned red wine spritzes from organically farmed Napa Valley wine grown at our family&#x27;s vineyard, Gubel Family Vineyards. A handful of whole ingredients, no refined sugar, at a light ABV. Our mission is to make red wine light, clean and easy to share. At maison maxine, we believe in: simplicity. honesty. quality. joy. and giving back, with 5% of profits going to animals in need. “reimagining red wine for the modern muse” clean . honey-sweetened . napa cabernet . light . sparkling . giftable . nostalgic . effortless . chic">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-03-sm.jpg">
-        <img src="slide-03.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 3, target consumers and flavors: target consumers maison maxine is made for women 21 to 35, especially Gen Z and younger millennials who want a drink that looks as good as it tastes. They read labels, skip the sugar bombs and still want something that feels like wine. They&#x27;re hosting, getting ready, at the beach or on the patio, and they care about the story behind what they buy. two flavors cab spritz - red wine x ginger ale Napa Cabernet, ginger, lemon juice and honey. Nothing else. 5% ABV, 250 mL can, no refined sugar. sparkling sangria Napa Merlot, orange, apple and lemon. 6% ABV, 250 mL can, no refined sugar.">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-04-sm.jpg">
-        <img src="slide-04.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 4, sell-through: sell-through Our first production run sold out, and every account that has been with us long enough to reorder has. “people pick it up for the can and come back because it&#x27;s clean.” 100% reorder rate across matured accounts 3.6× monthly revenue growth since launch 1M+ unpaid reach from press and creators figures as of august 2026">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-05-sm.jpg">
-        <img src="slide-05.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 5, where we pour: where we pour A selection of the shops, partners and press that carry and champion maison maxine. retail Monsieur Marcel Farmshop Happier Grocery The Canal Market Dia Wine Shop Jayde&#x27;s Market Irvine Ranch Market Hi-Lo Liquor Market partners &amp; press Drybar Surf Lodge Montauk Fara Homidi Wags &amp; Walks Muddy Paws Rescue Snaxshot Feed Me">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-06-sm.jpg">
-        <img src="slide-06.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 6, the formats: the formats Beyond the single can: a gift box for the checkout counter, a keepsake vault for the gift shelf, and 750 mL bottles of both flavors for the wine aisle. Essential Vault Box 16 × 250 mL cans · lacquered keepsake box, hinged lid and padlock · $92 srp 4-can pack 4 × 250 mL cans · watercolor gift box · $28 srp 750 mL bottles sangria spritz · cab spritz · 12 per case · $28 srp">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-07-sm.jpg">
-        <img src="slide-07.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 7, the line and pricing: the line &amp; pricing Every format comes in both flavors: cab spritz, red wine x ginger ale (5%) and sparkling sangria (6%). all prices USD · distributor pricing is FOB per case, tiered by volume · LA accounts self-distributed, net 30 · NY via LibDib format case pack distributor wholesale srp single can · 250 mL 24 cans $70–80 / case $105 / case $6.99 / can 4-can pack 6 boxes (24 cans) $70–80 / case $105 / case $28 / box Essential Vault Box · 16 cans 1 box (16 cans) $44.16 / box $55.20 / box $92 / box bottle · 750 mL 12 bottles $161.28 / case $201.60 / case $28 / bottle margins on cans: 24–33% for distributors at $105 wholesale · 37% for retail at $6.99 srp">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-08-sm.jpg">
-        <img src="slide-08.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 8, supply and specs: supply &amp; specs The wine is sourced from Northern California through Gubel Family Vineyards. The spritz is produced and canned in Vermont. Our fall production run is 28,000 cans, with capacity to scale with new markets. spec both skus Wine Sourced from Northern California Production Produced and canned in Vermont Formats 250 mL can · 4-pack · 16-can vault box · 750 mL bottle Case packs 24 cans (6 gift boxes of 4) · 12 bottles Current run 28,000 cans FOB location Vermont Case dims · weight approx. 14 × 9.5 × 6 in · 16 lb (24 × 8.4 oz slim cans) Pallet approx. 117 cases on a 48 × 40 pallet (13 per layer, 9 high) Shelf life 12 months">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-09-sm.jpg">
-        <img src="slide-09.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 9, where we&#x27;re going: where we&#x27;re going We&#x27;re looking for distribution partners in the markets below, and we bring demand with us. on shelf today California New York Florida opening next Texas Massachusetts Tennessee Colorado chain conversations Albertsons Balducci&#x27;s Erewhon Royal Blue Grocery">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-10-sm.jpg">
-        <img src="slide-10.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 10, pull-through: pull-through Every new market gets a brand team behind it. Here&#x27;s what we put in so your book moves. “you sell it in. we help sell it through.” 01 ride-alongs &amp; tastings We join your reps on account calls and staff in-store demos. 02 local demand Creator content and paid social targeted to your market, pointing to our store locator. 03 events Our spritz cart at launches, galas and community events. 04 a growing line Two SKUs today, with a third launching in March.">
-      </picture>
-    </figure>
-    <figure class="slide">
-      <picture>
-        <source media="(max-width:700px)" srcset="slide-11-sm.jpg">
-        <img src="slide-11.jpg" width="2000" height="1124" loading="lazy" decoding="async"
-             alt="slide 11, contact: maison maxine Olivia Gubel, Founder &amp; CEO olivia@maisonmaxine.world · 323-273-6751 maisonmaxine.world · @maisonmaxine.world Maison Maxine LLC · a brand of Gubel Family Vineyards · 1661 Elevado St, Los Angeles, CA 90026">
-      </picture>
-    </figure>
-  </main>
-  <p class="foot">
-    olivia gubel, founder &amp; ceo · <a href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a> · <a href="tel:+13232736751">323-273-6751</a><br>
-    ready to order? <a href="/forbuyers/">place a wholesale order request</a>
-  </p>
+
+<header class="bar" id="bar">
+  <div class="wrap">
+    <a class="bar-name" href="#top">maison maxine</a>
+    <nav aria-label="sections">
+      <a href="#who">who we are</a>
+      <a href="#sell-through">sell-through</a>
+      <a href="#formats">formats</a>
+      <a href="#pricing">pricing</a>
+      <a href="#supply">supply</a>
+      <a href="#contact">contact</a>
+    </nav>
+    <a class="dl" href="Maison-Maxine-Trade-Catalog.pdf" download>
+      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v7M3 5.5 6 8.5l3-3M1.5 11h9"/></svg>download pdf
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- 01 cover -->
+  <section class="cover" aria-label="cover">
+    <h1><img src="wordmark.png" width="800" height="388" alt="Maison Maxine"></h1>
+    <p class="eyebrow">grocery &amp; distributor catalog &middot; 2026</p>
+    <p class="tag">organic and clean red spritzes</p>
+    <div class="corner"><a href="https://maisonmaxine.world/home.html">maisonmaxine.world</a><a href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a></div>
+  </section>
+
+  <!-- 02 who we are -->
+  <section class="sec" id="who">
+    <div class="wrap two">
+      <div class="stack">
+        <div>
+          <span class="num">02</span>
+          <h2>who we are</h2>
+        </div>
+        <p class="lede">maison maxine makes organic and clean red spritzes, produced by Gubel Family Vineyards in Napa. Whole ingredients, sweetened with honey.</p>
+        <p class="quote">&ldquo;reimagining red wine for the modern muse&rdquo;</p>
+        <div class="rule">
+          <p class="eyebrow">the shopper</p>
+          <p style="margin-top:10px">Women 21 to 35, especially Gen Z and younger millennials. They read labels, skip the sugar bombs and still want something that feels like wine. They buy for hosting, the beach and the patio, and they care about the story behind what they buy.</p>
+        </div>
+      </div>
+      <div>
+        <img class="photo" src="cans.jpg" width="1600" height="1188" alt="the two cans side by side: organic sparkling sangria spritz and organic cab spritz, in watercolor labels" fetchpriority="high">
+        <div class="flavors">
+          <div class="rule">
+            <p class="eyebrow">flavor one</p>
+            <h3>organic sangria spritz</h3>
+            <p>Organic Petite Syrah, orange, apple and lemon. 6% ABV, 250 mL can, no refined sugar.</p>
+          </div>
+          <div class="rule">
+            <p class="eyebrow">flavor two</p>
+            <h3>cab spritz</h3>
+            <p>red wine x ginger ale. organic Cabernet, lemon and honey. 5% ABV, 250 mL can, no refined sugar.</p>
+          </div>
+        </div>
+        <p class="note">New cans: one bold color per flavor and an oversized wordmark, so a facing reads as a single block of color in the cooler.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 sell-through -->
+  <section class="sec" id="sell-through">
+    <div class="wrap">
+      <div class="two">
+        <div class="stack">
+          <div>
+            <span class="num">03</span>
+            <h2>sell-through</h2>
+          </div>
+          <p class="lede">Our first production run sold out, and every account that has been with us long enough to reorder has.</p>
+          <p class="quote">&ldquo;people pick it up for the can, and keep buying because of the flavor and clean ingredients.&rdquo;</p>
+        </div>
+        <div>
+          <div class="stats">
+            <div class="stat"><b>100%</b><span>reorder rate across matured accounts</span></div>
+            <div class="stat"><b>3.6&times;</b><span>monthly revenue growth since launch</span></div>
+            <div class="stat"><b>1M+</b><span>unpaid reach from press and creators</span></div>
+          </div>
+          <p class="asof">figures as of august 2026</p>
+          <div class="partners rule">
+            <p class="eyebrow">partners &amp; press</p>
+            <ul>
+              <li>Drybar</li><li>Surf Lodge Montauk</li><li>Fara Homidi</li><li>Snaxshot</li>
+              <li>Wags &amp; Walks</li><li>Muddy Paws Rescue</li><li>Feed Me</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="reviews">
+        <figure>
+          <div class="stars" role="img" aria-label="five stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>&ldquo;trust that my drink of choice is mm. in fact i don&rsquo;t even like drinking except for mm.&rdquo;</blockquote>
+          <cite>kayla c., new york</cite>
+        </figure>
+        <figure>
+          <div class="stars" role="img" aria-label="five stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <blockquote>&ldquo;i sampled some at monsieur marcel recently! i bought two cans and enjoyed them while on vacation in los angeles. i live in alabama and wondered if the spritzers might be available for mail order someday.&rdquo;</blockquote>
+          <cite>camille s., alabama</cite>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 formats -->
+  <section class="sec" id="formats">
+    <div class="wrap">
+      <div class="head-row">
+        <div>
+          <span class="num">04</span>
+          <h2>the formats</h2>
+        </div>
+        <p class="lede">The single can for the cooler, a 4-pack for the shelf, a keepsake vault for the gift aisle and 750 mL bottles for the wine aisle. Every format comes in both flavors.</p>
+      </div>
+      <div class="formats">
+        <article class="fmt fmt-vault">
+          <div class="img"><img src="vault.jpg" width="1400" height="1228" loading="lazy" alt="the Essential Vault Box: a lacquered pale green keepsake box with a hinged lid and padlock"></div>
+          <h3>Essential Vault Box</h3>
+          <p>16 &times; 250 mL cans &middot; lacquered keepsake box, hinged lid and padlock &middot; <span class="srp">$92 srp</span></p>
+        </article>
+        <article class="fmt">
+          <div class="img"><img src="fourpack.jpg" width="1000" height="1254" loading="lazy" alt="the 4-can pack gift box in the watercolor print"></div>
+          <h3>4-can pack</h3>
+          <p>4 &times; 250 mL cans &middot; gift box &middot; <span class="srp">$28 srp</span></p>
+        </article>
+        <article class="fmt">
+          <div class="img pair"><img src="bottle-sangria.jpg" width="600" height="1633" loading="lazy" alt="750 mL sangria spritz bottle"><img src="bottle-cab.jpg" width="600" height="1633" loading="lazy" alt="750 mL cab spritz bottle"></div>
+          <h3>750 mL bottles</h3>
+          <p>both flavors &middot; 12 per case &middot; <span class="srp">$28 srp</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 05 the line & pricing -->
+  <section class="sec" id="pricing">
+    <div class="wrap pricing">
+      <div>
+        <span class="num">05</span>
+        <h2>the line &amp; pricing</h2>
+        <p class="lede" style="margin-top:28px">Every format comes in cab spritz (5%) and organic sangria spritz (6%).</p>
+        <div class="margins">
+          <div><b>24&ndash;33%</b><span>distributor margin on cans at $105 wholesale</span></div>
+          <div><b>37%</b><span>retail margin at $6.99 srp</span></div>
+        </div>
+      </div>
+      <div>
+        <table>
+          <thead><tr><th scope="col">format</th><th scope="col">case pack</th><th scope="col">distributor</th><th scope="col">wholesale</th><th scope="col">srp</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">single can &middot; 250 mL</th><td data-label="case pack">24 cans</td><td data-label="distributor">$70&ndash;80 / case</td><td data-label="wholesale">$105 / case</td><td data-label="srp">$6.99 / can</td></tr>
+            <tr><th scope="row">4-can pack</th><td data-label="case pack">6 boxes (24 cans)</td><td data-label="distributor">$70&ndash;80 / case</td><td data-label="wholesale">$105 / case</td><td data-label="srp">$28 / box</td></tr>
+            <tr><th scope="row">Essential Vault Box</th><td data-label="case pack">1 box (16 cans)</td><td data-label="distributor">$44.16 / box</td><td data-label="wholesale">$55.20 / box</td><td data-label="srp">$92 / box</td></tr>
+            <tr><th scope="row">bottle &middot; 750 mL</th><td data-label="case pack">12 bottles</td><td data-label="distributor">$161.28 / case</td><td data-label="wholesale">$201.60 / case</td><td data-label="srp">$28 / bottle</td></tr>
+          </tbody>
+        </table>
+        <div class="terms rule">
+          <p class="eyebrow">terms</p>
+          <p>All prices USD. Distributor pricing is FOB Vermont per case, tiered by volume. LA accounts self-distributed, net 30. NY via LibDib.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 supply & specs / where we're going -->
+  <section class="sec" id="supply">
+    <div class="wrap two">
+      <div>
+        <span class="num">06</span>
+        <h2>supply &amp; specs</h2>
+        <p class="lede" style="margin-top:28px">Wine from Gubel Family Vineyards in Northern California, produced and canned in Vermont. Our fall run is 28,000 cans, with capacity to scale.</p>
+        <dl class="specs">
+          <div><dt>formats</dt><dd>250 mL can &middot; 4-pack &middot; 16-can vault box &middot; 750 mL bottle</dd></div>
+          <div><dt>case packs</dt><dd>24 cans (6 boxes of 4) &middot; 12 bottles</dd></div>
+          <div><dt>FOB</dt><dd>Vermont</dd></div>
+          <div><dt>case dims &middot; weight</dt><dd>approx. 14 &times; 9.5 &times; 6 in &middot; 16 lb</dd></div>
+          <div><dt>pallet</dt><dd>approx. 117 cases on a 48 &times; 40 pallet (13 per layer, 9 high)</dd></div>
+          <div><dt>shelf life</dt><dd>12 months</dd></div>
+        </dl>
+      </div>
+      <div id="markets">
+        <span class="num" aria-hidden="true">&nbsp;</span>
+        <h2>where we&rsquo;re going</h2>
+        <p class="lede" style="margin-top:28px">We&rsquo;re looking for distribution partners in these markets, and we bring demand with us.</p>
+        <div class="markets">
+          <div class="rule"><p class="eyebrow">on shelf today</p><ul><li>California</li><li>New York</li></ul></div>
+          <div class="rule"><p class="eyebrow">opening next</p><ul><li>New Jersey</li><li>Texas</li><li>Massachusetts</li><li>Connecticut</li><li>Colorado</li><li>Florida</li></ul></div>
+          <div class="rule m-chain"><p class="eyebrow">chain talks</p><ul><li>Albertsons</li><li>Balducci&rsquo;s</li><li>Erewhon</li><li>Royal Blue Grocery</li><li>Costco Canada</li></ul></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 07 pull-through + contact -->
+  <section class="pull" id="contact">
+    <div class="pull-img"><img src="toast.jpg" width="1200" height="2052" loading="lazy" alt="two hands holding cab spritz cans on a sunlit porch"></div>
+    <div class="pull-txt">
+      <span class="num">07</span>
+      <h2>pull-through</h2>
+      <p class="lede" style="margin-top:28px">Every new market gets a brand team behind it.</p>
+      <p class="quote" style="margin-top:22px">&ldquo;you sell it in. we help sell it through.&rdquo;</p>
+      <div class="steps">
+        <div class="rule"><span>01</span><h3>ride-alongs &amp; tastings</h3><p>We join your reps on account calls and staff in-store demos.</p></div>
+        <div class="rule"><span>02</span><h3>local demand</h3><p>Creator content and paid social in your market, pointing to our store locator.</p></div>
+        <div class="rule"><span>03</span><h3>events</h3><p>Our spritz cart at launches, galas and community events.</p></div>
+        <div class="rule"><span>04</span><h3>a growing line</h3><p>Two SKUs today, with a third launching in March.</p></div>
+      </div>
+      <div class="contact">
+        <img src="wordmark.png" width="800" height="388" alt="" loading="lazy">
+        <p>Olivia Gubel, Founder &amp; CEO<br>
+          <a href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a> &middot; <a href="tel:+13232736751">323-273-6751</a><br>
+          <a href="https://maisonmaxine.world/home.html">maisonmaxine.world</a> &middot; <a href="https://www.instagram.com/maisonmaxine.world/" rel="noopener">@maisonmaxine.world</a></p>
+      </div>
+      <p class="legal">Maison Maxine LLC &middot; a brand of Gubel Family Vineyards &middot; 1661 Elevado St, Los Angeles, CA 90026</p>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  // a hairline under the bar once the page has scrolled
+  (function(){
+    var bar=document.getElementById('bar');
+    function f(){bar.classList.toggle('is-stuck',window.scrollY>4)}
+    f(); window.addEventListener('scroll',f,{passive:true});
+  })();
+</script>
 </body>
 </html>
