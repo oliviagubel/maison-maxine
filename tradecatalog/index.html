@@ -93,8 +93,8 @@ h3{font-weight:300;color:var(--ink);font-size:24px;line-height:1.25}
 /* formats */
 .head-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(32px,6vw,80px);align-items:end;margin-bottom:clamp(40px,5vw,56px)}
 .head-row .lede{max-width:46ch}
-.formats{display:grid;grid-template-columns:1.43fr 1fr .95fr;gap:clamp(16px,2vw,28px);align-items:start}
-.fmt .img{height:clamp(300px,31vw,400px);overflow:hidden;background:var(--wash)}
+.formats{display:grid;grid-template-columns:1.15fr 1.1fr .85fr;gap:clamp(16px,2vw,28px);align-items:start}
+.fmt .img{height:clamp(240px,34vw,480px);overflow:hidden;background:var(--wash)}
 .fmt .img img{width:100%;height:100%;object-fit:cover}
 .fmt .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:none}
 .fmt .pair img{height:100%;object-fit:cover}
@@ -145,10 +145,6 @@ td small{display:block;color:var(--mute);font-size:14px}
   .bar nav{display:none}
   .bar .dl{margin-left:auto}
   .two,.pricing{grid-template-columns:1fr}
-  .formats{grid-template-columns:1fr 1fr}
-  .fmt-vault{grid-column:1 / -1}
-  .fmt-vault .img{height:auto;aspect-ratio:1400/1000}
-  .fmt-vault .img img{object-position:50% 70%}
   .head-row{grid-template-columns:1fr;gap:18px}
   .pull{grid-template-columns:1fr;min-height:0}
   .pull-img img{position:static;height:min(78svh,720px)}
@@ -168,7 +164,6 @@ td small{display:block;color:var(--mute);font-size:14px}
   .formats{grid-template-columns:1fr}
   .fmt .img{height:auto}
   .fmt .img img{height:auto}
-  .fmt-vault .img{aspect-ratio:auto}
   .markets{grid-template-columns:1fr 1fr}
   .markets .m-chain{grid-column:1 / -1}
   .specs div{grid-template-columns:1fr;gap:2px}
@@ -309,15 +304,15 @@ td small{display:block;color:var(--mute);font-size:14px}
         <p class="lede">The single can for the cooler, a 4-pack for the shelf, a keepsake vault for the gift aisle and 750 mL bottles for the wine aisle. Every format comes in both flavors.</p>
       </div>
       <div class="formats">
+        <article class="fmt fmt-four">
+          <div class="img"><img src="fourpack.jpg" width="1000" height="1254" loading="lazy" alt="the 4-can pack gift box in the watercolor print"></div>
+          <h3>4-can pack</h3>
+          <p>4 &times; 250 mL cans &middot; gift box &middot; <span class="srp">$28 srp</span></p>
+        </article>
         <article class="fmt fmt-vault">
           <div class="img"><img src="vault.jpg" width="1400" height="1228" loading="lazy" alt="the Essential Vault Box: a lacquered pale green keepsake box with a hinged lid and padlock"></div>
           <h3>Essential Vault Box</h3>
           <p>16 &times; 250 mL cans &middot; lacquered keepsake box, hinged lid and padlock &middot; <span class="srp">$92 srp</span></p>
-        </article>
-        <article class="fmt">
-          <div class="img"><img src="fourpack.jpg" width="1000" height="1254" loading="lazy" alt="the 4-can pack gift box in the watercolor print"></div>
-          <h3>4-can pack</h3>
-          <p>4 &times; 250 mL cans &middot; gift box &middot; <span class="srp">$28 srp</span></p>
         </article>
         <article class="fmt">
           <div class="img pair"><img src="bottle-sangria.jpg" width="600" height="1633" loading="lazy" alt="750 mL sangria spritz bottle"><img src="bottle-cab.jpg" width="600" height="1633" loading="lazy" alt="750 mL cab spritz bottle"></div>
