@@ -51,9 +51,6 @@ h3{font-weight:300;color:var(--ink);font-size:24px;line-height:1.25}
 .bar nav{display:flex;gap:22px;margin-left:auto}
 .bar nav a{font-size:14px;letter-spacing:.06em;color:var(--mute);text-decoration:none;white-space:nowrap}
 .bar nav a:hover{color:var(--ink)}
-.dl{display:inline-flex;align-items:center;gap:8px;height:36px;padding:0 16px;border:1px solid var(--ink);color:var(--ink);text-decoration:none;font-size:14px;letter-spacing:.06em;white-space:nowrap;transition:background .15s,color .15s}
-.dl:hover{background:var(--ink);color:var(--paper)}
-.dl svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:1.4}
 
 /* cover */
 .cover{min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:72px var(--pad) 96px;position:relative}
@@ -143,7 +140,6 @@ td small{display:block;color:var(--mute);font-size:14px}
 /* tablet */
 @media (max-width:1040px){
   .bar nav{display:none}
-  .bar .dl{margin-left:auto}
   .two,.pricing{grid-template-columns:1fr}
   .head-row{grid-template-columns:1fr;gap:18px}
   .pull{grid-template-columns:1fr;min-height:0}
@@ -155,7 +151,6 @@ td small{display:block;color:var(--mute);font-size:14px}
   body{font-size:17px}
   .bar .wrap{height:54px;gap:12px}
   .bar-name{font-size:12px;letter-spacing:.18em}
-  .dl{height:34px;padding:0 12px;font-size:13px}
   .cover{min-height:calc(100svh - 54px)}
   .cover .corner{flex-direction:column;align-items:center;gap:6px;letter-spacing:.1em}
   .flavors,.reviews,.steps{grid-template-columns:1fr}
@@ -200,9 +195,6 @@ td small{display:block;color:var(--mute);font-size:14px}
       <a href="#supply">supply</a>
       <a href="#contact">contact</a>
     </nav>
-    <a class="dl" href="Maison-Maxine-Trade-Catalog.pdf" download>
-      <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1v7M3 5.5 6 8.5l3-3M1.5 11h9"/></svg>download pdf
-    </a>
   </div>
 </header>
 
