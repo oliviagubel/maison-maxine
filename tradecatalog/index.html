@@ -8,405 +8,567 @@
 <meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="googlebot" content="noindex,nofollow,noarchive,nosnippet,noimageindex">
 <meta name="referrer" content="no-referrer">
-<title>Trade Catalog · Maison Maxine</title>
-<meta name="theme-color" content="#faf9f7">
+<title>Trade Catalog 2026 · Maison Maxine</title>
+<meta name="theme-color" content="#f6f6f4">
 <link rel="icon" href="../favicon-32.png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* the trade catalog as a page: the 2026 grocery & distributor catalog,
-   set in gill sans on warm paper. deliberately nothing like the rest of
-   the site: no stickers, no y2k, just the catalog. */
-@font-face{font-family:"MM Gill";font-weight:300;src:local("GillSans-Light"),local("Gill Sans Light"),local("Gill Sans MT Light")}
-@font-face{font-family:"MM Gill";font-weight:400;src:local("GillSans"),local("Gill Sans"),local("Gill Sans MT")}
-@font-face{font-family:"MM Gill";font-weight:600;src:local("GillSans-SemiBold"),local("Gill Sans SemiBold"),local("GillSans-Bold"),local("Gill Sans MT Bold")}
-@font-face{font-family:"MM Gill";font-weight:300;font-style:italic;src:local("GillSans-LightItalic"),local("Gill Sans Light Italic"),local("GillSans-Italic"),local("Gill Sans MT Italic")}
-
+/* the trade catalog: a spec-sheet page for buyers and distributors.
+   geist + geist mono, hairline grids, no shadows. nothing like the
+   rest of the site on purpose; the pink wordmark is the only brand note. */
 :root{
-  --paper:#faf9f7; --ink:#1c1a1a; --body:#3a3636; --mute:#7a7471; --hair:#dedad6; --wash:#f1eeeb;
-  --pink:#d89cc0; --star:#b9779c;
-  --sans:"MM Gill","Gill Sans","Gill Sans MT","Gill Sans Nova",Seravek,"Helvetica Neue",Arial,sans-serif;
-  --wrap:1180px; --pad:clamp(20px,5vw,64px);
+  --bg:#f6f6f4; --card:#fff; --ink:#0c0c0d; --body:#3d3d40; --mute:#7c7c82; --faint:#a9a9ae;
+  --line:#e3e3df; --line2:#d3d3ce; --wash:#efefec;
+  --pink:#d89cc0; --pinkd:#b45f90; --go:#2fa36b; --next:#d6a23a;
+  --sans:"Geist",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --wrap:1240px; --pad:clamp(20px,4vw,48px);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--paper);color:var(--body);font:300 18px/1.6 var(--sans);-webkit-font-smoothing:antialiased;font-kerning:normal}
+html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--body);font:400 16px/1.6 var(--sans);-webkit-font-smoothing:antialiased;letter-spacing:-.005em}
 img{display:block;max-width:100%;height:auto}
-a{color:inherit;text-decoration-thickness:1px;text-underline-offset:3px}
-a:focus-visible,button:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
-::selection{background:#f3dbe8}
-
+a{color:inherit;text-decoration:none}
+a:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:2px}
+::selection{background:#f2d6e6}
 .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--pad)}
-.eyebrow{font-size:13px;letter-spacing:.2em;text-transform:lowercase;color:var(--mute);font-weight:300}
-h2{font-weight:400;color:var(--ink);font-size:clamp(36px,4.6vw,56px);line-height:1.04;letter-spacing:-.015em}
-h3{font-weight:300;color:var(--ink);font-size:24px;line-height:1.25}
-.lede{font-size:clamp(19px,1.7vw,22px);line-height:1.55;color:var(--ink)}
-.quote{font-style:italic;font-weight:300;color:var(--ink);font-size:clamp(22px,2.3vw,30px);line-height:1.35;letter-spacing:-.005em}
-.rule{border-top:1px solid var(--hair);padding-top:16px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);font-weight:400}
+.num{font-variant-numeric:tabular-nums}
 
-/* top bar */
-.bar{position:sticky;top:0;z-index:5;background:rgba(250,249,247,.92);-webkit-backdrop-filter:saturate(1.2) blur(10px);backdrop-filter:saturate(1.2) blur(10px);border-bottom:1px solid transparent;transition:border-color .2s}
-.bar.is-stuck{border-bottom-color:var(--hair)}
-.bar .wrap{display:flex;align-items:center;gap:28px;height:60px}
-.bar-name{font-size:14px;letter-spacing:.22em;color:var(--ink);text-decoration:none;white-space:nowrap}
-.bar nav{display:flex;gap:22px;margin-left:auto}
-.bar nav a{font-size:14px;letter-spacing:.06em;color:var(--mute);text-decoration:none;white-space:nowrap}
+/* ── bar ── */
+.bar{position:sticky;top:0;z-index:10;background:rgba(246,246,244,.82);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);border-bottom:1px solid transparent;transition:border-color .2s}
+.bar.is-stuck{border-bottom-color:var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo img{height:32px;width:auto}
+.chip{display:inline-flex;align-items:center;gap:7px;height:24px;padding:0 9px;border:1px solid var(--line2);border-radius:999px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--body);white-space:nowrap;background:var(--card)}
+.dot{width:6px;height:6px;border-radius:50%;background:var(--go);flex:none}
+.dot.next{background:var(--next)}
+.dot.talk{background:transparent;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.bar nav{display:flex;gap:2px;margin-left:auto}
+.bar nav a{font-size:13.5px;color:var(--mute);padding:6px 10px;border-radius:6px;transition:color .15s,background .15s}
 .bar nav a:hover{color:var(--ink)}
+.bar nav a.on{color:var(--ink);background:var(--wash)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:8px;font-size:14px;font-weight:500;white-space:nowrap;transition:background .15s,border-color .15s,color .15s}
+.btn-ink{background:var(--ink);color:#fff}
+.btn-ink:hover{background:#2a2a2d}
+.btn-line{border:1px solid var(--line2);color:var(--ink);background:var(--card)}
+.btn-line:hover{border-color:var(--ink)}
+.btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.6}
+.bar .btn{height:34px;font-size:13px;padding:0 14px}
 
-/* cover */
-.cover{min-height:calc(100svh - 60px);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:72px var(--pad) 96px;position:relative}
-.cover h1{margin:0}
-.cover h1 img{width:min(340px,70vw)}
-.cover .eyebrow{margin-top:44px;font-size:clamp(14px,1.5vw,17px);letter-spacing:.24em}
-.cover .tag{margin-top:14px;font-style:italic;font-size:clamp(22px,2.4vw,28px);color:var(--ink)}
-.cover .corner{position:absolute;bottom:32px;left:var(--pad);right:var(--pad);display:flex;justify-content:space-between;font-size:13px;letter-spacing:.14em;color:var(--mute)}
-.cover .corner a{text-decoration:none}
+/* ── hero ── */
+.hero{padding:clamp(48px,7vw,96px) 0 0}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:center}
+.hero h1{margin-top:22px;font-weight:500;color:var(--ink);font-size:clamp(38px,4.6vw,64px);line-height:1.02;letter-spacing:-.04em}
+.hero h1 em{font-style:normal;color:var(--faint)}
+.hero .sub{margin-top:24px;max-width:46ch;font-size:clamp(17px,1.4vw,19px);line-height:1.55;color:var(--body)}
+.hero .ctas{display:flex;gap:10px;margin-top:32px;flex-wrap:wrap}
+.frame{position:relative;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#e9e9e7}
+.frame img{width:100%}
+.tag{position:absolute;display:flex;align-items:center;gap:8px;padding:7px 10px;border-radius:8px;background:rgba(255,255,255,.86);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(0,0,0,.06);font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.tag b{font-weight:500;color:var(--mute)}
+.tag-a{left:14px;bottom:14px}
+.tag-b{right:14px;bottom:14px}
 
-/* sections */
-.sec{padding:clamp(80px,10vw,136px) 0;border-top:1px solid var(--hair)}
-.num{font-size:13px;letter-spacing:.2em;color:var(--mute);margin-bottom:22px;display:block}
-.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(40px,6vw,96px);align-items:start}
-.stack>*+*{margin-top:28px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(48px,6vw,80px);border:1px solid var(--line);border-radius:14px;background:var(--card);overflow:hidden}
+.kpi{padding:26px 26px 24px;border-left:1px solid var(--line)}
+.kpi:first-child{border-left:0}
+.kpi b{display:block;margin-top:14px;font-weight:500;color:var(--ink);font-size:clamp(34px,3.4vw,48px);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.kpi p{margin-top:10px;font-size:14px;color:var(--mute);line-height:1.45}
+.asof{margin-top:12px;text-align:right}
 
-/* who we are */
-.flavors{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:36px}
-.flavors h3{margin:6px 0 4px}
-.flavors p{color:var(--mute);font-size:17px;line-height:1.55}
-.note{margin-top:28px;font-size:17px;color:var(--body)}
-.photo{background:var(--wash)}
+/* ── sections ── */
+.sec{padding:clamp(88px,10vw,140px) 0 0}
+.sec-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(24px,5vw,72px);align-items:end;margin-bottom:clamp(36px,4vw,52px)}
+.sec-head .mono{display:flex;align-items:center;gap:10px}
+.sec-head .mono::after{content:"";flex:1;max-width:48px;height:1px;background:var(--line2)}
+.sec h2{margin-top:16px;font-weight:500;color:var(--ink);font-size:clamp(32px,3.6vw,48px);line-height:1.05;letter-spacing:-.035em}
+.sec-head p{font-size:17px;line-height:1.6;max-width:54ch}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px}
+
+/* product */
+.prod{display:grid;grid-template-columns:repeat(2,minmax(0,1fr)) minmax(0,.9fr);gap:16px}
+.flav{padding:24px}
+.flav-top{display:flex;justify-content:space-between;align-items:center}
+.flav h3{margin-top:18px;font-weight:500;color:var(--ink);font-size:22px;letter-spacing:-.02em}
+.flav .what{margin-top:4px;color:var(--mute);font-size:14.5px}
+.rows{margin-top:20px;border-top:1px solid var(--line)}
+.rows div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.rows div:last-child{border-bottom:0;padding-bottom:0}
+.rows dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+.rows dd{color:var(--ink);text-align:right}
+.shopper{padding:24px;display:flex;flex-direction:column;background:var(--ink);border-color:var(--ink);color:#c9c9cd}
+.shopper .mono{color:#8d8d93}
+.shopper h3{margin-top:18px;font-weight:500;color:#fff;font-size:22px;letter-spacing:-.02em;line-height:1.2}
+.shopper p{margin-top:12px;font-size:14.5px;line-height:1.6}
+.shopper q{display:block;margin-top:auto;padding-top:24px;color:#fff;font-size:15px;quotes:"\201C" "\201D"}
+.note{margin-top:16px;display:flex;gap:12px;align-items:flex-start;padding:16px 20px;font-size:14.5px}
+.note .chip{flex:none}
 
 /* sell-through */
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;border-top:1px solid var(--hair);padding-top:28px}
-.stat b{display:block;font-weight:600;color:var(--ink);font-size:clamp(44px,4.4vw,62px);line-height:1;letter-spacing:-.03em}
-.stat span{display:block;margin-top:12px;color:var(--mute);font-size:16px;line-height:1.45;max-width:18ch}
-.asof{margin-top:20px;font-size:13px;letter-spacing:.04em;color:var(--mute)}
-.partners{margin-top:48px}
-.partners ul{list-style:none;columns:2;column-gap:28px;margin-top:14px}
-.partners li{font-size:20px;color:var(--ink);padding:4px 0;break-inside:avoid}
-.reviews{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);margin-top:clamp(56px,7vw,88px);border-top:1px solid var(--hair);padding-top:36px}
-.stars{color:var(--star);letter-spacing:.18em;font-size:15px}
-.reviews blockquote{margin-top:12px;font-size:19px;line-height:1.55;color:var(--ink)}
-.reviews cite{display:block;margin-top:10px;font-style:normal;color:var(--mute);font-size:16px}
+.st{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:16px}
+.quote-card{padding:clamp(28px,3vw,40px);display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.quote-card blockquote{font-weight:400;color:var(--ink);font-size:clamp(22px,2.2vw,30px);line-height:1.25;letter-spacing:-.025em}
+.quote-card p{font-size:15px;color:var(--mute)}
+.partners{padding:24px}
+.logos{display:grid;grid-template-columns:1fr 1fr;margin-top:16px;border-top:1px solid var(--line)}
+.logos li{list-style:none;padding:14px 0;border-bottom:1px solid var(--line);font-size:15.5px;color:var(--ink);font-weight:500;letter-spacing:-.01em}
+.logos li:nth-child(odd){padding-right:12px;border-right:1px solid var(--line)}
+.logos li:nth-child(even){padding-left:16px}
+.logos li:nth-last-child(-n+1){border-bottom:0}
+.reviews{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.rev{padding:24px;display:flex;flex-direction:column;gap:14px}
+.stars{display:flex;gap:3px}
+.stars svg{width:13px;height:13px;fill:var(--pinkd)}
+.rev blockquote{color:var(--ink);font-size:15.5px;line-height:1.6}
+.rev cite{margin-top:auto;font-style:normal}
 
 /* formats */
-.head-row{display:grid;grid-template-columns:auto 1fr;gap:clamp(32px,6vw,80px);align-items:end;margin-bottom:clamp(40px,5vw,56px)}
-.head-row .lede{max-width:46ch}
-.formats{display:grid;grid-template-columns:1.15fr 1.1fr .85fr;gap:clamp(16px,2vw,28px);align-items:start}
-.fmt .img{height:clamp(240px,34vw,480px);overflow:hidden;background:var(--wash)}
-.fmt .img img{width:100%;height:100%;object-fit:cover}
-.fmt .pair{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:none}
-.fmt .pair img{height:100%;object-fit:cover}
-.fmt h3{margin-top:18px}
-.fmt p{color:var(--mute);font-size:16px;line-height:1.5;margin-top:4px}
-.fmt .srp{color:var(--ink)}
+.fmts{display:grid;grid-template-columns:1.15fr 1.1fr .85fr;gap:16px}
+.fmt{overflow:hidden;display:flex;flex-direction:column}
+.fmt .img{height:clamp(260px,32vw,440px);background:var(--wash);border-bottom:1px solid var(--line);overflow:hidden}
+.fmt .img img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.fmt:hover .img img{transform:scale(1.025)}
+.fmt .pair{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}
+.fmt-body{padding:20px 22px 22px}
+.fmt-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.fmt h3{margin-top:12px;font-weight:500;color:var(--ink);font-size:20px;letter-spacing:-.02em}
+.fmt .rows{margin-top:14px}
+.badge{background:var(--ink);color:#fff;border-color:var(--ink)}
 
 /* pricing */
-.pricing{display:grid;grid-template-columns:minmax(0,.62fr) minmax(0,1.6fr);gap:clamp(40px,6vw,80px);align-items:start}
-.margins{margin-top:40px;border-top:1px solid var(--hair);padding-top:32px;display:grid;gap:32px}
-.margins b{display:block;font-weight:600;color:var(--ink);font-size:clamp(44px,4.6vw,60px);line-height:1;letter-spacing:-.03em}
-.margins span{display:block;margin-top:10px;color:var(--mute);font-size:16px;line-height:1.45}
-table{width:100%;border-collapse:collapse;font-size:17px;font-variant-numeric:lining-nums tabular-nums}
-thead th{background:var(--wash);text-align:left;font-weight:300;font-size:13px;letter-spacing:.16em;color:var(--mute);padding:16px 14px;white-space:nowrap}
-tbody td,tbody th{text-align:left;font-weight:300;color:var(--ink);padding:20px 14px;border-bottom:1px solid var(--hair);vertical-align:top}
-tbody th{white-space:nowrap}
-td small{display:block;color:var(--mute);font-size:14px}
-.terms{margin-top:40px}
-.terms p{margin-top:10px;font-size:17px;color:var(--body);max-width:62ch}
+.price-wrap{overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:15px}
+thead th{text-align:left;font-family:var(--mono);font-size:11.5px;font-weight:400;letter-spacing:.05em;text-transform:uppercase;color:var(--mute);padding:16px 22px;border-bottom:1px solid var(--line);background:#fafaf9;white-space:nowrap}
+tbody th,tbody td{text-align:left;padding:20px 22px;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+tbody th{font-weight:500;color:var(--ink);white-space:nowrap}
+tbody th span{display:block;font-weight:400;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);margin-top:3px}
+tbody td{font-family:var(--mono);font-size:14px;color:var(--ink);white-space:nowrap;font-variant-numeric:tabular-nums}
+tbody td small{color:var(--mute);font-size:12px}
+tbody tr{transition:background .15s}
+tbody tr:hover{background:#fbfbfa}
+.price-foot{display:grid;grid-template-columns:1fr 1fr 2fr;gap:16px;margin-top:16px}
+.mcell{padding:22px 24px}
+.mcell b{display:block;margin-top:12px;font-weight:500;color:var(--ink);font-size:clamp(30px,3vw,40px);line-height:1;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.mcell p{margin-top:8px;font-size:14px;color:var(--mute)}
+.terms p{margin-top:12px;font-size:14.5px;line-height:1.6}
 
 /* supply */
-.specs{margin-top:36px;border-top:1px solid var(--hair)}
-.specs div{display:grid;grid-template-columns:minmax(120px,.42fr) 1fr;gap:20px;padding:16px 0;border-bottom:1px solid var(--hair)}
-.specs dt{color:var(--mute);font-size:16px}
-.specs dd{color:var(--ink);font-size:17px}
-.markets{display:grid;grid-template-columns:.8fr 1fr 1.1fr;gap:24px;margin-top:36px}
-.markets ul{list-style:none;margin-top:14px}
-.markets li{font-size:20px;color:var(--ink);padding:3px 0}
+.sup{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.specs{padding:6px 24px}
+.specs div{display:grid;grid-template-columns:150px 1fr;gap:16px;padding:15px 0;border-bottom:1px solid var(--line)}
+.specs div:last-child{border-bottom:0}
+.specs dt{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute);padding-top:2px}
+.specs dd{color:var(--ink);font-size:15px}
+.mkts{padding:24px;display:flex;flex-direction:column}
+.mkts > p{font-size:15px;margin-top:10px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:18px}
+.legend span{display:flex;align-items:center;gap:7px}
+.mk{display:grid;grid-template-columns:1fr 1fr;gap:0 20px;margin-top:20px;border-top:1px solid var(--line)}
+.mk li{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px;color:var(--ink)}
+.mk li .mono{font-size:10.5px}
+.mk li.mh{grid-column:1/-1;padding:20px 0 6px;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+.mk li.mh:first-child{padding-top:14px}
 
 /* pull-through */
-.pull{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.2fr);min-height:100svh;border-top:1px solid var(--hair)}
-.pull-img{position:relative;background:var(--wash)}
-.pull-img img{position:sticky;top:0;width:100%;height:100svh;object-fit:cover;object-position:50% 50%}
-.pull-txt{padding:clamp(80px,9vw,128px) var(--pad) clamp(48px,6vw,72px) clamp(40px,6vw,96px);max-width:calc(var(--wrap)*.62 + 96px);display:flex;flex-direction:column}
-.steps{display:grid;grid-template-columns:1fr 1fr;gap:36px 40px;margin-top:44px}
-.steps .rule span{font-size:13px;letter-spacing:.16em;color:var(--mute)}
-.steps h3{margin-top:10px}
-.steps p{margin-top:4px;color:var(--mute);font-size:16px;line-height:1.5}
-.contact{margin-top:56px;border-top:1px solid var(--hair);padding-top:36px;display:grid;grid-template-columns:auto 1fr;gap:clamp(28px,4vw,52px);align-items:center}
-.contact img{width:150px}
-.contact p{font-size:19px;line-height:1.75;color:var(--ink)}
-.contact a{text-decoration:none;border-bottom:1px solid var(--hair)}
-.contact a:hover{border-color:var(--ink)}
-.legal{margin-top:auto;padding-top:56px;font-size:13px;letter-spacing:.04em;color:var(--mute)}
+.pull{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:16px}
+.pull .photo{overflow:hidden;min-height:420px;position:relative}
+.pull .photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.pull .photo .tag{left:14px;top:14px;bottom:auto}
+.steps{display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.step{padding:26px 26px 28px;border-bottom:1px solid var(--line)}
+.step:nth-child(odd){border-right:1px solid var(--line)}
+.step:nth-last-child(-n+2){border-bottom:0}
+.step h3{margin-top:16px;font-weight:500;color:var(--ink);font-size:18px;letter-spacing:-.015em}
+.step p{margin-top:6px;font-size:14.5px;color:var(--mute);line-height:1.55}
+.motto{grid-column:1/-1;padding:26px;border-bottom:1px solid var(--line);font-size:clamp(20px,2vw,26px);color:var(--ink);letter-spacing:-.025em;line-height:1.25}
 
-/* tablet */
-@media (max-width:1040px){
+/* contact */
+.contact{margin-top:16px;padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:32px;align-items:center;background:var(--ink);border-color:var(--ink);color:#c9c9cd}
+.contact h2{margin-top:14px;color:#fff;font-weight:500;font-size:clamp(28px,3.2vw,42px);line-height:1.05;letter-spacing:-.035em}
+.contact .mono{color:#8d8d93}
+.who{display:flex;align-items:center;gap:16px;margin-top:28px}
+.who img{height:34px;width:auto}
+.who p{font-size:14.5px;line-height:1.5}
+.who b{display:block;color:#fff;font-weight:500}
+.links{display:grid;border:1px solid #2c2c30;border-radius:12px;overflow:hidden}
+.links a{display:grid;grid-template-columns:92px 1fr auto;align-items:center;gap:12px;padding:16px 18px;border-bottom:1px solid #2c2c30;color:#fff;font-size:15px;transition:background .15s}
+.links a:last-child{border-bottom:0}
+.links a:hover{background:#18181b}
+.links a span{font-family:var(--mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#8d8d93}
+.links svg{width:13px;height:13px;stroke:#8d8d93;fill:none;stroke-width:1.6;flex:none}
+footer{padding:36px 0 calc(36px + env(safe-area-inset-bottom));display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(14px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+
+/* ── tablet ── */
+@media (max-width:1080px){
   .bar nav{display:none}
-  .two,.pricing{grid-template-columns:1fr}
-  .head-row{grid-template-columns:1fr;gap:18px}
-  .pull{grid-template-columns:1fr;min-height:0}
-  .pull-img img{position:static;height:min(78svh,720px)}
-  .pull-txt{max-width:none;padding-left:var(--pad)}
+  .bar .btn{margin-left:auto}
+  .hero-grid,.sec-head,.st,.sup,.pull,.contact{grid-template-columns:1fr}
+  .sec-head{align-items:start}
+  .prod{grid-template-columns:1fr 1fr}
+  .shopper{grid-column:1/-1}
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi:nth-child(3){border-left:0}
+  .kpi:nth-child(n+3){border-top:1px solid var(--line)}
+  .price-foot{grid-template-columns:1fr 1fr}
+  .terms{grid-column:1/-1}
+  .pull .photo{min-height:0;aspect-ratio:4/3}
+  .frame img{max-height:520px;object-fit:cover}
 }
-/* phone */
-@media (max-width:640px){
-  body{font-size:17px}
-  .bar .wrap{height:54px;gap:12px}
-  .bar-name{font-size:12px;letter-spacing:.18em}
-  .cover{min-height:calc(100svh - 54px)}
-  .cover .corner{flex-direction:column;align-items:center;gap:6px;letter-spacing:.1em}
-  .flavors,.reviews,.steps{grid-template-columns:1fr}
-  .stats{grid-template-columns:1fr;gap:26px}
-  .stat span{max-width:none}
-  .formats{grid-template-columns:1fr}
-  .fmt .img{height:auto}
-  .fmt .img img{height:auto}
-  .markets{grid-template-columns:1fr 1fr}
-  .markets .m-chain{grid-column:1 / -1}
-  .specs div{grid-template-columns:1fr;gap:2px}
-  .contact{grid-template-columns:1fr}
-  .contact img{width:130px}
-  /* the price table becomes one card per format */
-  table,tbody,tr,td,tbody th{display:block}
+/* ── phone ── */
+@media (max-width:680px){
+  body{font-size:15.5px}
+  .bar .wrap{height:56px;gap:10px}
+  .logo img{height:26px}
+  .bar .chip{display:none}
+  .hero .ctas .btn{flex:1;justify-content:center}
+  .tag{font-size:10px;padding:6px 8px}
+  .tag-b{display:none}
+  .kpi{padding:20px 18px}
+  .prod,.reviews,.fmts,.price-foot{grid-template-columns:1fr}
+  .fmt .img{height:auto;aspect-ratio:1/1}
+  .fmt .img img{height:100%}
+  .specs div{grid-template-columns:1fr;gap:4px}
+  .steps{grid-template-columns:1fr}
+  .step:nth-child(odd){border-right:0}
+  .step:nth-last-child(2){border-bottom:1px solid var(--line)}
+  .logos li{font-size:14.5px}
+  .contact{gap:28px}
+  .links a{grid-template-columns:1fr auto;row-gap:3px}
+  .links a span{grid-column:1/-1}
+  .links a{overflow-wrap:anywhere}
+  /* the price table: one card per format */
+  table,tbody,tr,tbody th,tbody td{display:block}
   thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-  tbody tr{border-top:1px solid var(--ink);padding:14px 0 6px}
-  tbody tr+tr{margin-top:22px}
-  tbody th{padding:0 0 8px;border:0;font-size:21px;font-weight:400}
-  tbody td{display:flex;justify-content:space-between;gap:16px;padding:9px 0;font-size:17px}
-  tbody td::before{content:attr(data-label);color:var(--mute);font-size:13px;letter-spacing:.14em;padding-top:3px}
-  tbody tr td:last-child{border-bottom:0}
+  tbody tr{padding:18px 20px;border-bottom:1px solid var(--line)}
+  tbody tr:last-child{border-bottom:0}
+  tbody th,tbody td{padding:0;border:0}
+  tbody th{margin-bottom:10px}
+  tbody td{display:flex;align-items:baseline;gap:5px;padding:7px 0;border-top:1px solid var(--line)}
+  tbody td::before{margin-right:auto;content:attr(data-label);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--mute)}
+  tbody tr:last-child td:last-child{border-bottom:0}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none !important}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  *{transition:none !important}
+}
 @media print{
   .bar{display:none}
-  .sec,.pull{break-inside:avoid}
-  .pull-img img{position:static;height:auto}
+  .js .rv{opacity:1;transform:none}
+  .card,.kpis{break-inside:avoid}
 }
 </style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
 
 <header class="bar" id="bar">
   <div class="wrap">
-    <a class="bar-name" href="#top">maison maxine</a>
-    <nav aria-label="sections">
-      <a href="#who">who we are</a>
-      <a href="#sell-through">sell-through</a>
-      <a href="#formats">formats</a>
-      <a href="#pricing">pricing</a>
-      <a href="#supply">supply</a>
-      <a href="#contact">contact</a>
+    <a class="logo" href="#top" aria-label="Maison Maxine, back to top"><img src="wordmark.png" width="800" height="388" alt="Maison Maxine"></a>
+    <span class="chip">Trade catalog · 2026</span>
+    <nav aria-label="Sections">
+      <a href="#product">Product</a>
+      <a href="#traction">Traction</a>
+      <a href="#formats">Formats</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#supply">Supply</a>
+      <a href="#partner">Partnering</a>
     </nav>
+    <a class="btn btn-ink" href="mailto:olivia@maisonmaxine.world?subject=Maison%20Maxine%20distribution">Contact sales</a>
   </div>
 </header>
 
 <main id="top">
 
-  <!-- 01 cover -->
-  <section class="cover" aria-label="cover">
-    <h1><img src="wordmark.png" width="800" height="388" alt="Maison Maxine"></h1>
-    <p class="eyebrow">grocery &amp; distributor catalog &middot; 2026</p>
-    <p class="tag">organic and clean red spritzes</p>
-    <div class="corner"><a href="https://maisonmaxine.world/home.html">maisonmaxine.world</a><a href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a></div>
+  <!-- hero -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="rv">
+          <span class="chip"><span class="dot"></span>Grocery &amp; distributor catalog · 2026</span>
+          <h1>Organic and clean red spritzes. <em>Built for the cooler.</em></h1>
+          <p class="sub">Maison Maxine makes organic red wine spritzes, produced by Gubel Family Vineyards in Napa. Whole ingredients, sweetened with honey, no refined sugar.</p>
+          <div class="ctas">
+            <a class="btn btn-ink" href="#pricing">View pricing
+              <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 7h8M7.5 3.5 11 7l-3.5 3.5"/></svg></a>
+            <a class="btn btn-line" href="#partner">Become a partner</a>
+          </div>
+        </div>
+        <figure class="frame rv">
+          <img src="cans.jpg" width="1600" height="1188" fetchpriority="high" alt="The two cans side by side: organic sangria spritz and cab spritz">
+          <figcaption class="tag tag-a"><b>SKU 01</b> Sangria spritz · 6%</figcaption>
+          <span class="tag tag-b" aria-hidden="true"><b>SKU 02</b> Cab spritz · 5%</span>
+        </figure>
+      </div>
+
+      <div class="kpis rv" role="list">
+        <div class="kpi" role="listitem"><span class="mono">Reorder rate</span><b>100%</b><p>across matured accounts</p></div>
+        <div class="kpi" role="listitem"><span class="mono">Revenue growth</span><b>3.6&times;</b><p>monthly, since launch</p></div>
+        <div class="kpi" role="listitem"><span class="mono">Earned reach</span><b>1M+</b><p>unpaid, from press and creators</p></div>
+        <div class="kpi" role="listitem"><span class="mono">Retail margin</span><b>37%</b><p>at $6.99 SRP per can</p></div>
+      </div>
+      <p class="mono asof">Figures as of August 2026</p>
+    </div>
   </section>
 
-  <!-- 02 who we are -->
-  <section class="sec" id="who">
-    <div class="wrap two">
-      <div class="stack">
-        <div>
-          <span class="num">02</span>
-          <h2>who we are</h2>
-        </div>
-        <p class="lede">maison maxine makes organic and clean red spritzes, produced by Gubel Family Vineyards in Napa. Whole ingredients, sweetened with honey.</p>
-        <p class="quote">&ldquo;reimagining red wine for the modern muse&rdquo;</p>
-        <div class="rule">
-          <p class="eyebrow">the shopper</p>
-          <p style="margin-top:10px">Women 21 to 35, especially Gen Z and younger millennials. They read labels, skip the sugar bombs and still want something that feels like wine. They buy for hosting, the beach and the patio, and they care about the story behind what they buy.</p>
-        </div>
+  <!-- 01 product -->
+  <section class="sec" id="product">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><span class="mono">01 / Who we are</span><h2>Reimagining red wine for the modern muse.</h2></div>
+        <p>Two flavors in 250&nbsp;mL cans. New cans: one bold color per flavor and an oversized wordmark, so a facing reads as a single block of color in the cooler.</p>
       </div>
-      <div>
-        <img class="photo" src="cans.jpg" width="1600" height="1188" alt="the two cans side by side: organic sparkling sangria spritz and organic cab spritz, in watercolor labels" fetchpriority="high">
-        <div class="flavors">
-          <div class="rule">
-            <p class="eyebrow">flavor one</p>
-            <h3>organic sangria spritz</h3>
-            <p>Organic Petite Syrah, orange, apple and lemon. 6% ABV, 250 mL can, no refined sugar.</p>
-          </div>
-          <div class="rule">
-            <p class="eyebrow">flavor two</p>
-            <h3>cab spritz</h3>
-            <p>red wine x ginger ale. organic Cabernet, lemon and honey. 5% ABV, 250 mL can, no refined sugar.</p>
-          </div>
-        </div>
-        <p class="note">New cans: one bold color per flavor and an oversized wordmark, so a facing reads as a single block of color in the cooler.</p>
+      <div class="prod">
+        <article class="card flav rv">
+          <div class="flav-top"><span class="mono">SKU 01</span><span class="chip">6% ABV</span></div>
+          <h3>Organic sangria spritz</h3>
+          <p class="what">Organic Petite Syrah, orange, apple and lemon.</p>
+          <dl class="rows">
+            <div><dt>Base</dt><dd>Organic Petite Syrah</dd></div>
+            <div><dt>Fruit</dt><dd>Orange, apple, lemon</dd></div>
+            <div><dt>Format</dt><dd>250 mL can</dd></div>
+            <div><dt>Refined sugar</dt><dd>None</dd></div>
+          </dl>
+        </article>
+        <article class="card flav rv">
+          <div class="flav-top"><span class="mono">SKU 02</span><span class="chip">5% ABV</span></div>
+          <h3>Cab spritz</h3>
+          <p class="what">Red wine &times; ginger ale.</p>
+          <dl class="rows">
+            <div><dt>Base</dt><dd>Organic Cabernet</dd></div>
+            <div><dt>Flavor</dt><dd>Lemon, honey</dd></div>
+            <div><dt>Format</dt><dd>250 mL can</dd></div>
+            <div><dt>Refined sugar</dt><dd>None</dd></div>
+          </dl>
+        </article>
+        <article class="card shopper rv">
+          <span class="mono">The shopper</span>
+          <h3>Women 21 to 35, especially Gen Z and younger millennials.</h3>
+          <p>They read labels, skip the sugar bombs and still want something that feels like wine. They buy for hosting, the beach and the patio, and they care about the story behind what they buy.</p>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- 03 sell-through -->
-  <section class="sec" id="sell-through">
+  <!-- 02 traction -->
+  <section class="sec" id="traction">
     <div class="wrap">
-      <div class="two">
-        <div class="stack">
-          <div>
-            <span class="num">03</span>
-            <h2>sell-through</h2>
-          </div>
-          <p class="lede">Our first production run sold out, and every account that has been with us long enough to reorder has.</p>
-          <p class="quote">&ldquo;people pick it up for the can, and keep buying because of the flavor and clean ingredients.&rdquo;</p>
+      <div class="sec-head rv">
+        <div><span class="mono">02 / Sell-through</span><h2>Our first production run sold out.</h2></div>
+        <p>Every account that has been with us long enough to reorder has.</p>
+      </div>
+      <div class="st">
+        <div class="card quote-card rv">
+          <blockquote>&ldquo;People pick it up for the can, and keep buying because of the flavor and clean ingredients.&rdquo;</blockquote>
+          <p class="mono">What we hear from accounts</p>
         </div>
-        <div>
-          <div class="stats">
-            <div class="stat"><b>100%</b><span>reorder rate across matured accounts</span></div>
-            <div class="stat"><b>3.6&times;</b><span>monthly revenue growth since launch</span></div>
-            <div class="stat"><b>1M+</b><span>unpaid reach from press and creators</span></div>
-          </div>
-          <p class="asof">figures as of august 2026</p>
-          <div class="partners rule">
-            <p class="eyebrow">partners &amp; press</p>
-            <ul>
-              <li>Drybar</li><li>Surf Lodge Montauk</li><li>Fara Homidi</li><li>Snaxshot</li>
-              <li>Wags &amp; Walks</li><li>Muddy Paws Rescue</li><li>Feed Me</li>
-            </ul>
-          </div>
+        <div class="card partners rv">
+          <span class="mono">Partners &amp; press</span>
+          <ul class="logos">
+            <li>Drybar</li><li>Surf Lodge Montauk</li><li>Fara Homidi</li><li>Snaxshot</li>
+            <li>Wags &amp; Walks</li><li>Muddy Paws Rescue</li><li>Feed Me</li>
+          </ul>
         </div>
       </div>
       <div class="reviews">
-        <figure>
-          <div class="stars" role="img" aria-label="five stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <figure class="card rev rv">
+          <div class="stars" role="img" aria-label="Five stars"><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg></div>
           <blockquote>&ldquo;trust that my drink of choice is mm. in fact i don&rsquo;t even like drinking except for mm.&rdquo;</blockquote>
-          <cite>kayla c., new york</cite>
+          <cite class="mono">Kayla C. · New York</cite>
         </figure>
-        <figure>
-          <div class="stars" role="img" aria-label="five stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <figure class="card rev rv">
+          <div class="stars" role="img" aria-label="Five stars"><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg><svg viewBox="0 0 12 12"><path d="M6 .6l1.6 3.6 3.9.4-2.9 2.6.8 3.9L6 9.1 2.6 11.1l.8-3.9L.5 4.6l3.9-.4z"/></svg></div>
           <blockquote>&ldquo;i sampled some at monsieur marcel recently! i bought two cans and enjoyed them while on vacation in los angeles. i live in alabama and wondered if the spritzers might be available for mail order someday.&rdquo;</blockquote>
-          <cite>camille s., alabama</cite>
+          <cite class="mono">Camille S. · Alabama</cite>
         </figure>
       </div>
     </div>
   </section>
 
-  <!-- 04 formats -->
+  <!-- 03 formats -->
   <section class="sec" id="formats">
     <div class="wrap">
-      <div class="head-row">
-        <div>
-          <span class="num">04</span>
-          <h2>the formats</h2>
-        </div>
-        <p class="lede">The single can for the cooler, a 4-pack for the shelf, a keepsake vault for the gift aisle and 750 mL bottles for the wine aisle. Every format comes in both flavors.</p>
+      <div class="sec-head rv">
+        <div><span class="mono">03 / The formats</span><h2>One line, four ways onto the shelf.</h2></div>
+        <p>The single can for the cooler, a 4-pack for the shelf, a keepsake vault for the gift aisle and 750&nbsp;mL bottles for the wine aisle. Every format comes in both flavors.</p>
       </div>
-      <div class="formats">
-        <article class="fmt fmt-four">
-          <div class="img"><img src="fourpack.jpg" width="1000" height="1254" loading="lazy" alt="the 4-can pack gift box in the watercolor print"></div>
-          <h3>4-can pack</h3>
-          <p>4 &times; 250 mL cans &middot; gift box &middot; <span class="srp">$28 srp</span></p>
+      <div class="fmts">
+        <article class="card fmt rv">
+          <div class="img"><img src="fourpack.jpg" width="1000" height="1254" loading="lazy" alt="The 4-can pack gift box in the watercolor print"></div>
+          <div class="fmt-body">
+            <div class="fmt-top"><span class="mono">Shelf</span><span class="chip badge">Core format</span></div>
+            <h3>4-can pack</h3>
+            <dl class="rows">
+              <div><dt>Contents</dt><dd>4 &times; 250 mL cans</dd></div>
+              <div><dt>Pack</dt><dd>Gift box</dd></div>
+              <div><dt>SRP</dt><dd class="num">$28</dd></div>
+            </dl>
+          </div>
         </article>
-        <article class="fmt fmt-vault">
-          <div class="img"><img src="vault.jpg" width="1400" height="1228" loading="lazy" alt="the Essential Vault Box: a lacquered pale green keepsake box with a hinged lid and padlock"></div>
-          <h3>Essential Vault Box</h3>
-          <p>16 &times; 250 mL cans &middot; lacquered keepsake box, hinged lid and padlock &middot; <span class="srp">$92 srp</span></p>
+        <article class="card fmt rv">
+          <div class="img"><img src="vault.jpg" width="1400" height="1228" loading="lazy" alt="The Essential Vault Box: a lacquered pale green keepsake box with a hinged lid and padlock"></div>
+          <div class="fmt-body">
+            <div class="fmt-top"><span class="mono">Gift aisle</span></div>
+            <h3>Essential Vault Box</h3>
+            <dl class="rows">
+              <div><dt>Contents</dt><dd>16 &times; 250 mL cans</dd></div>
+              <div><dt>Pack</dt><dd>Lacquered keepsake box, hinged lid, padlock</dd></div>
+              <div><dt>SRP</dt><dd class="num">$92</dd></div>
+            </dl>
+          </div>
         </article>
-        <article class="fmt">
+        <article class="card fmt rv">
           <div class="img pair"><img src="bottle-sangria.jpg" width="600" height="1633" loading="lazy" alt="750 mL sangria spritz bottle"><img src="bottle-cab.jpg" width="600" height="1633" loading="lazy" alt="750 mL cab spritz bottle"></div>
-          <h3>750 mL bottles</h3>
-          <p>both flavors &middot; 12 per case &middot; <span class="srp">$28 srp</span></p>
+          <div class="fmt-body">
+            <div class="fmt-top"><span class="mono">Wine aisle</span></div>
+            <h3>750 mL bottles</h3>
+            <dl class="rows">
+              <div><dt>Flavors</dt><dd>Both</dd></div>
+              <div><dt>Case</dt><dd>12 per case</dd></div>
+              <div><dt>SRP</dt><dd class="num">$28</dd></div>
+            </dl>
+          </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 05 the line & pricing -->
+  <!-- 04 pricing -->
   <section class="sec" id="pricing">
-    <div class="wrap pricing">
-      <div>
-        <span class="num">05</span>
-        <h2>the line &amp; pricing</h2>
-        <p class="lede" style="margin-top:28px">Every format comes in cab spritz (5%) and organic sangria spritz (6%).</p>
-        <div class="margins">
-          <div><b>29&ndash;38%</b><span>distributor margin on cans at $105 wholesale</span></div>
-          <div><b>37%</b><span>retail margin at $6.99 srp</span></div>
-        </div>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><span class="mono">04 / The line &amp; pricing</span><h2>Pricing.</h2></div>
+        <p>Every format comes in cab spritz (5%) and organic sangria spritz (6%). All prices USD.</p>
       </div>
-      <div>
+      <div class="card price-wrap rv">
         <table>
-          <thead><tr><th scope="col">format</th><th scope="col">case pack</th><th scope="col">distributor</th><th scope="col">wholesale</th><th scope="col">srp</th></tr></thead>
+          <thead><tr><th scope="col">Format</th><th scope="col">Case pack</th><th scope="col">Distributor</th><th scope="col">Wholesale</th><th scope="col">SRP</th></tr></thead>
           <tbody>
-            <tr><th scope="row">single can &middot; 250 mL</th><td data-label="case pack">24 cans</td><td data-label="distributor">$65&ndash;75 / case</td><td data-label="wholesale">$105 / case</td><td data-label="srp">$6.99 / can</td></tr>
-            <tr><th scope="row">4-can pack</th><td data-label="case pack">6 boxes (24 cans)</td><td data-label="distributor">$65&ndash;75 / case</td><td data-label="wholesale">$105 / case</td><td data-label="srp">$28 / box</td></tr>
-            <tr><th scope="row">Essential Vault Box</th><td data-label="case pack">1 box (16 cans)</td><td data-label="distributor">$44.16 / box</td><td data-label="wholesale">$55.20 / box</td><td data-label="srp">$92 / box</td></tr>
-            <tr><th scope="row">bottle &middot; 750 mL</th><td data-label="case pack">12 bottles</td><td data-label="distributor">$161.28 / case</td><td data-label="wholesale">$201.60 / case</td><td data-label="srp">$28 / bottle</td></tr>
+            <tr><th scope="row">Single can<span>250 mL</span></th><td data-label="Case pack">24 cans</td><td data-label="Distributor">$65&ndash;75 <small>/ case</small></td><td data-label="Wholesale">$105 <small>/ case</small></td><td data-label="SRP">$6.99 <small>/ can</small></td></tr>
+            <tr><th scope="row">4-can pack<span>Gift box</span></th><td data-label="Case pack">6 boxes (24 cans)</td><td data-label="Distributor">$65&ndash;75 <small>/ case</small></td><td data-label="Wholesale">$105 <small>/ case</small></td><td data-label="SRP">$28 <small>/ box</small></td></tr>
+            <tr><th scope="row">Essential Vault Box<span>16 cans</span></th><td data-label="Case pack">1 box (16 cans)</td><td data-label="Distributor">$44.16 <small>/ box</small></td><td data-label="Wholesale">$55.20 <small>/ box</small></td><td data-label="SRP">$92 <small>/ box</small></td></tr>
+            <tr><th scope="row">Bottle<span>750 mL</span></th><td data-label="Case pack">12 bottles</td><td data-label="Distributor">$161.28 <small>/ case</small></td><td data-label="Wholesale">$201.60 <small>/ case</small></td><td data-label="SRP">$28 <small>/ bottle</small></td></tr>
           </tbody>
         </table>
-        <div class="terms rule">
-          <p class="eyebrow">terms</p>
-          <p>All prices USD. Distributor pricing is FOB Vermont per case, tiered by volume. LA accounts self-distributed, net 30. NY via LibDib.</p>
-        </div>
+      </div>
+      <div class="price-foot">
+        <div class="card mcell rv"><span class="mono">Distributor margin</span><b>29&ndash;38%</b><p>on cans at $105 wholesale</p></div>
+        <div class="card mcell rv"><span class="mono">Retail margin</span><b>37%</b><p>at $6.99 SRP</p></div>
+        <div class="card mcell terms rv"><span class="mono">Terms</span><p>Distributor pricing is FOB Vermont per case, tiered by volume. LA accounts self-distributed, net 30. NY via LibDib.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 06 supply & specs / where we're going -->
+  <!-- 05 supply -->
   <section class="sec" id="supply">
-    <div class="wrap two">
-      <div>
-        <span class="num">06</span>
-        <h2>supply &amp; specs</h2>
-        <p class="lede" style="margin-top:28px">Wine from Gubel Family Vineyards in Northern California, produced and canned in Vermont. Our fall run is 28,000 cans, with capacity to scale.</p>
-        <dl class="specs">
-          <div><dt>formats</dt><dd>250 mL can &middot; 4-pack &middot; 16-can vault box &middot; 750 mL bottle</dd></div>
-          <div><dt>case packs</dt><dd>24 cans (6 boxes of 4) &middot; 12 bottles</dd></div>
-          <div><dt>FOB</dt><dd>Vermont</dd></div>
-          <div><dt>case dims &middot; weight</dt><dd>approx. 14 &times; 9.5 &times; 6 in &middot; 16 lb</dd></div>
-          <div><dt>pallet</dt><dd>approx. 117 cases on a 48 &times; 40 pallet (13 per layer, 9 high)</dd></div>
-          <div><dt>shelf life</dt><dd>12 months</dd></div>
-        </dl>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><span class="mono">05 / Supply &amp; markets</span><h2>Ready to scale.</h2></div>
+        <p>Wine from Gubel Family Vineyards in Northern California, produced and canned in Vermont. Our fall run is 28,000 cans, with capacity to scale.</p>
       </div>
-      <div id="markets">
-        <span class="num" aria-hidden="true">&nbsp;</span>
-        <h2>where we&rsquo;re going</h2>
-        <p class="lede" style="margin-top:28px">We&rsquo;re looking for distribution partners in these markets, and we bring demand with us.</p>
-        <div class="markets">
-          <div class="rule"><p class="eyebrow">on shelf today</p><ul><li>California</li><li>New York</li></ul></div>
-          <div class="rule"><p class="eyebrow">opening next</p><ul><li>New Jersey</li><li>Texas</li><li>Massachusetts</li><li>Connecticut</li><li>Colorado</li><li>Florida</li></ul></div>
-          <div class="rule m-chain"><p class="eyebrow">chain talks</p><ul><li>Albertsons</li><li>Balducci&rsquo;s</li><li>Erewhon</li><li>Royal Blue Grocery</li><li>Costco Canada</li></ul></div>
+      <div class="sup">
+        <dl class="card specs rv">
+          <div><dt>Formats</dt><dd>250 mL can · 4-pack · 16-can vault box · 750 mL bottle</dd></div>
+          <div><dt>Case packs</dt><dd>24 cans (6 boxes of 4) · 12 bottles</dd></div>
+          <div><dt>FOB</dt><dd>Vermont</dd></div>
+          <div><dt>Case dims · wt</dt><dd>Approx. 14 &times; 9.5 &times; 6 in · 16 lb</dd></div>
+          <div><dt>Pallet</dt><dd>Approx. 117 cases on a 48 &times; 40 pallet (13 per layer, 9 high)</dd></div>
+          <div><dt>Shelf life</dt><dd>12 months</dd></div>
+          <div><dt>Fall run</dt><dd class="num">28,000 cans</dd></div>
+        </dl>
+        <div class="card mkts rv">
+          <span class="mono">Where we&rsquo;re going</span>
+          <p>We&rsquo;re looking for distribution partners in these markets, and we bring demand with us.</p>
+          <div class="legend mono"><span><i class="dot"></i>On shelf</span><span><i class="dot next"></i>Opening next</span><span><i class="dot talk"></i>Chain talks</span></div>
+          <ul class="mk">
+            <li class="mh">States</li>
+            <li>California <i class="dot"></i></li>
+            <li>New York <i class="dot"></i></li>
+            <li>New Jersey <i class="dot next"></i></li>
+            <li>Texas <i class="dot next"></i></li>
+            <li>Massachusetts <i class="dot next"></i></li>
+            <li>Connecticut <i class="dot next"></i></li>
+            <li>Colorado <i class="dot next"></i></li>
+            <li>Florida <i class="dot next"></i></li>
+            <li class="mh">Chains</li>
+            <li>Albertsons <i class="dot talk"></i></li>
+            <li>Balducci&rsquo;s <i class="dot talk"></i></li>
+            <li>Erewhon <i class="dot talk"></i></li>
+            <li>Royal Blue Grocery <i class="dot talk"></i></li>
+            <li>Costco Canada <i class="dot talk"></i></li>
+          </ul>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 07 pull-through + contact -->
-  <section class="pull" id="contact">
-    <div class="pull-img"><img src="toast.jpg" width="1200" height="2052" loading="lazy" alt="two hands holding cab spritz cans on a sunlit porch"></div>
-    <div class="pull-txt">
-      <span class="num">07</span>
-      <h2>pull-through</h2>
-      <p class="lede" style="margin-top:28px">Every new market gets a brand team behind it.</p>
-      <p class="quote" style="margin-top:22px">&ldquo;you sell it in. we help sell it through.&rdquo;</p>
-      <div class="steps">
-        <div class="rule"><span>01</span><h3>ride-alongs &amp; tastings</h3><p>We join your reps on account calls and staff in-store demos.</p></div>
-        <div class="rule"><span>02</span><h3>local demand</h3><p>Creator content and paid social in your market, pointing to our store locator.</p></div>
-        <div class="rule"><span>03</span><h3>events</h3><p>Our spritz cart at launches, galas and community events.</p></div>
-        <div class="rule"><span>04</span><h3>a growing line</h3><p>Two SKUs today, with a third launching in March.</p></div>
+  <!-- 06 pull-through -->
+  <section class="sec" id="partner">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div><span class="mono">06 / Pull-through</span><h2>Every new market gets a brand team behind it.</h2></div>
+        <p>You sell it in. We help sell it through.</p>
       </div>
-      <div class="contact">
-        <img src="wordmark.png" width="800" height="388" alt="" loading="lazy">
-        <p>Olivia Gubel, Founder &amp; CEO<br>
-          <a href="mailto:olivia@maisonmaxine.world">olivia@maisonmaxine.world</a> &middot; <a href="tel:+13232736751">323-273-6751</a><br>
-          <a href="https://maisonmaxine.world/home.html">maisonmaxine.world</a> &middot; <a href="https://www.instagram.com/maisonmaxine.world/" rel="noopener">@maisonmaxine.world</a></p>
+      <div class="pull">
+        <div class="card photo rv"><img src="toast.jpg" width="1200" height="2052" loading="lazy" alt="Two hands holding cab spritz cans on a sunlit porch"></div>
+        <div class="card steps rv">
+          <div class="step"><span class="mono">01</span><h3>Ride-alongs &amp; tastings</h3><p>We join your reps on account calls and staff in-store demos.</p></div>
+          <div class="step"><span class="mono">02</span><h3>Local demand</h3><p>Creator content and paid social in your market, pointing to our store locator.</p></div>
+          <div class="step"><span class="mono">03</span><h3>Events</h3><p>Our spritz cart at launches, galas and community events.</p></div>
+          <div class="step"><span class="mono">04</span><h3>A growing line</h3><p>Two SKUs today, with a third launching in March.</p></div>
+        </div>
       </div>
-      <p class="legal">Maison Maxine LLC &middot; a brand of Gubel Family Vineyards &middot; 1661 Elevado St, Los Angeles, CA 90026</p>
+
+      <div class="card contact rv">
+        <div>
+          <span class="mono">Get in touch</span>
+          <h2>Let&rsquo;s bring Maison Maxine to your market.</h2>
+          <div class="who">
+            <img src="wordmark.png" width="800" height="388" alt="" loading="lazy">
+            <p><b>Olivia Gubel</b>Founder &amp; CEO</p>
+          </div>
+        </div>
+        <div class="links">
+          <a href="mailto:olivia@maisonmaxine.world?subject=Maison%20Maxine%20distribution"><span>Email</span>olivia@maisonmaxine.world<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+          <a href="tel:+13232736751"><span>Phone</span>323-273-6751<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+          <a href="https://maisonmaxine.world/home.html"><span>Web</span>maisonmaxine.world<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+          <a href="https://www.instagram.com/maisonmaxine.world/" rel="noopener"><span>Instagram</span>@maisonmaxine.world<svg viewBox="0 0 14 14" aria-hidden="true"><path d="M4 10 10 4M5 4h5v5"/></svg></a>
+        </div>
+      </div>
     </div>
   </section>
 
 </main>
 
+<footer class="wrap">
+  <span class="mono">Maison Maxine LLC · a brand of Gubel Family Vineyards</span>
+  <span class="mono">1661 Elevado St, Los Angeles, CA 90026</span>
+</footer>
+
 <script>
-  // a hairline under the bar once the page has scrolled
-  (function(){
-    var bar=document.getElementById('bar');
-    function f(){bar.classList.toggle('is-stuck',window.scrollY>4)}
-    f(); window.addEventListener('scroll',f,{passive:true});
-  })();
+(function(){
+  var bar=document.getElementById('bar');
+  function stuck(){bar.classList.toggle('is-stuck',window.scrollY>4)}
+  stuck(); window.addEventListener('scroll',stuck,{passive:true});
+  if(!('IntersectionObserver' in window)){document.querySelectorAll('.rv').forEach(function(e){e.classList.add('in')});return}
+  // cards ease in once as they enter
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(function(e){io.observe(e)});
+  // the nav follows the section in view
+  var links={};document.querySelectorAll('.bar nav a').forEach(function(a){links[a.getAttribute('href').slice(1)]=a});
+  var so=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){for(var k in links)links[k].classList.toggle('on',k===e.target.id)}})},{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('main section[id]').forEach(function(s){so.observe(s)});
+})();
 </script>
 </body>
 </html>
