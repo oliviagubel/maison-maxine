@@ -52,8 +52,9 @@ body::before{content:'';position:fixed;inset:0;background:var(--mm-bg,url('backg
 .banner{text-align:center;padding:20px 20px 24px;margin-bottom:24px;position:relative}
 .banner h1{font-family:'Jersey 10','Pixelify Sans',sans-serif;font-size:42px;color:#d371a1;line-height:1;font-weight:normal}
 .banner .tagline{font-size:14px;color:#c76090;margin-top:6px;letter-spacing:.08em}
-.page-intro{text-align:center;max-width:540px;margin:0 auto 22px}
-.page-intro p{font-size:15px;color:var(--mute);line-height:1.8}
+/* the logo board, saying maison.io: drawn at the same letter size as the maisonmaxine.world one */
+.mm-board-io img{width:340px !important}
+.vh{position:absolute !important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ═══ THE GAME BOX: a white box with hairlines, like every box on the site ═══ */
 .game{background:#fff;border:1px solid var(--hair);margin-bottom:20px}
@@ -199,7 +200,7 @@ img.px{image-rendering:pixelated;image-rendering:crisp-edges;-ms-interpolation-m
   .mobile-nav a:last-child{border-bottom:none}
 
   #main{margin:0;padding:0;max-width:none}
-  .banner,.page-intro{display:none}
+  .banner{display:none}
   .game{border:0;margin:0}
   .game-head{position:fixed;left:0;right:0;top:var(--hdr,64px);z-index:6;background:#fff;padding:10px 16px 8px}
   .game-title{font-size:22px}
@@ -381,16 +382,10 @@ img.px{image-rendering:pixelated;image-rendering:crisp-edges;-ms-interpolation-m
 
   <!-- BANNER -->
   <div class="banner">
-    <a class="mm-board" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-800.webp 800w, logo-board-1600.webp 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px"><img src="logo-board-1600.png" srcset="logo-board-800.png 800w, logo-board-1600.png 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px" width="1600" height="291" alt="Maison Maxine" fetchpriority="high"></picture></a>
-    <h1>maison.io</h1>
+    <a class="mm-board mm-board-io" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-maisonio-380.webp 380w, logo-board-maisonio-760.webp 760w" sizes="340px"><img src="logo-board-maisonio-760.png" srcset="logo-board-maisonio-380.png 380w, logo-board-maisonio-760.png 760w" sizes="340px" width="753" height="291" alt="maison.io" fetchpriority="high"></picture></a>
+    <h1 class="vh">maison.io</h1>
     <div class="tagline">four elements, two cans ✦</div>
-    <div class="season-stamp dt-only">Fall 2026</div>
     <div class="divider"></div>
-  </div>
-  <div class="dt-only lil-strip" aria-hidden="true"></div>
-
-  <div class="page-intro">
-    <p>start with earth, water, fire and air. drag one onto another to mix them, two at a time, until you've grown everything that goes into our two cans.</p>
   </div>
 
   <!-- THE GAME -->
