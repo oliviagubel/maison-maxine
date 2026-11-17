@@ -149,7 +149,7 @@
       }
     });
 
-    /* fall batch signup, to the same formspree list the snail mail club uses */
+    /* fall batch signup, to the formspree list */
     var form = document.getElementById('fallSignup');
     var note = document.getElementById('fallSignupNote');
     if (form) form.addEventListener('submit', function(e){
