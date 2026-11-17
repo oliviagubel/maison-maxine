@@ -203,7 +203,7 @@
     var CW = 72, CH = 16, BARS = 18;
     canvas.width = CW*dpr; canvas.height = CH*dpr; cx.scale(dpr,dpr);
     var grad = cx.createLinearGradient(0,CH,0,0);
-    grad.addColorStop(0,'#00c800'); grad.addColorStop(.55,'#e8e800'); grad.addColorStop(1,'#ff2a00');
+    grad.addColorStop(0,'#1f87a6'); grad.addColorStop(.55,'#6fc6d8'); grad.addColorStop(1,'#ffc2dc');
     function draw(){
       raf = 0;
       cx.clearRect(0,0,CW,CH);
@@ -217,7 +217,7 @@
         var h = Math.round(v/255*CH);
         peaks[i] = Math.max(h, (peaks[i]||0) - .35);
         if(h){ cx.fillStyle = grad; cx.fillRect(i*4, CH-h, 3, h); }
-        if(peaks[i] >= 1){ any = true; cx.fillStyle = '#c3c3c3'; cx.fillRect(i*4, CH-Math.round(peaks[i])-1, 3, 1); }
+        if(peaks[i] >= 1){ any = true; cx.fillStyle = '#ffe6f0'; cx.fillRect(i*4, CH-Math.round(peaks[i])-1, 3, 1); }
       }
       if(live || any) raf = requestAnimationFrame(draw);
     }
