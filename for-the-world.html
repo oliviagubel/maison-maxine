@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script>/* the background: each visit gets one of our two watercolour patterns, at random,
+   and keeps it page to page until the tab closes */
+try{var mmBg=sessionStorage.getItem('mm_bg');if(!mmBg){mmBg=Math.random()<.5?'1':'2';sessionStorage.setItem('mm_bg',mmBg)}if(mmBg==='2')document.documentElement.style.setProperty('--mm-bg',"url('/background-2.jpg')")}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For the World ✦ Maison Maxine™</title>
+<meta name="description" content="How Maison Maxine looks after the planet and the animals: certified organic by CCOF, sustainably farmed Napa Valley Cabernet, recyclable aluminum cans, and 5% of every order to animal rescue.">
+<!-- seo:start -->
+<link rel="canonical" href="https://maisonmaxine.world/for-the-world.html">
+<meta property="og:site_name" content="Maison Maxine">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maisonmaxine.world/for-the-world.html">
+<meta property="og:title" content="For the World ✦ Maison Maxine™">
+<meta property="og:description" content="How Maison Maxine looks after the planet and the animals: certified organic by CCOF, sustainably farmed Napa Valley Cabernet, recyclable aluminum cans, and 5% of every order to animal rescue.">
+<meta property="og:image" content="https://maisonmaxine.world/watercolor-cans.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#fdf0f6">
+<!-- seo:end -->
+<script type="application/ld+json" data-seo>
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://maisonmaxine.world/home.html"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "For the World",
+     "item": "https://maisonmaxine.world/for-the-world.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Klickclack Swash';src:url('KlickclackSwash-MM.otf') format('opentype');font-weight:normal;font-style:normal;font-display:swap;}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+::selection{background:#f7cdeb;color:#c76090}
+
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}
+
+/* ═══ CUSTOM CURSOR ═══ */
+body, a, button{cursor:url("wine-cursor.png") 44 37, auto}
+a:hover, button:hover{cursor:url("wine-cursor.png") 44 37, pointer}
+
+body{
+  background:#fafaf5;
+  font-family:'Cormorant Garamond',Georgia,serif;
+  min-height:100vh;
+  display:flex;
+  color:#4a3a3a;
+  position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:var(--mm-bg,url('background.jpg')) repeat center top;
+  background-size:600px;
+  opacity:.45;
+  z-index:-1;
+  pointer-events:none;
+}
+
+/* ═══ FALLING SPARKLES ═══ */
+.sparkle{
+  position:fixed;
+  top:-20px;
+  font-size:12px;
+  z-index:9999;
+  pointer-events:none;
+  animation:sparkle-fall linear forwards;
+  opacity:0;
+}
+@keyframes sparkle-fall{
+  0%{opacity:0;transform:translateX(0) rotate(0deg)}
+  10%{opacity:1}
+  90%{opacity:.6}
+  100%{opacity:0;transform:translateX(var(--drift)) rotate(360deg);top:100vh}
+}
+
+
+/* ═══ FIXED SIDEBAR ═══ */
+#sidebar{
+  position:fixed;
+  left:0;top:0;bottom:0;
+  width:230px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border-right:1px solid #f0d0e2;box-shadow:4px 0 20px rgba(247,205,235,.2);
+  display:flex;
+  flex-direction:column;
+  padding:28px 20px;
+  z-index:100;
+  overflow-y:auto;
+}
+
+.sidebar-logo{
+  font-family:'Klickclack Swash','Great Vibes',cursive;
+  font-size:30px;text-shadow:0 0 25px rgba(199,96,144,.15);
+  color:#d371a1;
+  line-height:1.1;
+}
+.sidebar-sub{
+  font-size:13px;
+  color:#c76090;
+  letter-spacing:.1em;
+  margin-top:3px;
+  font-style:italic;
+}
+
+.nav-section{margin-top:28px}
+.nav-label{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+  font-family:'Pixelify Sans',sans-serif;
+}
+#sidebar nav a{
+  display:block;
+  font-size:18px;
+  font-style:italic;
+  color:#6a4a5a;
+  text-decoration:none;
+  padding:5px 0;
+  border-bottom:1px solid rgba(247,205,235,.4);
+  transition:all .25s;
+  position:relative;
+}
+#sidebar nav a::after{
+  content:'✦';
+  position:absolute;
+  right:0;
+  opacity:0;
+  transform:translateX(-6px) scale(.5);
+  transition:all .3s;
+  color:#f7cdeb;
+  font-style:normal;
+}
+#sidebar nav a:hover{color:#c76090;padding-left:8px;text-shadow:0 0 12px rgba(199,96,144,.2)}
+#sidebar nav a:hover::after{opacity:1;transform:translateX(0) scale(1)}
+#sidebar nav a.active{color:#c76090;font-weight:600;text-shadow:0 0 10px rgba(199,96,144,.15)}
+
+.sidebar-widget{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.sidebar-widget .wt{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:6px;
+}
+.sidebar-widget p{
+  font-size:12px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.6;
+}
+
+/* ═══ NOW PLAYING WIDGET ═══ */
+.now-playing{
+  margin-top:24px;
+  padding:12px;
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:4px;
+}
+.np-header{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:8px;
+}
+.np-track{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.eq-bars{
+  display:flex;
+  align-items:flex-end;
+  gap:2px;
+  height:16px;
+  flex-shrink:0;
+}
+.eq-bars span{
+  width:3px;
+  background:#c76090;
+  border-radius:1px;
+  animation:eq-bounce .8s ease-in-out infinite alternate;
+}
+.eq-bars span:nth-child(1){height:8px;animation-delay:0s}
+.eq-bars span:nth-child(2){height:14px;animation-delay:.2s}
+.eq-bars span:nth-child(3){height:6px;animation-delay:.4s}
+.eq-bars span:nth-child(4){height:12px;animation-delay:.1s}
+.eq-bars span:nth-child(5){height:10px;animation-delay:.3s}
+@keyframes eq-bounce{
+  0%{height:4px}
+  100%{height:16px}
+}
+.np-info{
+  overflow:hidden;
+}
+.np-song{
+  font-size:11px;
+  font-style:italic;
+  color:#5a3a4a;
+  white-space:nowrap;
+}
+.np-artist{
+  font-size:10px;
+  color:#c76090;
+  font-family:'Pixelify Sans',sans-serif;
+  letter-spacing:.05em;
+}
+
+.sidebar-bottom{
+  margin-top:auto;
+  padding-top:20px;
+  text-align:center;
+}
+.sidebar-bottom .copyright{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.08em;
+}
+
+/* ═══ MAIN ═══ */
+#main{
+  margin-left:230px;
+  flex:1;
+  padding:30px 40px;
+  max-width:900px;
+}
+
+/* ═══ HEADER / BANNER ═══ */
+.banner{
+  text-align:center;
+  padding:30px 20px;
+  margin-bottom:24px;
+  position:relative;
+  background:transparent;
+  border:none;
+  filter:
+    drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #fff) drop-shadow(0 0 6px #fff)
+    drop-shadow(0 0 12px rgba(247,205,235,.9)) drop-shadow(0 0 25px rgba(247,205,235,.6))
+    drop-shadow(0 0 45px rgba(247,205,235,.35));
+}
+.banner :is(h1,.banner-h1){
+  font-family:'Klickclack Swash','Great Vibes',cursive;
+  font-size:52px;
+  color:#d371a1;
+  line-height:1;
+}
+.banner .tagline{
+  font-style:italic;
+  font-size:15px;
+  color:#c76090;
+  margin-top:6px;
+  letter-spacing:.08em;
+}
+.banner .divider{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-top:14px;
+  color:#f7cdeb;
+  font-size:10px;
+  letter-spacing:4px;
+}
+.banner .divider::before,
+.banner .divider::after{
+  content:'';
+  width:40px;
+  height:1px;
+  background:#f7cdeb;
+}
+
+/* ═══ TWINKLE STARS ═══ */
+.twinkle{
+  display:inline-block;
+  animation:twinkle 2s ease-in-out infinite;
+  font-style:normal;
+}
+.twinkle:nth-child(2){animation-delay:.6s}
+.twinkle:nth-child(3){animation-delay:1.2s}
+@keyframes twinkle{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.3;transform:scale(.6)}
+}
+@keyframes rec-blink{
+  0%,100%{opacity:1}
+  50%{opacity:.3}
+}
+
+/* ═══ CONTENT BOXES ═══ */
+.box{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+  border:1px dotted #f7cdeb;
+  border-radius:6px;
+  padding:20px 24px;
+  margin-bottom:20px;
+  position:relative;
+  transition:all .3s;
+}
+.box:hover{
+  border-color:#c76090;
+  box-shadow:0 0 20px rgba(247,205,235,.3);
+}
+.box-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+  margin-bottom:12px;
+  padding-bottom:8px;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.box p{
+  font-size:15px;
+  font-style:italic;
+  line-height:1.8;
+  color:#5a3a4a;
+}
+.box p + p{margin-top:10px}
+
+/* ═══ COMPASSION CAM MONITOR ═══ */
+.cam-monitor{
+  background:#fef6fa;
+  border:3px solid #f7cdeb;
+  border-radius:10px;
+  padding:0;
+  margin-bottom:20px;
+  overflow:hidden;
+  box-shadow:0 0 30px rgba(247,205,235,.3);
+}
+.cam-toolbar{
+  background:linear-gradient(180deg,#fff 0%,#fef6fa 100%);
+  padding:8px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-bottom:1px solid rgba(247,205,235,.4);
+}
+.cam-toolbar-left{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.cam-dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.cam-dot.red{background:#e8a0b8;box-shadow:0 0 4px #e8a0b8}
+.cam-dot.yellow{background:#f0d0a0;box-shadow:0 0 4px #f0d0a0}
+.cam-dot.green{background:#b8d8a0;box-shadow:0 0 4px #b8d8a0}
+.cam-title{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.15em;
+  color:#c76090;
+  text-transform:uppercase;
+}
+.cam-video-wrap{
+  position:relative;
+  background:#000;
+}
+.cam-video-wrap video{
+  width:100%;
+  display:block;
+  /* brighter and softer, like the rest of our photos */
+  filter:brightness(1.2) contrast(.88) saturate(1.02);
+}
+.cam-overlay{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px),
+    linear-gradient(180deg,rgba(214,234,255,.24),rgba(232,226,255,.14) 70%,rgba(255,226,240,.12));   /* a soft sky-blue wash, a hint of pink at the bottom */
+}
+.cam-hud{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+.cam-hud-tl{
+  position:absolute;top:12px;left:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;color:#fff;
+  text-shadow:0 0 8px rgba(0,0,0,.8);
+  letter-spacing:.1em;
+}
+.cam-hud-tr{
+  position:absolute;top:12px;right:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;color:#ff6b6b;
+  text-shadow:0 0 8px rgba(0,0,0,.8);
+  letter-spacing:.1em;
+  animation:rec-blink 1.2s ease-in-out infinite;
+}
+.cam-hud-bl{
+  position:absolute;bottom:12px;left:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;color:rgba(255,255,255,.7);
+  text-shadow:0 0 6px rgba(0,0,0,.8);
+  letter-spacing:.08em;
+}
+.cam-hud-br{
+  position:absolute;bottom:12px;right:14px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;color:rgba(255,255,255,.7);
+  text-shadow:0 0 6px rgba(0,0,0,.8);
+  letter-spacing:.08em;
+}
+.cam-footer{
+  background:linear-gradient(180deg,#fef6fa 0%,#fdf0f6 100%);
+  padding:10px 14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  border-top:1px solid rgba(247,205,235,.4);
+}
+.cam-footer-text{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  color:#c76090;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.cam-footer-icons{
+  display:flex;gap:8px;font-size:12px;
+}
+
+/* ═══ MARQUEE ═══ */
+.compassion-marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  margin-bottom:20px;
+  padding:10px 0;
+  border-top:1px dotted #f7cdeb;
+  border-bottom:1px dotted #f7cdeb;
+}
+.compassion-marquee span{
+  display:inline-block;
+  animation:marquee-scroll 18s linear infinite;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:#c76090;
+}
+@keyframes marquee-scroll{
+  0%{transform:translateX(100%)}
+  100%{transform:translateX(-100%)}
+}
+
+/* ═══ IMPACT TICKER ═══ */
+.impact-ticker{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:12px;
+  margin-bottom:20px;
+}
+.ticker-card{
+  background:linear-gradient(135deg,#fffcfe,#fef6fa);
+  border:2px solid #f7cdeb;
+  border-radius:8px;
+  padding:16px 12px;
+  text-align:center;
+  transition:all .4s;
+  position:relative;
+  overflow:hidden;
+}
+.ticker-card:hover{
+  border-color:#c76090;
+  box-shadow:0 0 20px rgba(247,205,235,.4);
+  transform:translateY(-3px);
+}
+.ticker-num{
+  font-family:'Jersey 10','Pixelify Sans',sans-serif;
+  font-size:32px;
+  color:#c76090;
+  line-height:1;
+  position:relative;
+  z-index:1;
+}
+.ticker-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#8a6a7a;
+  margin-top:6px;
+  position:relative;
+  z-index:1;
+}
+
+/* ═══ GUESTBOOK ═══ */
+.guestbook{
+  background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%);
+  border:2px solid #f7cdeb;
+  border-radius:8px;
+  padding:20px;
+  margin-bottom:20px;
+}
+.gb-entry{
+  padding:12px 0;
+  border-bottom:1px dotted rgba(247,205,235,.5);
+  position:relative;
+}
+.gb-entry:last-child{border-bottom:none}
+.gb-del{
+  position:absolute;
+  top:12px;
+  right:0;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:11px;
+  line-height:1;
+  color:#c76090;
+  background:none;
+  border:none;
+  padding:2px 4px;
+  opacity:0;
+  transition:opacity .2s,transform .2s;
+}
+.gb-entry:hover .gb-del{opacity:.55}
+.gb-del:hover{opacity:1;transform:scale(1.25)}
+.gb-name{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-transform:uppercase;
+}
+.gb-msg{
+  font-size:13px;
+  font-style:italic;
+  color:#5a3a4a;
+  line-height:1.6;
+  margin-top:4px;
+}
+.gb-date{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  color:#8a6a7a;
+  letter-spacing:.08em;
+  margin-top:4px;
+}
+
+/* ═══ MINI BADGES ═══ */
+.badges{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+.badge{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:9px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  background:linear-gradient(135deg,#fef8fb,#edf6d3);
+  border:1px dotted #f7cdeb;
+  border-radius:20px;
+  color:#c76090;
+  transition:all .3s;
+}
+.badge:hover{
+  background:#f7cdeb;
+  transform:translateY(-2px) scale(1.05);
+  box-shadow:0 4px 12px rgba(247,205,235,.4);
+}
+
+/* ═══ BLINKIE BAR ═══ */
+.blinkies{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:10px;
+  justify-content:center;
+}
+.blinkie{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.05em;
+  padding:3px 8px;
+  border-radius:2px;
+  color:#fff;
+  animation:blinkie-glow 3s ease-in-out infinite alternate;
+}
+.blinkie:nth-child(1){background:#c76090}
+.blinkie:nth-child(2){background:#8a6a7a;animation-delay:.5s}
+.blinkie:nth-child(3){background:#c76090;animation-delay:1s}
+.blinkie:nth-child(4){background:#8a6a7a;animation-delay:1.5s}
+@keyframes blinkie-glow{
+  0%{box-shadow:0 0 4px rgba(199,96,144,.3)}
+  100%{box-shadow:0 0 10px rgba(199,96,144,.7)}
+}
+
+/* ═══ WEATHER WIDGET ═══ */
+.weather-widget{
+  text-align:center;
+}
+.weather-display{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin:6px 0;
+}
+.weather-icon{
+  font-size:22px;
+  line-height:1;
+}
+.weather-temp{
+  font-size:20px;
+  color:#c76090;
+  font-style:italic;
+}
+.weather-desc{
+  font-size:10px;
+  font-style:italic;
+  color:#8a6a7a;
+  line-height:1.4;
+}
+.weather-details{
+  margin-top:4px;
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:7px;
+  letter-spacing:.08em;
+  color:#c76090;
+  display:flex;
+  justify-content:center;
+  gap:4px;
+}
+
+/* ═══ STAT STRIP ═══ */
+.stat-strip{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+  margin-bottom:20px;
+  padding:18px 0;
+}
+.stat{
+  text-align:center;
+}
+.stat-num{
+  font-family:'Jersey 10','Pixelify Sans',sans-serif;
+  font-size:36px;
+  color:#c76090;
+  line-height:1;
+}
+.stat-label{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:#8a6a7a;
+  margin-top:4px;
+}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:768px){
+  #sidebar{display:none}
+  #main{margin-left:0;padding:20px 16px}
+  .cause-grid{grid-template-columns:1fr}
+
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);
+    border-bottom:1px solid rgba(247,205,235,.4);
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+  }
+  .mobile-header .logo{
+    font-family:'Klickclack Swash','Great Vibes',cursive;
+    font-size:22px;
+    color:#c76090;
+  }
+  .mobile-header .links{display:flex;gap:14px;align-items:center}
+  .mobile-header .links a{
+    font-size:11px;color:#c76090;text-decoration:none;font-style:italic;
+  }
+  .mobile-menu-btn{font-size:14px;color:#c76090;cursor:pointer;padding:0 2px}
+  .mobile-nav{display:none;position:fixed;top:48px;left:0;right:0;background:linear-gradient(180deg,#fff 0%,#fef6fa 40%,#fdf0f6 100%);border-bottom:1px solid rgba(247,205,235,.4);padding:12px 16px;z-index:99;flex-direction:column;gap:10px;box-shadow:0 4px 16px rgba(247,205,235,.3)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-size:13px;font-style:italic;color:#6a4a5a;text-decoration:none;padding:6px 0;border-bottom:1px solid rgba(247,205,235,.3)}
+  .mobile-nav a:last-child{border-bottom:none}
+  .impact-ticker{grid-template-columns:1fr!important}
+  #main{padding-top:60px}
+}
+@media(min-width:769px){
+  .mobile-header{display:none}
+  .mobile-nav{display:none!important}
+}
+
+
+/* MOUSE SPARKLE TRAIL */
+.mouse-sparkle{position:fixed;pointer-events:none;z-index:99999;text-shadow:0 0 6px #fff,0 0 14px #fff,0 0 30px currentColor,0 0 55px currentColor,0 0 80px currentColor;animation:mouse-sparkle-fade 2.4s ease-out forwards}
+@keyframes mouse-sparkle-fade{0%{opacity:.85;transform:scale(1) rotate(0deg) translateY(0)}25%{opacity:.7;transform:scale(1.15) rotate(25deg) translateY(-5px)}60%{opacity:.3;transform:scale(.9) rotate(50deg) translateY(10px)}100%{opacity:0;transform:scale(.5) rotate(70deg) translateY(30px)}}
+.collectible-stamp{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.06em;
+  padding:4px 10px;
+  border-radius:20px;
+  color:#c76090;
+  border:1.5px dashed #f7cdeb;
+  background:linear-gradient(135deg,#fffcfe,#fef8fb);
+  cursor:pointer;
+  transition:all .4s;
+  display:inline-block;
+  position:relative;
+}
+.collectible-stamp:hover{
+  border-color:#c76090;
+  transform:translateY(-2px) scale(1.08);
+  box-shadow:0 4px 12px rgba(199,96,144,.3);
+}
+.collectible-stamp.collected{
+  background:#c76090;
+  color:#fff;
+  border-color:#c76090;
+  border-style:solid;
+}
+.collectible-stamp.collected::after{
+  content:' ✓';
+  font-size:7px;
+}
+.stamp-counter{
+  font-family:'Pixelify Sans',sans-serif;
+  font-size:8px;
+  letter-spacing:.1em;
+  color:#c76090;
+  text-align:center;
+  margin-top:8px;
+}
+@keyframes stamp-pop{
+  0%{transform:scale(1)}
+  50%{transform:scale(1.3)}
+  100%{transform:scale(1)}
+}
+
+.sr-only{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* ═══ FOR THE WORLD: one heading per half ═══ */
+.ftw-sec{scroll-margin-top:44px}
+@media (max-width:768px){.ftw-sec{scroll-margin-top:96px}}
+.ftw-h{display:table;margin:34px auto 26px;padding:8px 22px;font-family:'Pixelify Sans',sans-serif;font-weight:400;font-size:14px;letter-spacing:.22em;text-transform:uppercase;color:#c76090;text-align:center;background:#fffcfe;border:1px solid #f7cdeb;border-radius:999px;box-shadow:2px 3px 12px rgba(247,205,235,.25)}
+.ftw-h span{color:#f7cdeb;letter-spacing:0;margin:0 10px}
+.ftw-sec:first-of-type .ftw-h{margin-top:8px}
+</style>
+<script src="/js/tracking.js" defer></script>
+<script src="js/site-desktop.js" defer></script>
+<link rel="stylesheet" href="css/square.css">
+<link rel="stylesheet" href="css/logo-board.css">
+<!-- computers only (min-width:769px): the shared desktop look; phones never download or apply these -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/site-desktop.css" media="(min-width:769px)">
+<style>@media (max-width:768px){.dt-only{display:none !important}}</style>
+<link rel="stylesheet" href="css/wordmark-1999.css">
+<link rel="stylesheet" href="css/sidebar-widgets.css" media="(min-width:769px)">
+<script src="js/sidebar-widgets.js" defer></script>
+</head>
+<body>
+
+<!-- MOBILE HEADER -->
+<div class="mobile-header">
+  <div class="logo"><span style="font-size:0.8em">Maison</span><br>Maxine</div>
+  <div class="links">
+    <a href="home.html">home</a>
+    <a href="shop.html">shop</a>
+    <a href="for-the-world.html#compassion">♡</a>
+    <span class="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('open')">✦</span>
+  </div>
+</div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="shop.html">shop</a>
+  <a href="home.html">home</a>
+  <a href="store-locator.html">store locator</a>
+  <a href="faq.html">faq</a>
+  <a href="for-the-world.html">for the world</a>
+  <a href="https://www.instagram.com/maisonmaxine.world/" target="_blank">instagram</a>
+  <a href="https://maisonmaxine.substack.com" target="_blank">the magazine</a>
+</div>
+
+
+<!-- SIDEBAR -->
+<div id="sidebar">
+  <div>
+    <div class="sidebar-logo" style="color:#d371a1"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</div>
+    <div class="sidebar-sub">reimagining red wine for the modern day muse ✦</div>
+
+    <div class="nav-section">
+      <div class="nav-label">sitely</div>
+      <nav>
+        <a href="shop.html"><span class="fl">s</span>hop</a>
+        <a href="home.html"><span class="fl">h</span>ome</a>
+        <a href="store-locator.html"><span class="fl">s</span>tore <span class="fl">l</span>ocator</a>
+        <a href="for-the-world.html" class="active"><span class="fl">f</span>or <span class="fl">t</span>he <span class="fl">w</span>orld</a>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">extras</div>
+      <nav>
+        <a href="muses.html"><span class="fl">t</span>he <span class="fl">m</span>uses</a>
+        <a href="https://maisonmaxine.substack.com" target="_blank"><span class="fl">t</span>he <span class="fl">m</span>agazine</a>
+        <a href="https://gubelfamilyvineyards.com" target="_blank"><span class="fl">t</span>he <span class="fl">v</span>ineyard</a>
+        <a href="https://www.instagram.com/maisonmaxine.world/" target="_blank"><span class="fl">i</span>nstagram</a>
+      </nav>
+    </div>
+
+  </div>
+
+  <div class="sidebar-bottom">
+    <div class="side-quiet">
+    <!-- NOW PLAYING: a little winamp-style deck for 30-second itunes previews (js/sidebar-widgets.js, css/sidebar-widgets.css) -->
+    <section class="mmp" aria-label="now playing">
+      <div class="mmp-bar" aria-hidden="true"><span class="mmp-groove"></span><span class="mmp-title">now playing</span><span class="mmp-groove"></span></div>
+      <div class="mmp-lcd">
+        <div class="mmp-row">
+          <span class="mmp-state" aria-hidden="true"></span>
+          <button class="mmp-time" type="button" aria-label="showing time elapsed" title="elapsed / remaining"><span class="mmp-digits">0:00</span></button>
+          <canvas class="mmp-vis" aria-hidden="true"></canvas>
+        </div>
+        <div class="mmp-marquee"><a class="mmp-link" href="playlist.html" target="_blank" rel="noopener"><span class="mmp-scroll"><span class="mmp-t">1. phantom planet - california (3:11)</span><span class="mmp-echo" aria-hidden="true"></span></span></a></div>
+        <div class="mmp-info"><span class="mmp-trk">01/10</span><span class="mmp-st">stereo</span><a class="mmp-src" href="https://music.apple.com/" target="_blank" rel="noopener" title="previews courtesy of itunes">itunes</a></div>
+      </div>
+      <input class="mmp-seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="seek" disabled>
+      <div class="mmp-deck">
+        <button class="mmp-btn mmp-prev" type="button" aria-label="previous track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0h2v8H0zM6 0v8L2 4zM10 0v8L6 4z"/></svg></button>
+        <button class="mmp-btn mmp-play" type="button" aria-label="play 30-second preview" aria-pressed="false"><svg class="i-play" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0l6 4-6 4z"/></svg><svg class="i-pause" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0h2v8H2zM6 0h2v8H6z"/></svg></button>
+        <button class="mmp-btn mmp-next" type="button" aria-label="next track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0l4 4-4 4zM4 0l4 4-4 4zM8 0h2v8H8z"/></svg></button>
+        <a class="mmp-btn mmp-eject" href="playlist.html" aria-label="open the aux, all our playlists" title="open the aux"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M5 0l5 5H0zM0 6h10v2H0z"/></svg></a>
+      </div>
+      <span class="mmp-status" role="status"></span>
+    </section>
+
+    <!-- MALIBU WEATHER: live from open-meteo (js/sidebar-widgets.js); the little bird stays -->
+    <section class="mmw" aria-label="malibu weather">
+      <div class="mmw-bar">malibu weather</div>
+      <div class="mmw-now">
+        <img class="mmw-bird" src="littlebird.png" alt="">
+        <span class="mmw-temp"><span class="mmw-num">72</span><span class="mmw-deg">&deg;f</span></span>
+        <span class="mmw-cond"><span class="mmw-sky-row"><span class="mmw-ico"></span><span class="mmw-sky">sunny</span></span><span class="mmw-hilo"></span></span>
+      </div>
+      <p class="mmw-line">sunny &amp; perfect for a spritzer.</p>
+      <div class="mmw-more">3-day forecast</div>
+      <div class="mmw-det" id="mmw-det">
+        <ul class="mmw-days"></ul>
+        <div class="mmw-meta"><span class="mmw-wind"></span><span class="mmw-hum"></span><span class="mmw-sun"></span><span class="mmw-upd"></span></div>
+      </div>
+    </section>
+    </div>
+    <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
+  </div>
+</div>
+
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- UTILITY ROW (computers) -->
+  <div class="dt-only util-row">
+    <span class="util-date" id="utilDate"></span>
+    <span class="util-age">21+ only · we check your birthday at checkout and an adult signs at delivery</span>
+    <span class="util-links"><a href="https://ig.me/m/maisonmaxine.world" target="_blank" rel="noopener">Help</a> · <a class="util-bag" href="shop.html">Bag (<span id="utilBagN">0</span>)</a></span>
+  </div>
+
+
+  <!-- BANNER -->
+  <div class="banner">
+    <h1 class="sr-only">For the World: sustainability and compassion at Maison Maxine</h1>
+    <div class="banner-h1" style="color:#d371a1"><a class="mm-board" href="home.html"><picture><source media="(max-width:768px)" srcset="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"><source type="image/webp" srcset="logo-board-800.webp 800w, logo-board-1600.webp 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px"><img src="logo-board-1600.png" srcset="logo-board-800.png 800w, logo-board-1600.png 1600w" sizes="(max-width:768px) calc(100vw - 32px), 720px" width="1600" height="291" alt="Maison Maxine" fetchpriority="high"></picture></a><span class="mm-board-text"><span style="font-size:0.8em">Ma<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>son</span><br>Max<span style="position:relative">&#x131;<span style="position:absolute;left:50%;top:-.30em;transform:translateX(-50%);width:.55em;line-height:0"><img src="littleheart.png" alt="" style="width:100%;display:block"></span></span>ne</span></div>
+    <div class="tagline">for the planet &amp; the animals ✦</div>
+    <div class="season-stamp dt-only">Fall 2026</div>
+    <div class="divider"><span class="twinkle">✦</span><span class="twinkle">✦</span><span class="twinkle">✦</span></div>
+  </div>
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
+
+
+  <!-- FOR THE PLANET (was sustainability.html) -->
+  <section class="ftw-sec" id="sustainability" aria-labelledby="ftw-planet">
+  <h2 class="ftw-h" id="ftw-planet"><span>✦</span>for the planet<span>✦</span></h2>
+
+  <!-- LETTER-STYLE COMMITMENT -->
+  <div class="box" style="position:relative;padding:32px 30px 28px;background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%)">
+    <div style="position:absolute;top:-12px;left:24px;font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#c76090;background:#fef8fb;padding:0 12px">a note on how we pour</div>
+    <p style="margin-top:14px">our team is committed to embracing our part for the planet and staying transparent along the way. maison maxine is certified organic by CCOF, and the cabernet in every can is 100% sustainably farmed. we source our other ingredients from local suppliers, ensuring high-quality ingredients while supporting farmers and reducing transportation emissions. and of course, our spritzer is packaged in infinitely recyclable aluminum cans.</p>
+    <p style="margin-top:16px;text-align:right;font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">with love & intention ♡</p>
+  </div>
+
+  <!-- PROMISE CARDS — handcrafted postcards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+
+    <div style="background:#fffcfe;border:2px solid #f7cdeb;border-radius:8px;padding:22px 18px;position:relative;transform:rotate(-1.2deg);transition:all .4s;box-shadow:2px 3px 12px rgba(247,205,235,.2)" onmouseenter="this.style.transform='rotate(0deg) translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(247,205,235,.35)'" onmouseleave="this.style.transform='rotate(-1.2deg)';this.style.boxShadow='2px 3px 12px rgba(247,205,235,.2)'">
+      <div style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;line-height:1;margin-bottom:6px">sustainably farmed</div>
+      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px 0"></div>
+      <p style="font-size:13px;font-style:italic;color:#8a6a7a;line-height:1.7">100% sustainably farmed napa valley cabernet. every sip starts at the source — and ours is tended with care ✦</p>
+    </div>
+
+    <div style="background:#fffcfe;border:2px solid #f7cdeb;border-radius:8px;padding:22px 18px;position:relative;transform:rotate(1deg);transition:all .4s;box-shadow:2px 3px 12px rgba(247,205,235,.2)" onmouseenter="this.style.transform='rotate(0deg) translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(247,205,235,.35)'" onmouseleave="this.style.transform='rotate(1deg)';this.style.boxShadow='2px 3px 12px rgba(247,205,235,.2)'">
+      <div style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;line-height:1;margin-bottom:6px">local sourcing</div>
+      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px 0"></div>
+      <p style="font-size:13px;font-style:italic;color:#8a6a7a;line-height:1.7">lemon, ginger, honey — all sourced from local suppliers. supporting our neighbors & reducing our footprint ✦</p>
+    </div>
+
+    <div style="background:#fffcfe;border:2px solid #f7cdeb;border-radius:8px;padding:22px 18px;position:relative;transform:rotate(.8deg);transition:all .4s;box-shadow:2px 3px 12px rgba(247,205,235,.2)" onmouseenter="this.style.transform='rotate(0deg) translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(247,205,235,.35)'" onmouseleave="this.style.transform='rotate(.8deg)';this.style.boxShadow='2px 3px 12px rgba(247,205,235,.2)'">
+      <div style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;line-height:1;margin-bottom:6px">infinitely recyclable</div>
+      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px 0"></div>
+      <p style="font-size:13px;font-style:italic;color:#8a6a7a;line-height:1.7">aluminum cans, always. infinitely recyclable, endlessly refillable, never wasteful ✦</p>
+    </div>
+
+    <div style="background:#fffcfe;border:2px solid #f7cdeb;border-radius:8px;padding:22px 18px;position:relative;transform:rotate(-0.7deg);transition:all .4s;box-shadow:2px 3px 12px rgba(247,205,235,.2)" onmouseenter="this.style.transform='rotate(0deg) translateY(-4px)';this.style.boxShadow='0 8px 28px rgba(247,205,235,.35)'" onmouseleave="this.style.transform='rotate(-0.7deg)';this.style.boxShadow='2px 3px 12px rgba(247,205,235,.2)'">
+      <div style="font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;line-height:1;margin-bottom:6px">certified organic</div>
+      <div style="width:30px;height:1px;background:#f7cdeb;margin:8px 0"></div>
+      <p style="font-size:13px;font-style:italic;color:#8a6a7a;line-height:1.7">certified organic by CCOF. it's the promise we made and the standard we hold ourselves to ✦</p>
+    </div>
+
+  </div>
+
+  <div class="box">
+    <div class="box-title">from the vineyard ✦</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <div style="border-radius:6px;overflow:hidden;aspect-ratio:3/4;border:1px dotted #f7cdeb">
+        <img src="ameliawalking.png" alt="a woman walking barefoot down a garden path at the family vineyard" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div style="border-radius:6px;overflow:hidden;aspect-ratio:3/4;border:1px dotted #f7cdeb">
+        <img src="girleatingfig.png" alt="close-up of a fresh fig being bitten" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- FOR THE ANIMALS (was compassion.html) -->
+  <section class="ftw-sec" id="compassion" aria-labelledby="ftw-animals">
+  <h2 class="ftw-h" id="ftw-animals"><span>✦</span>for the animals<span>✦</span></h2>
+
+  <!-- MISSION LETTER -->
+  <div class="box" style="position:relative;padding:32px 30px 28px;background:linear-gradient(180deg,#fffcfe 0%,#fef6fa 50%,#fdf0f6 100%)">
+    <div style="position:absolute;top:-12px;left:24px;font-family:'Pixelify Sans',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#c76090;background:#fef8fb;padding:0 12px">our compassion promise</div>
+    <p style="margin-top:14px">reimagining red wine, restoring compassion. we believe in purpose in every sip — that's why 5% of every order goes to animal rescue. from rescue kittens to farm animals to rescue dogs, a great drink should leave the world a little better with every sip.</p>
+    <p style="margin-top:16px;text-align:right;font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;color:#c76090">every sip gives back ♡</p>
+  </div>
+
+  <!-- COMPASSION CAM MONITOR -->
+  <div class="cam-monitor">
+    <div class="cam-toolbar">
+      <div class="cam-toolbar-left">
+        <span class="cam-dot red"></span>
+        <span class="cam-dot yellow"></span>
+        <span class="cam-dot green"></span>
+        <span class="cam-title" style="margin-left:8px">compassioncam_feed_01.mov</span>
+      </div>
+      <div class="cam-title" style="opacity:.6" id="cam-time">00:00:00</div>
+    </div>
+    <div class="cam-video-wrap">
+      <video autoplay loop muted playsinline>
+        <source src="compassion-cam.mp4" type="video/mp4">
+      </video>
+      <div class="cam-overlay"></div>
+      <div class="cam-hud">
+        <div class="cam-hud-tl">✧ COMPASSION CAM — LIVE</div>
+        <div class="cam-hud-tr">● REC</div>
+        <div class="cam-hud-bl" id="cam-date">03.13.2026</div>
+        <div class="cam-hud-br">CAM 01 — THE RESCUE</div>
+      </div>
+    </div>
+    <div class="cam-footer">
+      <div class="cam-footer-text">stream powered by maison maxine compassion fund</div>
+      <div class="cam-footer-icons" style="font-family:'Pixelify Sans',sans-serif;font-size:9px;color:#c76090;letter-spacing:.1em">✧ ♡ ✦</div>
+    </div>
+  </div>
+
+
+  <!-- GUESTBOOK -->
+  <div class="guestbook">
+    <div class="box-title">guestbook ✦ leave ur mark</div>
+    <div class="gb-entry">
+      <div class="gb-name">♡ olivia g.</div>
+      <div class="gb-msg">the whole reason we started this. every sip matters, every can counts. so proud of what we're building ✦</div>
+      <div class="gb-date">march 2026 — napa valley, ca</div>
+    </div>
+    <div class="gb-entry">
+      <div class="gb-name">♡ anonymous muse</div>
+      <div class="gb-msg">just ordered a 4-pack knowing some of it goes to rescue kittens?? obsessed. the compassion cam is so y2k i can't</div>
+      <div class="gb-date">march 2026</div>
+    </div>
+    <div id="gb-user-entries"></div>
+
+    <!-- GUESTBOOK FORM -->
+    <div style="margin-top:16px;padding-top:16px;border-top:1px dotted rgba(247,205,235,.5)">
+      <div style="font-family:'Pixelify Sans',sans-serif;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#c76090;margin-bottom:10px">sign the guestbook ✦</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <input type="text" id="gb-name-input" placeholder="your name" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-style:italic;color:#5a3a4a;padding:8px 12px;border:1px dotted #f7cdeb;border-radius:4px;background:linear-gradient(135deg,#fffcfe,#fef8fb);outline:none;transition:border-color .3s" onfocus="this.style.borderColor='#c76090'" onblur="this.style.borderColor='#f7cdeb'">
+        <textarea id="gb-msg-input" placeholder="leave a message ♡" rows="3" style="font-family:'Cormorant Garamond',Georgia,serif;font-size:13px;font-style:italic;color:#5a3a4a;padding:8px 12px;border:1px dotted #f7cdeb;border-radius:4px;background:linear-gradient(135deg,#fffcfe,#fef8fb);outline:none;resize:vertical;transition:border-color .3s" onfocus="this.style.borderColor='#c76090'" onblur="this.style.borderColor='#f7cdeb'"></textarea>
+        <button id="gb-submit" style="align-self:flex-start;font-family:'Pixelify Sans',sans-serif;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:#c76090;border:none;border-radius:20px;padding:8px 20px;transition:all .3s" onmouseover="this.style.background='#a84d78';this.style.transform='translateY(-2px)';this.style.boxShadow='0 4px 12px rgba(199,96,144,.4)'" onmouseout="this.style.background='#c76090';this.style.transform='none';this.style.boxShadow='none'">post ✦</button>
+      </div>
+      <div id="gb-success" style="display:none;margin-top:8px;font-size:12px;font-style:italic;color:#c76090">posted ♡ thank you, muse!</div>
+    </div>
+  </div>
+
+  <div class="box">
+    <div class="box-title">the faces we love ✦</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+      <div style="border-radius:6px;overflow:hidden;aspect-ratio:1/1;border:1px dotted #f7cdeb">
+        <img src="ositopancakes.png" alt="Osito Pancakes, a fluffy rescue pup" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+      </div>
+      <div style="border-radius:6px;overflow:hidden;aspect-ratio:1/1;border:1px dotted #f7cdeb">
+        <img src="willowandolivia.png" alt="a woman in pink hugging a golden retriever puppy" loading="lazy" style="width:100%;height:100%;object-fit:cover">
+      </div>
+    </div>
+  </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div style="text-align:center;padding:20px 0 10px;position:relative">
+    <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:14px">✦ ♡ ✦</div>
+    <p style="font-size:14px;font-style:italic;color:#8a6a7a;line-height:1.8;max-width:420px;margin:0 auto">we don't just make spritzers — we make choices.<br>every can is a little love letter to the planet, and to the animals who need it most ✦</p>
+    <div style="margin-top:18px">
+      <div class="badges" style="justify-content:center">
+        <span class="badge">women-owned</span>
+        <span class="badge">napa valley-made</span>
+        <span class="badge">whole ingredients</span>
+        <span class="badge">5% gives back</span>
+        <span class="badge">planet first ✦</span>
+        <span class="badge">sip up save pups ✦</span>
+      </div>
+<div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(247,205,235,.3)">
+  <div style="display:flex;gap:6px;flex-wrap:wrap">
+    <span class="collectible-stamp" data-stamp-id="sust-earth" onclick="collectStamp(this)">earth muse</span>
+    <span class="collectible-stamp" data-stamp-id="sust-green" onclick="collectStamp(this)">green queen</span>
+    <span class="collectible-stamp" data-stamp-id="comp-queen" onclick="collectStamp(this)">compassion queen</span>
+    <span class="collectible-stamp" data-stamp-id="comp-heart" onclick="collectStamp(this)">big heart energy</span>
+  </div>
+  <div class="stamp-counter"></div>
+</div>
+    </div>
+  </div>
+
+
+  <div class="dt-only lil-strip" aria-hidden="true"></div>
+
+  <!-- FOOTER (computers) -->
+  <footer class="dt-only dt-footer">
+    <ul>
+      <li><a href="home.html">Index</a></li>
+      <li><a href="store-locator.html">Stockists</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="https://ig.me/m/maisonmaxine.world" target="_blank" rel="noopener">Press</a></li>
+      <li><a href="privacy.html">Terms &amp; Privacy</a></li>
+    </ul>
+    <p><a href="mailto:?subject=Maison%20Maxine&amp;body=https%3A%2F%2Fmaisonmaxine.world%2Ffor-the-world.html">Email this page to a friend</a></p>
+    <p class="dt-copy">Copyright <a href="home.html">Maison Maxine</a> 2026</p>
+    <p class="dt-rights">All rights reserved</p>
+  </footer>
+</div>
+
+<script>
+// ═══ COMPASSION CAM CLOCK ═══
+(function(){
+  const timeEl=document.getElementById('cam-time');
+  const dateEl=document.getElementById('cam-date');
+  function tick(){
+    const now=new Date();
+    const h=String(now.getHours()).padStart(2,'0');
+    const m=String(now.getMinutes()).padStart(2,'0');
+    const s=String(now.getSeconds()).padStart(2,'0');
+    timeEl.textContent=h+':'+m+':'+s;
+    const mm=String(now.getMonth()+1).padStart(2,'0');
+    const dd=String(now.getDate()).padStart(2,'0');
+    dateEl.textContent=mm+'.'+dd+'.'+now.getFullYear();
+  }
+  tick();
+  setInterval(tick,1000);
+})();
+
+
+
+// ═══ FALLING SPARKLES ═══
+(function(){
+  const chars=['✦','✧','·','♡','⋆'];
+  function spawn(){
+    const s=document.createElement('div');
+    s.className='sparkle';
+    s.textContent=chars[Math.floor(Math.random()*chars.length)];
+    s.style.left=Math.random()*100+'vw';
+    s.style.fontSize=(8+Math.random()*10)+'px';
+    s.style.color=Math.random()>.5?'#f7cdeb':'#c76090';
+    s.style.setProperty('--drift',(Math.random()*80-40)+'px');
+    const dur=4+Math.random()*6;
+    s.style.animationDuration=dur+'s';
+    document.body.appendChild(s);
+    setTimeout(()=>s.remove(),(dur*1000)+100);
+  }
+  setInterval(spawn,600);
+})();
+
+
+</script>
+
+<script>
+// ═══ GUESTBOOK ═══
+(function(){
+  var KEY='mm_guestbook';
+  var container=document.getElementById('gb-user-entries');
+  var entries=JSON.parse(localStorage.getItem(KEY)||'[]');
+
+  function renderEntries(){
+    container.innerHTML='';
+    entries.forEach(function(e,i){
+      var div=document.createElement('div');
+      div.className='gb-entry';
+      div.innerHTML='<div class="gb-name">♡ '+escHtml(e.name)+'</div><div class="gb-msg">'+escHtml(e.msg)+'</div><div class="gb-date">'+escHtml(e.date)+'</div><button class="gb-del" title="remove this message" aria-label="remove">✕</button>';
+      div.querySelector('.gb-del').addEventListener('click',function(){
+        entries.splice(i,1);
+        localStorage.setItem(KEY,JSON.stringify(entries));
+        renderEntries();
+      });
+      container.appendChild(div);
+    });
+  }
+
+  function escHtml(s){
+    var d=document.createElement('div');
+    d.textContent=s;
+    return d.innerHTML;
+  }
+
+  renderEntries();
+
+  document.getElementById('gb-submit').addEventListener('click',function(){
+    var name=document.getElementById('gb-name-input').value.trim();
+    var msg=document.getElementById('gb-msg-input').value.trim();
+    if(!msg){document.getElementById('gb-msg-input').style.borderColor='#e8a0b8';return;}
+    var now=new Date();
+    var months=['january','february','march','april','may','june','july','august','september','october','november','december'];
+    var dateStr=months[now.getMonth()]+' '+now.getFullYear();
+    entries.push({name:name||'anonymous muse',msg:msg,date:dateStr});
+    localStorage.setItem(KEY,JSON.stringify(entries));
+    renderEntries();
+    document.getElementById('gb-name-input').value='';
+    document.getElementById('gb-msg-input').value='';
+    var suc=document.getElementById('gb-success');
+    suc.style.display='block';
+    setTimeout(function(){suc.style.display='none'},3000);
+  });
+})();
+</script>
+
+<script>
+// ═══ COLLECTIBLE BLINKIES ═══
+function collectStamp(el){
+  var id=el.getAttribute('data-stamp-id');
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  if(collected.indexOf(id)===-1){
+    collected.push(id);
+    localStorage.setItem('mm_blinkies_collected',JSON.stringify(collected));
+    el.classList.add('collected');
+    el.style.animation='stamp-pop .4s ease';
+  }
+  updateStampCounter();
+}
+function updateStampCounter(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  var counters=document.querySelectorAll('.stamp-counter');
+  counters.forEach(function(c){c.textContent=collected.length+'/12 collected ✦'});
+}
+// Init: mark already-collected stamps
+(function(){
+  var collected=JSON.parse(localStorage.getItem('mm_blinkies_collected')||'[]');
+  collected.forEach(function(id){
+    var el=document.querySelector('[data-stamp-id="'+id+'"]');
+    if(el)el.classList.add('collected');
+  });
+  updateStampCounter();
+})();
+</script>
+
+<script>
+(function(){var ch=['✦'],co=['#d4f0f3','#bde5eb','#cde5f4','#b3dde5'],lx=0,ly=0,th=0;document.addEventListener('mousemove',function(e){var now=Date.now();if(now-th<55)return;th=now;var dx=e.clientX-lx,dy=e.clientY-ly,dist=Math.sqrt(dx*dx+dy*dy);if(dist<6)return;lx=e.clientX;ly=e.clientY;var i=0;{var s=document.createElement('div');s.className='mouse-sparkle';s.textContent=ch[Math.floor(Math.random()*ch.length)];s.style.left=(e.clientX+Math.random()*24-12)+'px';s.style.top=(e.clientY+Math.random()*24-12)+'px';s.style.fontSize=(16+Math.random()*14)+'px';s.style.color=co[Math.floor(Math.random()*co.length)];s.style.animationDelay=(i*60)+'ms';document.body.appendChild(s);setTimeout(function(){s.remove()},1700)}})})();
+</script>
+</body>
+</html>

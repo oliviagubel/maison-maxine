@@ -53,14 +53,26 @@
   force = true
 
 [[redirects]]
+  from = "/for-the-world"
+  to = "https://maisonmaxine.world/for-the-world.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/for-the-world/"
+  to = "https://maisonmaxine.world/for-the-world.html"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/compassion"
-  to = "https://maisonmaxine.world/compassion.html"
+  to = "https://maisonmaxine.world/for-the-world.html#compassion"
   status = 301
   force = true
 
 [[redirects]]
   from = "/compassion/"
-  to = "https://maisonmaxine.world/compassion.html"
+  to = "https://maisonmaxine.world/for-the-world.html#compassion"
   status = 301
   force = true
 
@@ -210,13 +222,13 @@
 
 [[redirects]]
   from = "/sustainability"
-  to = "https://maisonmaxine.world/sustainability.html"
+  to = "https://maisonmaxine.world/for-the-world.html#sustainability"
   status = 301
   force = true
 
 [[redirects]]
   from = "/sustainability/"
-  to = "https://maisonmaxine.world/sustainability.html"
+  to = "https://maisonmaxine.world/for-the-world.html#sustainability"
   status = 301
   force = true
 

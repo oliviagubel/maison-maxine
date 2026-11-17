@@ -14,8 +14,10 @@
 
 /blogroll   https://maisonmaxine.world/blogroll.html  301!
 /blogroll/  https://maisonmaxine.world/blogroll.html  301!
-/compassion   https://maisonmaxine.world/compassion.html  301!
-/compassion/  https://maisonmaxine.world/compassion.html  301!
+/for-the-world   https://maisonmaxine.world/for-the-world.html  301!
+/for-the-world/  https://maisonmaxine.world/for-the-world.html  301!
+/compassion   https://maisonmaxine.world/for-the-world.html#compassion  301!
+/compassion/  https://maisonmaxine.world/for-the-world.html#compassion  301!
 /home   https://maisonmaxine.world/home.html  301!
 /home/  https://maisonmaxine.world/home.html  301!
 /index-2   https://maisonmaxine.world/index-2.html  301!
@@ -40,8 +42,8 @@
 /spritz_map/  https://maisonmaxine.world/spritz_map.html  301!
 /store-locator   https://maisonmaxine.world/store-locator.html  301!
 /store-locator/  https://maisonmaxine.world/store-locator.html  301!
-/sustainability   https://maisonmaxine.world/sustainability.html  301!
-/sustainability/  https://maisonmaxine.world/sustainability.html  301!
+/sustainability   https://maisonmaxine.world/for-the-world.html#sustainability  301!
+/sustainability/  https://maisonmaxine.world/for-the-world.html#sustainability  301!
 
 # everything else, path for path
 /*  https://maisonmaxine.world/:splat  301!
