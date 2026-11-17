@@ -32,16 +32,15 @@
 
 /* ── type: georgia for reading, klickclack for display, jersey 10 for
    small labels and dates. cormorant and pixelify are gone from this page ── */
-#main, #main *, #sidebar, #sidebar *{font-family:var(--dt-sans)}
+#main, #main *{font-family:var(--dt-sans)}
 /* klickclack only where the words are maison maxine / maisonmaxine.world */
-#main .banner :is(h1,.banner-h1):has(.mm-board), #main .banner :is(h1,.banner-h1):has(.mm-board) *, #sidebar .sidebar-logo, #sidebar .sidebar-logo *{font-family:var(--dt-display)}
+#main .banner :is(h1,.banner-h1):has(.mm-board), #main .banner :is(h1,.banner-h1):has(.mm-board) *{font-family:var(--dt-display)}
 /* every other heading in the label face ("sitely", "now playing") */
 #main .banner h1:not(:has(.mm-board)), #main .banner h1:not(:has(.mm-board)) *,
 #main .box-title, #main .latest h3, #main .case-head{font-family:var(--dt-label)}
 #main .gallery-label, #main .gallery-badge, #main .desc-eyebrow, #main .taste-item .tl,
 #main .info-card .ic-title, #main .review .r-author, #main .season-stamp, #main .latest-date,
-#main .util-date, #main .panel-tab, #sidebar .nav-label,
-#sidebar .copyright, #main .dt-sizes legend{
+#main .util-date, #main .panel-tab, #main .dt-sizes legend{
   font-family:var(--dt-label);
   font-weight:normal;
   letter-spacing:.04em;
@@ -57,8 +56,8 @@
 }
 
 /* ── no soft shadows, glows or gradients on cards; hairlines instead ── */
-#main *, #sidebar{box-shadow:none !important; text-shadow:none !important}
-#sidebar{background:#fff !important}
+#main *{box-shadow:none !important; text-shadow:none !important}
+/* the sidebar: css/sidebar.css */
 .mouse-sparkle{display:none !important}
 .dt-spk{display:none !important}
 .age-bar{display:none !important}          /* the 21+ notice lives in the utility row */
@@ -168,17 +167,7 @@
 .dt-footer p{margin:0 0 4px}
 #mmPrivacyBar{opacity:1 !important; color:var(--dt-mute) !important}
 
-/* ══ SIDEBAR ══ */
-#sidebar{border-right:1px solid var(--dt-hair) !important}
-#sidebar .sidebar-sub{font-style:normal; letter-spacing:0; font-size:12px; color:var(--dt-mute)}
-#sidebar .nav-label{font-size:15px; color:var(--dt-rose-ink); text-transform:uppercase}
-#sidebar nav a{font-style:normal !important; font-size:15px !important; border-bottom:1px dotted var(--dt-hair) !important}
-#sidebar nav a.active{text-shadow:none}
-/* only the first letter of each item, like an old menu's keyboard shortcut */
-#sidebar nav a .fl ~ .fl{text-decoration:none}
-/* now playing + malibu weather: css/sidebar-widgets.css */
-#sidebar .side-quiet{opacity:1; margin-bottom:10px; text-align:left}
-#sidebar .copyright{font-size:13px; color:var(--dt-mute); letter-spacing:.04em}
+/* ══ SIDEBAR: css/sidebar.css, shared by every page ══ */
 
 /* the copyright, two centered lines */
 .dt-footer .dt-copy{font-size:16px; color:var(--dt-ink); margin:10px 0 2px}
@@ -253,11 +242,6 @@
 #main .mh-title, #main .mh-status, #main .cs-sub{font-family:var(--dt-label); font-size:15px; letter-spacing:.04em; text-transform:none}
 #main .cs-chip{background:none !important; border:0 !important; padding:0 !important; font-size:15px !important; color:var(--dt-ink) !important}
 
-/* compassion: the guestbook */
-#main .guestbook, #main .gb-entry{background:#fff !important}
-#main .gb-name, #main .gb-date{font-family:var(--dt-label); font-size:15px; letter-spacing:.04em; text-transform:none}
-#main .gb-msg{font-size:15px; font-style:normal; color:var(--dt-ink)}
-
 /* home's aim away message keeps its own windows-xp type and soft shadow */
 #main .aim-window, #main .aim-window *{font-family:Tahoma,Verdana,"Segoe UI",sans-serif}
 #main .aim-window .aim-title-text{font-family:"Trebuchet MS",Tahoma,sans-serif}
@@ -307,10 +291,3 @@ main#main.jeans-wrap{max-width:900px}
 #main .merch-cta::after{border-radius:0 !important}
 #main .merch-back{color:var(--dt-rose-ink) !important; text-decoration:underline !important; font-style:normal !important}
 
-/* compassion's guestbook "post" button: the site's square pink button, white text */
-#main #gb-submit{
-  background:var(--dt-rose) !important; color:#fff !important; border:0 !important;
-  font-family:var(--dt-sans) !important; font-size:14px !important; letter-spacing:.04em !important;
-  text-transform:lowercase !important; padding:9px 20px !important;
-}
-#main #gb-submit:hover{background:#c42777 !important}

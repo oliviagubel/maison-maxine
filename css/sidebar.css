@@ -1,0 +1,59 @@
+/* ═══ THE SIDEBAR, COMPUTERS ONLY ═══
+   one sidebar for every page, so it looks and reads the same wherever you
+   are: the wordmark, sitely, extras, now playing, malibu weather and the
+   copyright. linked last in each page's head with media="(min-width:769px)",
+   so phones never apply a rule here. the markup is the same on every page
+   too (only the .active link changes); the player and the weather are
+   css/sidebar-widgets.css + js/sidebar-widgets.js.
+
+   this used to live in css/site-desktop.css, which only five pages load,
+   so the other pages had a different sidebar. */
+
+#sidebar{
+  --sb-rose-ink:#b64e84;
+  --sb-hair:#f2bcd6;
+  --sb-mute:#6a4a5a;
+  --sb-sans:Georgia,"Times New Roman",serif;
+  --sb-display:'Klickclack Swash',Georgia,serif;
+  --sb-label:'Jersey 10',Georgia,serif;
+
+  position:fixed; left:0; top:0; bottom:0; width:230px;
+  display:flex; flex-direction:column; padding:28px 20px; z-index:100; overflow-y:auto;
+  background:#fff !important;
+  border-right:1px solid var(--sb-hair) !important;
+  box-shadow:none !important; text-shadow:none !important;
+}
+
+/* type: georgia for reading, klickclack for the wordmark, jersey 10 for labels */
+#sidebar, #sidebar *{font-family:var(--sb-sans)}
+#sidebar .sidebar-logo, #sidebar .sidebar-logo *{font-family:var(--sb-display)}
+#sidebar .nav-label, #sidebar .copyright{font-family:var(--sb-label); font-weight:normal; letter-spacing:.04em}
+
+#sidebar .sidebar-logo{font-size:30px; color:#d371a1; line-height:1.1}
+#sidebar .sidebar-sub{font-size:12px; color:var(--sb-mute); letter-spacing:0; margin-top:3px; font-style:normal}
+
+#sidebar .nav-section{margin-top:28px}
+#sidebar .nav-label{font-size:15px; color:var(--sb-rose-ink); text-transform:uppercase; margin-bottom:8px}
+#sidebar nav a{
+  display:block; position:relative; padding:5px 0;
+  font-style:normal !important; font-size:15px !important; font-weight:normal;
+  color:#6a4a5a; text-decoration:none;
+  border-bottom:1px dotted var(--sb-hair) !important;
+  transition:all .25s;
+}
+#sidebar nav a::after{content:'✦'; position:absolute; right:0; opacity:0; transform:translateX(-6px) scale(.5); transition:all .3s; color:#f7cdeb; font-style:normal}
+#sidebar nav a:hover{color:#c76090; padding-left:8px; text-shadow:0 0 12px rgba(199,96,144,.2)}
+#sidebar nav a:hover::after{opacity:1; transform:translateX(0) scale(1)}
+#sidebar nav a.active{color:#c76090; font-weight:600; text-shadow:none}
+/* only the first letter of each item is underlined, like an old menu's keyboard shortcut */
+#sidebar nav .fl{text-decoration:underline; text-underline-offset:2px; text-decoration-thickness:1px}
+#sidebar nav a .fl ~ .fl{text-decoration:none}
+
+#sidebar .sidebar-bottom{margin-top:auto; padding-top:20px; text-align:center}
+#sidebar .side-quiet{opacity:1; margin-bottom:10px; text-align:left}
+#sidebar .copyright{font-size:13px; color:var(--sb-mute)}
+
+/* its own thin pink scrollbar, whatever the page sets for itself */
+#sidebar::-webkit-scrollbar{width:6px}
+#sidebar::-webkit-scrollbar-track{background:transparent}
+#sidebar::-webkit-scrollbar-thumb{background:#f7cdeb;border-radius:3px}

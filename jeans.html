@@ -389,6 +389,10 @@ body::before{
 <script src="/js/tracking.js" defer></script>
 <link rel="stylesheet" href="css/square.css">
 <link rel="stylesheet" href="css/wordmark-1999.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+10&display=swap" media="(min-width:769px)">
+<link rel="stylesheet" href="css/sidebar-widgets.css" media="(min-width:769px)">
+<script src="js/sidebar-widgets.js" defer></script>
+<link rel="stylesheet" href="css/sidebar.css" media="(min-width:769px)">
 </head>
 <body>
 
@@ -419,7 +423,8 @@ body::before{
     <div class="nav-section">
       <div class="nav-label">sitely</div>
       <nav>
-        <a href="shop.html" class="active"><span class="fl">s</span>hop</a>
+        <a href="shop.html"><span class="fl">s</span>hop</a>
+        <a href="merch.html" class="active"><span class="fl">m</span>erch</a>
         <a href="home.html"><span class="fl">h</span>ome</a>
         <a href="store-locator.html"><span class="fl">s</span>tore <span class="fl">l</span>ocator</a>
         <a href="for-the-world.html"><span class="fl">f</span>or <span class="fl">t</span>he <span class="fl">w</span>orld</a>
@@ -437,15 +442,49 @@ body::before{
       </nav>
     </div>
 
-    <div class="sidebar-widget">
-      <div class="wt">now playing ✦</div>
-      <p>california gurls — katy perry</p>
-    </div>
   </div>
 
   <div class="sidebar-bottom">
-    <div style="font-size:10px;color:#f7cdeb;letter-spacing:8px;margin-bottom:10px">✦ ♡ ✦</div>
-    <div class="copyright">© 2026 maison maxine™</div>
+    <div class="side-quiet">
+    <!-- NOW PLAYING: a little winamp-style deck for 30-second itunes previews (js/sidebar-widgets.js, css/sidebar-widgets.css) -->
+    <section class="mmp" aria-label="now playing">
+      <div class="mmp-bar" aria-hidden="true"><span class="mmp-groove"></span><span class="mmp-title">now playing</span><span class="mmp-groove"></span></div>
+      <div class="mmp-lcd">
+        <div class="mmp-row">
+          <span class="mmp-state" aria-hidden="true"></span>
+          <button class="mmp-time" type="button" aria-label="showing time elapsed" title="elapsed / remaining"><span class="mmp-digits">0:00</span></button>
+          <canvas class="mmp-vis" aria-hidden="true"></canvas>
+        </div>
+        <div class="mmp-marquee"><a class="mmp-link" href="playlist.html" target="_blank" rel="noopener"><span class="mmp-scroll"><span class="mmp-t">1. phantom planet - california (3:11)</span><span class="mmp-echo" aria-hidden="true"></span></span></a></div>
+        <div class="mmp-info"><span class="mmp-trk">01/10</span><span class="mmp-st">stereo</span><a class="mmp-src" href="https://music.apple.com/" target="_blank" rel="noopener" title="previews courtesy of itunes">itunes</a></div>
+      </div>
+      <input class="mmp-seek" type="range" min="0" max="30" step="0.1" value="0" aria-label="seek" disabled>
+      <div class="mmp-deck">
+        <button class="mmp-btn mmp-prev" type="button" aria-label="previous track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0h2v8H0zM6 0v8L2 4zM10 0v8L6 4z"/></svg></button>
+        <button class="mmp-btn mmp-play" type="button" aria-label="play 30-second preview" aria-pressed="false"><svg class="i-play" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0l6 4-6 4z"/></svg><svg class="i-pause" viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M2 0h2v8H2zM6 0h2v8H6z"/></svg></button>
+        <button class="mmp-btn mmp-next" type="button" aria-label="next track"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M0 0l4 4-4 4zM4 0l4 4-4 4zM8 0h2v8H8z"/></svg></button>
+        <a class="mmp-btn mmp-eject" href="playlist.html" aria-label="open the aux, all our playlists" title="open the aux"><svg viewBox="0 0 10 8" aria-hidden="true" focusable="false"><path d="M5 0l5 5H0zM0 6h10v2H0z"/></svg></a>
+      </div>
+      <span class="mmp-status" role="status"></span>
+    </section>
+
+    <!-- MALIBU WEATHER: live from open-meteo (js/sidebar-widgets.js); the little bird stays -->
+    <section class="mmw" aria-label="malibu weather">
+      <div class="mmw-bar">malibu weather</div>
+      <div class="mmw-now">
+        <img class="mmw-bird" src="littlebird.png" alt="">
+        <span class="mmw-temp"><span class="mmw-num">72</span><span class="mmw-deg">&deg;f</span></span>
+        <span class="mmw-cond"><span class="mmw-sky-row"><span class="mmw-ico"></span><span class="mmw-sky">sunny</span></span><span class="mmw-hilo"></span></span>
+      </div>
+      <p class="mmw-line">sunny &amp; perfect for a spritzer.</p>
+      <div class="mmw-more">3-day forecast</div>
+      <div class="mmw-det" id="mmw-det">
+        <ul class="mmw-days"></ul>
+        <div class="mmw-meta"><span class="mmw-wind"></span><span class="mmw-hum"></span><span class="mmw-sun"></span><span class="mmw-upd"></span></div>
+      </div>
+    </section>
+    </div>
+    <div class="copyright" style="margin-top:10px">© 2026 maison maxine™</div>
   </div>
 </div>
 
