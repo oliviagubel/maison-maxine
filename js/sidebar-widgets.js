@@ -10,8 +10,8 @@
 
    malibu weather: live from open-meteo, cached for 15 minutes so moving
    between pages doesn't refetch. big temperature, a pixel condition icon,
-   a one-liner that changes with the weather, and a 3-day forecast behind
-   a disclosure button.
+   a one-liner that changes with the weather, and the 3-day forecast
+   always showing underneath.
 
    phones never see the sidebar, so nothing here runs below 769px. */
 (function(){
@@ -203,7 +203,7 @@
     var CW = 72, CH = 16, BARS = 18;
     canvas.width = CW*dpr; canvas.height = CH*dpr; cx.scale(dpr,dpr);
     var grad = cx.createLinearGradient(0,CH,0,0);
-    grad.addColorStop(0,'#d42a7e'); grad.addColorStop(.55,'#ff7fb6'); grad.addColorStop(1,'#ffe1ee');
+    grad.addColorStop(0,'#00c800'); grad.addColorStop(.55,'#e8e800'); grad.addColorStop(1,'#ff2a00');
     function draw(){
       raf = 0;
       cx.clearRect(0,0,CW,CH);
@@ -217,7 +217,7 @@
         var h = Math.round(v/255*CH);
         peaks[i] = Math.max(h, (peaks[i]||0) - .35);
         if(h){ cx.fillStyle = grad; cx.fillRect(i*4, CH-h, 3, h); }
-        if(peaks[i] >= 1){ any = true; cx.fillStyle = '#fff3f8'; cx.fillRect(i*4, CH-Math.round(peaks[i])-1, 3, 1); }
+        if(peaks[i] >= 1){ any = true; cx.fillStyle = '#c3c3c3'; cx.fillRect(i*4, CH-Math.round(peaks[i])-1, 3, 1); }
       }
       if(live || any) raf = requestAnimationFrame(draw);
     }
@@ -322,14 +322,7 @@
       root.classList.add('is-live');
     }
 
-    var more = $('.mmw-more'), det = $('.mmw-det');
-    more.addEventListener('click', function(){
-      var open = more.getAttribute('aria-expanded')!=='true';
-      more.setAttribute('aria-expanded', open);
-      det.hidden = !open;
-      try{ sessionStorage.setItem('mm_wx_open', open?'1':''); }catch(e){}
-    });
-    if(sessionStorage.getItem('mm_wx_open')){ more.setAttribute('aria-expanded','true'); det.hidden=false; }
+    // the 3-day forecast is always out now, no click needed
 
     var cached = null;
     try{ cached = JSON.parse(sessionStorage.getItem('mm_wx')||'null'); }catch(e){}

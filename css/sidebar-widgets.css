@@ -2,12 +2,12 @@
    linked with media="(min-width:769px)" on every page with a sidebar;
    the behaviour is js/sidebar-widgets.js.
 
-   now playing  a winamp 2.x-style deck in pink plastic: grooved title bar,
-                a sunken wine lcd with ghosted digits, a seek groove and
-                bevelled transport buttons that press in.
+   now playing  a 90s winamp deck in windows-95 silver: navy title bar,
+                a black lcd with green phosphor, a sunken seek groove and
+                grey bevelled transport keys that press in.
    weather      a quiet desktop weather utility on our pale green: the
                 temperature first, then the sky, one line in georgia,
-                and the forecast behind a click.
+                and the forecast right underneath.
 
    #sidebar on every selector so the site's "#sidebar *" type rules don't
    win; the bevels are inset box-shadows (site-desktop.css only flattens
@@ -21,46 +21,53 @@
 }
 #sidebar .mmp *, #sidebar .mmw *{font-family:var(--label); box-sizing:border-box}
 #sidebar .mmp button, #sidebar .mmw button{font:inherit; letter-spacing:inherit; margin:0; cursor:pointer}
-#sidebar .mmp :focus-visible, #sidebar .mmw :focus-visible{outline:1px dotted #7a2d55; outline-offset:1px}
+#sidebar .mmw :focus-visible{outline:1px dotted #7a2d55; outline-offset:1px}
+#sidebar .mmp :focus-visible{outline:1px dotted #000; outline-offset:1px}
 
 /* ═════════ NOW PLAYING ═════════ */
+/* a 1997 deck: silver windows-95 plastic, a navy title bar, a black lcd
+   with green phosphor and a green-to-red spectrum. bevels are 2px:
+   white/grey on the light edges, dark grey/black on the shadow edges. */
 #sidebar .mmp{
-  padding:0 4px 4px;
-  background:linear-gradient(180deg,#fdf2f7 0%,#f8e1ec 100%);
-  border:1px solid #c17798;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #e7b3cb;
+  padding:2px 3px 4px;
+  background:#c3c3c3;
+  border:1px solid; border-color:#dfdfdf #000 #000 #dfdfdf;
+  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #808080;
   user-select:none;
 }
-/* title bar: the word between two grooves, like the classic skin */
-#sidebar .mmp-bar{display:flex; align-items:center; gap:5px; height:14px; margin:0 -1px 2px}
-#sidebar .mmp-groove{flex:1; height:5px; background:repeating-linear-gradient(180deg,#d68fb1 0 1px,#fff 1px 2px)}
-#sidebar .mmp-title{font-size:13px; line-height:14px; color:var(--rose); letter-spacing:.12em; text-transform:uppercase}
+/* title bar: the active-window gradient */
+#sidebar .mmp-bar{display:flex; align-items:center; gap:5px; height:15px; margin:0 0 3px; padding:0 3px;
+  background:linear-gradient(90deg,#000080 0%,#1084d0 100%)}
+#sidebar .mmp-groove{flex:1; height:5px; background:repeating-linear-gradient(180deg,rgba(255,255,255,.55) 0 1px,transparent 1px 2px)}
+#sidebar .mmp-groove:first-child{display:none}
+#sidebar .mmp-title{order:-1; font-size:13px; line-height:15px; color:#fff; letter-spacing:.12em; text-transform:uppercase}
 
-/* the lcd: wine glass, pink phosphor */
+/* the lcd: black glass, green phosphor */
 #sidebar .mmp-lcd{
   padding:3px 4px 2px;
-  background:#2a0b1b;
-  border:1px solid; border-color:#8f4c6d #fff #fff #8f4c6d;
-  box-shadow:inset 1px 1px 0 #14040c;
-  color:#ffb6d6;
+  background:#000;
+  border:1px solid; border-color:#808080 #fff #fff #808080;
+  box-shadow:inset 1px 1px 0 #404040;
+  color:#00e000;
 }
 #sidebar .mmp-row{display:flex; align-items:flex-end; gap:4px; height:18px}
-#sidebar .mmp-state{flex:none; width:5px; height:7px; margin-bottom:4px; background:#5c2142;
+#sidebar .mmp-state{flex:none; width:5px; height:7px; margin-bottom:4px; background:#1d3a1d;
   clip-path:polygon(0 0,100% 50%,0 100%)}
-#sidebar .mmp.is-playing .mmp-state{background:#9cf27a}
-#sidebar .mmp.is-buffering .mmp-state{background:#ffd27a; animation:mmp-blink .5s steps(1) infinite}
+#sidebar .mmp.is-playing .mmp-state{background:#00ff3c}
+#sidebar .mmp.is-buffering .mmp-state{background:#ffe600; animation:mmp-blink .5s steps(1) infinite}
 @keyframes mmp-blink{50%{opacity:0}}
 #sidebar .mmp-time{
   position:relative; flex:none; padding:0; border:0; background:none;
-  font-size:24px; line-height:18px; color:#ffb6d6; text-align:left;
+  font-size:24px; line-height:18px; color:#00e000; text-align:left;
+  text-shadow:0 0 4px rgba(0,224,0,.45);
 }
 #sidebar .mmp-vis{flex:none; width:72px; height:16px; margin:0 0 1px auto; display:block;
-  background:repeating-linear-gradient(90deg,transparent 0 3px,rgba(255,182,214,.06) 3px 4px)}
+  background:repeating-linear-gradient(90deg,transparent 0 3px,rgba(0,224,0,.08) 3px 4px)}
 #sidebar .mmp-marquee{
   height:15px; margin-top:2px; overflow:hidden; white-space:nowrap;
   font-size:14px; line-height:15px;
 }
-#sidebar .mmp-link{color:#ffd3e6 !important; text-decoration:none !important; border:0 !important; display:block}
+#sidebar .mmp-link{color:#00ff3c !important; text-decoration:none !important; border:0 !important; display:block}
 #sidebar .mmp-link:hover .mmp-t{text-decoration:underline}
 #sidebar .mmp-scroll{display:inline-block}
 #sidebar .mmp-echo{display:none; padding-left:18px}
@@ -69,49 +76,49 @@
 #sidebar .mmp-marquee.is-scrolling .mmp-t{padding-right:18px}
 #sidebar .mmp-marquee.is-scrolling .mmp-scroll{animation:mmp-marq var(--mq-dur,12s) steps(var(--mq-steps,60)) infinite}
 @keyframes mmp-marq{to{transform:translateX(calc(-1 * var(--mq-w,200px)))}}
-#sidebar .mmp-info{display:flex; gap:7px; margin-top:1px; font-size:11px; line-height:11px; color:#a35c80}
-#sidebar .mmp-st.on{color:#9cf27a}
-#sidebar .mmp-src{margin-left:auto; color:#a35c80 !important; text-decoration:none !important; border:0 !important}
-#sidebar .mmp-src:hover{color:#ffd3e6 !important}
+#sidebar .mmp-info{display:flex; gap:7px; margin-top:1px; font-size:11px; line-height:11px; color:#1f8a2a}
+#sidebar .mmp-st.on{color:#00ff3c}
+#sidebar .mmp-src{margin-left:auto; color:#1f8a2a !important; text-decoration:none !important; border:0 !important}
+#sidebar .mmp-src:hover{color:#00ff3c !important}
 
-/* seek: a sunken groove with a little bevelled slider */
+/* seek: a sunken groove with a little grey slider */
 #sidebar .mmp-seek{
   -webkit-appearance:none; appearance:none; display:block; width:100%; height:8px; margin:4px 0 3px; padding:0;
-  background:linear-gradient(90deg,#e889b5 0 var(--p,0%),#f3d0e0 var(--p,0%) 100%);
-  border:1px solid; border-color:#c58aa6 #fff #fff #c58aa6;
+  background:linear-gradient(90deg,#000080 0 var(--p,0%),#fff var(--p,0%) 100%);
+  border:1px solid; border-color:#808080 #fff #fff #808080;
   cursor:pointer;
 }
-#sidebar .mmp-seek:disabled{cursor:default; background:#f3d0e0}
+#sidebar .mmp-seek:disabled{cursor:default; background:#dcdcdc}
 #sidebar .mmp-seek::-webkit-slider-thumb{
   -webkit-appearance:none; width:14px; height:8px;
-  background:linear-gradient(180deg,#fff,#f2c4d9); border:1px solid #a9567e;
-  box-shadow:inset 1px 1px 0 #fff;
+  background:#c3c3c3; border:1px solid; border-color:#fff #000 #000 #fff;
+  box-shadow:inset -1px -1px 0 #808080;
 }
-#sidebar .mmp-seek::-moz-range-thumb{width:12px; height:6px; background:linear-gradient(180deg,#fff,#f2c4d9); border:1px solid #a9567e; border-radius:0}
+#sidebar .mmp-seek::-moz-range-thumb{width:12px; height:6px; background:#c3c3c3; border:1px solid; border-color:#fff #000 #000 #fff; border-radius:0}
 #sidebar .mmp-seek::-moz-range-track{background:transparent; border:0}
 #sidebar .mmp-seek:disabled::-webkit-slider-thumb{visibility:hidden}
 #sidebar .mmp-seek:disabled::-moz-range-thumb{visibility:hidden}
 
-/* transport: little plastic keys that press in */
+/* transport: chunky grey keys that press in */
 #sidebar .mmp-deck{display:flex; gap:2px}
 #sidebar .mmp-btn{
   display:flex; align-items:center; justify-content:center;
-  width:24px; height:16px; padding:0;
-  background:linear-gradient(180deg,#fff 0%,#f6d7e5 100%);
-  border:1px solid #a9567e;
-  box-shadow:inset 1px 1px 0 #fff, inset -1px -1px 0 #e3a6c2;
-  color:#7a2d55 !important; text-decoration:none !important;
+  width:24px; height:17px; padding:0;
+  background:#c3c3c3;
+  border:1px solid; border-color:#fff #000 #000 #fff;
+  box-shadow:inset -1px -1px 0 #808080, inset 1px 1px 0 #dfdfdf;
+  color:#000 !important; text-decoration:none !important;
 }
 #sidebar .mmp-btn svg{width:10px; height:8px; fill:currentColor; display:block; shape-rendering:crispEdges}
-#sidebar .mmp-btn:hover{background:linear-gradient(180deg,#fff 0%,#fbe4ee 100%)}
+#sidebar .mmp-btn:hover{background:#cbcbcb}
 #sidebar .mmp-btn:active{
-  background:#f1cadc; box-shadow:inset 1px 1px 0 #d295b2, inset -1px -1px 0 #fbe6ef;
+  border-color:#000 #fff #fff #000; box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #dfdfdf;
 }
 #sidebar .mmp-btn:active svg{transform:translate(1px,1px)}
 #sidebar .mmp-play{width:30px}
 #sidebar .mmp-play .i-pause, #sidebar .mmp.is-playing .mmp-play .i-play{display:none}
 #sidebar .mmp.is-playing .mmp-play .i-pause{display:block}
-#sidebar .mmp.is-playing .mmp-play{background:#f1cadc; box-shadow:inset 1px 1px 0 #d295b2, inset -1px -1px 0 #fbe6ef}
+#sidebar .mmp.is-playing .mmp-play{background:#b4b4b4; border-color:#000 #fff #fff #000; box-shadow:inset 1px 1px 0 #808080, inset -1px -1px 0 #dfdfdf}
 #sidebar .mmp-eject{margin-left:auto}
 #sidebar .mmp-status{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
 
@@ -147,14 +154,9 @@
   padding:2px 6px 1px; border:0; border-top:1px solid #cfe6b8; background:none;
   font-size:12px; line-height:13px; color:#4e7a2c; text-align:left; letter-spacing:.06em;
 }
-#sidebar .mmw-more::before{
-  content:""; width:0; height:0; border:3px solid transparent; border-left:4px solid currentColor; border-right:0;
-  transition:transform .15s;
-}
-#sidebar .mmw-more[aria-expanded="true"]::before{transform:rotate(90deg)}
-#sidebar .mmw-more:hover{background:#e3f5cf}
 #sidebar .mmw-det{padding:0 6px 4px}
-#sidebar .mmw-det[hidden]{display:none}
+/* the forecast shows on its own once the weather loads; until then (or if it never does) nothing sits under the header */
+#sidebar .mmw:not(.is-live) .mmw-more, #sidebar .mmw:not(.is-live) .mmw-det{display:none}
 #sidebar .mmw-days{
   display:grid; grid-template-columns:repeat(3,1fr); gap:3px; margin:2px 0 4px; padding:0; list-style:none;
 }
