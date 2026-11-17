@@ -85,7 +85,8 @@ body::before{content:'';position:fixed;inset:0;background:var(--mm-bg,url('backg
 
 /* ═══ THINGS ON THE TABLE ═══ */
 .ti{position:absolute;width:100px;margin-left:-50px;margin-top:-36px;padding:4px 0 3px;text-align:center;z-index:4;touch-action:none;outline:1px solid transparent;outline-offset:-1px;transition:outline-color .2s,background-color .2s}
-.st{display:block;width:58px;height:58px;margin:0 auto;transition:transform .2s ease}
+.st{display:block;width:48px;height:48px;margin:0 auto;transition:transform .2s ease}
+img.px{image-rendering:pixelated;image-rendering:crisp-edges;-ms-interpolation-mode:nearest-neighbor}
 .st svg,.st img{width:100%;height:100%;display:block;object-fit:contain;pointer-events:none;-webkit-user-drag:none}
 .ti .lb{display:block;font-size:14px;color:var(--ink);margin-top:2px;white-space:nowrap;line-height:1.2}
 .ti:hover .st{transform:translateY(-2px)}
@@ -109,7 +110,7 @@ body::before{content:'';position:fixed;inset:0;background:var(--mm-bg,url('backg
 /* the bowl that holds one can's ingredients */
 .ti.bowl{width:168px;margin-left:-84px;margin-top:-52px;padding:6px 0 6px}
 .bowl-in{display:flex;justify-content:center;gap:2px;height:34px;align-items:flex-end;position:relative;z-index:1;margin-bottom:-14px}
-.bowl-in .st{width:32px;height:32px;margin:0}
+.bowl-in .st{width:24px;height:24px;margin:0}
 .bowl-art{display:block;width:132px;height:56px;margin:0 auto}
 .ti.bowl .lb .px{display:block;font-family:var(--label);font-size:15px;color:var(--rose-ink);line-height:1}
 .ti.bowl.fizzle .bowl-art{animation:fizz .5s ease}
@@ -125,8 +126,9 @@ body::before{content:'';position:fixed;inset:0;background:var(--mm-bg,url('backg
 .sc{display:flex;align-items:flex-end;gap:6px;background:none;border:none;padding:0;font:inherit;color:inherit;text-align:left;position:relative}
 .sc-can{width:28px;height:52px;display:block;transition:transform .3s}
 .sc.made:hover .sc-can{transform:translateY(-2px)}
-.sc-slots{display:grid;grid-template-columns:repeat(2,22px);gap:2px;margin-bottom:2px}
-.sc-slot{width:22px;height:22px;display:block}
+.sc-slots{display:grid;grid-template-columns:repeat(2,24px);gap:2px;margin-bottom:2px}
+.sc-slot{width:24px;height:24px;display:block}
+.sc-slot img{width:100%;height:100%;display:block}
 .sc-slot.got{animation:pop .45s ease-out}
 .sc-name{position:absolute;bottom:58px;left:0;font-family:var(--label);font-size:15px;color:var(--rose-ink);white-space:nowrap;opacity:0;transition:opacity .2s;pointer-events:none;background:#fff;border:1px solid var(--hair);padding:2px 6px;line-height:1}
 .sc:hover .sc-name,.sc:focus-visible .sc-name{opacity:1}
@@ -141,7 +143,7 @@ body::before{content:'';position:fixed;inset:0;background:var(--mm-bg,url('backg
 .sh-list{flex:1;overflow-y:auto;padding:2px 4px 24px 12px}
 .sh-letter{font-family:var(--label);font-size:15px;color:var(--rose-ink);padding:10px 4px 0;line-height:1}
 .sh-row{display:flex;align-items:center;gap:9px;width:100%;background:none;border:0;border-bottom:1px dotted var(--hair);padding:4px 4px;font:inherit;text-align:left;transition:padding .2s,background-color .2s;touch-action:pan-y}
-.sh-row .st{width:28px;height:28px;margin:0;flex-shrink:0}
+.sh-row .st{width:24px;height:24px;margin:0;flex-shrink:0}
 .sh-row .nm{font-size:15px;color:var(--mute)}
 .sh-row:hover{padding-left:8px}
 .sh-row:hover .nm{color:var(--rose-ink)}
@@ -742,16 +744,93 @@ function load(){
 function save(){ try{ localStorage.setItem(SAVE, JSON.stringify(found)); }catch(e){} }
 function has(n){ return found.indexOf(n)>=0; }
 
-/* ═══ STICKER MARKUP ═══ */
+/* ═══ THE ICONS: little pixel icons, like an old web page's gifs ═══
+   each drawing in ART (or png in IMG) is painted once onto a tiny grid
+   (24×24, the cans 14×26), its edges made hard, its colours flattened to
+   a short palette, and a one-pixel darker outline drawn round it. the
+   result is shown 1× or 2× with image-rendering:pixelated, so the pixels
+   stay crisp. swapping in real art still works the same way: a png in IMG
+   gets the same treatment. */
+var ICON = {}, SIL = {}, CAN = {}, CANSIL = {};
+var DEFS = (document.querySelector('svg[width="0"] defs')||{}).innerHTML || '';
+function svgURL(inner, vb){
+  var s = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="'+(vb||'0 0 64 64')+'"><defs>'+DEFS+'</defs>'+inner+'</svg>';
+  return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(s);
+}
+function loadImg(src){
+  return new Promise(function(res){
+    var im = new Image();
+    im.onload = function(){ res(im); };
+    im.onerror = function(){ res(null); };
+    im.src = src;
+  });
+}
+function pixelate(im, W, H, opts){
+  try{ return pixelGrid(im, W, H, opts || {}); }
+  catch(e){ return null; }   /* a browser that won't read the canvas back keeps the vector drawing */
+}
+function pixelGrid(im, W, H, opts){
+  var c = document.createElement('canvas'); c.width = W; c.height = H;
+  var x = c.getContext('2d');
+  if(im){
+    /* fit inside a one-pixel margin, keeping the drawing's shape */
+    var iw = im.naturalWidth || W, ih = im.naturalHeight || H;
+    var s = Math.min((W-2)/iw, (H-2)/ih), dw = iw*s, dh = ih*s;
+    x.imageSmoothingEnabled = true;
+    x.drawImage(im, (W-dw)/2, (H-dh)/2, dw, dh);
+  }
+  var d = x.getImageData(0,0,W,H), p = d.data, i;
+  var Q = function(v){ return Math.min(255, Math.round(v/36)*36 + 12); };
+  for(i=0;i<p.length;i+=4){
+    if(p[i+3] < 110){ p[i+3] = 0; continue; }
+    p[i+3] = 255; p[i] = Q(p[i]); p[i+1] = Q(p[i+1]); p[i+2] = Q(p[i+2]);
+  }
+  /* the outline: every empty pixel touching the drawing takes a darker
+     shade of its neighbour */
+  var src = new Uint8ClampedArray(p), k = opts.outline==null ? .55 : opts.outline;
+  for(var y=0;y<H;y++) for(var xx=0;xx<W;xx++){
+    i = (y*W+xx)*4; if(src[i+3]) continue;
+    var nb = [[1,0],[-1,0],[0,1],[0,-1]];
+    for(var n=0;n<4;n++){
+      var ax = xx+nb[n][0], ay = y+nb[n][1];
+      if(ax<0||ay<0||ax>=W||ay>=H) continue;
+      var j = (ay*W+ax)*4;
+      if(src[j+3]){ p[i]=src[j]*k; p[i+1]=src[j+1]*k; p[i+2]=src[j+2]*k; p[i+3]=255; break; }
+    }
+  }
+  x.putImageData(d,0,0);
+  return c.toDataURL('image/png');
+}
+function silArt(name){
+  return (ART[name]||'').replace(/fill="(?!none)[^"]*"/g,'fill="#f5dbe7"').replace(/stroke="(?!none)[^"]*"/g,'stroke="#f5dbe7"').replace(/opacity="[^"]*"/g,'');
+}
+function buildIcons(){
+  var jobs = ALL.map(function(n){
+    return loadImg(IMG[n] || svgURL(ART[n]||'')).then(function(im){ ICON[n] = pixelate(im, 24, 24); });
+  });
+  ['organic cabernet','ginger','lemon','honey','petite sirah','tangerine','orange','apple'].forEach(function(n){
+    jobs.push(loadImg(svgURL(silArt(n))).then(function(im){ SIL[n] = pixelate(im, 24, 24, {outline:.92}); }));
+  });
+  CANS.forEach(function(c){
+    jobs.push(loadImg(svgURL(ART[c.name], '16 2 32 58')).then(function(im){ CAN[c.name] = pixelate(im, 14, 26); }));
+    jobs.push(loadImg(svgURL(silArt(c.name), '16 2 32 58')).then(function(im){ CANSIL[c.name] = pixelate(im, 14, 26, {outline:.92}); }));
+  });
+  /* never keep the table waiting: after a second and a half, start with whatever is ready */
+  return Promise.race([Promise.all(jobs), new Promise(function(r){ setTimeout(r, 1500); })]);
+}
 function sticker(name){
+  if(ICON[name]) return '<img class="px" src="'+ICON[name]+'" alt="" draggable="false">';
   if(IMG[name]) return '<img src="'+IMG[name]+'" alt="" draggable="false">';
-  var a = ART[name] || '';
-  var coat = a.replace(/fill="(?!none)[^"]*"/g,'fill="url(#glit)"').replace(/stroke="(?!none)[^"]*"/g,'stroke="url(#glit)"');
-  return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">'+a+'<g opacity=".18">'+coat+'</g></svg>';
+  return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">'+(ART[name]||'')+'</svg>';
 }
 function silhouette(name){
-  var a = (ART[name]||'').replace(/fill="(?!none)[^"]*"/g,'fill="#f5dbe7"').replace(/stroke="(?!none)[^"]*"/g,'stroke="#f5dbe7"').replace(/opacity="[^"]*"/g,'');
-  return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">'+a+'</svg>';
+  if(SIL[name]) return '<img class="px" src="'+SIL[name]+'" alt="" draggable="false">';
+  return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">'+silArt(name)+'</svg>';
+}
+function canIcon(name, made){
+  var u = made ? CAN[name] : CANSIL[name];
+  if(u) return '<img class="sc-can px" src="'+u+'" alt="">';
+  return '<svg class="sc-can" viewBox="16 2 32 58" aria-hidden="true">'+(made ? ART[name] : silArt(name))+'</svg>';
 }
 function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
@@ -1156,7 +1235,7 @@ function renderSill(fresh){
       return '<span class="sc-slot'+(g?' sticker':'')+(n===fresh?' got':'')+'" title="'+(g?esc(n):'???')+'">'+(g?sticker(n):silhouette(n))+'</span>';
     }).join('');
     b.innerHTML = '<span class="sc-name">'+(made?c.name:'??? '+got+' of 4')+'</span>'+
-      '<svg class="sc-can" viewBox="16 2 32 58" aria-hidden="true">'+(made?ART[c.name]:silhouette(c.name).replace(/^<svg[^>]*>|<\/svg>$/g,''))+'</svg>'+
+      canIcon(c.name, made)+
       '<span class="sc-slots">'+slots+'</span>';
     b.addEventListener('click', function(){
       if(made) celebrate(c, true);
@@ -1256,6 +1335,7 @@ window.addEventListener('load', function(){
   if(bar && isPhone()) document.getElementById('sh-foot').appendChild(bar);
 });
 sizeHeader();
+buildIcons().then(function(){
 renderShelf(); renderCounter(); renderSill();
 (function seed(){
   /* the four elements wait in a loose arc in the middle of the table.
@@ -1270,6 +1350,7 @@ renderShelf(); renderCounter(); renderSill();
     e.el.style.animationDelay = (i*90)+'ms';
   });
 })();
+});
 if(mixedOnce){ var wh = document.getElementById('whisper'); wh.style.transition = 'none'; wh.classList.add('gone'); }
 window.addEventListener('resize', function(){ sizeHeader(); ents.forEach(function(e){ clampEnt(e); place(e); }); });
 </script>
